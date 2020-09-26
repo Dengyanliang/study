@@ -28,11 +28,25 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.14.RELEASE</version>
+        </dependency>
+
+        <dependency>
             <groupId>stdlib</groupId>
             <artifactId>stdlib</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/stdlib.jar</systemPath>-->
         </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.9.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>mysql</groupId>

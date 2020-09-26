@@ -9,6 +9,7 @@
 #intellij
 .idea
 .idea/
+.idea/libraries/
 *.iml
 *.iws
 
