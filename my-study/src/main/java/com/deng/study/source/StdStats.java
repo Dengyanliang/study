@@ -62,8 +62,10 @@ public final class StdStats {
 
         double max = Double.NEGATIVE_INFINITY;
         for (int i = 0; i < a.length; i++) {
-            if (Double.isNaN(a[i])) return Double.NaN;
-            if (a[i] > max) max = a[i];
+            if (Double.isNaN(a[i]))
+                return Double.NaN;
+            if (a[i] > max)
+                max = a[i];
         }
         return max;
     }
