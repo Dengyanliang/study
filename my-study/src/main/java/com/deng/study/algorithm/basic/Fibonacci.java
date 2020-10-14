@@ -3,7 +3,7 @@ package com.deng.study.algorithm.basic;
 import com.deng.study.source.StdOut;
 
 /**
- * @Desc:
+ * @Desc:斐波那契
  * @Auther: dengyanliang
  * @Date: 2020/10/12 19:24
  */

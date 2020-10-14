@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Arrays;
 
 /**
- * @Desc:
+ * @Desc:求最大公约数
  * @Auther: dengyanliang
  * @Date: 2020/9/26 16:22
  */
