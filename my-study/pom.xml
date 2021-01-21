@@ -57,6 +57,12 @@
             <version>1.2.70</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>29.0-jre</version>
+            <!-- or, for Android: -->
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

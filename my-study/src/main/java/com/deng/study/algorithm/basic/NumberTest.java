@@ -1,5 +1,6 @@
 package com.deng.study.algorithm.basic;
 
+import com.deng.study.source.StdOut;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -90,19 +91,104 @@ public class NumberTest {
 
     }
 
+
+    private static void lg(int M){
+        // log2^n < M n < 2^M
+        for(int i = 0; 2*i < M; i++ ){
+
+        }
+    }
+    private static int reverse(int i){
+        if(i == 0)
+            return i;
+
+        String temp = "";
+        boolean flag = false;
+
+        if(i < 0){
+            flag = true;
+            i = Math.abs(i);
+        }
+        int a;
+        while(i != 0){
+            a = i % 10;
+            temp = temp + a;
+            i = i / 10;
+        }
+
+        int result = Integer.valueOf(temp);
+        if(flag){
+            result = result * -1;
+        }
+        return result;
+    }
+
+    private static String temp = "";
+    private static boolean flag;
+    private static int reverse2(int i){
+        if(i == 0)
+            return i;
+
+        if(i < 0){
+            flag = true;
+            i = Math.abs(i);
+        }
+        int a = i % 10;
+        temp = temp + a;
+        i = i / 10;
+        reverse2(i);
+
+        int result = Integer.valueOf(temp);
+        if(flag){
+            result = result * -1;
+        }
+        return result;
+    }
+
+    private static int reverse3(int i){
+        if(i == 0)
+            return i;
+
+        if(i < 0){
+            flag = true;
+            i = Math.abs(i);
+        }
+
+        String temp = "";
+        String str = String.valueOf(i);
+        char[] ch = str.toCharArray();
+        for(int index = ch.length; index > 0 ; index--){
+            temp = temp + ch[index-1];
+        }
+
+        int result = Integer.valueOf(temp);
+        if(flag){
+            result = result * -1;
+        }
+        return result;
+    }
+
+
     public static void main(String[] args) {
-        boolean prime = isPrime(9);
-        log.info("prime:{}",prime);
 
-        double hypotenuse = hypotenuse(5,4);
-        log.info("hypotenuse:{}",hypotenuse);
+        int result = reverse3(18213);
 
-        String tenToTwo = tenToTwo(15);
-        log.info("tenToTwo:{}",tenToTwo);
+        System.out.println(result);
 
-        String tenToEight = tenToEight(15);
-        log.info("tenToEight:{}",tenToEight);
 
-        twoToTen(011);
+//        boolean prime = isPrime(9);
+//        log.info("prime:{}",prime);
+//
+//        double hypotenuse = hypotenuse(5,4);
+//        log.info("hypotenuse:{}",hypotenuse);
+//
+//        String tenToTwo = tenToTwo(15);
+//        log.info("tenToTwo:{}",tenToTwo);
+//
+//        String tenToEight = tenToEight(15);
+//        log.info("tenToEight:{}",tenToEight);
+//
+//        twoToTen(011);
+
     }
 }
