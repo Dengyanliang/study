@@ -3,6 +3,9 @@ package com.deng.study.algorithm.basic;
 import com.deng.study.source.StdOut;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Desc:
  * @Auther: dengyanliang
@@ -77,6 +80,10 @@ public class NumberTest {
     }
 
 
+    /**
+     * 二进制转十进制
+     * @param n
+     */
     private static void twoToTen(int n){
         int result = 0;
         int t = 0;         // 记录位数
@@ -98,6 +105,12 @@ public class NumberTest {
 
         }
     }
+
+    /**
+     * 将一个数倒序输出：第一种方法
+     * @param i
+     * @return
+     */
     private static int reverse(int i){
         if(i == 0)
             return i;
@@ -123,6 +136,11 @@ public class NumberTest {
         return result;
     }
 
+    /**
+     * 将一个数倒序输出：第二种方法
+     * @param i
+     * @return
+     */
     private static String temp = "";
     private static boolean flag;
     private static int reverse2(int i){
@@ -145,6 +163,11 @@ public class NumberTest {
         return result;
     }
 
+    /**
+     * 将一个数倒序输出：第三种方法
+     * @param i
+     * @return
+     */
     private static int reverse3(int i){
         if(i == 0)
             return i;
@@ -168,12 +191,51 @@ public class NumberTest {
         return result;
     }
 
+    /**
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+     * 示例1：输入: [2,2,1]
+     * 输出：1
+     *
+     * 示例2：输入: [4,1,2,1,2]
+     * 输出：4
+     * @param nums
+     */
+    private static int unique(int[] nums){
+        List<Integer> list = new ArrayList<>();
+
+        for(int i = 0; i < nums.length; i++){
+            if(list.contains(nums[i]) == false){
+                list.add(nums[i]);
+            }else{
+                // 如果不用Integer转化的话，则是根据索引进行删除；如果使用Integer进行转化，则是根据对象进行删除
+                list.remove((Integer)nums[i]);
+            }
+        }
+        return list.get(0);
+    }
+
+    /**
+     * 第二种办法：使用异或运算进行操作
+     * a ^ a = 0
+     * a ^ b = b ^ a
+     * a ^ b ^ a = b
+     * @param nums
+     * @return
+     */
+    private static int unique2(int[] nums){
+        int result = 0;
+        for(int i : nums){
+            result = result ^ i;
+            System.out.println("-->"+result);
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
-
-        int result = reverse3(18213);
-
-        System.out.println(result);
+//        int result = reverse3(18213);
+        int[] nums = {4,4,2,2,1};
+        unique2(nums);
+        System.out.println(unique(nums));
 
 
 //        boolean prime = isPrime(9);
