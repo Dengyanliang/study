@@ -15,16 +15,16 @@ import java.util.List;
 @Slf4j
 public class BinarySearch {
 
-    public static int rank(int key, int[] a){
+    public static int rank(int key, int[] array){
         int low = 0;
-        int height = a.length - 1; // 数组的索引，最高位为长度减1
+        int height = array.length - 1; // 数组的索引，最高位为长度减1
         while(low <= height){      // 当low和height相等的时候，才能找到数据
             int middle = low + (height - low) / 2; // 在数学上等价于(height +low) / 2，但是后者会引起结果溢出，所以使用前者
 //            int middle = (height +low) / 2;
             log.info("low:{},middle:{},height:{}",low,middle,height);
-            if(key < a[middle])
+            if(key < array[middle])
                 height = middle - 1;
-            else if(key > a[middle])
+            else if(key > array[middle])
                 low = middle + 1;
             else
                 return middle;

@@ -63,8 +63,5 @@ public class CommonDivisor {
         int a = 7, b = 14;
         result = method3(a,b);
         log.info("result:{}",result);
-
-//        Arrays.sort();
-
     }
 }
