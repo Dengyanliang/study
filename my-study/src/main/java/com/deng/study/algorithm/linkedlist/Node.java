@@ -1,6 +1,4 @@
-package com.deng.study.algorithm.linear;
-
-import lombok.Data;
+package com.deng.study.algorithm.linkedlist;
 
 /**
  * @Desc:
@@ -8,12 +6,26 @@ import lombok.Data;
  * @Date: 2021/1/23 21:38
  */
 public class Node {
-    private int data;  // 节点内容
-    private Node next; // 下一个节点
+    protected int data;  // 节点内容
+    protected Node next; // 下一个节点
 
     public Node(){
 
     }
+
+    /**
+     * 头结点的构造方法
+     * @param newNode
+     */
+    public Node(Node newNode){
+        this.next = newNode;
+    }
+
+    public Node(int element,Node newNode){
+        this.data = element;
+        this.next = newNode;
+    }
+
 
     public Node(int data){
         this.data = data;
@@ -97,5 +109,13 @@ public class Node {
             current = current.next;
         }
         System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "data=" + data +
+                ", next=" + next +
+                '}';
     }
 }
