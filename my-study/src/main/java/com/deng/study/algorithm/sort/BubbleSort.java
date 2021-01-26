@@ -19,7 +19,7 @@ public class BubbleSort {
         // 总共比较的次数，除去本身之外，共n-1次
         for(int i = 0; i < arr.length-1; i++){
             // 每一趟结束后，最值就在末尾了，所以比较的次数会越来越少
-            for(int j=0; j < arr.length-1-i; j++){
+            for(int j = 0; j < arr.length-1-i; j++){
                 if(arr[j] > arr[j+1]){
                     int temp = arr[j];
                     arr[j] = arr[j+1];
