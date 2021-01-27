@@ -17,18 +17,16 @@ public class InsertSort {
      */
     public static void sort(int[] arr){
         for(int unsortedIndex = 1; unsortedIndex < arr.length; unsortedIndex++){
-//            insertSort(arr[unsortedIndex],arr,0,unsortedIndex-1);
             int sortedIndex = unsortedIndex - 1;
-            int unsorted = arr[unsortedIndex];
-            for(int index = sortedIndex; index >= 0; index--){
-                if(arr[unsortedIndex] < arr[index]){
-                    arr[index+1] = arr[index];
-                    sortedIndex--;
-                }
-            }
-            if(sortedIndex != unsortedIndex){
-                arr[sortedIndex+1] = unsorted;
-            }
+            insertSort(arr[unsortedIndex],arr,0,sortedIndex);
+//            int unsorted = arr[unsortedIndex];
+//            for(int index = sortedIndex; index >= 0 && arr[unsortedIndex] < arr[index]; index--){
+//                arr[index+1] = arr[index];
+//                sortedIndex--;
+//            }
+//            if(sortedIndex != unsortedIndex){
+//                arr[sortedIndex+1] = unsorted;
+//            }
         }
     }
 
