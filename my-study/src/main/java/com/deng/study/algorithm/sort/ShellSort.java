@@ -12,7 +12,7 @@ public class ShellSort {
 
     public static void sort(int[] arr){
         int length = arr.length;
-        // 进行分组，最开始的分组为数组长度的一半 2,1,6,3,4,6,9,8  4组
+        // 进行分组，最开始的分组为数组长度的一半
         for(int gap = length/2; gap > 0; gap /= 2){
             // 对各个分组进行插入排序
             for(int i = gap; i < length; i++){
@@ -24,9 +24,9 @@ public class ShellSort {
 
     private static void insertSort(int[] arr,int gap,int i) {
         int element = arr[i];
-        int index = i-gap;
+        int index = i - gap;
         while(index >= 0 && element < arr[index]){ // 需要排序的元素小于有序部分的元素
-            arr[index+gap] = arr[index]; // 将大的元素右移
+            arr[index+gap] = arr[index];           // 将大的元素右移
             index -= gap;
         }
         if(index != i-gap){
