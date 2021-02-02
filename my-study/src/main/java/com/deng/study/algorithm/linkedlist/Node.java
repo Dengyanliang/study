@@ -8,6 +8,7 @@ package com.deng.study.algorithm.linkedlist;
 public class Node {
     protected int data;  // 节点内容
     protected Node next; // 下一个节点
+    protected Node pre;  // 前一个节点
 
     public Node(){
 

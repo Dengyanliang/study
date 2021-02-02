@@ -12,9 +12,9 @@ public class MyQueue2 {
     private int[] array;
     private int maxSize;
     // 有两个指针
-    private int front = 0; // 指向队列头的前一个位置
+    private int front = 0; // 指向队列头
     private int rear = 0;  // 指向队列尾
-    private int size;
+    private int count;
 
     public MyQueue2(){
         array = new int[0];
@@ -26,7 +26,7 @@ public class MyQueue2 {
     }
 
     public int size(){
-        return size;
+        return count;
     }
 
     public void add(int element){
@@ -38,14 +38,14 @@ public class MyQueue2 {
         log.info("push array["+rear+"]=" +element+ " success");
 
         rear = (rear + 1) % maxSize;
-        size++;
+        count++;
     }
 
     public int poll(){
         checkIsEmpty();
         int element = array[front];
         front = (front + 1) % maxSize;
-        size--;
+        count--;
         return element;
     }
 
@@ -54,24 +54,40 @@ public class MyQueue2 {
         return array[front]; // 注意要加1
     }
 
-    public int getSize(){
-        return (rear + maxSize - front) % maxSize;
+    /**
+     * 可用空间的元素
+     * @return
+     */
+    public int getAvaliableSize(){
+        // rear = 3 front = 1 maxSize = 5   (3+5-1) % 5 = 2
+        // rear = 1 front = 4 maxSize = 5   (1+5-4) % 5 = 2
+
+        int rear2 = (front + count) %maxSize;
+        int front2 = (rear-count+maxSize)%maxSize;
+        int count2 =  (rear + maxSize - front) % maxSize;
+
+        int rear1 = (front + count) %maxSize;
+        int front1 = (rear - count+maxSize)%maxSize;
+        int count1 =  (rear + maxSize - front) % maxSize;
+        return count;
     }
 
     private void checkIsEmpty(){
-        if(front == rear){
+        boolean flag2 = rear==front;  // 能存放maxSize-1个元素时
+        if(count == 0){               // 能存放maxSize个元素
             throw new RuntimeException("queue is empty");
         }
     }
 
     private boolean checkIsFull(){
-        return (rear + 1 ) % maxSize == front;
+        boolean flag = front == (rear+1)%maxSize; // 能存放maxSize-1个元素时
+        return count == maxSize;  // 能存放maxSize个元素
     }
 
     public void show(){
         checkIsEmpty();
         log.info("array elements :");
-        for(int i = front; i < front + getSize(); i++){ // 这里要注意指针 front 和 rear
+        for(int i = front; i < front + size(); i++){ // 这里要注意指针 front 和 rear
             System.out.print("array["+i % maxSize+"] = "+ array[i % maxSize] + " ");
         }
         System.out.println();
@@ -82,8 +98,12 @@ public class MyQueue2 {
         myQueue.add(9);
         myQueue.add(3);
         myQueue.add(10);
+        myQueue.poll();
         myQueue.add(13);
-//        myQueue.add(12);
+        myQueue.add(12);
+        myQueue.add(1);
+        myQueue.getAvaliableSize();
+        myQueue.size();
 
         myQueue.show();
 

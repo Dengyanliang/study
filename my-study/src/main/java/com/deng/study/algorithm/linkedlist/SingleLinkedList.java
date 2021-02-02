@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Stack;
 
 /**
- * @Desc:
+ * @Desc:单链表
  * @Auther: dengyanliang
  * @Date: 2021/1/23 22:11
  */
