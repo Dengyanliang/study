@@ -10,9 +10,9 @@ public class CycleSingleLinkedList {
     int size;
 
     public CycleSingleLinkedList(){
-        Node current = new Node();
-        current.next = null;
-        head = current;
+        Node headNode = new Node(); // 构建头节点
+        headNode.next = null;
+        head = headNode;
     }
 
     /**
@@ -36,7 +36,24 @@ public class CycleSingleLinkedList {
      */
     public void addLast(int element){
         Node tail = head;     // 从头开始遍历
-        while(tail.next != head){
+        while(tail.next != null && tail.next != head){
+            tail = tail.next; // 遍历到结尾
+        }
+
+        Node newNode = new Node(element);
+        tail.next = newNode;
+        newNode.next = head;
+        size++;
+    }
+
+
+    /**
+     * 尾插法：需要借助一个尾指针变量来实现
+     * @param element
+     */
+    public void addLast2(int element){
+        Node tail = head;     // 从头开始遍历
+        while(tail.next != null && tail.next != head){
             tail = tail.next; // 遍历到结尾
         }
         Node newNode = new Node(element);
@@ -44,6 +61,11 @@ public class CycleSingleLinkedList {
         newNode.next = head;
         size++;
     }
+
+
+
+
+
 
     /**
      * 注意与deleteAllByValue的区别  这里只删除找到的第一个元素
@@ -62,6 +84,7 @@ public class CycleSingleLinkedList {
         }
     }
 
+
     /**
      * 显示节点数据
      */
@@ -76,18 +99,13 @@ public class CycleSingleLinkedList {
 
     public static void main(String[] args) {
         CycleSingleLinkedList cycleSingleLinkedList = new CycleSingleLinkedList();
-        cycleSingleLinkedList.addFirst(3);
-        cycleSingleLinkedList.addFirst(2);
 
-        cycleSingleLinkedList.addLast(6);
-        cycleSingleLinkedList.addLast(4);
-        cycleSingleLinkedList.addLast(5);
         cycleSingleLinkedList.addLast(1);
-        cycleSingleLinkedList.addLast(7);
+        cycleSingleLinkedList.addLast(2);
+        cycleSingleLinkedList.addLast(3);
+        cycleSingleLinkedList.addLast(4);
+//        cycleSingleLinkedList.addLast(5);
 
-        cycleSingleLinkedList.show();
-
-        cycleSingleLinkedList.deleteByValue(7);
         cycleSingleLinkedList.show();
     }
 
