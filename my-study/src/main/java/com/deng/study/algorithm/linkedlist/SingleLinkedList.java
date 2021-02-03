@@ -16,9 +16,9 @@ public class SingleLinkedList {
 
     // https://blog.csdn.net/m0_37572458/article/details/78199507
     public SingleLinkedList(){
-        Node current = new Node();
-        current.next = null;
-        head = current;
+        Node headNode = new Node(); // 分配头节点
+        headNode.next = null;
+        head = headNode;
     }
 
     /**
@@ -270,9 +270,16 @@ public class SingleLinkedList {
         System.out.println();
     }
 
+    private int i = 0;
     private void reversePrint2(Node node){
         if(node.next != null){
-            reversePrint2(node.next);
+            i++;
+            if(i == (getLength() - 3 )){
+                System.out.print(node.data+" ");
+                return;
+            }else{
+                reversePrint2(node.next);
+            }
         }
         System.out.print(node.data+" ");
     }
@@ -772,6 +779,73 @@ public class SingleLinkedList {
         }
     }
 
+    /**
+     * 删除倒数第N个节点
+     * 第一种办法：常规操作，遍历  时间复杂度 n^2
+     * @param n
+     * @return
+     */
+    public void deleteNthFromEnd1(int n){
+        int length = getLength(); // 遍历第一遍
+        Node pre = head;
+        for(int i = 0; i < length - n; i++){ // 遍历第二遍，找到被删除的前一个节点
+            pre = pre.next;
+        }
+        pre.next = pre.next.next;
+    }
+
+
+    /**
+     * 删除倒数第N个节点
+     * 第二种办法：非常规操作，使用两个指针
+     * @param n
+     * @return
+     */
+    public void deleteNthFromEnd2(int n){
+        Node pre = head;
+        Node fast = head;
+        for(int i = 0; i < n; i++){ // 这里要<=N，因为下面的while循环要走到fast为null 或者fast != null 改为fast.next !=  null
+            if(fast == null){
+                 break;
+            }
+            fast = fast.next;
+        }
+        if(fast == null){
+            pre.next = pre.next.next; // 删除首元节点
+            return;
+        }
+
+        while(fast.next != null){
+            pre = pre.next;
+            fast = fast.next;
+        }
+        pre.next = pre.next.next;
+    }
+
+    /**
+     * 删除倒数第N个节点
+     * 第三种做法：使用递归 TODO
+     *
+     * @param n
+     */
+    public void deleteNthFromEnd3(int n){
+        int pos = deleteNthFromEnd3(head,n);
+        if(pos == n){  // 说明删除的是头节点
+            head.next = head.next.next;
+        }
+    }
+
+    private int deleteNthFromEnd3(Node node,int n){
+        if(node == null){
+            return 0;
+        }
+        int pos = deleteNthFromEnd3(node.next,n) + 1;
+        if(pos == n + 1){ // 获取要删除的前一个节点
+            node.next = node.next.next;
+        }
+        return pos;
+    }
+
 
 
 //    private static Node reverseChainRecursive(Node head){
@@ -864,11 +938,11 @@ public class SingleLinkedList {
 //        singleLinkedList.show();
 
 
-        SingleLinkedList singleLinkedList2 = new SingleLinkedList();
-        singleLinkedList2.addLast(15);
-        singleLinkedList2.addLast(10);
-        singleLinkedList2.addLast(99);
-        singleLinkedList2.addLast(66);
+//        SingleLinkedList singleLinkedList2 = new SingleLinkedList();
+//        singleLinkedList2.addLast(15);
+//        singleLinkedList2.addLast(10);
+//        singleLinkedList2.addLast(99);
+//        singleLinkedList2.addLast(66);
 
 
 //        singleLinkedList.mergeSort(singleLinkedList2);
@@ -889,8 +963,11 @@ public class SingleLinkedList {
 //        boolean flag2 = singleLinkedList.aisContainsB2(singleLinkedList2);
 //        System.out.println("flag2:"+flag2);
 //
-        System.out.println("mergeSort:");
-        singleLinkedList.mergeSort2(singleLinkedList2);
+//        System.out.println("mergeSort:");
+//        singleLinkedList.mergeSort2(singleLinkedList2);
+
+        singleLinkedList.deleteNthFromEnd3(2);
+        singleLinkedList.show();
 
     }
 }
