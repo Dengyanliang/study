@@ -1,4 +1,4 @@
-package com.deng.study.algorithm.basic;
+package com.deng.study.algorithm.recursion;
 
 /**
  * @Desc:

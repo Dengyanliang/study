@@ -1,4 +1,4 @@
-package com.deng.study.algorithm.basic;
+package com.deng.study.algorithm.recursion;
 
 import com.deng.study.source.StdOut;
 import lombok.extern.slf4j.Slf4j;

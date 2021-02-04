@@ -274,8 +274,9 @@ public class SingleLinkedList {
     private void reversePrint2(Node node){
         if(node.next != null){
             i++;
-            if(i == (getLength() - 3 )){
+            if(i == (getLength() - 1)){ // 找到被删除节点的前一个节点
                 System.out.print(node.data+" ");
+//                node.next = node.next.next;
                 return;
             }else{
                 reversePrint2(node.next);
@@ -804,7 +805,7 @@ public class SingleLinkedList {
     public void deleteNthFromEnd2(int n){
         Node pre = head;
         Node fast = head;
-        for(int i = 0; i < n; i++){ // 这里要<=N，因为下面的while循环要走到fast为null 或者fast != null 改为fast.next !=  null
+        for(int i = 0; i < n; i++){ // 这里要么<=N，因为下面的while循环要走到fast为null 或者fast != null 改为fast.next !=  null
             if(fast == null){
                  break;
             }
@@ -830,7 +831,7 @@ public class SingleLinkedList {
      */
     public void deleteNthFromEnd3(int n){
         int pos = deleteNthFromEnd3(head,n);
-        if(pos == n){  // 说明删除的是头节点
+        if(pos <= n){  // 说明删除的是头节点
             head.next = head.next.next;
         }
     }
@@ -845,7 +846,6 @@ public class SingleLinkedList {
         }
         return pos;
     }
-
 
 
 //    private static Node reverseChainRecursive(Node head){
@@ -874,7 +874,6 @@ public class SingleLinkedList {
         singleLinkedList.addLast(5);
         singleLinkedList.addLast(1);
         singleLinkedList.addLast(6);
-
 
         singleLinkedList.show();
 
@@ -966,8 +965,11 @@ public class SingleLinkedList {
 //        System.out.println("mergeSort:");
 //        singleLinkedList.mergeSort2(singleLinkedList2);
 
-        singleLinkedList.deleteNthFromEnd3(2);
+//        System.out.println("deleteNthFromEnd:");
+        singleLinkedList.deleteNthFromEnd3(10);
         singleLinkedList.show();
+
+//        singleLinkedList.reversePrint2();
 
     }
 }
