@@ -3,7 +3,7 @@ package com.deng.study.algorithm.recursion;
 import com.deng.study.source.StdOut;
 
 /**
- * @Desc:斐波那契
+ * @Desc:斐波那契问题
  * @Auther: dengyanliang
  * @Date: 2020/10/12 19:24
  */
