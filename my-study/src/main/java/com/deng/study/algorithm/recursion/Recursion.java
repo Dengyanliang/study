@@ -12,12 +12,24 @@ import lombok.extern.slf4j.Slf4j;
 public class Recursion {
 
     public static String exR1(int n){
+        System.out.println("n:"+n);
         if(n <= 0)
             return "";
-        String result = exR1(n-3);// 3 result = "3"+3
+
+        System.out.println("-----------------");
+
+        String result = exR1(n-3); // 3-3
+        System.out.println("result1:"+result);
+
+        result += n;                  // 3
+        System.out.println("result2:"+result);
+
+        result += exR1(n-2);       // 3-2=1
+        System.out.println("result3:"+result);
+
         result += n;
-        result += exR1(n-2); // 3-2    result = 1-3  ""+
-        result += n;
+        System.out.println("result4:"+result);
+
         return result;
 //        return exR1(n-3)+n+exR1(n-2)+n;
     }
@@ -36,9 +48,9 @@ public class Recursion {
     public static void main(String[] args) {
         log.info("exR1(3)：{}",exR1(3));
 
-        log.info("mystery(2,25):{}",mystery(2,25));
-        StdOut.println();
-        log.info("mystery(3,11):{}",mystery(3,11));
+//        log.info("mystery(2,25):{}",mystery(2,25));
+//        StdOut.println();
+//        log.info("mystery(3,11):{}",mystery(3,11));
     }
 
 }
