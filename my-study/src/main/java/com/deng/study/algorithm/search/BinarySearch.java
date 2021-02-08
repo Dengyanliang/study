@@ -62,6 +62,44 @@ public class BinarySearch {
     }
 
 
+    /**
+     * 返回相同数据的集合索引
+     * @param array
+     * @param key
+     * @param left
+     * @param right
+     * @return
+     */
+    public static List<Integer> rank2(int[] array,int key,int left,int right){
+        List<Integer> list = null;
+        if(left > right){
+            return list;
+        }
+        int middle = left + (right-left)/2;
+        if(key < array[middle]){
+            return rank2(array,key,left,middle-1);
+        }else if(key > array[middle]){
+            return rank2(array,key,middle+1,right);
+        }else{
+            list = new ArrayList<>();
+            // 向左遍历
+            int start = middle-1;
+            while(start >= 0 && array[start] == key){
+                list.add(start);
+                start--;
+            }
+            list.add(middle);
+            int end = middle+1;
+            // 向左遍历
+            while(end <= array.length-1 && array[end] == key){
+                list.add(end);
+                end++;
+            }
+
+            return list;
+        }
+    }
+
     public static void main(String[] args) {
         int[] array = {1,3,4,10,7,8};
         int num = new Random().nextInt(1000000);
@@ -79,6 +117,11 @@ public class BinarySearch {
 
         result = rank(array,key,0,array.length-1);
         System.out.println("第二种方法："+result);
+
+        int[] array2 = {1,3,4,4,4,4,10,7,8};
+        Arrays.sort(array2);
+        List<Integer> resultList = rank2(array2,4,0,array.length-1);
+        System.out.println("resultList:"+resultList);
 
         double d = 1.0 / 0.0 ;
         double d2 = -1.0 /0.0;
