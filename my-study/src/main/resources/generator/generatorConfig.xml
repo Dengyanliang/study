@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MySqlContext" targetRuntime="MyBatis3"
+             defaultModelType="flat">
+
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <commentGenerator type="com.sankuai.meituan.moments.generate.MyCommentGenerator">
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="false"/>
+            <!--生成注释-->
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.48.194.78:5002/oa_moments"
+                        userId="oa_moments_dev"
+                        password="oa_moments_dev">
+        </jdbcConnection>
+
+        <javaTypeResolver type="com.sankuai.meituan.moments.generate.MyJavaTypeResolver">
+
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.sankuai.meituan.moments.dao.po"
+                            targetProject="moments-server/src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="moments-server/src/main/resources/base"/>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.sankuai.meituan.moments.dao.mapper"
+                             targetProject="moments-server/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="op_log">
+<!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
+        </table>
+
+    </context>
+</generatorConfiguration>
