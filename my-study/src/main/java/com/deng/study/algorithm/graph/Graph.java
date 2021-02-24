@@ -1,4 +1,4 @@
-package com.deng.study.graph;
+package com.deng.study.algorithm.graph;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

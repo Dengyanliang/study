@@ -1,6 +1,4 @@
-package com.deng.study.graph;
-
-import java.util.List;
+package com.deng.study.algorithm.graph;
 
 /**
  * @Desc:
