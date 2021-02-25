@@ -120,7 +120,7 @@ public class NumberTest {
 
         if(i < 0){
             flag = true;
-            i = Math.abs(i);
+            i = Math.abs(i); // 对于小于0的数字，求解其对应的绝对值
         }
         int a;
         while(i != 0){
@@ -179,8 +179,8 @@ public class NumberTest {
 
         String temp = "";
         String str = String.valueOf(i);
-        char[] ch = str.toCharArray();
-        for(int index = ch.length; index > 0 ; index--){
+        char[] ch = str.toCharArray(); // 将字符串转化为字符数组
+        for(int index = ch.length; index > 0 ; index--){ // 从后往前倒序输出
             temp = temp + ch[index-1];
         }
 
