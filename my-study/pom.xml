@@ -31,13 +31,13 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>stdlib</groupId>
-            <artifactId>stdlib</artifactId>
-            <version>1.0</version>
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/stdlib.jar</systemPath>-->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>stdlib</groupId>-->
+<!--            <artifactId>stdlib</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--&lt;!&ndash;            <scope>system</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;            <systemPath>${project.basedir}/stdlib.jar</systemPath>&ndash;&gt;-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
