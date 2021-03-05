@@ -1,5 +1,8 @@
 package com.deng.study.algorithm.tree;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /**
  * @Desc:树的结点
  * @Auther: dengyanliang
@@ -56,6 +59,28 @@ public class Node {
         }
         System.out.println(this);
     }
+
+    /**
+     * 层序遍历
+     * 借助队列，先把根节点加入队列，然后取出根节点，再判断根节点的左右节点，是否为空，如果不为空则加入队列末尾，再取出队列的值进行判断
+     * @return
+     */
+    public void levelOrder(){
+        Queue<Node> queue = new ArrayDeque();
+        queue.add(this);
+        Node node = queue.poll();
+        while(node != null){
+            System.out.println(node);
+            if(node.left != null){
+                queue.add(node.left);
+            }
+            if(node.right != null){
+                queue.add(node.right);
+            }
+            node = queue.poll();
+        }
+    }
+
 
     /**
      * 前序查找

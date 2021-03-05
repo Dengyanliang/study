@@ -25,6 +25,11 @@ public class Tree {
         rootNode.lastFront();
     }
 
+    public void levelOrder(){
+        System.out.println("层序遍历：");
+        rootNode.levelOrder();
+    }
+
     public Node preSearch(int no){
         Node node = rootNode.preSearch(no);
         System.out.println("前序查找编号：" + no + ",返回值：" + node);
@@ -42,4 +47,6 @@ public class Tree {
         System.out.println("后序查找编号：" + no + ",返回值：" + node);
         return node;
     }
+
+
 }

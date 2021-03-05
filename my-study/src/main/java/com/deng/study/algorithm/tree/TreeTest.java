@@ -22,13 +22,15 @@ public class TreeTest {
 
 
         Tree tree = new Tree(rootNode);
-        tree.preFront();
-        tree.midFront();
-        tree.lastFront();
+//        tree.preFront();
+//        tree.midFront();
+//        tree.lastFront();
+//
+//        tree.preSearch(1);
+//        tree.midSearch(1);
+//        tree.lastSearch(1);
 
-        tree.preSearch(1);
-        tree.midSearch(1);
-        tree.lastSearch(1);
+        tree.levelOrder();
 
     }
 }
