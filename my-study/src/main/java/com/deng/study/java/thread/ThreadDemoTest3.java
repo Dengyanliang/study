@@ -1,12 +1,9 @@
 package com.deng.study.java.thread;
 
-import java.util.concurrent.Callable;
+import java.util.concurrent.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * @Desc: 第三种实现多线程批量读取集合的方法
@@ -36,6 +33,24 @@ public class ThreadDemoTest3 {
 
         // 创建一个线程池
         ExecutorService exec = Executors.newFixedThreadPool(threadNum);
+
+//        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+//                2,
+//                3,
+//                4,TimeUnit.SECONDS,
+//                new ArrayBlockingQueue<>(8),
+//                new ThreadPoolExecutor.AbortPolicy());
+//
+//        Future<Integer> future1 = executor.submit(new Callable<Integer>() {
+//            @Override
+//            public Integer call() {
+//                return 1;
+//            }
+//        });
+//        future1.get();
+
+//        executor.execute();
+
         // 第一种方法，每次获取批量线程，提交任务
 //        exec.submit(task);
 

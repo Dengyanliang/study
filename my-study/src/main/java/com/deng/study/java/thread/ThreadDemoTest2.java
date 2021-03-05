@@ -31,7 +31,7 @@ public class ThreadDemoTest2{
         }
 
         int length = dataList.size();
-        int threadNum = length % subSize ==0 ? length / subSize : length / subSize + 1;
+        int threadNum = length % subSize == 0 ? length / subSize : length / subSize + 1;
         for(int i = 0; i < threadNum; i++){
             ThreadDemo2 threadDemo2 = new ThreadDemo2(dataList,map,threadNum);
             Thread thread = new Thread(threadDemo2);
