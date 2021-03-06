@@ -18,27 +18,27 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.48.194.78:5002/oa_moments"
-                        userId="oa_moments_dev"
-                        password="oa_moments_dev">
+                        connectionURL="jdbc:mysql://127.0.01:3306/deng"
+                        userId="root"
+                        password="root123456">
         </jdbcConnection>
 
-        <javaTypeResolver type="com.sankuai.meituan.moments.generate.MyJavaTypeResolver">
+        <javaTypeResolver type="com.deng.study.generate.MyJavaTypeResolver">
 
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.sankuai.meituan.moments.dao.po"
-                            targetProject="moments-server/src/main/java">
+        <javaModelGenerator targetPackage="com.deng.study.dao.po"
+                            targetProject="my-study/src/main/java">
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="moments-server/src/main/resources/base"/>
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.sankuai.meituan.moments.dao.mapper"
-                             targetProject="moments-server/src/main/java">
+        <sqlMapGenerator targetPackage="mapper" targetProject="my-study/src/main/resources/base"/>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.deng.study.dao.mapper"
+                             targetProject="my-study/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="op_log">
+        <table tableName="student">
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
         </table>
 
