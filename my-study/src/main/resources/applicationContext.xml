@@ -15,4 +15,6 @@
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
 
+    <import resource="datasource.xml"/>
+
 </beans>
