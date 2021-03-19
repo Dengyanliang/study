@@ -16,5 +16,5 @@
     </bean>
 
     <import resource="datasource.xml"/>
-
+    <import resource="theadpool.xml"/>
 </beans>

@@ -38,7 +38,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="order">
+        <table tableName="pay_order">
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
         </table>
 

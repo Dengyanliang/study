@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.deng.study.dao.mapper.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.deng.study.dao.po.Order">
+<mapper namespace="com.deng.study.dao.mapper.PayOrderMapper">
+  <resultMap id="BaseResultMap" type="com.deng.study.dao.po.PayOrder">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="product_id" jdbcType="BIGINT" property="productId" />
-    <result column="product_num" jdbcType="BIGINT" property="productNum" />
-    <result column="order_price" jdbcType="BIGINT" property="orderPrice" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="pay_finished_time" jdbcType="TIMESTAMP" property="payFinishedTime" />
+    <result column="order_Fee" jdbcType="BIGINT" property="orderFee" />
+    <result column="pay_status" jdbcType="TINYINT" property="payStatus" />
+    <result column="version" jdbcType="INTEGER" property="version" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_Time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pay_finish_time" jdbcType="TIMESTAMP" property="payFinishTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,16 +71,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, product_id, product_num, order_price, status, pay_status, create_time, 
-    pay_finished_time, update_time
+    id, user_id, product_id, order_Fee, pay_status, version, update_time, create_Time, 
+    pay_finish_time
   </sql>
-  <select id="selectByExample" parameterType="com.deng.study.dao.po.OrderExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.deng.study.dao.po.PayOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order
+    from pay_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,31 +91,31 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order
+    from pay_order
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from order
+    delete from pay_order
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.deng.study.dao.po.OrderExample">
-    delete from order
+  <delete id="deleteByExample" parameterType="com.deng.study.dao.po.PayOrderExample">
+    delete from pay_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.deng.study.dao.po.Order" useGeneratedKeys="true">
-    insert into order (id, user_id, product_id, 
-      product_num, order_price, status, 
-      pay_status, create_time, pay_finished_time, 
-      update_time)
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
-      #{productNum,jdbcType=BIGINT}, #{orderPrice,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
-      #{payStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{payFinishedTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.deng.study.dao.po.PayOrder" useGeneratedKeys="true">
+    insert into pay_order (id, user_id, product_id, 
+      order_Fee, pay_status, version, 
+      update_time, create_Time, pay_finish_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},
+      #{orderFee,jdbcType=BIGINT}, #{payStatus,jdbcType=TINYINT}, #{version,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{payFinishTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.deng.study.dao.po.Order">
-    insert into order
+  <insert id="insertSelective" parameterType="com.deng.study.dao.po.PayOrder">
+    insert into pay_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -127,26 +126,23 @@
       <if test="productId != null">
         product_id,
       </if>
-      <if test="productNum != null">
-        product_num,
-      </if>
-      <if test="orderPrice != null">
-        order_price,
-      </if>
-      <if test="status != null">
-        status,
+      <if test="orderFee != null">
+        order_Fee,
       </if>
       <if test="payStatus != null">
         pay_status,
       </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="payFinishedTime != null">
-        pay_finished_time,
+      <if test="version != null">
+        version,
       </if>
       <if test="updateTime != null">
         update_time,
+      </if>
+      <if test="createTime != null">
+        create_Time,
+      </if>
+      <if test="payFinishTime != null">
+        pay_finish_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -159,37 +155,34 @@
       <if test="productId != null">
         #{productId,jdbcType=BIGINT},
       </if>
-      <if test="productNum != null">
-        #{productNum,jdbcType=BIGINT},
-      </if>
-      <if test="orderPrice != null">
-        #{orderPrice,jdbcType=BIGINT},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
+      <if test="orderFee != null">
+        #{orderFee,jdbcType=BIGINT},
       </if>
       <if test="payStatus != null">
-        #{payStatus,jdbcType=INTEGER},
+        #{payStatus,jdbcType=TINYINT},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="payFinishedTime != null">
-        #{payFinishedTime,jdbcType=TIMESTAMP},
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payFinishTime != null">
+        #{payFinishTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.deng.study.dao.po.OrderExample" resultType="java.lang.Long">
-    select count(*) from order
+  <select id="countByExample" parameterType="com.deng.study.dao.po.PayOrderExample" resultType="java.lang.Long">
+    select count(*) from pay_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update order
+    update pay_order
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -200,26 +193,23 @@
       <if test="record.productId != null">
         product_id = #{record.productId,jdbcType=BIGINT},
       </if>
-      <if test="record.productNum != null">
-        product_num = #{record.productNum,jdbcType=BIGINT},
-      </if>
-      <if test="record.orderPrice != null">
-        order_price = #{record.orderPrice,jdbcType=BIGINT},
-      </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="record.orderFee != null">
+        order_Fee = #{record.orderFee,jdbcType=BIGINT},
       </if>
       <if test="record.payStatus != null">
-        pay_status = #{record.payStatus,jdbcType=INTEGER},
+        pay_status = #{record.payStatus,jdbcType=TINYINT},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.payFinishedTime != null">
-        pay_finished_time = #{record.payFinishedTime,jdbcType=TIMESTAMP},
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
       </if>
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payFinishTime != null">
+        pay_finish_time = #{record.payFinishTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -227,23 +217,22 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update order
+    update pay_order
     set id = #{record.id,jdbcType=BIGINT},
       user_id = #{record.userId,jdbcType=BIGINT},
       product_id = #{record.productId,jdbcType=BIGINT},
-      product_num = #{record.productNum,jdbcType=BIGINT},
-      order_price = #{record.orderPrice,jdbcType=BIGINT},
-      status = #{record.status,jdbcType=INTEGER},
-      pay_status = #{record.payStatus,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      pay_finished_time = #{record.payFinishedTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      order_Fee = #{record.orderFee,jdbcType=BIGINT},
+      pay_status = #{record.payStatus,jdbcType=TINYINT},
+      version = #{record.version,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      pay_finish_time = #{record.payFinishTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.deng.study.dao.po.Order">
-    update order
+  <update id="updateByPrimaryKeySelective" parameterType="com.deng.study.dao.po.PayOrder">
+    update pay_order
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=BIGINT},
@@ -251,41 +240,58 @@
       <if test="productId != null">
         product_id = #{productId,jdbcType=BIGINT},
       </if>
-      <if test="productNum != null">
-        product_num = #{productNum,jdbcType=BIGINT},
-      </if>
-      <if test="orderPrice != null">
-        order_price = #{orderPrice,jdbcType=BIGINT},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+      <if test="orderFee != null">
+        order_Fee = #{orderFee,jdbcType=BIGINT},
       </if>
       <if test="payStatus != null">
-        pay_status = #{payStatus,jdbcType=INTEGER},
+        pay_status = #{payStatus,jdbcType=TINYINT},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="payFinishedTime != null">
-        pay_finished_time = #{payFinishedTime,jdbcType=TIMESTAMP},
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
       </if>
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createTime != null">
+        create_Time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payFinishTime != null">
+        pay_finish_time = #{payFinishTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.deng.study.dao.po.Order">
-    update order
+  <update id="updateByPrimaryKey" parameterType="com.deng.study.dao.po.PayOrder">
+    update pay_order
     set user_id = #{userId,jdbcType=BIGINT},
       product_id = #{productId,jdbcType=BIGINT},
-      product_num = #{productNum,jdbcType=BIGINT},
-      order_price = #{orderPrice,jdbcType=BIGINT},
-      status = #{status,jdbcType=INTEGER},
-      pay_status = #{payStatus,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      pay_finished_time = #{payFinishedTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      order_Fee = #{orderFee,jdbcType=BIGINT},
+      pay_status = #{payStatus,jdbcType=TINYINT},
+      version = #{version,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_Time = #{createTime,jdbcType=TIMESTAMP},
+      pay_finish_time = #{payFinishTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <insert id="batchInsert">
+    <selectKey keyProperty="id" order="BEFORE"
+               resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pay_order (id, user_id, product_id,order_Fee, pay_status, version,update_time, create_Time, pay_finish_time)
+    values
+    <foreach collection="orderList" item="item" open="(" close=")" separator="),(">
+      #{item.id,jdbcType=BIGINT},
+      #{item.userId,jdbcType=BIGINT},
+      #{item.productId,jdbcType=BIGINT},
+      #{item.orderFee,jdbcType=BIGINT},
+      #{item.payStatus,jdbcType=TINYINT},
+      #{item.version,jdbcType=INTEGER},
+      #{item.updateTime,jdbcType=TIMESTAMP},
+      #{item.createTime,jdbcType=TIMESTAMP},
+      #{item.payFinishTime,jdbcType=TIMESTAMP}
+    </foreach>
+  </insert>
+
 </mapper>

@@ -142,4 +142,18 @@ public class DateUtil {
         rightNow.add(Calendar.MONTH, addMonth);
         return rightNow.getTime();
     }
+
+    public static java.sql.Date getSqlDate()  {
+        java.util.Date d = new java.util.Date();
+        //创建格式化对象
+        SimpleDateFormat formatter =new SimpleDateFormat("yyyy-MM-dd");
+        //格式化对象 d
+        String strdf1=formatter.format(d);
+        //初始化一个sql.Date对象为setDate()作准备
+        java.sql.Date d2 =new java.sql.Date(1);
+        //为sql.Date对象赋值
+        d2=d2.valueOf(strdf1);
+        return d2;
+    }
+
 }

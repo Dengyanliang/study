@@ -1,6 +1,8 @@
 package com.deng.study.dao;
 
-import com.deng.study.dao.po.Order;
+import com.deng.study.dao.po.PayOrder;
+
+import java.util.List;
 
 /**
  * @Desc:
@@ -8,5 +10,6 @@ import com.deng.study.dao.po.Order;
  * @Date: 2021/3/19 00:05
  */
 public interface OrderDao {
-    void insert(Order order);
+    void insert(PayOrder payOrder);
+    void batchInsert(List<PayOrder> orderList);
 }

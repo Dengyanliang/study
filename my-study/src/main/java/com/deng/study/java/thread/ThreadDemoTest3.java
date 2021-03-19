@@ -31,15 +31,15 @@ public class ThreadDemoTest3 {
         // 定义标记,过滤threadNum为整数
         boolean special = dataSize % threadSize == 0;
 
-        // 创建一个线程池
-        ExecutorService exec = Executors.newFixedThreadPool(threadNum);
+        // 创建一个线程池 不建议使用Executors，而推荐使用ThreadPoolExecutor
+//        ExecutorService exec = Executors.newFixedThreadPool(threadNum);
 
-//        ThreadPoolExecutor executor = new ThreadPoolExecutor(
-//                2,
-//                3,
-//                4,TimeUnit.SECONDS,
-//                new ArrayBlockingQueue<>(8),
-//                new ThreadPoolExecutor.AbortPolicy());
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                2,
+                3,
+                4,TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(8),
+                new ThreadPoolExecutor.AbortPolicy());
 //
 //        Future<Integer> future1 = executor.submit(new Callable<Integer>() {
 //            @Override
@@ -77,14 +77,14 @@ public class ThreadDemoTest3 {
             tasks.add(task);
         }
 
-        List<Future<Integer>> results = exec.invokeAll(tasks);
+        List<Future<Integer>> results = executor.invokeAll(tasks);
 
         for (Future<Integer> future : results) {
             System.out.println(future.get());
         }
 
         // 关闭线程池
-        exec.shutdown(); // 记得关闭
+        executor.shutdown(); // 记得关闭
         System.out.println("线程任务执行结束");
         System.err.println("执行任务消耗了 ：" + (System.currentTimeMillis() - start) + "毫秒");
     }

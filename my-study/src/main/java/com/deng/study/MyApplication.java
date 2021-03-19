@@ -14,7 +14,7 @@ import javax.annotation.ManagedBean;
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
 @EnableTransactionManagement
 @ImportResource("classpath:applicationContext.xml")
-@MapperScan("com.deng.study.dao")
+@MapperScan("com.deng.study.dao.mapper")
 public class MyApplication {
 
     public static void main(String[] args) {
