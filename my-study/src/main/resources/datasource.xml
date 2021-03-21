@@ -5,12 +5,12 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+    <bean id="dataSource_master" class="org.apache.commons.dbcp2.BasicDataSource"
           destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
+        <property name="driverClassName" value="${jdbc.driverClassName.master}" />
+        <property name="url" value="${jdbc.url.master}" />
+        <property name="username" value="${jdbc.username.master}" />
+        <property name="password" value="${jdbc.password.master}" />
 
         <!--maxActive: 最大连接数量-->
         <property name="maxTotal" value="150"/>
@@ -23,11 +23,8 @@
         <!-- 连接被泄露时是否打印 -->
         <property name="logAbandoned" value="true"/>
         <!--是否自动回收超时连接-->
-<!--        <property name="removeAbandoned"  value="true"/>-->
         <!--泄露的连接（因异常未回收的）可以被删除的超时时间(以秒数为单位)-->
         <property name="removeAbandonedTimeout" value="10"/>
-        <!--超时等待时间以毫秒为单位 1000等于60秒-->
-<!--        <property name="maxWait" value="1000"/>-->
         <!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位. -->
         <property name="timeBetweenEvictionRunsMillis" value="10000"/>
         <!-- 在每次空闲连接回收器线程(如果有)运行时检查的连接数量 -->
@@ -37,9 +34,43 @@
 
     </bean>
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="dataSource_slave" class="org.apache.commons.dbcp2.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName.slave}" />
+        <property name="url" value="${jdbc.url.slave}" />
+        <property name="username" value="${jdbc.username.slave}" />
+        <property name="password" value="${jdbc.password.slave}" />
+    </bean>
+
+    <bean id="sqlSessionFactory_master" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource_master" />
         <property name="mapperLocations" value="classpath:base/mapper/*Mapper.xml"/>
     </bean>
+
+    <!-- 定义事务管理器（声明式的事务） -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource_master" />
+    </bean>
+
+    <!-- 主库 -->
+    <bean id="jdbcTemplate_master" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource_master"/>
+    </bean>
+
+    <!-- 从库 -->
+    <bean id="jdbcTemplate_slave" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource_slave"/>
+    </bean>
+
+<!--    <bean id="datasource" class="com.deng.study.common.datasouce.DynamicDataSource">-->
+<!--        <property name="targetDataSources">-->
+<!--            <map key-type="java.lang.String">-->
+<!--               <entry key="dataSource_master" value-ref="dataSource_master"/>-->
+<!--               <entry key="dataSource_slave" value-ref="dataSource_slave"/>-->
+<!--            </map>-->
+<!--        </property>-->
+<!--    </bean>-->
+
 
 </beans>

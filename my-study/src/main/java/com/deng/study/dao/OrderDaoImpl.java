@@ -28,4 +28,9 @@ public class OrderDaoImpl implements OrderDao{
     public void batchInsert(List<PayOrder> orderList) {
         payOrderMapper.batchInsert(orderList);
     }
+
+    @Override
+    public PayOrder select(Long id) {
+        return payOrderMapper.selectByPrimaryKey(id);
+    }
 }

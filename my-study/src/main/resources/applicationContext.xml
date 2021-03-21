@@ -15,6 +15,6 @@
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
     </bean>
 
-    <import resource="datasource.xml"/>
+<!--    <import resource="datasource.xml"/>-->
     <import resource="theadpool.xml"/>
 </beans>

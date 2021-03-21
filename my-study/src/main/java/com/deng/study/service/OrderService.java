@@ -14,4 +14,8 @@ public interface OrderService {
     void addBatchOrder(List<PayOrder> orderList);
 
     void addBatchOrder2();
+
+    PayOrder getOrder(Long id);
+
+    PayOrder getOrder2(Long id);
 }

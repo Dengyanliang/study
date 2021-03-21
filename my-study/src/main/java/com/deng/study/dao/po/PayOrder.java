@@ -1,8 +1,11 @@
 package com.deng.study.dao.po;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@ToString
 public class PayOrder implements Serializable {
     /**
      * 

@@ -12,4 +12,6 @@ import java.util.List;
 public interface OrderDao {
     void insert(PayOrder payOrder);
     void batchInsert(List<PayOrder> orderList);
+
+    PayOrder select(Long id);
 }

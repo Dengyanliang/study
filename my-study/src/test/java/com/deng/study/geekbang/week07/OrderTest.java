@@ -7,9 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -28,7 +26,7 @@ public class OrderTest {
     @Test
     void addOrder(){
         long start = System.currentTimeMillis();
-        int max = 1000000;
+        int max = 10;
         PayOrder order = null;
         for(int i = 1; i <= max; i++){
             order = new PayOrder();
@@ -82,5 +80,14 @@ public class OrderTest {
         log.info("add order list end,总的耗时：{}",end-start);
     }
 
+    @Test
+    void getOrder(){
+        log.info("add order list begin...");
+        long start = System.currentTimeMillis();
+        PayOrder payOrder = orderService.getOrder2(1L);
+        log.info("payOrder:{}",payOrder);
+        long end = System.currentTimeMillis();
+        log.info("add order list end,总的耗时：{}",end-start);
+    }
 
 }

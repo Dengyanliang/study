@@ -3,6 +3,8 @@ package com.deng.study.dao.mapper;
 import com.deng.study.dao.po.PayOrder;
 import com.deng.study.dao.po.PayOrderExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface PayOrderMapper {
