@@ -2,15 +2,29 @@ spring:
   datasource:
     type: org.apache.commons.dbcp2.BasicDataSource
     master:
+      driver-class-name: ${jdbc.driverClassName.master}
       url: ${jdbc.url.master}
       username: ${jdbc.username.master}
       password: ${jdbc.password.master}
-      driver-class-name: ${jdbc.driverClassName.master}
-    slave:
-      driver-class-name: ${jdbc.driverClassName.slave}
-      url: ${jdbc.url.slave}
-      username: ${jdbc.username.slave}
-      password: ${jdbc.password.slave}
+    slave1:
+      driver-class-name: ${jdbc.driverClassName.slave1}
+      url: ${jdbc.url.slave1}
+      username: ${jdbc.username.slave1}
+      password: ${jdbc.password.slave1}
+    slave2:
+      driver-class-name: ${jdbc.driverClassName.slave2}
+      url: ${jdbc.url.slave2}
+      username: ${jdbc.username.slave2}
+      password: ${jdbc.password.slave2}
+    slave3:
+      driver-class-name: ${jdbc.driverClassName.slave3}
+      url: ${jdbc.url.slave3}
+      username: ${jdbc.username.slave3}
+      password: ${jdbc.password.slave3}
+
+
+
+
   redis:
     port: 6379
     host: 127.0.0.1

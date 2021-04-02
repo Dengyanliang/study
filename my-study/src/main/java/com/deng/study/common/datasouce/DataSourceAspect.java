@@ -3,7 +3,6 @@ package com.deng.study.common.datasouce;
 import com.deng.study.common.DataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -13,9 +12,10 @@ import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @Desc:
+ * @Desc:数据源切面
  * @Auther: dengyanliang
  * @Date: 2021/3/21 14:11
  */
@@ -23,6 +23,9 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class DataSourceAspect implements Ordered {
+
+    private static AtomicInteger counter = new AtomicInteger(0);
+    private final int dataSourceNumber = 3;
 
     @Pointcut("execution(* com..*.*ServiceImpl.*(..))")
     public void DynamicChangeDB(){
@@ -40,8 +43,12 @@ public class DataSourceAspect implements Ordered {
             log.info("*******set datasource_master*************");
             DataSourceHandler.setDataSource(DataSourceHandler.DATASOURCE_MASTER);
         }else{
+//            synchronized (DataSourceAspect.class){
+//                counter++;
+//            }
+            int num = counter.getAndIncrement() % dataSourceNumber;
             log.info("*******set datasource_slave*************");
-            DataSourceHandler.setDataSource(DataSourceHandler.DATASOURCE_SLAVE);
+            DataSourceHandler.setDataSource(DataSourceHandler.DATASOURCE_SLAVE_PREFIX+num);
         }
     }
 

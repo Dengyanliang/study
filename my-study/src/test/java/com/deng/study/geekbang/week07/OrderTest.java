@@ -84,8 +84,10 @@ public class OrderTest {
     void getOrder(){
         log.info("add order list begin...");
         long start = System.currentTimeMillis();
-        PayOrder payOrder = orderService.getOrder2(1L);
-        log.info("payOrder:{}",payOrder);
+        for(int i = 0 ; i < 4; i++){
+            PayOrder payOrder = orderService.getOrder2(1L);
+            log.info("payOrder:{}",payOrder);
+        }
         long end = System.currentTimeMillis();
         log.info("add order list end,总的耗时：{}",end-start);
     }

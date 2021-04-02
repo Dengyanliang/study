@@ -137,7 +137,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @DataSource(isMaster = true)
+    @DataSource(isMaster = false)
     public PayOrder getOrder2(Long id) {
         return orderDao.select(id);
     }

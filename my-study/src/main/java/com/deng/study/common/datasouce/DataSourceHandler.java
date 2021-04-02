@@ -11,22 +11,27 @@ import lombok.extern.slf4j.Slf4j;
 public class DataSourceHandler {
 
     public static final String  DATASOURCE_MASTER = "dataSource_master";
-    public static final String  DATASOURCE_SLAVE = "dataSource_slave";
+    public static final String  DATASOURCE_SLAVE = "dataSource_slave1";
+
+    public static final String  DATASOURCE_SLAVE_PREFIX = "dataSource_slave";
 
     private static ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
     public static void setDataSource(String value){
+        Thread thread = Thread.currentThread();
+        log.info("setDataSource,current thread:{}",thread);
         threadLocal.set(value);
     }
 
     public static String getDataSource(){
-        log.info("getDataSource:{}",threadLocal.get());
+        Thread thread = Thread.currentThread();
+        log.info("current thread:{},getDataSource:{}",thread,threadLocal.get());
         return threadLocal.get();
     }
 
     public static void removeDataSource(){
         Thread thread = Thread.currentThread();
-        log.info("current thread:{}",thread);
+        log.info("removeDataSource,current thread:{}",thread);
         threadLocal.remove();
     }
 }
