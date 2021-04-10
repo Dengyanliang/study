@@ -12,6 +12,7 @@ import java.util.Set;
  */
 @Slf4j
 public class TestPing {
+
     public static void main(String[] args) {
         // 测试连接
         Jedis jedis = new Jedis("127.0.0.1",6379);
