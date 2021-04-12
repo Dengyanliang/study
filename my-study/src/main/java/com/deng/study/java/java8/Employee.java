@@ -34,6 +34,8 @@ public class Employee {
                 new Employee("李四",43,9999.99,Status.BUSY),
                 new Employee("王五",21,2222.22,Status.VOCATION),
                 new Employee("赵六",15,1555.55,Status.FREE),
+                new Employee("田七",53,5555.55,Status.BUSY),
+                new Employee("田七",53,5555.55,Status.BUSY),
                 new Employee("田七",53,5555.55,Status.BUSY)
         );
         return employees;

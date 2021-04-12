@@ -4,6 +4,7 @@ import com.deng.study.java.java8.Employee;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -202,8 +203,105 @@ public class TestStream {
 
         emp = employees.stream().min(Comparator.comparing(Employee::getAge));
         System.out.println(emp);
+    }
 
+    /**
+     * 终止操作
+     * 2、reduce
+     * 3、collectors
+     */
+    @Test
+    public void test6(){
+
+        List<Integer> list = Arrays.asList(1,2,3,4,5);
+        Integer sum = list.stream().reduce(0,(x,y)->x+y);
+        System.out.println(sum);
+
+        Optional<Integer> sum2 = list.stream().reduce((x,y)->x+y);
+        System.out.println(sum2.get());
+
+        List ages = employees.stream().filter(x->x.getAge()>30).map(Employee::getName).collect(Collectors.toList());
+        System.out.println(ages);
+
+        Set names = employees.stream().map(Employee::getName).collect(Collectors.toSet());
+        System.out.println(names);
+
+        String s = employees.stream().map(Employee::getName).collect(Collectors.joining(",","***","==="));
+        System.out.println(s);
+
+        HashSet set = employees.stream().map(Employee::getName).collect(Collectors.toCollection(HashSet::new));
+        System.out.println(set);
+
+        // 分组
+        Map<String,List<Employee>> ageEmployees = employees.stream().collect(Collectors.groupingBy(e->{
+            if(e.getAge() > 30){
+                return "青年";
+            }else{
+                return "中年";
+            }
+        }));
+        System.out.print(ageEmployees+ " ");
+        System.out.println();
+
+        Map<Integer,List<Integer>> ageMap = employees.stream().map(Employee::getAge).collect(Collectors.groupingBy(x->{
+            if(x > 20){
+                return 1;
+            }else{
+                return 2;
+            }
+        }));
+        System.out.println(ageMap);
+
+
+        Map<String,List<String>> nameMap = employees.stream().map(Employee::getName).collect(Collectors.groupingBy(s1->{
+            if(s1.equals("张三")){
+                return "sss";
+            }else{
+                return "xxx";
+            }
+        }));
+        System.out.println(nameMap);
+
+
+        //分区：只有true 和 false
+        Map<Boolean,List<Employee>> booleanListMap = employees.stream().collect(Collectors.partitioningBy((e)->e.getAge()>30));
+        System.out.println(booleanListMap);
+
+        long count = employees.stream().filter(e->e.getAge()>30).map(Employee::getName).collect(Collectors.counting());
+        System.out.println("count:"+count);
+
+        // 统计
+        IntSummaryStatistics intSummaryStatistics = employees.stream().collect(Collectors.summarizingInt(Employee::getAge));
+        System.out.println(intSummaryStatistics.getMax());
+        System.out.println(intSummaryStatistics.getAverage());
+        System.out.println(intSummaryStatistics.getCount());
+        System.out.println(intSummaryStatistics.getMin());
+        System.out.println(intSummaryStatistics.getSum());
+
+        DoubleSummaryStatistics summaryStatistics2 = employees.stream().collect(Collectors.summarizingDouble(Employee::getSalary));
+        System.out.println(summaryStatistics2.getAverage());
+
+        // key=name, value=age
+        Map<String,Integer> nameAgeMap =  employees.stream().collect(Collectors.toMap(Employee::getName,Employee::getAge,(e1,e2)->e1));
+        System.out.println(nameAgeMap);
+
+        // key=name, value=object
+        // 去重，传入e1,e2，输出e2。不去重会报错
+        Map<String,Employee> employeeMap = employees.stream().collect(Collectors.toMap(Employee::getName,e->e,(e1,e2)->e2));
+        System.out.println(employeeMap);
+
+        // key=name,value=object
+        Map<String,Employee.Status> nameStatusMap = employees.stream().
+                collect(Collectors.toMap(Employee::getName,Employee::getStatus,(e1,e2)->e2,TreeMap::new));
+        System.out.println(nameStatusMap);
+
+
+        Map<String,Employee.Status> nameStatusMap2 = employees.stream().
+                collect(Collectors.toMap(Employee::getName,Employee::getStatus,(e1,e2)->e2,LinkedHashMap::new));
+        System.out.println(nameStatusMap2);
 
     }
+
+
 
 }
