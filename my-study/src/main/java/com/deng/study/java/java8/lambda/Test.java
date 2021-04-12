@@ -1,5 +1,7 @@
-package com.deng.study.java.java8;
+package com.deng.study.java.java8.lambda;
 
+
+import com.deng.study.java.java8.Employee;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -65,13 +67,7 @@ public class Test {
 
     public static void main(String[] args) {
         // 创建集合
-        List<Employee> employees = Arrays.asList(
-                new Employee("张三",30,3333.33),
-                new Employee("李四",43,9999.99),
-                new Employee("王五",21,2222.22),
-                new Employee("赵六",15,1555.55),
-                new Employee("田七",53,5555.55)
-        );
+        List<Employee> employees = Employee.getEmployees();
 
         System.out.println("第一种，单独为创建多个方法的方式：");
         List<Employee> result1 = filterEmployeeByAge(employees);

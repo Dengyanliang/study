@@ -1,4 +1,4 @@
-package com.deng.study.java.java8;
+package com.deng.study.java.java8.lambda;
 
 /**
  * @Desc:
