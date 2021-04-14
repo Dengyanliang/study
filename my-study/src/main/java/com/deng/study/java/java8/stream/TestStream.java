@@ -4,6 +4,7 @@ import com.deng.study.java.java8.Employee;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -109,7 +110,12 @@ public class TestStream {
         list.stream().map(s->s).forEach(System.out::println); // aa bb cc ddd
 
         System.out.println("&&&&&&&&&&&&&&&");
-        list.stream().flatMap((s) -> filterCharacter(s)).forEach(System.out::println); // a a b b c c d d d
+//        list.stream().flatMap((s) -> filterCharacter(s)).forEach(System.out::println); // a a b b c c d d d
+
+
+        list.stream().map(String::toUpperCase).flatMap((s)->filterCharacter(s)).forEach(System.out::println);
+
+        list.stream().map(s -> s.split("")).flatMap(Arrays::stream).distinct().forEach(System.out::println);
 
 
         List list3 = new ArrayList();
@@ -132,6 +138,52 @@ public class TestStream {
         return result.stream();
     }
 
+    @Test
+    public void testMapAndFlatMap(){
+        String[] words = {"hello","world"};
+        List<Stream<String>> ss = Stream.of(words).map(word -> word.split("")).map(Arrays::stream).distinct().collect(Collectors.toList());
+//        ss.stream().map(stringStream -> s.)
+
+        List<Integer> list = Arrays.asList(1,2,3);
+        List<Integer> result = list.stream().map(x->x*x).collect(Collectors.toList());
+        System.out.println(result);
+
+        List<Integer> list1 = Arrays.asList(3,4);
+
+        list.stream().flatMap(new Function<Integer, Stream<?>>() {
+            @Override
+            public Stream<?> apply(Integer integer) {
+                return list1.stream().map(j -> new int[]{integer,j});
+            }
+        });
+
+        Stream s = list.stream().flatMap(i->list1.stream().map(j->new Integer[]{i,j}));
+        List<Integer[]> list3 = (List<Integer[]>) s.collect(Collectors.toList());
+//        list3.stream().map(Arrays::stream).forEach(t->{
+//            System.out.print(t+" ");
+//        });
+
+        System.out.println(list3.toString());
+
+//        list3.stream().flatMap(x->s.).forEach(t->System.out.println( t+","));
+
+        System.out.println("8888888888");
+        for (Integer[] integer : list3) {
+            for (Integer integer1 : integer) {
+                System.out.print(integer1 + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    @Test
+    public void testExercise(){
+        List<Employee> employees = Employee.getEmployees();
+        Optional<Integer> count = employees.stream().map(employee -> 1).reduce(Integer::sum);
+        System.out.println(count.get());
+
+
+    }
 
 
     /**
