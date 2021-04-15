@@ -57,8 +57,6 @@ public final  class ModelConvertUtil {
             logger.warn("mapList error", ex);
             return new ArrayList<>(0);
         }
-
-
     }
 
     public static void map(Object srcObj, Object destObj)
