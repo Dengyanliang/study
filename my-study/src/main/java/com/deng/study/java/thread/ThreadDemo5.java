@@ -2,7 +2,10 @@ package com.deng.study.java.thread;
 
 import com.deng.study.dao.OrderDao;
 import com.deng.study.dao.po.PayOrder;
+import org.junit.Test;
+
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Desc:批量插入数据库

@@ -1,6 +1,7 @@
 package com.deng.study.java.java8.stream;
 
 import com.deng.study.java.java8.Employee;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -24,6 +25,7 @@ import java.util.stream.Stream;
  * @Auther: dengyanliang
  * @Date: 2021/4/11 19:42
  */
+@Slf4j
 public class TestStream {
 
     // 创建集合

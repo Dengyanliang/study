@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Objects;
+import java.util.concurrent.*;
 
 /**
  * @Desc:
@@ -22,6 +23,9 @@ public class OrderTest {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
 
     @Test
     void addOrder(){
@@ -91,5 +95,4 @@ public class OrderTest {
         long end = System.currentTimeMillis();
         log.info("add order list end,总的耗时：{}",end-start);
     }
-
 }
