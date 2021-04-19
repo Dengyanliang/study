@@ -1,6 +1,7 @@
 package com.deng.study.java.java8.optional;
 
 import com.deng.study.java.java8.Employee;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -112,7 +113,7 @@ public class TestOptional {
 
         // 找出2011年发生的交易，并按交易排序（从低到高）
         List transactionsList = transactions.stream().filter(t -> t.getYear()==2011).
-                sorted(Comparator.comparing(transaction -> transaction.getValue())).collect(Collectors.toList());
+                sorted(Comparator.comparing(Transaction::getValue)).collect(Collectors.toList());
         System.out.println("transactionsList:"+transactionsList);
 
         // 交易员都在哪些城市工作过
@@ -121,14 +122,13 @@ public class TestOptional {
 
         // 查找所有来自上海的交易员，并按照姓名排序
         List<Trade> tradesList = transactions.stream().filter(t->t.getTrade().getCity().equals("上海")).
-                map(transaction -> transaction.getTrade()).distinct().
-                sorted(Comparator.comparing(trade -> trade.getName())).collect(Collectors.toList());
+                map(Transaction::getTrade).distinct().
+                sorted(Comparator.comparing(Trade::getName)).collect(Collectors.toList());
         System.out.println("tradesList:"+tradesList);
 
         // 返回所有交易员的姓名字符串，按字母排序
         List<String> nameList = transactions.stream().map(Transaction::getTrade).map(Trade::getName).distinct().sorted(Comparator.comparing(s -> s)).collect(Collectors.toList());
         System.out.println("nameList:" + nameList);
-
 
         // 有没有交易员在北京工作的
         Optional<Trade> beijingTrade = transactions.stream().map(Transaction::getTrade).filter(trade -> trade.getCity().equals("北京")).findAny();
@@ -136,13 +136,16 @@ public class TestOptional {
         System.out.println("flag:" + flag);
 
         // 打印生活在上海的交易员的所有交易额
-        Optional<Integer> sum = transactions.stream().filter(transaction -> transaction.getTrade().getCity().equals("上海")).map(Transaction::getValue).reduce(Integer::sum);
-        System.out.println("sum:"+sum.get());
+        Optional<Integer> sum = transactions.stream().filter(transaction -> Objects.nonNull(transaction.getTrade())).
+                filter(transaction -> StringUtils.equals("上海",transaction.getTrade().getCity())).map(Transaction::getValue).reduce(Integer::sum);
+        sum.ifPresent((s)->System.out.println("sum:"+s));
 
         // 所有交易中，最高的交易额是多少
-//        transactions.stream().m
+        Optional<Transaction> maxTransaction = transactions.stream().max(Comparator.comparing(Transaction::getValue));
+        System.out.println("maxTransaction:" + maxTransaction.get());
 
         // 找到交易额最小的交易
-
+        Optional<Transaction> minTransaction = transactions.stream().min(Comparator.comparing(Transaction::getValue));
+        System.out.println("maxTransaction:" + minTransaction.get());
     }
 }

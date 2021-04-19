@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.ManagedBean;
 
 @Slf4j
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
