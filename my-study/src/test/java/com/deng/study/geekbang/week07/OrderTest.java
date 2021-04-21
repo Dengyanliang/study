@@ -1,12 +1,15 @@
 package com.deng.study.geekbang.week07;
 
+import com.deng.study.MyApplication;
 import com.deng.study.dao.po.PayOrder;
 import com.deng.study.service.OrderService;
 import com.deng.study.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +21,10 @@ import java.util.concurrent.*;
  * @Date: 2021/3/19 00:10
  */
 @Slf4j
-@SpringBootTest
+// @RunWith(SpringRunner.class)注解的意义在于Test测试类要使用注入的类，比如@Autowired注入的类,)这些类才能实例化到spring容器中，
+// 自动注入才能生效，然直接一个NullPointerExecption
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes= MyApplication.class)
 public class OrderTest {
 
     @Autowired
