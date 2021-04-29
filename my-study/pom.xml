@@ -210,10 +210,20 @@
             <artifactId>testng</artifactId>
             <version>RELEASE</version>
         </dependency>
+
+        <!--devtools热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+            <scope>true</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+            <!-- 开启热部署-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
