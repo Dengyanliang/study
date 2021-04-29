@@ -237,6 +237,7 @@ public class TestStream {
         System.out.println("flag:"+ flag);
 
         flag = employees.stream().anyMatch(x->x.getAge()==30);
+        Optional<Employee> any = employees.stream().filter(x -> x.getAge() == 30).findAny(); // 等价于上面
         System.out.println("flag:"+ flag);
 
         flag = employees.stream().noneMatch(x->x.getName().equals("钱八"));
