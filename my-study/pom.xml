@@ -210,7 +210,6 @@
             <artifactId>testng</artifactId>
             <version>RELEASE</version>
         </dependency>
-
         <!--devtools热部署-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -219,6 +218,12 @@
             <scope>true</scope>
         </dependency>
 
+        <!-- 用于序列化 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.5.3</version>
+        </dependency>
     </dependencies>
 
     <build>
