@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Desc:
@@ -23,4 +24,7 @@ public class User implements Serializable {
     private String name;
     private int age;
     private int personId;
+
+    private List<Pet> petList;
+
 }
