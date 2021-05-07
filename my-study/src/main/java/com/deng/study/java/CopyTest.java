@@ -1,7 +1,9 @@
 package com.deng.study.java;
 
+import com.deng.study.domain.Person;
 import com.deng.study.domain.Pet;
 import com.deng.study.domain.User;
+import com.deng.study.util.ModelConvertUtil;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -30,10 +32,17 @@ public class CopyTest {
         user.setName("zhangsan");
         user.setPetList(petList);
 
-        User newUser = new User();
-        BeanUtils.copyProperties(user,newUser);
+        List<User> userList = new ArrayList<>();
+        userList.add(user);
 
-        System.out.println(newUser);
+//        User newUser = new User();
+//        List<User> newUserList = new ArrayList<>();
+
+//        BeanUtils.copyProperties(userList,newUserList); // 数据为空
+
+        List<Person> newUserList = ModelConvertUtil.mapList(userList, Person.class);
+
+        System.out.println(newUserList);
 
     }
 

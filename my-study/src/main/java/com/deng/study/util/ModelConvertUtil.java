@@ -7,6 +7,8 @@ import org.springframework.cglib.beans.BeanCopier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -19,14 +21,13 @@ import java.util.stream.Collectors;
 public final  class ModelConvertUtil {
     private static final Logger logger = LoggerFactory.getLogger(ModelConvertUtil.class);
 
-    private static final HashMap<String, BeanCopier> BEAN_COPIERS = new HashMap<String, BeanCopier>();
+    private static final Map<String, BeanCopier> BEAN_COPIERS = new ConcurrentHashMap<String, BeanCopier>();
     private ModelConvertUtil(){}
 
     private static String genKey(Class<?> srcClazz, Class<?> destClazz) {
         return srcClazz.getName() + destClazz.getName();
     }
-    public static <D,T> List<D> mapList(List<T> srcObj, Class<D> destinationClass)
-    {
+    public static <D,T> List<D> mapList(List<T> srcObj, Class<D> destinationClass) {
         if(srcObj==null||srcObj.size()==0){
             return new ArrayList<>(0);
         }
@@ -40,6 +41,7 @@ public final  class ModelConvertUtil {
                 copier = BEAN_COPIERS.get(key);
             }
             BeanCopier copier1=copier;
+
             List<D> destList= srcObj.stream().map(c->{
                 try {
                     D destObj=destinationClass.newInstance();
