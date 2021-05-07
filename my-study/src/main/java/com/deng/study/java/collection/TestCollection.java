@@ -52,5 +52,9 @@ public class TestCollection {
         Set set3 = null;
         set3 = list.stream().collect(Collectors.toCollection(LinkedHashSet::new)); // 按插入排序 [10, 1, zhangsan, lisi, wangwu]
         System.out.println(set3);
+
+        Set set4 = new HashSet();
+        boolean contains = set4.contains(1);
+        System.out.println(contains);
     }
 }
