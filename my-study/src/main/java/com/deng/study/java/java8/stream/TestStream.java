@@ -218,6 +218,19 @@ public class TestStream {
         System.out.println("^^^^^^^^^^");
 
         employees.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).forEach(System.out::println);
+
+//        // 第一种排序
+        List sortedList = employees.stream().sorted(Comparator.comparing(Employee::getAge)).collect(Collectors.toList());
+        System.out.println(sortedList);
+
+        // 第二种排序
+        TreeSet<Employee> sortedTreeSet = employees.stream().collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Employee::getAge))));
+        System.out.println(sortedTreeSet);
+
+         // 第三种排序
+        Set sortedLinkedSet = employees.stream().sorted(Comparator.comparing(Employee::getAge)).map(Employee::getName).collect(Collectors.toCollection(LinkedHashSet::new));
+        System.out.println("productIdSet:"+sortedLinkedSet);
+
     }
 
     /**
