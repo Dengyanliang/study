@@ -23,19 +23,6 @@
                         password="root123456">
         </jdbcConnection>
 
-        <!-- 本地 -->
-        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
-                        <!--connectionURL="jdbc:mysql://127.0.0.1:3306/tuhu_cl_newcomere"-->
-                        <!--userId="root"-->
-                        <!--password="root123456">-->
-        <!--</jdbcConnection>-->
-        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
-                        <!--connectionURL="jdbc:mysql://172.16.20.168:3306/tuhu_maint_configuration?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false&amp;allowMultiQueries=true"-->
-                        <!--userId="user_maint_configuration"-->
-                        <!--password="Tuhumima123">-->
-        <!--</jdbcConnection>-->
-
-
         <javaTypeResolver type="com.deng.study.generate.MyJavaTypeResolver">
 
         </javaTypeResolver>
