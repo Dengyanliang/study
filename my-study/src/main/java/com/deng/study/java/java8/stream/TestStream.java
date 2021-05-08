@@ -219,7 +219,7 @@ public class TestStream {
 
         employees.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).forEach(System.out::println);
 
-//        // 第一种排序
+//        // 第一种排序 有重复情况
         List sortedList = employees.stream().sorted(Comparator.comparing(Employee::getAge)).collect(Collectors.toList());
         System.out.println(sortedList);
 
