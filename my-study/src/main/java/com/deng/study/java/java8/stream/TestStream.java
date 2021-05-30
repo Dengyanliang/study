@@ -182,9 +182,13 @@ public class TestStream {
     public void testExercise(){
         List<Employee> employees = Employee.getEmployees();
         Optional<Integer> count = employees.stream().map(employee -> 1).reduce(Integer::sum);
-        System.out.println(count.get());
+        System.out.println(count.get()); // 7
 
+        Optional<Integer> reduce = employees.stream().map(Employee::getAge).reduce(Integer::sum);
+        System.out.println(reduce.get()); // 268
 
+        int sum = employees.stream().mapToInt(Employee::getAge).sum();
+        System.out.println(sum);  // 268
     }
 
 
