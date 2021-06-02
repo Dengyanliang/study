@@ -13,7 +13,9 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * @author hp
+ * Desc: 如果传入的是String,只有按照传入的日期格式进行转化，才能格式化成功
+ *
+ * @author
  * @date 2017/11/13
  */
 @Slf4j
@@ -27,6 +29,9 @@ public class DateUtil {
     public static final String MAX_DATE = "2099-12-31 23:59:59";
     public static final String YM = "yyyyMM";
     public static final String Y_M = "yyyy-MM";
+    public static final String YYYY_MM_DD_HH_mm_ss2 = "yyyy/MM/DD HH:mm:ss";
+    public static final String YYYY_MM_DD2 = "yyyy.MM.dd";
+
 
 
     public static boolean equals(Date date1, Date date2) {
@@ -35,7 +40,7 @@ public class DateUtil {
     }
 
     public static String parseDateFormat(Date date) {
-        SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat fo = new SimpleDateFormat(YMD);
         String retVal = "0000-00-00";
         try {
             retVal = fo.format(date);
@@ -47,7 +52,7 @@ public class DateUtil {
     }
 
     public static String parseDateTimeFormat(Date date) {
-        SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat fo = new SimpleDateFormat(YMDHMS);
         String retVal = "0000-00-00 00:00:00";
         try {
             retVal = fo.format(date);
@@ -146,7 +151,7 @@ public class DateUtil {
     public static java.sql.Date getSqlDate()  {
         java.util.Date d = new java.util.Date();
         //创建格式化对象
-        SimpleDateFormat formatter =new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter =new SimpleDateFormat(YMD);
         //格式化对象 d
         String strdf1=formatter.format(d);
         //初始化一个sql.Date对象为setDate()作准备
