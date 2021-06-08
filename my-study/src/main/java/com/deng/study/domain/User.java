@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,4 +28,34 @@ public class User implements Serializable {
 
     private List<Pet> petList;
 
+
+    public static User getSimpleUser(){
+        User user = new User();
+        user.setAge(12);
+        user.setPersonId(123);
+        user.setName("zhangsan");
+        return user;
+    }
+
+    public static User getComplexUser(){
+        Pet dogPet = new Pet();
+        dogPet.setAge(3);
+        dogPet.setName("dog");
+
+        Pet catPet = new Pet();
+        catPet.setAge(3);
+        catPet.setName("dog");
+
+        List<Pet> petList = new ArrayList<>();
+        petList.add(dogPet);
+        petList.add(catPet);
+
+        User user = new User();
+        user.setAge(12);
+        user.setPersonId(123);
+        user.setName("zhangsan");
+        user.setPetList(petList);
+
+        return user;
+    }
 }

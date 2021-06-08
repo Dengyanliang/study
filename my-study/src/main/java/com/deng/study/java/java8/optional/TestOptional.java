@@ -1,12 +1,13 @@
 package com.deng.study.java.java8.optional;
 
-import com.deng.study.java.java8.Employee;
+import com.deng.study.domain.Employee;
+import com.deng.study.domain.Trade;
+import com.deng.study.domain.Transaction;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @Desc:

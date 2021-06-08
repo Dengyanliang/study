@@ -1,6 +1,6 @@
 package com.deng.study.java.java8.lambda;
 
-import com.deng.study.java.java8.Employee;
+import com.deng.study.domain.Employee;
 
 /**
  * @Desc:

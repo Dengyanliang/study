@@ -1,11 +1,9 @@
-package com.deng.study.java.java8;
+package com.deng.study.domain;
 
-import com.deng.study.source.In;
 import lombok.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Desc:

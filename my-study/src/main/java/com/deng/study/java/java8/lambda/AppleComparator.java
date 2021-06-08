@@ -1,6 +1,6 @@
 package com.deng.study.java.java8.lambda;
 
-import com.deng.study.java.java8.Apple;
+import com.deng.study.domain.Apple;
 
 import java.util.Comparator;
 

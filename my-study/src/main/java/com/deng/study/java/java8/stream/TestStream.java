@@ -1,6 +1,6 @@
 package com.deng.study.java.java8.stream;
 
-import com.deng.study.java.java8.Employee;
+import com.deng.study.domain.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
