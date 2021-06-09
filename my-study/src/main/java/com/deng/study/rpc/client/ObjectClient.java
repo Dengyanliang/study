@@ -1,7 +1,7 @@
 package com.deng.study.rpc.client;
 
-import com.deng.study.rpc.RequestModel;
-import com.deng.study.rpc.ResponseModel;
+import com.deng.study.rpc.model.RequestModel;
+import com.deng.study.rpc.model.ResponseModel;
 import com.deng.study.rpc.server.HelloService;
 import com.deng.study.rpc.server.HelloServiceImpl;
 
@@ -23,24 +23,24 @@ public class ObjectClient {
             HelloService helloService = new HelloServiceImpl();
 
             // 该传输对象存储了客户端发起调用业务对象的一些信息
-            RequestModel transportModel = new RequestModel();
+            RequestModel requestModel = new RequestModel();
             // 将要被调用的对象
-            transportModel.setObject(helloService);
+            requestModel.setObject(helloService);
 
             // 获取业务对象的字节码信息
             Class clazz = helloService.getClass();
             // 将要被调用的方法
             Method method = clazz.getMethod("sayHello", String.class);
             // 被调用方法的参数类型
-            transportModel.setParameterTypes( method.getParameterTypes());
+            requestModel.setParameterTypes( method.getParameterTypes());
             // 被调用方法的参数
-            transportModel.setParameters(new Object[]{"RPC TEST"});
-            transportModel.setMethodName(method.getName());
+            requestModel.setParameters(new Object[]{"RPC TEST"});
+            requestModel.setMethodName(method.getName());
 
             // 将数据请求对象传给服务端。将对象转化成流，也就是进行序列化，方便在网络中传输
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(transportModel);
+            oos.writeObject(requestModel);
             oos.flush();
             byte[] bytes = bos.toByteArray();
 
