@@ -11,7 +11,7 @@ import java.net.Socket;
 /**
  * PRC服务端
  */
-public class ObjectSever {
+public class PRCServer {
 
     public static void main(String[] args) {
         try {

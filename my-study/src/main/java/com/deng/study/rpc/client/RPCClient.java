@@ -2,8 +2,8 @@ package com.deng.study.rpc.client;
 
 import com.deng.study.rpc.model.RequestModel;
 import com.deng.study.rpc.model.ResponseModel;
-import com.deng.study.rpc.server.HelloService;
-import com.deng.study.rpc.server.HelloServiceImpl;
+import com.deng.study.rpc.service.HelloService;
+import com.deng.study.rpc.service.HelloServiceImpl;
 
 import java.io.*;
 import java.lang.reflect.Method;
@@ -12,7 +12,7 @@ import java.net.Socket;
 /**
  * RPC客户端
  */
-public class ObjectClient {
+public class RPCClient {
 
     public static void main(String[] args) {
         try {

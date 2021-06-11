@@ -17,6 +17,12 @@ public class RequestModel implements Serializable{
      * 将要调用的对象
      */
     private Object object;
+
+    /**
+     * 接口名
+     */
+    private String serviceName;
+
     /**
      * 将要调用的方法
      */
@@ -29,4 +35,9 @@ public class RequestModel implements Serializable{
      * 将要调用的方法参数
      */
     private Object[] parameters;
+
+    /**
+     * 版本
+     */
+    private String version;
 }
