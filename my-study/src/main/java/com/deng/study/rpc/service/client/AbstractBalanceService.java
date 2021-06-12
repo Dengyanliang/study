@@ -1,11 +1,11 @@
-package com.deng.study.rpc.service.server;
+package com.deng.study.rpc.service.client;
 
 
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.List;
 
-public abstract class AbstractBalanceService implements ILoadBalanceService{
+public abstract class AbstractBalanceService implements LoadBalanceService {
 
     @Override
     public String selectHost(List<String> serviceNodes){

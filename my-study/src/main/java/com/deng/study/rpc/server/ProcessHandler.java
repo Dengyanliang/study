@@ -23,12 +23,14 @@ public class ProcessHandler implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("ProcessHandler start....");
         ObjectInputStream ois = null;
         try {
             InputStream is = socket.getInputStream();
             ois = new ObjectInputStream(is);
             RequestModel requestModel = (RequestModel) ois.readObject();
 
+            // 调用目标接口
             Object result = invoke(requestModel);
 
             ResponseModel responseModel = new ResponseModel();
@@ -53,12 +55,18 @@ public class ProcessHandler implements Runnable{
         try {
             String serviceName = requestModel.getServiceName();
             String methodName = requestModel.getMethodName();
-            Class<?>[] parameterTypes = requestModel.getParameterTypes();
+//            Class<?>[] parameterTypes = requestModel.getParameterTypes();
             Object[] parameters = requestModel.getParameters();
+
+            Class<?>[] parameterTypes = new Class<?>[parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                // 获取每个参数的类型
+                parameterTypes[i] = parameters[i].getClass();
+            }
 
             String version = requestModel.getVersion();
             if(StringUtils.isNoneBlank(version)){
-                serviceName = serviceName + version;
+                serviceName = serviceName + "-" +version;
             }
             Object service = handlerMap.get(serviceName);
 

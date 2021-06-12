@@ -7,8 +7,8 @@ import java.io.Serializable;
 /**
  * 必须实现序列化
  */
-@RpcAnnotation(value = HelloService.class)
-public class HelloServiceImpl implements Serializable, HelloService {
+@RpcAnnotation(value = HelloService.class,version = "1.0")
+public class HelloServiceImpl3 implements Serializable, HelloService {
     @Override
     public String sayHello(String str) {
         String result = "hello," + str;
