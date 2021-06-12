@@ -48,10 +48,12 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     }
 
     private void registerWatcher(String path) throws Exception {
+        System.out.println("registerWatcher begin...");
         PathChildrenCache pathChildrenCache = new PathChildrenCache(curatorFramework,path,true);
         PathChildrenCacheListener listener = new PathChildrenCacheListener() {
             @Override
             public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
+                System.out.println("registerWatcher childEvent....");
                 serviceNodes = curatorFramework.getChildren().forPath(path);
             }
         };

@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * PRC服务端
+ * PRC服务端--简易版的RPC服务端
  */
 public class PRCServer {
 

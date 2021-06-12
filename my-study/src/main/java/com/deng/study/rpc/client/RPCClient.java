@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.net.Socket;
 
 /**
- * RPC客户端
+ * RPC客户端---简易版的RPC客户端
  */
 public class RPCClient {
 
