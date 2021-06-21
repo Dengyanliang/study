@@ -33,14 +33,14 @@ public class NettyClient {
     public void start() throws InterruptedException {
         EventLoopGroup group = new NioEventLoopGroup();
         Bootstrap bs = new Bootstrap();
-        bs.group(group).channel(NioSocketChannel.class).
+        bs.group(group).channel(NioSocketChannel.class). // 使用NioSocketChannel来作为连接用的channel类
                 handler(new ChannelInitializer<SocketChannel>() { // 绑定连接初始化器
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         System.out.println("正在连接中。。。");
                         ChannelPipeline pipeline = socketChannel.pipeline();
-                        pipeline.addLast(new NettyRpcEncoder(RequestModel.class));
-                        pipeline.addLast(new NettyRpcDecoder(ResponseModel.class));
+                        pipeline.addLast(new NettyRpcEncoder(RequestModel.class)); // 编码request
+                        pipeline.addLast(new NettyRpcDecoder(ResponseModel.class)); // 解码response
                         pipeline.addLast(new NettyClientHandler()); // 客户端处理类
                     }
                 });
