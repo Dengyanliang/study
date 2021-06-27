@@ -19,6 +19,7 @@ public class NettyClient {
     private final String host;
     private final int port;
     private Channel channel;
+    private NettyClientHandler nettyClientHandler;
 
     /**
      * 连接服务端的端口号和地址
@@ -28,46 +29,57 @@ public class NettyClient {
     public NettyClient(String host, int port) {
         this.host = host;
         this.port = port;
+        connect();
     }
 
-    public void start() throws InterruptedException {
-        EventLoopGroup group = new NioEventLoopGroup();
-        Bootstrap bs = new Bootstrap();
-        bs.group(group).channel(NioSocketChannel.class).
-                handler(new ChannelInitializer<SocketChannel>() { // 绑定连接初始化器
-                    @Override
-                    protected void initChannel(SocketChannel socketChannel) throws Exception {
-                        System.out.println("正在连接中。。。");
-                        ChannelPipeline pipeline = socketChannel.pipeline();
-                        pipeline.addLast(new NettyRpcEncoder(RequestModel.class));
-                        pipeline.addLast(new NettyRpcDecoder(ResponseModel.class));
-                        pipeline.addLast(new NettyClientHandler()); // 客户端处理类
+    private void connect() {
+        try {
+            EventLoopGroup group = new NioEventLoopGroup();
+
+            // 客户端信息
+            Bootstrap bs = new Bootstrap();
+            bs.group(group).channel(NioSocketChannel.class).
+                    handler(new ChannelInitializer<SocketChannel>() { // 绑定连接初始化器
+                        @Override
+                        protected void initChannel(SocketChannel socketChannel) throws Exception {
+                            System.out.println("正在连接中。。。");
+
+                            nettyClientHandler = new NettyClientHandler();
+                            ChannelPipeline pipeline = socketChannel.pipeline();
+                            pipeline.addLast(new NettyRpcEncoder(RequestModel.class));
+                            pipeline.addLast(new NettyRpcDecoder(ResponseModel.class));
+                            pipeline.addLast(nettyClientHandler); // 客户端处理类
+                        }
+                    });
+
+            // 发起异步连接请求，绑定端口和host信息
+            final ChannelFuture future = bs.connect(host,port).sync();
+            future.addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture channelFuture) throws Exception {
+                    if(future.isSuccess()){
+                        System.out.println("服务器连接成功");
+                    }else{
+                        System.out.println("服务器连接失败");
+                        future.cause().printStackTrace();
+                        group.shutdownGracefully();
+                        connect();
                     }
-                });
-
-        // 发起异步连接请求，绑定端口和host信息
-        final ChannelFuture future = bs.connect(host,port).sync();
-        future.addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture channelFuture) throws Exception {
-                if(future.isSuccess()){
-                    System.out.println("服务器连接成功");
-                }else{
-                    System.out.println("服务器连接失败");
-                    future.cause().printStackTrace();
-                    group.shutdownGracefully();
                 }
-            }
-        });
+            });
 
-        this.channel = future.channel();
+            this.channel = future.channel();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("e:" + e);
+        }
     }
 
     public Channel getChannel() {
         return channel;
     }
 
-    public void setChannel(Channel channel) {
-        this.channel = channel;
+    public NettyClientHandler getNettyClientHandler() {
+        return nettyClientHandler;
     }
 }

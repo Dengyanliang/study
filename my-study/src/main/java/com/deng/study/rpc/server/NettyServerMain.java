@@ -7,6 +7,6 @@ package com.deng.study.rpc.server;
  */
 public class NettyServerMain {
     public static void main(String[] args) throws Exception {
-        new NettyServer().bind(8082);
+        new NettyServer().bind(8083);
     }
 }

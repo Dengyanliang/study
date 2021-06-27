@@ -7,6 +7,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 /**
  * @Desc:
@@ -21,11 +23,15 @@ public class NettyServer {
         // workerGroup是childGroup，负责处理channel（通道）的I/O事件
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
+        // nio服务的启动类
         ServerBootstrap sb = new ServerBootstrap();
+
+        // 配置nio服务参数
         sb.group(bossGroup,workerGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG,128) // 初始化服务端可连接队列，指定了队列的大小128
                 .childOption(ChannelOption.SO_KEEPALIVE,true) // 保持长连接
+                .handler(new LoggingHandler(LogLevel.INFO))
                 .childHandler(new ChannelInitializer<SocketChannel>() { // 绑定客户端连接时触发操作
                     @Override
                     protected void initChannel(SocketChannel channel)  {
@@ -39,6 +45,9 @@ public class NettyServer {
         // 绑定监听端口，调用sync同步阻塞方法等待绑定操作完
         ChannelFuture future = sb.bind(port).sync();
 
+        // 开多个端口
+//        ChannelFuture future2 = sb.bind(8090).sync();
+
         if(future.isSuccess()){
             System.out.println("服务端启动成功");
         }else{
@@ -49,7 +58,8 @@ public class NettyServer {
             workerGroup.shutdownGracefully();
         }
 
-        // 成功绑定到端口之后，给channel增加一个管道关闭的监听器，并同步阻塞，知道channel关闭，线程才会往下执行，结束进程
+        // 等待服务端口的关闭；
+        // 成功绑定到端口之后，给channel增加一个管道关闭的监听器，并同步阻塞，直到channel关闭，线程才会往下执行，结束进程
         future.channel().closeFuture().sync();
     }
 

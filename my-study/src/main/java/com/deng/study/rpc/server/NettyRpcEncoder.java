@@ -6,7 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
 /**
- * @Desc:
+ * @Desc:编码
  * @Auther: dengyanliang
  * @Date: 2021/6/18 21:34
  */
