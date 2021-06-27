@@ -32,3 +32,6 @@ spring:
 
 mybatis:
   mapper-locations: classpath:base/mapper/*Mapper.xml
+
+server:
+  port: 8081

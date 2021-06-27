@@ -27,7 +27,7 @@ public class NettyRpcDecoder extends ByteToMessageDecoder {
         }
         in.markReaderIndex();  // 标记一下当前的readIndex的位置
         int dataLength = in.readInt(); // 读取传送过来的消息长度。该方法会让readIndex增加4
-        // https://blog.csdn.net/qq_22200097/article/details/83042424
+        // 如果读到的消息体长度小于传递过来的消息长度，则调用resetReaderIndex重置。该方法配合markReaderIndex使用，把readIndex重置到mark的地方
         if(in.readableBytes() < dataLength){
             in.resetReaderIndex();
             return;
@@ -35,7 +35,7 @@ public class NettyRpcDecoder extends ByteToMessageDecoder {
         byte[] data = new byte[dataLength];
         in.readBytes(data);
 
-        Object object = JSON.parseObject(data, target);
+        Object object = JSON.parseObject(data, target); // 把byte数据转化为对象
         out.add(object);
     }
 
