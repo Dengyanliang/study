@@ -25,7 +25,6 @@ public class User implements Serializable {
     private String name;
     private int age;
     private int personId;
-
     private List<Pet> petList;
 
 
@@ -43,8 +42,8 @@ public class User implements Serializable {
         dogPet.setName("dog");
 
         Pet catPet = new Pet();
-        catPet.setAge(3);
-        catPet.setName("dog");
+        catPet.setAge(2);
+        catPet.setName("cat");
 
         List<Pet> petList = new ArrayList<>();
         petList.add(dogPet);
