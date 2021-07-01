@@ -5,7 +5,7 @@ import com.deng.study.dao.po.PayOrder;
 import com.deng.study.service.OrderService;
 import com.deng.study.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +23,7 @@ import java.util.concurrent.*;
 @Slf4j
 // @RunWith(SpringRunner.class)注解的意义在于Test测试类要使用注入的类，比如@Autowired注入的类,)这些类才能实例化到spring容器中，
 // 自动注入才能生效，然直接一个NullPointerExecption
+// 一定要使用org.junit.Test，不然会报错
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= MyApplication.class)
 public class OrderTest {
@@ -34,7 +35,7 @@ public class OrderTest {
     private ThreadPoolExecutor threadPoolExecutor;
 
     @Test
-    void addOrder(){
+    public void addOrder(){
         long start = System.currentTimeMillis();
         int max = 10;
         PayOrder order = null;
@@ -54,7 +55,7 @@ public class OrderTest {
     }
 
     @Test
-    void addOrderList(){
+    public void addOrderList(){
         log.info("add order list begin...");
         long start = System.currentTimeMillis();
         int max = 1000000;
@@ -82,7 +83,7 @@ public class OrderTest {
     }
 
     @Test
-    void addOrderList２(){
+    public void addOrderList２(){
         log.info("add order list begin...");
         long start = System.currentTimeMillis();
         orderService.addBatchOrder2();
@@ -91,7 +92,7 @@ public class OrderTest {
     }
 
     @Test
-    void getOrder(){
+    public void getOrder(){
         log.info("add order list begin...");
         long start = System.currentTimeMillis();
         for(int i = 0 ; i < 4; i++){
