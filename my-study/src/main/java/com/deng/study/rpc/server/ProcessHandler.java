@@ -54,7 +54,6 @@ public class ProcessHandler implements Runnable{
         try {
             String serviceName = requestModel.getServiceName();
             String methodName = requestModel.getMethodName();
-//            Class<?>[] parameterTypes = requestModel.getParameterTypes();
             Object[] parameters = requestModel.getParameters();
 
             Class<?>[] parameterTypes = new Class<?>[parameters.length];

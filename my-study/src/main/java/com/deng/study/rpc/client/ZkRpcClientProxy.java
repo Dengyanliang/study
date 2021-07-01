@@ -21,6 +21,6 @@ public class ZkRpcClientProxy {
 
     public <T> T createProxy(final Class<T> interfaces){
         return (T)Proxy.newProxyInstance(interfaces.getClassLoader(),new Class[]{interfaces},
-                new RemoteInvocationHandler(discoveryService,version));
+                new ZkRemoteInvocationHandler(discoveryService,version));
     }
 }

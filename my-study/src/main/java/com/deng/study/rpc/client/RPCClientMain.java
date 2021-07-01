@@ -12,7 +12,7 @@ import java.net.Socket;
 /**
  * RPC客户端---简易版的RPC客户端
  */
-public class RPCClient {
+public class RPCClientMain {
 
     public static void main(String[] args) {
         try {

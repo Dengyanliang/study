@@ -6,7 +6,7 @@ import com.deng.study.rpc.service.HelloService;
 import com.deng.study.rpc.service.client.DiscoveryService;
 import com.deng.study.rpc.service.client.DiscoveryServiceImpl;
 
-public class ZkClient {
+public class ZkClientMain {
 
     public static void main(String[] args) {
 

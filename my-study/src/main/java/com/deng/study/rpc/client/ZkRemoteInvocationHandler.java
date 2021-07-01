@@ -18,12 +18,12 @@ import java.net.Socket;
  * @Auther: dengyanliang
  * @Date: 2021/6/12 08:36
  */
-public class RemoteInvocationHandler implements InvocationHandler {
+public class ZkRemoteInvocationHandler implements InvocationHandler {
 
     private DiscoveryService discoveryService;
     private String version;
 
-    public RemoteInvocationHandler(DiscoveryService discoveryService, String version) {
+    public ZkRemoteInvocationHandler(DiscoveryService discoveryService, String version) {
         this.discoveryService = discoveryService;
         this.version = version;
     }

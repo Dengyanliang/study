@@ -27,7 +27,7 @@ public class ZkClientTest {
         // 监听 当前节点和子节点的内容修改、删除
         zkClient.subscribeDataChanges(ZkConfig.PATH,new IZkDataListener(){
             @Override
-            public void handleDataChange(String path, Object data   ) throws Exception {
+            public void handleDataChange(String path, Object data) throws Exception {
                 System.out.println("变更的节点为:" + path + ", 变更内容为:" + data);
             }
 
