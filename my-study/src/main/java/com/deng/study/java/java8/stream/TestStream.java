@@ -90,6 +90,10 @@ public class TestStream {
         Stream<Employee> stream = employees.stream();
         Stream<String> stream1 = stream.map(Employee::getName);
         stream1.forEach(System.out::println);
+
+        // list转map，并以name进行分组
+        Map<String, Employee> employeeMap = employees.stream().collect(Collectors.toMap(Employee::getName, e -> e, (e1, e2) -> e2));
+        System.out.println(employeeMap);
     }
 
 
