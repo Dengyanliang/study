@@ -26,10 +26,19 @@ public class TestCollection {
 
     @Test
     public void testMap() {
+        Map tempMap = new HashMap();
+        tempMap.put(null,1);
+        Object o = tempMap.get(null);
+        System.out.println("null test:"+o);
+
         ConcurrentMap<Object, Object> map = Maps.newConcurrentMap();
         if (MapUtils.isEmpty(map)) {
             System.out.println("---------2123----------");
         }
+
+        // 不用判断直接添加
+        Map<String, Collection<String>> mapList = new HashMap<>();
+        mapList.computeIfAbsent("d",p->new ArrayList<>()).add("1");
     }
 
     @Test
