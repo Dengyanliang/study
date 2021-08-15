@@ -10,6 +10,7 @@
 
     <modules>
         <module>my-study</module>
+        <module>sharding-shpere</module>
     </modules>
 
 </project>

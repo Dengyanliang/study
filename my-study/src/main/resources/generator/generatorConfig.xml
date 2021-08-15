@@ -18,7 +18,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/deng"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/course_db"
                         userId="root"
                         password="root123456">
         </jdbcConnection>
@@ -38,7 +38,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="maint_dynamic_package_relation">
+        <table tableName="course_1">
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
         </table>
 

@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Configuration
 @Component
-public class DataSourceConfiguration {
+public class MyDataSourceConfiguration {
 
     @Bean("masterDsProperties")
     @ConfigurationProperties(prefix = "spring.datasource.master")
@@ -90,6 +90,5 @@ public class DataSourceConfiguration {
         targetDataSources.put("dataSource_slave2",slaveDataSource3);
 
         return new DynamicDataSource(masterDataSource,targetDataSources);
-//        return new DynamicDataSource(masterDataSource,targetDataSources,mapDataSourceLookup(slaveDataSource1,slaveDataSource2,slaveDataSource3));
     }
 }

@@ -1,6 +1,7 @@
 package com.deng.study;
 
-import com.deng.study.common.configuration.DataSourceConfiguration;
+//import com.deng.study.common.configuration.MyDataSourceConfiguration;
+import com.deng.study.common.configuration.MyDataSourceConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ImportResource("classpath:applicationContext.xml")
 @MapperScan("com.deng.study.dao.mapper")
-@Import({DataSourceConfiguration.class})
+@Import({MyDataSourceConfiguration.class})
 public class MyApplication {
 
     public static void main(String[] args) {
