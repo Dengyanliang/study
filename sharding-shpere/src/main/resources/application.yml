@@ -17,46 +17,90 @@ elasticsearch:
 #    password: root123456
 
 
-spring:
-  datasource:
-    # 动态数据源配置
-    dynamic:
-      datasource:
-        master:
-          type: org.apache.commons.dbcp2.BasicDataSource
-          driver-class-name: com.mysql.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/deng?useUnicode=true&characterEncoding=utf-8&useSSL=false
-          username: root
-          password: root123456
-      # 指定默认数据源名称
-      primary: master
-  # 分表配置
-  shardingsphere:
-    datasource:
-      names: m1
-      m1:
-        type: org.apache.commons.dbcp2.BasicDataSource
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/course_db1?useUnicode=true&characterEncoding=utf-8&useSSL=false
-        username: root
-        password: root123456
-    props:
-      # 日志显示SQL
-      sql.show: true
-    sharding:
-      tables:
-        # 订单表 分表：20
-        course:
-          # 真实表 order_0
-          actualDataNodes: m1.course_$->{1..2}
-          # 分库策略
-#          databaseStrategy: none
-          # 分表策略
-          tableStrategy:
-            inline:
-              shardingColumn: id
-              # 分片算法行表达式，需符合groovy语法 '& Integer.MAX_VALUE' 位运算使hash值为正数
-              algorithmExpression: course_$->{id % 2 + 1}
-#              algorithmExpression: order_$->{(order_key.hashCode() & Integer.MAX_VALUE) % 20}
-  main:
-    allow-bean-definition-overriding: true
+#spring:
+#  datasource:
+#    # 动态数据源配置
+#    dynamic:
+#      datasource:
+#        master0:
+#          type: org.apache.commons.dbcp2.BasicDataSource
+#          driver-class-name: com.mysql.jdbc.Driver
+#          url: jdbc:mysql://localhost:3306/deng?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#          username: root
+#          password: root123456
+#      # 指定默认数据源名称
+#      primary: master0
+#  # 分表配置
+#  shardingsphere:
+#    datasource:
+#      names: m1
+#      m1:
+#        type: org.apache.commons.dbcp2.BasicDataSource
+#        driverClassName: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/course_db1?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#        username: root
+#        password: root123456
+#    sharding:
+#      tables:
+#        # 订单表 分表：20
+#        course:
+#          # 真实表 order_0
+#          actualDataNodes: m1.course_$->{1..2}
+#          # 分库策略
+##          databaseStrategy: none
+#          # 分表策略
+#          tableStrategy:
+#            inline:
+#              shardingColumn: id
+#              # 分片算法行表达式，需符合groovy语法 '& Integer.MAX_VALUE' 位运算使hash值为正数
+#              algorithmExpression: course_$->{id % 2 + 1}
+##              algorithmExpression: order_$->{(order_key.hashCode() & Integer.MAX_VALUE) % 20}
+#      defaultDataSourceName:
+#        master0
+#    props:
+#      # 日志显示SQL
+#      sql.show: true
+#
+#  main:
+#    allow-bean-definition-overriding: true
+
+#spring:
+#  dataSources:
+#    ds0: !!org.apache.commons.dbcp.BasicDataSource
+#      driverClassName: com.mysql.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/ds0
+#      username: root
+#      password:
+#    ds1: !!org.apache.commons.dbcp.BasicDataSource
+#      driverClassName: com.mysql.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/ds1
+#      username: root
+#      password:
+#
+#  shardingRule:
+#    tables:
+#      t_order:
+#        actualDataNodes: ds${0..1}.t_order${0..1}
+#        databaseStrategy:
+#          inline:
+#            shardingColumn: user_id
+#            algorithmExpression: ds${user_id % 2}
+#        tableStrategy:
+#          inline:
+#            shardingColumn: order_id
+#            algorithmExpression: t_order${order_id % 2}
+#        keyGenerator:
+#          type: SNOWFLAKE
+#          column: order_id
+#    bindingTables:
+#      - t_orders
+#
+#    defaultDataSourceName: ds0
+#    defaultTableStrategy:
+#      none:
+#    defaultKeyGenerator:
+#      type: SNOWFLAKE
+#      column: order_id
+#
+#  props:
+#    sql.show: true

@@ -8,6 +8,7 @@ import com.deng.study.shardingsphere.po.Course;
 import com.deng.study.shardingsphere.po.PayOrder;
 import com.deng.study.shardingsphere.po.Udict;
 import com.deng.study.shardingsphere.service.CourseService;
+import com.deng.study.shardingsphere.service.PayOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.DateUtil;
 import org.junit.Test;
@@ -40,6 +41,9 @@ public class ShardingJdbcTest {
     @Autowired
     private PayOrderMapper payOrderMapper;
 
+    @Autowired
+    private PayOrderService payOrderService;
+
     /**
      * 分库分表都能使用
      */
@@ -48,7 +52,7 @@ public class ShardingJdbcTest {
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Course course = new Course();
-            course.setName("物理--");
+            course.setName("英语");
             course.setUserId(Long.valueOf(random.nextInt(100)));
             course.setStatus("normal");
 
@@ -62,12 +66,18 @@ public class ShardingJdbcTest {
      */
     @Test
     public void getCourseByTable(){
-        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id",1426826278345302017L);
+        for (int i = 0; i < 10; i++) {
+            QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("id",1428868022394122241L);
 //        Course course = courseMapper.selectOne(queryWrapper);
 
-        Course course = courseService.getCourse(queryWrapper);
-        System.out.println(course);
+            Course course = courseService.getCourse(queryWrapper);
+            System.out.println(course);
+
+            if(course.getUserId().intValue() == 53){
+                System.out.println("=============");
+            }
+        }
     }
 
     /**
@@ -76,8 +86,8 @@ public class ShardingJdbcTest {
     @Test
     public void getCourseByDbAndTable(){
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id",31);
-        queryWrapper.eq("id",1426826278391439362L);
+        queryWrapper.eq("user_id",53);
+        queryWrapper.eq("id",1428868022394122241L);
         Course course = courseMapper.selectOne(queryWrapper);
         System.out.println(course);
     }
@@ -112,7 +122,7 @@ public class ShardingJdbcTest {
             order.setCreateTime(DateUtil.now());
             order.setPayFinishTime(DateUtil.now());
             order.setVersion(1);
-            payOrderMapper.insert(order);
+            payOrderService.addPayOrder(order);
         }
         long end = System.currentTimeMillis();
         log.info("总的耗时：{}",end-start);
