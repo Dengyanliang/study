@@ -23,13 +23,11 @@ public class CourseServiceImpl implements CourseService {
     private CourseMapper courseMapper;
 
     @Override
-//    @DS("gits_sharding")
     public void addCourse(Course course) {
         courseMapper.insert(course);
     }
 
     @Override
-//    @DS("gits_sharding")
     public Course getCourse(QueryWrapper<Course> queryWrapper ) {
         return courseMapper.selectOne(queryWrapper);
     }

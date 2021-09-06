@@ -39,9 +39,6 @@ public class ShardingJdbcTest {
     private UdictMapper udictMapper;
 
     @Autowired
-    private PayOrderMapper payOrderMapper;
-
-    @Autowired
     private PayOrderService payOrderService;
 
     /**
@@ -52,7 +49,7 @@ public class ShardingJdbcTest {
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Course course = new Course();
-            course.setName("英语");
+            course.setName("化学------");
             course.setUserId(Long.valueOf(random.nextInt(100)));
             course.setStatus("normal");
 
@@ -86,8 +83,8 @@ public class ShardingJdbcTest {
     @Test
     public void getCourseByDbAndTable(){
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id",53);
-        queryWrapper.eq("id",1428868022394122241L);
+        queryWrapper.eq("user_id",59);
+        queryWrapper.eq("id",1433960431667847169L);
         Course course = courseMapper.selectOne(queryWrapper);
         System.out.println(course);
     }
