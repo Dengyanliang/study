@@ -16,6 +16,14 @@
     <modules>
         <module>my-study</module>
         <module>sharding-shpere</module>
+        <module>distributed-transaction</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

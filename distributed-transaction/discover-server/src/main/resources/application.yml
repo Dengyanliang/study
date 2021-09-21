@@ -1,0 +1,19 @@
+spring:
+  applicaiton:
+    name: seata-demo-discovery
+
+server:
+  port: 56000
+
+eureka:
+  server:
+    enable-self-preservation: false #关闭服务器自我保护，客户端心跳检测
+    eviction-interval-timer-in-ms: 1000 #清理间隔（单位毫秒）
+    response-cache-update-interval-ms: 3000 #刷新
+    response-cache-auto-expiration-in-seconds: 180 #缓存
+  client:
+    register-with-eureka: false #不作为一个客户端注册到注册中心
+    fetch-registry: false
+    instance-info-replication-interval-seconds: 10
+    service-url:
+
