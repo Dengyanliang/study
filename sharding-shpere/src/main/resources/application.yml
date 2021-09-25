@@ -1,9 +1,2 @@
-mybatis:
-  mapper-locations: classpath:base/mapper/*Mapper.xml
-
 server:
   port: 8081
-
-elasticsearch:
-  host: 127.0.0.1
-  port: 9200

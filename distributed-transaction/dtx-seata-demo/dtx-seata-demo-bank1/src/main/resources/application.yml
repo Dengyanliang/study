@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: seata-demo-bank1
+  main:
+    allow-bean-definition-overriding: true
