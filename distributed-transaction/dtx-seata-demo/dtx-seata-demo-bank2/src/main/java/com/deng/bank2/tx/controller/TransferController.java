@@ -1,5 +1,9 @@
 package com.deng.bank2.tx.controller;
 
+import com.deng.bank2.tx.facade.request.TransferRequest;
+import com.deng.bank2.tx.facade.response.TransferResponse;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -7,12 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @Auther: dengyanliang
  * @Date: 2021/9/26 07:59
  */
-@RestController
+@RestController("/")
 public class TransferController {
 
+    @PostMapping("/transfer")
+    public TransferResponse transfer(TransferRequest request){
+        TransferResponse response = new TransferResponse();
 
-    public boolean transfer(){
-
-        return false;
+        return response;
     }
 }
