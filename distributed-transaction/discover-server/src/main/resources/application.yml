@@ -3,7 +3,7 @@ spring:
     name: seata-demo-discovery
 
 server:
-  port: 56000
+  port: 56080
 
 eureka:
   server:
