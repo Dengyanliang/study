@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableHystrix
-@EnableFeignClients(basePackages = "com.deng.bank1.tx.remote")
+@EnableFeignClients(basePackages = "com.deng.bank1.tx")
 public class Bank1Server {
     public static void main(String[] args) {
         SpringApplication.run(Bank1Server.class,args);
