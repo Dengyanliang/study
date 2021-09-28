@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Auther: dengyanliang
  * @Date: 2021/9/26 07:59
  */
-@RestController("/")
+@RestController("/tx")
 public class TransferController {
 
     @PostMapping("/transfer")
