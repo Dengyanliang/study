@@ -17,3 +17,10 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:56080/eureka/
+
+seata:
+  enabled: true
+  application-id: seata-bank1
+  tx-service-group: seata_example_tx_group
+
+  ## https://blog.csdn.net/u010634066/article/details/106739176/
