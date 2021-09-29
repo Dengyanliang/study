@@ -12,6 +12,12 @@
     <artifactId>dtx-seata-demo-bank2</artifactId>
 
     <dependencies>
+        <!--用于解决ureka Client启动后就关闭 Unregistering application xxx with eureka with status DOWN-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>

@@ -20,7 +20,16 @@ eureka:
 
 seata:
   enabled: true
-  application-id: seata-bank1
-  tx-service-group: seata_example_tx_group
+  application-id: seata-demo-bank1
+  #客户端和服务端在同一个事务组
+  tx-service-group: my_test_tx_group
 
   ## https://blog.csdn.net/u010634066/article/details/106739176/
+  enable-auto-data-source-proxy: true
+  registry:
+    type: eureka
+    eureka:
+      application: seata-demo-discovery
+      service-url: http://localhost:56080/eureka
+  config:
+    type: file
