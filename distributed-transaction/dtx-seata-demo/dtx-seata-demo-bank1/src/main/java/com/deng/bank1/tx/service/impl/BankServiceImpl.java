@@ -24,8 +24,8 @@ public class BankServiceImpl implements BankService {
     @Autowired
     private BankClient bankClient;
 
-//    @Transactional
-//    @GlobalTransactional
+    @Transactional
+    @GlobalTransactional
     @Override
     public boolean transfer(Long id, Double amount) {
         TransferRequest request = new TransferRequest();

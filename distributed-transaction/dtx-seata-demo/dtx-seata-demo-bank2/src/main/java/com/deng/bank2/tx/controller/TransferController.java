@@ -6,10 +6,7 @@ import com.deng.bank2.tx.facade.response.TransferResponse;
 import com.deng.bank2.tx.service.TransferService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Desc:
@@ -17,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2021/9/26 07:59
  */
 @Slf4j
-@RestController("/bank2")
+@RestController
+@RequestMapping("/bank2")
 public class TransferController {
 
     @Autowired
