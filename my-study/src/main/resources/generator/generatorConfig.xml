@@ -18,7 +18,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/course_db"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/seata_amount?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT"
                         userId="root"
                         password="root123456">
         </jdbcConnection>
@@ -38,7 +38,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="course_1">
+        <table tableName="account">
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
         </table>
 

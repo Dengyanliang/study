@@ -15,19 +15,19 @@ import javax.sql.DataSource;
  * @Auther: dengyanliang
  * @Date: 2021/9/26 07:41
  */
-@Configuration
+//@Configuration
 public class DataSourceConfiguration {
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.ds0")
-    public DruidDataSource ds0(){
-        return new DruidDataSource();
-    }
-
-    @Bean
-    @Primary
-    public DataSource dataSource(DruidDataSource ds0){
-        return new DataSourceProxy(ds0);
-    }
+//    @Bean
+//    @ConfigurationProperties(prefix = "spring.datasource.ds0")
+//    public DruidDataSource ds0(){
+//        return new DruidDataSource();
+//    }
+//
+//    @Bean
+//    @Primary
+//    public DataSource dataSource(DruidDataSource ds0){
+//        return new DataSourceProxy(ds0);
+//    }
 
 }

@@ -19,6 +19,6 @@ public class TransferTest {
 
     @Test
     public void test(){
-        bankService.transfer(10L,20d);
+        bankService.transfer(1,2L);
     }
 }

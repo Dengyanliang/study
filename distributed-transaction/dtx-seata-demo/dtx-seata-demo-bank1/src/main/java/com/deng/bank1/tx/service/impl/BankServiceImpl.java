@@ -1,9 +1,11 @@
 package com.deng.bank1.tx.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.deng.bank1.tx.entity.Orders;
+import com.deng.bank1.tx.mapper.OrdersMapper;
 import com.deng.bank1.tx.remote.client.BankClient;
-import com.deng.bank1.tx.remote.request.TransferRequest;
-import com.deng.bank1.tx.remote.response.TransferResponse;
+import com.deng.bank1.tx.remote.request.AccountRequest;
+import com.deng.bank1.tx.remote.response.AccountResponse;
 import com.deng.bank1.tx.service.BankService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
@@ -11,12 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-// https://developer.aliyun.com/article/768872
-// https://developer.51cto.com/art/202012/634212.htm
-// https://blog.csdn.net/qq_37014611/article/details/106467014
-// https://cloud.tencent.com/developer/article/1583806
-// https://blog.csdn.net/u010634066/article/details/106739176/
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.Date;
 
+// https://www.iocoder.cn/Spring-Cloud-Alibaba/Seata/
 @Slf4j
 @Service
 public class BankServiceImpl implements BankService {
@@ -24,14 +25,29 @@ public class BankServiceImpl implements BankService {
     @Autowired
     private BankClient bankClient;
 
+    @Resource
+    private OrdersMapper ordersMapper;
+
     @Transactional
     @GlobalTransactional
     @Override
-    public boolean transfer(Long id, Double amount) {
-        TransferRequest request = new TransferRequest();
+    public boolean transfer(Integer id, Long amount) {
+
+        // 新增订单
+        Orders orders = new Orders();
+        orders.setId(1);
+        orders.setUserId(id);
+        orders.setProductId(1);
+        orders.setPayAmount(new BigDecimal(amount));
+        orders.setAddTime(new Date());
+        orders.setLastUpdateTime(new Date());
+
+        ordersMapper.insert(orders);
+
+        AccountRequest request = new AccountRequest();
         request.setUserId(id);
         request.setAmount(amount);
-        TransferResponse response = bankClient.transfer(request);
+        AccountResponse response = bankClient.transfer(request);
         log.info("response:{}", JSON.toJSONString(response));
         return true;
     }

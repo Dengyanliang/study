@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-public class TransferRequest implements Serializable {
-    private Long userId;
-    private Double amount;
+public class AccountRequest implements Serializable {
+    private Integer userId;
+    private Long amount;
 }

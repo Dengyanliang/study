@@ -1,9 +1,9 @@
 package com.deng.bank2.tx.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.deng.bank2.tx.facade.request.TransferRequest;
-import com.deng.bank2.tx.facade.response.TransferResponse;
-import com.deng.bank2.tx.service.TransferService;
+import com.deng.bank2.tx.facade.request.AccountRequest;
+import com.deng.bank2.tx.facade.response.AccountResponse;
+import com.deng.bank2.tx.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-@RequestMapping("/bank2")
-public class TransferController {
+@RequestMapping("/account")
+public class AccountController {
 
     @Autowired
-    private TransferService transferService;
+    private AccountService transferService;
 
     @PostMapping("/transfer")
-    public TransferResponse transfer(@RequestBody TransferRequest request){
+    public AccountResponse transfer(@RequestBody AccountRequest request){
         log.info("request:{}", JSON.toJSONString(request));
-        TransferResponse response = new TransferResponse();
+        AccountResponse response = new AccountResponse();
         transferService.transfer(request);
         return response;
     }

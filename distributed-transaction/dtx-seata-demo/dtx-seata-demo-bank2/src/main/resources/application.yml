@@ -4,11 +4,14 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    ds0:
-      driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/deng?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
-      username: root
-      password: root123456
+    #ds0:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/seata_amount?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    username: root
+    password: root123456
+
+mybatis:
+  mapper-locations: classpath:base/mapper/*Mapper.xml
 
 server:
   port: 56082

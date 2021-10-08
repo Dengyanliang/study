@@ -1,5 +1,4 @@
-package com.deng.bank1.tx.remote.request;
-
+package com.deng.bank1.tx.remote.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-public class TransferRequest implements Serializable {
-    private Long userId;
-    private Double amount;
+public class AccountResponse implements Serializable {
+    private int code;
+    private String message;
 }
