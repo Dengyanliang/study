@@ -11,7 +11,7 @@ spring:
       password: root123456
 
 server:
-  port: 56082
+  port: 56081
 
 eureka:
   client:
@@ -25,11 +25,3 @@ seata:
   tx-service-group: my_test_tx_group
 
   ## https://blog.csdn.net/u010634066/article/details/106739176/
-  enable-auto-data-source-proxy: true
-  registry:
-    type: eureka
-    eureka:
-      application: seata-demo-discovery
-      service-url: http://localhost:56080/eureka
-  config:
-    type: file
