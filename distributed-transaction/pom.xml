@@ -15,6 +15,7 @@
     <modules>
         <module>discover-server</module>
         <module>dtx-seata-demo</module>
+        <module>dtx-hmily-tcc-demo</module>
     </modules>
 
 </project>
