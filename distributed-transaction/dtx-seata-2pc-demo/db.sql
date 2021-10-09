@@ -1,8 +1,8 @@
 # Order
-DROP DATABASE IF EXISTS seata_order;
-CREATE DATABASE seata_order;
+DROP DATABASE IF EXISTS dtx_order;
+CREATE DATABASE dtx_order;
 
-CREATE TABLE seata_order.orders
+CREATE TABLE dtx_order.orders
 (
     id               INT(11) NOT NULL AUTO_INCREMENT,
     user_id          INT(11)        DEFAULT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE seata_order.orders
     PRIMARY KEY (id)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
 
-CREATE TABLE seata_order.undo_log
+CREATE TABLE dtx_order.undo_log
 (
     id            BIGINT(20)   NOT NULL AUTO_INCREMENT,
     branch_id     BIGINT(20)   NOT NULL,
@@ -28,19 +28,19 @@ CREATE TABLE seata_order.undo_log
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
 
 # Storage
-DROP DATABASE IF EXISTS seata_storage;
-CREATE DATABASE seata_storage;
+DROP DATABASE IF EXISTS dtx_storage;
+CREATE DATABASE dtx_storage;
 
-CREATE TABLE seata_storage.product
+CREATE TABLE dtx_storage.product
 (
     id               INT(11) NOT NULL AUTO_INCREMENT,
     stock            INT(11)  DEFAULT NULL,
     last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
-INSERT INTO seata_storage.product (id, stock) VALUES (1, 10); # 插入一条产品的库存
+INSERT INTO dtx_storage.product (id, stock) VALUES (1, 10); # 插入一条产品的库存
 
-CREATE TABLE seata_storage.undo_log
+CREATE TABLE dtx_storage.undo_log
 (
     id            BIGINT(20)   NOT NULL AUTO_INCREMENT,
     branch_id     BIGINT(20)   NOT NULL,
@@ -55,10 +55,10 @@ CREATE TABLE seata_storage.undo_log
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
 
 # Amount
-DROP DATABASE IF EXISTS seata_amount;
-CREATE DATABASE seata_amount;
+DROP DATABASE IF EXISTS dtx_account;
+CREATE DATABASE dtx_account;
 
-CREATE TABLE seata_amount.account
+CREATE TABLE dtx_account.account
 (
     id               INT(11) NOT NULL AUTO_INCREMENT,
     balance          DOUBLE   DEFAULT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE seata_amount.account
     PRIMARY KEY (id)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1  DEFAULT CHARSET = utf8;
 
-CREATE TABLE seata_amount.undo_log
+CREATE TABLE dtx_account.undo_log
 (
     id            BIGINT(20)   NOT NULL AUTO_INCREMENT,
     branch_id     BIGINT(20)   NOT NULL,
@@ -79,4 +79,4 @@ CREATE TABLE seata_amount.undo_log
     PRIMARY KEY (id),
     UNIQUE KEY ux_undo_log (xid, branch_id)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
-INSERT INTO seata_amount.account (id, balance) VALUES (1, 1);
+INSERT INTO dtx_account.account (id, balance) VALUES (1, 1);

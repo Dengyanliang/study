@@ -1,12 +1,11 @@
 spring:
   application:
-    name: seata-demo-account
+    name: tcc-demo-account
   main:
     allow-bean-definition-overriding: true
   datasource:
-    #ds0:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/seata_amount?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://127.0.0.1:3306/dtx_amount?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     username: root
     password: root123456
 
@@ -20,9 +19,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:56080/eureka/
-
-seata:
-  enabled: true
-  application-id: ${spring.application.name}
-  #客户端和服务端在同一个事务组
-  tx-service-group: my_test_tx_group

@@ -8,6 +8,8 @@ import com.deng.tcc.order.tx.remote.request.AccountRequest;
 import com.deng.tcc.order.tx.remote.response.AccountResponse;
 import com.deng.tcc.order.tx.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.hmily.annotation.Hmily;
+import org.dromara.hmily.core.concurrent.threadlocal.HmilyTransactionContextLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,7 @@ import java.util.Date;
 
 @Slf4j
 @Service
-public class OrderBankServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private AccountClient accountClient;
@@ -28,7 +30,9 @@ public class OrderBankServiceImpl implements OrderService {
 
     @Transactional
     @Override
+    @Hmily(confirmMethod="commit",cancelMethod = "rollback")
     public boolean addOrder(Integer id, Long amount) {
+        String transId = HmilyTransactionContextLocal.getInstance().get().getTransId();
 
         // 新增订单
         Orders orders = new Orders();
@@ -47,4 +51,30 @@ public class OrderBankServiceImpl implements OrderService {
         log.info("response:{}", JSON.toJSONString(response));
         return true;
     }
+
+    @Transactional
+    public void commit(Integer userId,Long amount){
+        String transId = HmilyTransactionContextLocal.getInstance().get().getTransId();
+        log.info("order confirm begin, xid:{},accountNo:{},amount:{}",transId,userId,amount);
+    }
+
+
+    @Transactional
+    public void rollback(Integer userId,Long amount){
+        // 获取全局事务id
+        String transId = HmilyTransactionContextLocal.getInstance().get().getTransId();
+        log.info("order cancel begin ,xid:{}",transId);
+
+        // cancel幂等校验
+//        if(){
+//
+//        }
+
+        // cancel空回滚处理，如果try没有执行，cancel不允许执行
+
+
+
+
+    }
+
 }

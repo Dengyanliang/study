@@ -1,12 +1,12 @@
 spring:
   application:
-    name: seata-demo-account
+    name: seata-demo-order
   main:
     allow-bean-definition-overriding: true
   datasource:
    # ds0:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/seata_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     username: root
     password: root123456
 
