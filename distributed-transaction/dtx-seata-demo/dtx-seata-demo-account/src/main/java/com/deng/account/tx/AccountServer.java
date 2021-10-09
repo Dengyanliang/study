@@ -14,7 +14,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableHystrix
-@MapperScan("com.deng.account.tx.mapper")
+@MapperScan("com.deng.account.tx.dao.mapper")
 public class AccountServer {
     public static void main(String[] args) {
         SpringApplication.run(AccountServer.class,args);

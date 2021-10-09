@@ -15,8 +15,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableHystrix
-@EnableFeignClients(basePackages = "com.deng.bank1.tx.remote")
-@MapperScan("com.deng.bank1.tx.dao.mapper")
+@EnableFeignClients(basePackages = "com.deng.order.tx.remote")
+@MapperScan("com.deng.order.tx.dao.mapper")
 public class OrderServer {
     public static void main(String[] args) {
         SpringApplication.run(OrderServer.class,args);
