@@ -14,8 +14,8 @@
 
 
     <modules>
-        <module>dtx-seata-demo-bank1</module>
-        <module>dtx-seata-demo-bank2</module>
+        <module>dtx-seata-demo-order</module>
+        <module>dtx-seata-demo-account</module>
     </modules>
 
     <dependencyManagement>
