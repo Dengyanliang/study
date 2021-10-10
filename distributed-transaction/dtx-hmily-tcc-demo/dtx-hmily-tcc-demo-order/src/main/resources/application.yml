@@ -5,7 +5,7 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: root123456
 
@@ -32,6 +32,6 @@ org:
       started: true  # 服务调用方为true，其余为false
       hmilyDbConfig:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+        url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: root123456
