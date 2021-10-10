@@ -5,7 +5,7 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/dtx_amount?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://127.0.0.1:3306/dtx_account?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     username: root
     password: root123456
 
@@ -13,9 +13,25 @@ mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 
 server:
-  port: 56082
+  port: 56083
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:56080/eureka/
+
+org:
+  dromara:
+    hmily:
+      serializer: kryo
+      recoverDelayTime: 128
+      retryMax: 30
+      scheduledDelay: 128
+      scheduledThreadMax: 10
+      repositorySupport: db
+      started: false  # 服务调用方为true，其余为false
+      hmilyDbConfig:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/dtx_account?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+        username: root
+        password: root123456

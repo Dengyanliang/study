@@ -11,7 +11,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
  * @Auther: dengyanliang
  * @Date: 2021/9/26 07:54
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages= {"com.deng.tcc.account.tx","org.dromara.hmily"})
 @EnableDiscoveryClient
 @EnableHystrix
 @MapperScan("com.deng.tcc.account.tx.dao.mapper")

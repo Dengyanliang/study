@@ -35,9 +35,9 @@ create table dtx_order.tcc_local_cancel_log
     primary key (tx_no)
 ) engine = InnoDB default  charset=utf8;
 
-DROP DATABASE IF EXISTS dtx_amount;
-CREATE DATABASE dtx_amount;
-CREATE TABLE dtx_amount.account
+DROP DATABASE IF EXISTS dtx_account;
+CREATE DATABASE dtx_account;
+CREATE TABLE dtx_account.account
 (
     id               INT(11) NOT NULL AUTO_INCREMENT,
     balance          DOUBLE   DEFAULT NULL,
@@ -45,21 +45,21 @@ CREATE TABLE dtx_amount.account
     PRIMARY KEY (id)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1  DEFAULT CHARSET = utf8;
 
-create table dtx_amount.tcc_local_try_log
+create table dtx_account.tcc_local_try_log
 (
     tx_no       varchar(64) not null comment '事务id',
     create_time datetime     not null,
     primary key (tx_no)
 ) engine = InnoDB default  charset=utf8;
 
-create table dtx_amount.tcc_local_confirm_log
+create table dtx_account.tcc_local_confirm_log
 (
     tx_no       varchar(64) not null comment '事务id',
     create_time datetime     not null,
     primary key (tx_no)
 ) engine = InnoDB default  charset=utf8;
 
-create table dtx_amount.tcc_local_cancel_log
+create table dtx_account.tcc_local_cancel_log
 (
     tx_no       varchar(64) not null comment '事务id',
     create_time datetime     not null,

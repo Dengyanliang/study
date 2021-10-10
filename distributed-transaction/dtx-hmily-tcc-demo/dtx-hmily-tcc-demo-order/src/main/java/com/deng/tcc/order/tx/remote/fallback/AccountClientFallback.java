@@ -15,7 +15,7 @@ public class AccountClientFallback implements FallbackFactory<AccountClient> {
     public AccountClient create(Throwable throwable) {
         return new AccountClient() {
             @Override
-            public AccountResponse transfer(AccountRequest request) {
+            public AccountResponse updateBalance(AccountRequest request) {
                 log.error("发生了异常。。。");
                 return null;
             }
