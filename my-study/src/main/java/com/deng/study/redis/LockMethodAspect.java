@@ -32,6 +32,7 @@ public class LockMethodAspect {
 
         try {
             boolean isLock = jedisUtil.tryLock(key, value, redisLock.expire());
+            log.info("key:{},value:{},isLock:{}",key,value,isLock);
             if (!isLock) {
                 log.error("获取锁失败");
                 throw new RuntimeException("获取锁失败");
