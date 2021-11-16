@@ -2,7 +2,7 @@ package com.deng.study.redis;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,12 +10,18 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 public class RedisTest {
 
+    private static int NUM = 500;
+
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private JedisUtil jedisUtil;
 
     @Test
     public void testBasicByJedis() {
@@ -98,5 +104,60 @@ public class RedisTest {
 
         String value = (String) redisTemplate.opsForValue().get("key");
         log.info("value:{}",value);
+    }
+
+
+    /**
+     * 测试秒杀
+     */
+    private static void secskill(){
+        log.info("-----------------");
+        if(NUM <= 0){
+            log.info("已经抢光了....");
+            return;
+        }
+        log.info("NUM:{}",NUM--);
+    }
+
+
+    @Test
+    public void testJedis(){
+        Runnable runnable = () -> {
+            String key = "key";
+            String value = UUID.randomUUID().toString();
+            int seconds = 5;
+
+            jedisUtil.tryLockWithLua(key,value,seconds);
+
+            secskill();
+            jedisUtil.releaseWithLua(key,value);
+//                redisLock.wrongReleaseLock(key); // 不能保证原子性
+        };
+
+        for (int i = 0; i < 1000; i++) {
+            Thread t = new Thread(runnable);
+            t.start();
+        }
+    }
+
+    public static void main(String[] args) {
+//        final JedisUtil finalJedisUtil = jedisUtil;
+//
+//        Runnable runnable = () -> {
+//            String key = "key";
+//            String value = UUID.randomUUID().toString();
+//            int seconds = 5;
+//
+//            finalJedisUtil.tryLockWithLua(key,value,seconds);
+//
+//            secskill();
+//            finalJedisUtil.releaseWithLua(key,value);
+////                redisLock.wrongReleaseLock(key); // 不能保证原子性
+//        };
+//
+//        for (int i = 0; i < 1000; i++) {
+//            Thread t = new Thread(runnable);
+//            t.start();
+//        }
     }
 }

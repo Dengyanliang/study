@@ -13,7 +13,7 @@ import java.util.Date;
  * @date 2017/8/3
  */
 @Slf4j
-public class StringUtil {
+public class StringUtil<main> {
 
     public static boolean isEmpty(String str) {
         if (str == null || str.length() == 0) {
@@ -65,7 +65,4 @@ public class StringUtil {
         content = HttpUtil.dealWithContent(content); // HttpUrl处理
         return content;
     }
-
-
-
 }
