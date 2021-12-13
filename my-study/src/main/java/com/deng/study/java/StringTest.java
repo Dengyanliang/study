@@ -2,6 +2,7 @@ package com.deng.study.java;
 
 import com.google.common.collect.Maps;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.ConcurrentMap;
 
@@ -17,5 +18,14 @@ public class StringTest {
     public static void main(String[] args) {
         String ss = String.format(TITLE_LENGTH_EXCEEDED_MESSAGE, 10);
         System.out.println(ss);
+
+        StringBuffer messageBuffer = new StringBuffer(500);
+        if (StringUtils.isBlank(messageBuffer.toString())) {
+            System.out.println("11111");
+        }
     }
+
+
+
+
 }

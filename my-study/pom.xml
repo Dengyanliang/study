@@ -222,7 +222,7 @@
             <version>0.10</version>
         </dependency>
 
-        <!-- zk依赖 -->
+        <!-- zk依赖 BEGIN-->
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
@@ -244,7 +244,7 @@
             <artifactId>curator-recipes</artifactId>
             <version>4.0.0</version>
         </dependency>
-        <!-- zk依赖 -->
+        <!-- zk依赖 END-->
 
         <!-- netty -->
         <dependency>
@@ -279,7 +279,7 @@
             <version>2.11.2</version>
         </dependency>
 
-        <!-- elasticsearch-->
+        <!-- elasticsearch BEGIN-->
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
@@ -294,6 +294,21 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
+        <!-- elasticsearch END-->
+
+        <!--activemq 所需要引入的包 BEGIN -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>5.15.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-spring</artifactId>
+            <version>3.16</version>
+        </dependency>
+        <!--activemq 所需要引入的包 END -->
+
     </dependencies>
 
     <build>

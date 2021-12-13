@@ -1,7 +1,8 @@
 package com.deng.study.java;
 
 
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 
 import java.math.BigDecimal;
 
@@ -16,5 +17,18 @@ public class NumberTest {
             }
             System.out.println(sum);
         }
+    }
+
+    @Test
+    public void test1(){
+        int num = 0;
+        int numNeeded = 10;
+        int s1 = 2;
+        num = numNeeded;
+        if(num > s1){
+            num = s1;
+        }
+//        num = Math.min(numNeeded, s1);
+        System.out.println(num);
     }
 }
