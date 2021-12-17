@@ -3,6 +3,7 @@ package com.deng.study.mq.activemq;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.io.IOException;
 import java.util.Objects;
 
 public class JmsConsumerTopic {
@@ -10,12 +11,17 @@ public class JmsConsumerTopic {
     private static final String MY_BROKER_URL = "tcp://localhost:61616";
     private static final String TOPIC_NAME = "topic01";
 
-    public static void main(String[] args) throws Exception{
+    private static Connection getConnection() throws JMSException {
         // 创建连接工厂，按照给定的url地址，采用默认用户名和密码
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(MY_BROKER_URL);
         // 通过连接工厂，获得连接connection并启动访问
         Connection connection = activeMQConnectionFactory.createConnection();
         connection.start();
+        return connection;
+    }
+
+    private static void normal_test() throws Exception {
+        Connection connection = getConnection();
 
         System.out.println("我是1号消费者");
 
@@ -79,5 +85,86 @@ public class JmsConsumerTopic {
          *   3.2 先到先得，6条全给其中一个 N
          *   3.3 一人一半  N
          */
+    }
+
+    private static void transaction_test() throws JMSException, IOException {
+        Connection connection = getConnection();
+
+        System.out.println("我是1号消费者");
+
+        // 创建会话session
+        // 两个参数，第一个叫事务/第二个叫签收
+        Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+        // 创建目的地（具体是队列还是主体）
+        Topic topic = session.createTopic(TOPIC_NAME);
+        // 创建消息的接收者
+        MessageConsumer messageConsumer = session.createConsumer(topic);
+
+        //同步阻塞方式receive
+        while (true){
+            Message message = messageConsumer.receive(); // 阻塞式的，有过期时间
+            if(Objects.nonNull(message)){
+                if(message instanceof TextMessage){
+                    TextMessage textMessage = (TextMessage)message;
+                    String text = textMessage.getText();
+                    System.out.println(text);
+//                    textMessage.acknowledge();
+                }
+            }else{
+                break;
+            }
+        }
+        session.commit();
+        System.in.read();// press any key to exit 没有这一行系统会直接处理完，显示不出消息
+
+        messageConsumer.close();
+        session.close();
+        connection.close();
+        System.out.println("*****从MQ接收消息完成*****");
+    }
+
+    /**
+     * 先运行一次消费者，用于注册
+     * 后面随时启动，随时消费，就像微信公众号一样
+     *
+     * @throws JMSException
+     * @throws IOException
+     */
+    private static void persist_test() throws JMSException {
+        // 创建连接工厂，按照给定的url地址，采用默认用户名和密码
+        ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(MY_BROKER_URL);
+        // 通过连接工厂，获得连接connection并启动访问
+        Connection connection = activeMQConnectionFactory.createConnection();
+        connection.setClientID("zhangsan"); // 必须设置，不然会报错 You cannot create a durable subscriber without specifying a unique clientID on a Connection
+        connection.start();
+
+        System.out.println("我是1号消费者");
+
+        // 创建会话session
+        // 两个参数，第一个叫事务/第二个叫签收
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        // 创建目的地（具体是队列还是主体）
+        Topic topic = session.createTopic(TOPIC_NAME);
+        TopicSubscriber subscriber = session.createDurableSubscriber(topic, "remark....");
+
+        Message message = subscriber.receive(); // 阻塞式的，有过期时间
+        while (Objects.nonNull(message)){
+            if (message instanceof TextMessage) {
+                TextMessage textMessage = (TextMessage) message;
+                String text = textMessage.getText();
+                System.out.println(text);
+            }
+            message = subscriber.receive(5000);
+        }
+
+        session.close();
+        connection.close();
+        System.out.println("*****从MQ接收消息完成*****");
+
+    }
+
+
+    public static void main(String[] args) throws Exception{
+        persist_test();
     }
 }
