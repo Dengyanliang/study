@@ -6,7 +6,9 @@ import javax.jms.*;
 
 public class JmsProduceTopic {
 
-    private static final String MY_BROKER_URL = "tcp://localhost:61616";
+    private static final String MY_BROKER_URL = "tcp://localhost:61618"; // 本地brokerUrl
+//    private static final String MY_BROKER_URL = "tcp://localhost:61616"; // 系统默认的url
+
     private static final String TOPIC_NAME = "topic01";
 
     private static Connection getConnection() throws JMSException {
@@ -90,7 +92,7 @@ public class JmsProduceTopic {
         messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
         // 通过使用messageProducer把生产消息发送到MQ的队列里面
-        for (int i = 11; i <= 15; i++) {
+        for (int i = 1; i <= 5; i++) {
             // 通过session创建消息
             TextMessage textMessage = session.createTextMessage("message--" + i);
             messageProducer.send(textMessage);

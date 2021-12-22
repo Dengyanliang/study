@@ -8,7 +8,8 @@ import java.util.Objects;
 
 public class JmsConsumerTopic {
 
-    private static final String MY_BROKER_URL = "tcp://localhost:61616";
+    private static final String MY_BROKER_URL = "tcp://localhost:61618"; // 本地brokerUrl
+//    private static final String MY_BROKER_URL = "tcp://localhost:61616"; // 系统默认的url
     private static final String TOPIC_NAME = "topic01";
 
     private static Connection getConnection() throws JMSException {
