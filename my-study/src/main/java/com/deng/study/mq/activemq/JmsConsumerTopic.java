@@ -8,8 +8,8 @@ import java.util.Objects;
 
 public class JmsConsumerTopic {
 
-    private static final String MY_BROKER_URL = "tcp://localhost:61618"; // 本地brokerUrl
-//    private static final String MY_BROKER_URL = "tcp://localhost:61616"; // 系统默认的url
+//    private static final String MY_BROKER_URL = "tcp://localhost:61618"; // 本地brokerUrl
+    private static final String MY_BROKER_URL = "tcp://localhost:61616"; // 系统默认的url
     private static final String TOPIC_NAME = "topic01";
 
     private static Connection getConnection() throws JMSException {
@@ -161,11 +161,78 @@ public class JmsConsumerTopic {
         session.close();
         connection.close();
         System.out.println("*****从MQ接收消息完成*****");
+    }
+
+    private static void async_send_test() throws JMSException, IOException {
+        // 创建连接工厂，按照给定的url地址，采用默认用户名和密码
+        ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(MY_BROKER_URL);
+        // 通过连接工厂，获得连接connection并启动访问
+        Connection connection = activeMQConnectionFactory.createConnection();
+        connection.setClientID("zhangsan"); // 必须设置，不然会报错 You cannot create a durable subscriber without specifying a unique clientID on a Connection
+        connection.start();
+
+        System.out.println("我是1号消费者");
+
+        // 创建会话session
+        // 两个参数，第一个叫事务/第二个叫签收
+        Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
+        // 创建目的地（具体是队列还是主体）
+        Topic topic = session.createTopic(TOPIC_NAME);
+        TopicSubscriber subscriber = session.createDurableSubscriber(topic, "remark....");
+
+        Message message = subscriber.receive(); // 阻塞式的，有过期时间
+        while (Objects.nonNull(message)){
+            if (message instanceof TextMessage) {
+                TextMessage textMessage = (TextMessage) message;
+                String text = textMessage.getText();
+                message.acknowledge();
+                System.out.println(text);
+            }
+            message = subscriber.receive(5000);
+        }
+
+        session.close();
+        connection.close();
+        System.out.println("*****从MQ接收消息完成*****");
 
     }
 
+    private static void redelivery_test() throws JMSException {
+        // 创建连接工厂，按照给定的url地址，采用默认用户名和密码
+        ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(MY_BROKER_URL);
+        // 通过连接工厂，获得连接connection并启动访问
+        Connection connection = activeMQConnectionFactory.createConnection();
+        connection.setClientID("zhangsan"); // 必须设置，不然会报错 You cannot create a durable subscriber without specifying a unique clientID on a Connection
+        connection.start();
+
+        System.out.println("我是1号消费者");
+
+        // 创建会话session
+        // 两个参数，第一个叫事务/第二个叫签收
+        Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+        // 创建目的地（具体是队列还是主体）
+        Topic topic = session.createTopic(TOPIC_NAME);
+        TopicSubscriber subscriber = session.createDurableSubscriber(topic, "remark....");
+
+        Message message = subscriber.receive(); // 阻塞式的，有过期时间
+        while (Objects.nonNull(message)){
+            if (message instanceof TextMessage) {
+                TextMessage textMessage = (TextMessage) message;
+                String text = textMessage.getText();
+                System.out.println(text);
+            }
+            message = subscriber.receive(1000);
+        }
+
+        session.close();
+        connection.close();
+        System.out.println("*****从MQ接收消息完成*****");
+    }
+
+
+
 
     public static void main(String[] args) throws Exception{
-        persist_test();
+        redelivery_test();
     }
 }

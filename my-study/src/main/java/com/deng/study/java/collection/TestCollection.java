@@ -2,6 +2,7 @@ package com.deng.study.java.collection;
 
 import com.google.common.collect.Maps;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.*;
@@ -154,5 +155,19 @@ public class TestCollection {
         list3.addAll(list4);
         System.out.println("两个list进行去重复并集操作：" + list3.toString());
 
+
+    }
+
+    @Test
+    public void testList2(){
+        String grayOrderId = "12,23,4";
+        if (org.apache.commons.lang3.StringUtils.isNotBlank(grayOrderId)) {
+            List<String> grayOrderIds = Arrays.asList(grayOrderId.split(","));
+            boolean b = grayOrderIds.stream().anyMatch(orderId -> StringUtils.equals(orderId, "23"));
+            System.out.println("flag:" + b);
+            if(grayOrderIds.contains("23")) {
+                System.out.println("flag2222:");
+            }
+        }
     }
 }
