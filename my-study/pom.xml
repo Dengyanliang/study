@@ -322,6 +322,14 @@
         </dependency>
         <!--activemq starter END -->
 
+        <!--kafka 所需要引入的包 BEGIN -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <!--kafka 所需要引入的包 END -->
+
     </dependencies>
 
     <build>
