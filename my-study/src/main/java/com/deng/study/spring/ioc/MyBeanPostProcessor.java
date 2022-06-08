@@ -4,14 +4,19 @@ import com.deng.study.common.DataSource;
 import com.deng.study.spring.aop.MyAnnotation;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
+import javax.annotation.Resource;
 import java.util.Objects;
 
 @Component
 public class MyBeanPostProcessor implements BeanPostProcessor {
+
+    @Autowired
+    private IService service1;
 
     public MyBeanPostProcessor(){
         System.out.println("MyBeanPostProcessor...");
@@ -19,6 +24,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+//        service1.test();
 //        System.out.println("MyBeanPostProcessor..postProcessBeforeInitialization: " + beanName + "," + bean.getClass().getName());
         return null;
     }
