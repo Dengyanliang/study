@@ -14,7 +14,7 @@ public class StringTest {
 
     public static void main(String[] args) {
         String s1 = "ABCDABDEF";
-        String s2 = "ABD";
+        String s2 = "ABDABC";
         boolean flag = check(s1,s2);
         System.out.println("flag="+flag);
 
@@ -43,18 +43,15 @@ public class StringTest {
         int j = 0; // 指向s2的索引变量
 
         while(i < s1.length() &&  j < s2.length()){
-            System.out.println("charAt(i)="+s1.charAt(i) + ",charAt(j)=" + s2.charAt(j));
             if(s1.charAt(i) == s2.charAt(j)){
                 i++;
                 j++;
                 flag = true;
             }else{
                 i = i - j + 1; // 不相等后，从本次匹配成功的第二个字符开始，依次比较
-                System.out.println("不相等");
                 j = 0 ;        // 从头开始
                 flag = false;
             }
-            System.out.println("s1.length()=" +s1.length()  + ",s2.length()=" +s2.length()  +",i="+i + ",j=" + j);
         }
         return flag;
     }

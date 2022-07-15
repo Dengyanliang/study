@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
 public class ToStringUtils {
 
     public static void main(String[] args) {
-        String s = "[TransOccupyRequestDTO(newOrderId=390310807, transOccupyDetails=[TransOccupyDetail(orderId=389507562, orderType=3Sent, orderListId=811181368, newOrderId=390310807, newOrderListId=812635303, batchId=197987597, num=2), TransOccupyDetail(orderId=389507562, orderType=3Sent, orderListId=811181368, newOrderId=390310807, newOrderListId=812635303, batchId=197987597, num=1), TransOccupyDetail(orderId=389507562, orderType=3Sent, orderListId=811181369, newOrderId=390310807, newOrderListId=811181369, batchId=202747933, num=4)])]";
-//        toObject();
+        String s = "[InsertSoStockAsyncRequest(moveItems=[MoveItem(moveNum=3, sourceItemId=812993317, targetItemId=812993317, pid=LM-THINKAUTO-R134a|1, pidName=驾驰/THINKAUTO 高纯度雪种 冷媒 汽车空调制冷剂LM134A-220 220g), MoveItem(moveNum=1, sourceItemId=812993319, targetItemId=812993319, pid=AP-THINKAUTO-Coolant|3, pidName=驾驰/THINKAUTO 长效防冻冷却液- 37℃ 沸溢保护128°C 4KG), MoveItem(moveNum=1, sourceItemId=812993318, targetItemId=812993318, pid=LM-CHAMPION-TBD|1, pidName=冠军/CHAMPION 冷冻油雪种油 空调压缩机养护 R134a 70ml), MoveItem(moveNum=1, sourceItemId=812993320, targetItemId=812993320, pid=AP-THINKAUTO-Coolant|4, pidName=驾驰/THINKAUTO 长效防冻冷却液- 37℃ 沸溢保护128°C 2KG)], sourceOrderId=390507801, targetOrderId=390593526, operator=tuhusystem@tuhu.cn, transType=MoveOrderListStock, transferToLocation=null, transferToLocationId=null, wareHouseId=86823, installShopId=86823)]";
+//        toObject(s,InsertSoStockAsyncRequest.class);
     }
     /**
      * toString格式反序列化

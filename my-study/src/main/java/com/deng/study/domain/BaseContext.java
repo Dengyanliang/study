@@ -1,8 +1,8 @@
 package com.deng.study.domain;
 
 
+import com.google.common.collect.Maps;
 import lombok.Getter;
-import org.testng.collections.Maps;
 
 import java.util.Map;
 
