@@ -13,12 +13,18 @@ import java.util.Arrays;
 public class StringTest {
 
     public static void main(String[] args) {
-        String s1 = "ABCDABDEF";
-        String s2 = "ABDABC";
+        String s1 = "SSSSSSSSSSSSASSSSB";
+        String s2 = "SSSSB";
         boolean flag = check(s1,s2);
         System.out.println("flag="+flag);
 
-//        s2 = "AAAB";
+        /**
+         * S的前缀和后缀都是空集，共有元素为0个，所以next[0] = 0
+         * SS的前缀是[S]，后缀是[S]，共有元素最大长度为1个，所以next[1]=1
+         * SSS的前缀是[S，SS]，后缀是[SS，S]，共有元素最大长度为2个，所以next[2]=2
+         * SSSS的前缀是[S，SS，SSS]，后缀是[SSS，SS，S]，共有元素最大长度为3个，所以next[3]=3
+         * SSSSB的前缀是[S，SS，SSS，SSSS]，后缀是[SSSB，SSB，SB，B]，共有元素最大长度为0个，所以next[4]=0
+         */
         int[] next = kmpNext(s2);
         System.out.println(Arrays.toString(next));
 
@@ -64,7 +70,6 @@ public class StringTest {
      * @return
      */
     public static int kmpCheck(String s1,String s2,int[] next){
-        boolean flag = false;
         for(int i = 0, j = 0; i < s1.length(); i++){
             //不相等时，需要从next[j-1]获取新的j，直到dest.charAt(i) == dest.charAt(j)为止
             while(j > 0 && s1.charAt(i) != s2.charAt(j)){
@@ -74,8 +79,6 @@ public class StringTest {
                 j++;
             }
             if(j == s2.length()){
-                flag = true;
-//                break;
                 return i -j +1;
             }
         }
