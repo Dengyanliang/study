@@ -13,13 +13,10 @@ import java.util.regex.Pattern;
 
 public class ToStringUtils {
 
-    public static void main(String[] args) {
-        String s = "[InsertSoStockAsyncRequest(moveItems=[MoveItem(moveNum=3, sourceItemId=812993317, targetItemId=812993317, pid=LM-THINKAUTO-R134a|1, pidName=驾驰/THINKAUTO 高纯度雪种 冷媒 汽车空调制冷剂LM134A-220 220g), MoveItem(moveNum=1, sourceItemId=812993319, targetItemId=812993319, pid=AP-THINKAUTO-Coolant|3, pidName=驾驰/THINKAUTO 长效防冻冷却液- 37℃ 沸溢保护128°C 4KG), MoveItem(moveNum=1, sourceItemId=812993318, targetItemId=812993318, pid=LM-CHAMPION-TBD|1, pidName=冠军/CHAMPION 冷冻油雪种油 空调压缩机养护 R134a 70ml), MoveItem(moveNum=1, sourceItemId=812993320, targetItemId=812993320, pid=AP-THINKAUTO-Coolant|4, pidName=驾驰/THINKAUTO 长效防冻冷却液- 37℃ 沸溢保护128°C 2KG)], sourceOrderId=390507801, targetOrderId=390593526, operator=tuhusystem@tuhu.cn, transType=MoveOrderListStock, transferToLocation=null, transferToLocationId=null, wareHouseId=86823, installShopId=86823)]";
-//        toObject(s,InsertSoStockAsyncRequest.class);
+    public static void main(String[] args) throws ParseException {
+        String s = "InsertBatchRequest(batchInfo=BatchDTO(pkId=null, oldBatchId=null, poId=319788280, pid=FI-UFI-OIL|32, name= UFI 机油滤清器 23.265.C0, number=1, costPrice=15.0, inStockDatetime=Thu Jul 28 16:40:57 CST 2022, weekYear=null, inStockUserName=CargoTransfer, inStockId=null, vendorId=98829, vendorName=上海阑途信息技术有限公司, productBatchId=null, productionDate=null, channel=TUHUSHOP, stockUnit=个, shelfLifeDays=null, expirationDate=null, ownerId=94181, ownerType=Shops, ownerName=途虎养车工场店（汉川中南路店）, taxRate=0.13, noTaxCost=13.2743, poType=3TUHU, ownerCostPrice=15.0, ownerTaxRate=0.13, ownerNoTaxCost=13.2743, tenantCode=None, tenantName=null, transNo=null, transType=null, sourceBatchId=null, currentPoId=null, currentVendorId=null, version=null, batchType=null, logisticTaskStockNum=null), batchType=IPT, optNo=123240139, orderId=null, orderType=null)";
+        System.out.println(toJSONString(s));
     }
-    /**
-     * toString格式反序列化
-     */
 
     /**
      * 数字类型匹配（包括整形和浮点型） & 日期类型匹配 & 对象类型匹配 & ...
@@ -30,7 +27,17 @@ public class ToStringUtils {
     public static Pattern listPattern = Pattern.compile("^\\[.*\\]$");
     public static Pattern mapPattern = Pattern.compile("^\\{.*\\}$");
     public static Pattern supperPattern = Pattern.compile("^super=[a-zA-Z0-9\\.]+\\(.+\\)$");
+
     public static final String NULL = "null";
+    /**
+     * 获取第一个token，注意: toString不再包括最外层的()
+     */
+    private final static Map<Character, Character> tokenMap = new HashMap<>();
+    static {
+        tokenMap.put(')', '(');
+        tokenMap.put('}', '{');
+        tokenMap.put(']', '[');
+    }
 
     /**
      * toString -> json
@@ -60,7 +67,7 @@ public class ToStringUtils {
 
         String token;
         Map<String, Object> map = new HashMap<>();
-        while (StringUtils.isNotEmpty(toString) && StringUtils.isNotEmpty(token = ToStringUtils2.TokenUtils.splitToken(toString))) {
+        while (StringUtils.isNotEmpty(toString) && StringUtils.isNotEmpty(token = splitToken(toString))) {
             toString = StringUtils.removeStart(StringUtils.removeStart(toString, token).trim(), ",").trim();
 
             // 如果带"super="(lombok的@ToString(callSuper=true)引入)，按照当前层继续处理
@@ -70,7 +77,7 @@ public class ToStringUtils {
                 continue;
             }
 
-            Pair<String, String> keyValue = ToStringUtils2.TokenUtils.parseToken(token);
+            Pair<String, String> keyValue = parseToken(token);
             map.put(keyValue.getKey(), buildTypeValue(keyValue.getKey(), keyValue.getValue()));
         }
         return map;
@@ -125,7 +132,7 @@ public class ToStringUtils {
         }
 
         String token = null;
-        while (StringUtils.isNotBlank(value) && StringUtils.isNotBlank(token = ToStringUtils2.TokenUtils.splitToken(value))) {
+        while (StringUtils.isNotBlank(value) && StringUtils.isNotBlank(token = splitToken(value))) {
             result.add(buildTypeValue(null, token));
             value = StringUtils.removeStart(StringUtils.removeStart(value, token).trim(), ",").trim();
         }
@@ -144,13 +151,46 @@ public class ToStringUtils {
         }
 
         String token = null;
-        while (StringUtils.isNotEmpty(token = ToStringUtils2.TokenUtils.splitToken(value))) {
-            Pair<String, String> keyValue = ToStringUtils2.TokenUtils.parseToken(token);
+        while (StringUtils.isNotEmpty(token = splitToken(value))) {
+            Pair<String, String> keyValue = parseToken(token);
             result.put(buildTypeValue(keyValue.getKey(), keyValue.getKey()), buildTypeValue(keyValue.getKey(), keyValue.getValue()));
 
             value = StringUtils.removeStart(StringUtils.removeStart(value, token).trim(), ",").trim();
         }
 
         return result;
+    }
+
+
+    private static String splitToken(String toString) {
+        if (StringUtils.isBlank(toString)) {
+            return toString;
+        }
+
+        int bracketNum = 0;
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < toString.length(); i++) {
+            Character c = toString.charAt(i);
+            if (tokenMap.containsValue(c)) {
+                stack.push(c);
+            } else if (tokenMap.containsKey(c) && Objects.equals(stack.peek(), tokenMap.get(c))) {
+                stack.pop();
+            } else if ((c == ',') && stack.isEmpty()) {
+                return toString.substring(0, i);
+            }
+        }
+        if (stack.isEmpty()) {
+            return toString;
+        }
+        throw new RuntimeException("splitFirstToken error, bracketNum=" + bracketNum + ", toString=" + toString);
+    }
+
+    /**
+     * 从token解析出字段名，及对应值
+     */
+    private static Pair<String, String> parseToken(String token) {
+        assert Objects.nonNull(token) && token.contains("=");
+        int pos = token.indexOf("=");
+        return new javafx.util.Pair<>(token.substring(0, pos), token.substring(pos + 1));
     }
 }

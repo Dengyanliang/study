@@ -6,32 +6,41 @@ import java.util.Arrays;
 
 public class StringTest2 {
     public static void main(String[] args) {
-        String s1 = "SSSSSSSSSSSSASSSSB";
-        String s2 = "SSSSB";
+        String s1 = "ABABABDABCAB";
+        String s2 = "AAAAB";
+//        String s2 = "ABCABCD";
+//        String s2 = "ABDABC";
         boolean result = compare(s1, s2);
         System.out.println("普通对比的结果是：" + result);
 
         /**
+         * 模式串：AAAAB
+         * 约定next[0]=-1
+         * j=1时，A前缀和后缀都是空集，共有元素为0个，所以next[1] = 0
+         * j=2时，AA的前缀是[A]，后缀是[A]，共有元素为1个，所以next[2]=1
+         * j=3时，AAA的前缀是[A，AA]，后缀是[AA，A]，共有元素为2个，所以next[3]=2
+         * j=4时，AAAA的前缀是[A，AA，AAA]，后缀是[AAA，AA，A]，共有元素3个，所以next[4]=3
+         */
+        /**
          * 模式串：ABDABC
-         *
-         * A的前缀和后缀都是空集，共有元素为0个，所以next[0] = 0
-         * AB的前缀是[A]，后缀是[B]，共有元素为0个，所以next[1]=1
-         * ABD的前缀是[A，AB]，后缀是[B，BD]，共有元素为0个，所以next[2]=1
-         * ABDA的前缀是[A，AB，ABD]，后缀是[BDA，DA，A]，共有元素1个，所以next[3]=2
-         * ABDAB的前缀是[A，AB，ABD，ABDA]，后缀是[BDAB，DAB，AB，B]，共有元素2个，所以next[4]=3
-         * ABDABC的前缀是[A，AB，ABD，ABDA，ABDAB]，后缀是[BDABC，DABC，ABC，BC，C]，共有前缀0个，所以next[5]=1
+         * 约定next[0]=-1
+         * j=1时，A的前缀和后缀都是空集，共有元素为0个，所以next[1] = 0
+         * j=2时，AB的前缀是[A]，后缀是[B]，共有元素为0个，所以next[2]=0
+         * j=3时，ABD的前缀是[A，AB]，后缀是[B，BD]，共有元素为0个，所以next[3]=0
+         * j=4时，ABDA的前缀是[A，AB，ABD]，后缀是[BDA，DA，A]，共有元素1个，所以next[4]=1
+         * j=5时，ABDAB的前缀是[A，AB，ABD，ABDA]，后缀是[BDAB，DAB，AB，B]，共有元素2个，所以next[5]=2
          */
         int[] next = getNext(s2);
         System.out.println(Arrays.toString(next));
 
-        int[] next2 = getNext2(s2);
-        System.out.println(Arrays.toString(next2));
+//        int[] next2 = getNext2(s2);
+//        System.out.println(Arrays.toString(next2));
 
-//        int[] next3 = getNext3(s2);
-//        System.out.println(Arrays.toString(next3));
+        int index = kmpCheck(s1,s2,next);
+        System.out.println("index:"+index);
 
-        int[] next4 = getNext4(s2);
-        System.out.println(Arrays.toString(next4));
+        int index2 = kmpCheck2(s1,s2,next);
+        System.out.println("index:"+index2);
 
     }
 
@@ -76,14 +85,20 @@ public class StringTest2 {
 
     // https://blog.csdn.net/weixin_52622200/article/details/110563434
     private static int[] getNext(String dest){
-        int next[] = new int[dest.length()];
+        int[] next = new int[dest.length()];
         next[0] = -1;
-        int j = 0;
-        int k = -1;
+        int k = -1; // 从模式串的开头开始匹配，所以后面要有k=-1，k++，即k=0。k会回退
+        int j = 0; // 从模式串的开头开始匹配，在匹配过程中，j会一直递增
         while (j < dest.length() - 1){
+            System.out.println("dest："+dest);
+            System.out.println("  计算0前 k：" + k + "，j：" + j + "，next[j]="+"next[" + j + "]=" + next[j]);
             if(k == -1 || dest.charAt(j) == dest.charAt(k)){
-                next[++j] = ++k;
+                k++;
+                j++;
+                next[j] = k; // 说明模式串dest[j]之前有k个字符已成功匹配，下一趟应该从dest[k]开始匹配
+                System.out.println("  计算1后 k：" + k + "，j：" + j + "，next[j]=" + "next[" + j + "]=" + next[j]);
             }else {
+                System.out.println("  计算2前 k：" + k + "，j：" + j + "，k=next[k]=" + "next[" + k + "]=" + next[k]);
                 k = next[k];
             }
         }
@@ -91,52 +106,66 @@ public class StringTest2 {
     }
 
 
+    /**
+     * 第二种办法，KMP算法，高效
+     * @param s1
+     * @param s2
+     * @param next
+     * @return
+     */
+    public static int kmpCheck(String s1,String s2,int[] next){
+        for(int i = 0, j = 0; i < s1.length(); i++){
+            //不相等时，需要从next[j-1]获取新的j，直到dest.charAt(i) == dest.charAt(j)为止
+            while(j > 0 && s1.charAt(i) != s2.charAt(j)){
+                j = next[j-1];
+            }
+            if (j == -1 || s1.charAt(i) == s2.charAt(j)) {
+                j++;
+            }
+            if(j == s2.length()){
+                return i -j +1;
+            }
+        }
+        return -1;
+    }
+
+    private static int kmpCheck2(String s1,String s2,int[] next){
+        if(StringUtils.isBlank(s1) || StringUtils.isBlank(s2)){
+            System.out.println("存在空串，不匹配");
+            return -1;
+        }
+        if(s1.length() < s2.length()){
+            System.out.println("模式串的长度比原串长度长，不匹配");
+            return -1;
+        }
+
+        int i = 0, j = 0;
+        while(i < s1.length() && j < s2.length()){
+            if(j==-1 || s1.charAt(i) == s2.charAt(j)){
+                i++;
+                j++;
+            }else{
+                j = next[j];
+            }
+        }
+        if(j >= s2.length()){
+            return i-s2.length();
+        }else{
+            return -1;
+        }
+    }
 
     private static int[] getNext2(String dest){
-        int next[] = new int[dest.length()];
-        next[0] = -1;
-        int j = 0;
-        int k = -1;
-        while (j < dest.length() - 1){
-            if(k == -1 || dest.charAt(j) == dest.charAt(k)){
-               if(dest.charAt(++j) == dest.charAt(++k)){
-                   next[j] = next[k];
-               }else{
-                   next[j] = k;
-               }
-            }else {
-                k = next[k];
-            }
-        }
-        return next;
-    }
-
-    private static int[] getNext3(String dest){
         int[] next = new int[dest.length()];
-        next[0] = 0;
-        int j = 1, k = 0;
-        while(k < dest.length() - 1){
-            if(k == 0 || dest.charAt(j) == dest.charAt(k)){
-                next[j] = k + 1;
-                ++k;
-                ++j;
-            }else{
-                k = next[k];
-            }
-        }
-        return next;
-    }
-
-    public static int[] getNext4(String ps) {
-        char[] p = ps.toCharArray();
-        int[] next = new int[p.length];
         next[0] = -1;
         int j = 0;
         int k = -1;
-        while (j < p.length - 1) {
-            if (k == -1 || p[j] == p[k]) {
-                next[++j] = ++k;
-            } else {
+        while (j < dest.length()- 1){
+            if(k == -1 || dest.charAt(j) == dest.charAt(k)){
+                j++;
+                k++;
+                next[j] = k;
+            }else{
                 k = next[k];
             }
         }

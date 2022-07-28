@@ -14,7 +14,7 @@ public class StringTest {
 
     public static void main(String[] args) {
         String s1 = "SSSSSSSSSSSSASSSSB";
-        String s2 = "SSSSB";
+        String s2 = "SSSSA";
         boolean flag = check(s1,s2);
         System.out.println("flag="+flag);
 
@@ -91,11 +91,13 @@ public class StringTest {
      */
     public static int[] kmpNext(String dest){
         int[] next = new int[dest.length()];
-        next[0] = 0; // 这是kmp算法的规定，第一个字符为0，因为没有人和它进行匹配
+        next[0] = 0; // 这是kmp算法的规定，第一个字符为0，因为它的前缀和后缀都是空集
+        // i是next数组的下标，j是next数组下标对应的值
         for(int i = 1, j = 0; i < dest.length(); i++){
 
             //不相等时，需要从next[j-1]获取新的j，直到dest.charAt(i) == dest.charAt(j)为止
             while(j > 0 && dest.charAt(i) != dest.charAt(j)){
+                System.out.println("j：" + j + "，dest.charAt(i)：" + dest.charAt(i) + "，dest.charAt(j)：" + dest.charAt(j) + "，next[j-1]：" + next[j - 1]);
                 j = next[j-1];
             }
 
