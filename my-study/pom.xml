@@ -342,6 +342,12 @@
         </dependency>
         <!--kafka 所需要引入的包 END -->
 
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.14.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
