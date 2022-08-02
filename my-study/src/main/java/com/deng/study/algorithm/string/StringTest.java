@@ -1,6 +1,7 @@
 package com.deng.study.algorithm.string;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 
 import java.util.Arrays;
 
@@ -42,6 +43,40 @@ public class StringTest {
 //
         int index2 = kmpCheck2(s1,s2,nextval);
         System.out.println("nextval index:"+index2);
+    }
+
+
+    @Test
+    public void getMaxStr(){
+        String s = "SSSSA";
+        int maxi = 0,maxlen = 0, i =0, j=0,len=0;
+        while(i<s.length()){ // 从字符串的开头循环
+            j=i+1;           // 从i后面的字符循环
+            while(j<s.length()){
+                if(s.charAt(i) == s.charAt(j)){ // 找一个子串，其起始下标为i，长度为len
+                    len = 1;
+                    // 从当前i，j位置开始，还有多少个相等的字符
+                    for (int k = 1; (i + k) < s.length() && (j + k) < s.length() && s.charAt(i + k) == s.charAt(j + k); k++) {
+                        len++;
+                    }
+                    if(len > maxlen){ // 将较大长度者赋给maxi和maxlen
+                        maxi = i;     // 最大长度者的开始位置
+                        maxlen = len;
+                    }
+                    j = j + len; // 已经比对成功了多长的字符
+                }else{
+                    j++;
+                }
+            }
+            i++; // 继续扫描第i字符之后的字符
+        }
+
+        char[] t = new char[maxlen]; // 将最大重复子串赋给t
+        for(i=0; i < maxlen; i++){
+            t[i] = s.charAt(i + maxi);  // 从maxi位置开始取值
+        }
+        String result = Arrays.toString(t);
+        System.out.println(result);
     }
 
     /**
