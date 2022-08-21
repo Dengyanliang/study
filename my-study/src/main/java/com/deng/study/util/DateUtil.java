@@ -35,23 +35,21 @@ public class DateUtil {
 
 
     public static void main(String[] args) {
-        String date = "2020/12/2 0:00:00";
-
+        String dateStr1 = parseDateFormat(new Date(),YMD_MIN);
+        System.out.println(dateStr1);
     }
 
-
-
-
-    public static boolean equals(Date date1, Date date2) {
-        return Objects.equals(date1, date2);
-
-    }
-
-    public static String parseDateFormat(Date date) {
-        SimpleDateFormat fo = new SimpleDateFormat(YMD);
+    /**
+     * 该方法是通用方法，支持上面定义的所有格式
+     * @param date
+     * @param pattern
+     * @return
+     */
+    public static String parseDateFormat(Date date,String pattern) {
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         String retVal = "0000-00-00";
         try {
-            retVal = fo.format(date);
+            retVal = sdf.format(date);
         } catch (Exception e) {
             log.error("Date转换错误，date:  {} ", date.toString(), e);
         }
@@ -59,17 +57,6 @@ public class DateUtil {
         return retVal;
     }
 
-    public static String parseDateTimeFormat(Date date) {
-        SimpleDateFormat fo = new SimpleDateFormat(YMDHMS);
-        String retVal = "0000-00-00 00:00:00";
-        try {
-            retVal = fo.format(date);
-        } catch (Exception e) {
-            log.error("DateTime转换错误，date:  {} ", date.toString(), e);
-        }
-
-        return retVal;
-    }
 
 
     public static Date toDateMax(Date date) {
@@ -109,24 +96,6 @@ public class DateUtil {
         Date min = getMinDateForThisMonth(date);
         return org.apache.commons.lang3.time.DateUtils.addMonths(min, effset);
     }
-
-
-    /**
-     * 将日期转换为201701这种
-     */
-    public static String getDateMonth(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat(YM);
-        return format.format(date);
-    }
-
-    /**
-     * 将日期转换为2017-01这种
-     */
-    public static String getDateMonthBySeparator(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat(Y_M);
-        return format.format(date);
-    }
-
 
     public static Date now() {
         return new Date();

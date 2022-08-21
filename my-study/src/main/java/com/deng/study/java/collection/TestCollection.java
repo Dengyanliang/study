@@ -154,9 +154,30 @@ public class TestCollection {
         list4.removeAll(list3);
         list3.addAll(list4);
         System.out.println("两个list进行去重复并集操作：" + list3.toString());
-
-
     }
+
+    @Test
+    public void testListRemoveAll(){
+        List<String> list1 = new ArrayList<String>();
+        list1.add("1");
+        list1.add("2");
+        list1.add("3");
+        list1.add("5");
+        list1.add("6");
+
+        List<String> list2 = new ArrayList<String>();
+        list2.add("2");
+        list2.add("3");
+        list2.add("7");
+        list2.add("8");
+
+        list1.removeAll(list2);
+        System.out.println("两个list进行差集操作：" + list1);
+    }
+
+
+
+
 
     @Test
     public void testList2(){
