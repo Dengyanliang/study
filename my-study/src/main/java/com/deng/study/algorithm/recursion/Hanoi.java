@@ -8,10 +8,13 @@ package com.deng.study.algorithm.recursion;
 public class Hanoi {
 
     public static void main(String[] args) {
-        hanoi(3,'A','B','C');
+        hanoi(2,'A','B','C');
     }
 
     /**
+     *  将问题拆分为大问题和小问题：前n-1个元素移动为大问题，第n个元素移动为小问题.
+     *  不论有多少个元素，都认为只有两个，上面所有元素和最下面一个元素。
+     *  当只有两个元素时，直接从开始柱子移动的目标柱子即可
      *
      * @param n      共有n个元素
      * @param from   开始柱子
@@ -19,14 +22,19 @@ public class Hanoi {
      * @param to     目标柱子
      */
     public static void hanoi(int n,char from ,char middle, char to){
-        if(n == 1){   // 只有一个元素
-            System.out.println("第"+n+"个元素从"+from+"移动到" + to);
-        }else{       // 不论有多少个元素，都认为只有两个，上面所有元素和最下面一个元素
-            // 把上面所有元素移动到中间位置
+        if(n == 1){   // 只有一个元素，直接从开始柱子移动到目标柱子
+            move(n, from, to);
+        }else{       // 不论有多少个元素，都认为只有两个，上面所有元素和最下面一个元素，
+            // 把n-1个元素从开始柱子借助于目标柱子移动到中间柱子
             hanoi(n-1,from,to,middle);
-            System.out.println("第"+n+"个元素从"+from+"移动到" + to);
-            // 把上面所有元素从中间位置移动到目标位置
+            // 将第n个元素从开始柱子移动到目标柱子
+            move(n, from, to);
+            // 把n-1个元素从中间柱子借助于开始柱子移动到目标柱子
             hanoi(n-1,middle,from,to);
         }
+    }
+
+    private static void move(int n, char from, char to) {
+        System.out.println("第"+n+"个元素从"+from+"移动到" + to);
     }
 }

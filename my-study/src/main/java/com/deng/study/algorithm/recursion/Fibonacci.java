@@ -9,26 +9,29 @@ import com.deng.study.source.StdOut;
  */
 public class Fibonacci {
 
-    public static long f2(int n){ // 第二种办法
-        int f = 0;
-        int g = 1;
-        for(int i = 0; i <= n; i++){
-            f = f + g;
-            g = f - g;
+    private static long f(int n) {
+        if (n == 0 || n == 1) {
+            return n;
+        } else {
+            return f(n - 1) + f(n - 2);
         }
-        return g;
     }
 
-    public static long f(int n){
-        if(n == 0 || n == 1)
-            return n;
-        return f(n-1)+f(n-2);
+    private static long forF(int n) {
+        int f = 0;
+        int g = 1;
+        for (int i = 0; i < n; i++) {
+            f = f + g; // 计算出当前值
+            g = f - g; // 计算出前一个值
+            System.out.println("f:" + f + ",g:" + g);
+        }
+        return f;
     }
 
     public static void main(String[] args) {
-//        StdOut.println(f(0));
+        // 1 1 2 3 5 8 13
         StdOut.println(f(6));
-        StdOut.println(f2(6));
+        StdOut.println(forF(6));
     }
 
 }

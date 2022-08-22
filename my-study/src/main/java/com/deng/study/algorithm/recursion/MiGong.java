@@ -33,7 +33,7 @@ public class MiGong {
             }else if(search(map,i-1,j-1)){ // 向左
                 return true;
             }else{
-                map[i][j] = 3;  // 表示思路，走不通
+                map[i][j] = 3;  // 表示死路，走不通
                 return false;
             }
         }else{ // 如果map[i][j] != 0 可能是1，2，3
@@ -60,7 +60,7 @@ public class MiGong {
             array[0][i] = 1;
             array[7][i] = 1;
         }
-        System.out.println("---------------");
+        System.out.println("------构造上下------");
         show(array);
 
         for(int j = 0; j < 8; j++){
@@ -68,16 +68,16 @@ public class MiGong {
             array[j][6] = 1;
         }
 
-        System.out.println("===============");
+        System.out.println("------构造左右------");
         show(array);
 
         array[3][1] = 1;
         array[3][2] = 1;
 
-        System.out.println("***************");
+        System.out.println("------构造入口------");
         show(array);
 
-        System.out.println("&&&&&&&&&&&&");
+        System.out.println("------寻找路径------");
         search(array,1,1);
         show(array);
     }
