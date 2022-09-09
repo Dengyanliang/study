@@ -53,28 +53,26 @@ public class MiGong {
     public static void main(String[] args) {
         // 先创建二维数组
         int[][] array = new int[8][7];
-//        show(array);
 
+        System.out.println("------构造上下------");
         // 第一行和最后一行置位1
         for(int i = 0; i < 7; i++){
             array[0][i] = 1;
             array[7][i] = 1;
         }
-        System.out.println("------构造上下------");
         show(array);
 
+        System.out.println("------构造左右------");
         for(int j = 0; j < 8; j++){
             array[j][0] = 1;
             array[j][6] = 1;
         }
-
-        System.out.println("------构造左右------");
         show(array);
 
+        System.out.println("------构造墙------");
         array[3][1] = 1;
         array[3][2] = 1;
 
-        System.out.println("------构造入口------");
         show(array);
 
         System.out.println("------寻找路径------");

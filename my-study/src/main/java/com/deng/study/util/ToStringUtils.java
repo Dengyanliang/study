@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class ToStringUtils {
 
     public static void main(String[] args) throws ParseException {
-        String s = "[AddLogisticInfoRe(logisticTaskReq=LogisticTaskReq(pkid=null, arrivalTime=null, createdBy=BatterySystem, sentBy=null, sentDate=null, signBy=null, signDate=null, taskStatus=3Sent, deliveryType=2Express, deliveryCompany=geren, deliveryCode=BatterySystem, deliveryFee=null, orderType=3Sent, orderId=413053211, remark=null, isPrint=null, receivedBy=null, receivedDate=null, isInstallSheetProcessed=null, cancelSentBy=null, cancelSentDate=null, totalWeight=null, volume=null, length=null, width=null, height=null, expressPackageId=null, logisticTaskProductReq=[LogisticTaskProductReq(pkid=null, conversionFactor=null, category=null, receivedNum=null, size=null, updatedBy=null, remark=null, pid=LF-VARTA-YD|24, createdBy=null, originProductId=null, name=瓦尔塔EFB 高端带自动启停车型蓄电池 黄标 6-QW-70/H6-70-L-T2-E-Y上门安装 以旧换新【18月质保】, num=1, weight=null, logisticTaskTireReq=null, logisticTaskBatchReq=[LogisticTaskBatchReq(pkid=null, ownerId=1002, batchId=228399633, num=1, logisticTaskProId=null)])]), logisticTaskAddressReq=null, concurrentKey=importOrder4130532110, isBatchImport=false, isPushDeliveryCode=null)]";
+        String s = "QueryShopStockRequest(regionId=0, queryType=ShopSearch, tenantCode=null, shopProductList=[ShopProductInfo(shopId=62231, num=1, pid=TR-DP-LM705|46)])";
         System.out.println(toJSONString(s));
     }
 
