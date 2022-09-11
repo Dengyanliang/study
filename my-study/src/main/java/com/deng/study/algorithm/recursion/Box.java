@@ -8,4 +8,9 @@ package com.deng.study.algorithm.recursion;
 public class Box {
     int i; // 当前方块的行号
     int j; // 当前方块的列号
+
+    public Box(int i, int j) {
+        this.i = i;
+        this.j = j;
+    }
 }
