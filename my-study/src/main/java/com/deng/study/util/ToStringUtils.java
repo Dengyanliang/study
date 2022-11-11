@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class ToStringUtils {
 
     public static void main(String[] args) throws ParseException {
-        String s = "QueryShopStockRequest(regionId=0, queryType=ShopSearch, tenantCode=null, shopProductList=[ShopProductInfo(shopId=62231, num=1, pid=TR-DP-LM705|46)])";
+        String s = "";
         System.out.println(toJSONString(s));
     }
 

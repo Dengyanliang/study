@@ -13,14 +13,21 @@ package com.deng.study.algorithm.recursion;
  */
 public class Queue8 {
 
-    int max = 5;
-    int[] array = new int[max];
-    static int count = 0;
-    static int jdudeCount = 0;
+    private int max = 4; // 一共有多少个皇后
+    /**
+     * 放置皇后的位置，
+     * 理论上讲，棋盘是一个二维数组，但是用一个一维数组就可以解决：
+     * 下标：表示棋盘中的第几行
+     * 对应的值：表示放在该行的那一列上
+     * 比如array[1]=2，则表示放在第二行的第3列上
+     */
+    private int[] array = new int[max];
+    private static int count = 0; // 总共有几种解法
+    private static int jdudeCount = 0; // 比较的次数
 
     public static void main(String[] args) {
         Queue8 queue8 = new Queue8();
-        queue8.check(0);
+        queue8.check(0); // 从第一行开始
 
         System.out.println("一共有"+count+"中解法");
         System.out.println("一共回溯了"+jdudeCount+"次");
@@ -38,18 +45,18 @@ public class Queue8 {
         }
         // 依次放入皇后，并判断是否冲突
         for(int i = 0;i < max; i++){
-            // 先把这个皇后n，放在该行的第一列
+            // 在数组第n行的第i列上放置一个皇后
             array[n] = i;
             // 判断当放置第n个皇后到i列时，校验是否冲突
-            if(judge(n)){ // 不冲突
+            boolean judge = judge(n);
+            System.out.println("---->n:" + n + ",array[" + n + "]:" + i+",judge:"+judge);
+            if(judge){ // 不冲突
                 check(n+1); // 接着放n+1个皇后，开始递归
             }
-            // 不过冲突，则继续执行 array[n] = i
+            // 如果冲突，则继续执行 i++;array[n] = i，即将皇后房子下一列上
         }
 
     }
-
-
 
     /**
      * 校验该皇后是否和前面已经摆放的皇后冲突

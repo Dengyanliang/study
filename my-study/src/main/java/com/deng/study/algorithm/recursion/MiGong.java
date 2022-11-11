@@ -1,5 +1,6 @@
 package com.deng.study.algorithm.recursion;
 
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class MiGong {
                 di++;                 // 继续处理（xi,yi）的下一个相邻方块
             }
         }
-        paths.remove(paths.size()-1);
+        paths.remove(paths.size()-1); // 删除最后一个方块，重新寻找路径
         mg[xi][yi] = 0;                 // 当前方块设置为可走
     }
 
