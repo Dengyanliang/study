@@ -20,8 +20,32 @@ public class TreeTest {
         node1.setLeft(node3);
         node1.setRight(node4);
 
-
         Tree tree = new Tree(rootNode);
+        System.out.println("前序遍历:");
+        tree.preFront(tree.getRootNode());
+
+        System.out.println("中序遍历：");
+        tree.midFront(tree.getRootNode());
+
+        System.out.println("后续遍历：");
+        tree.lastFront(tree.getRootNode());
+
+        int count = tree.nodeCount(tree.getRootNode());
+        System.out.println("树的节点总数：" + count);
+
+        int height = tree.height(tree.getRootNode());
+        System.out.println("树的高度：" + height);
+
+        Tree newTree = tree.copyTreeByPreFront(tree);
+        System.out.println("使用先序遍历拷贝新树：");
+        tree.lastFront(newTree.getRootNode());
+
+        Tree newTree2 = tree.copyTreeByLastFront(tree);
+        System.out.println("使用后序遍历拷贝新树：");
+        tree.lastFront(newTree2.getRootNode());
+
+
+//
 //        tree.preFront();
 //        tree.midFront();
 //        tree.lastFront();
@@ -29,8 +53,8 @@ public class TreeTest {
 //        tree.preSearch(1);
 //        tree.midSearch(1);
 //        tree.lastSearch(1);
-
-        tree.levelOrder();
+//
+//        tree.levelOrder();
 
     }
 }

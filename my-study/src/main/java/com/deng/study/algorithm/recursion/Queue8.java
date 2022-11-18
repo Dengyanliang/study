@@ -40,6 +40,7 @@ public class Queue8 {
     private void check(int n){
         if(n == max){
             print();
+            print2();
             count++;
             return;
         }
@@ -83,6 +84,20 @@ public class Queue8 {
     public void print(){
         for(int i = 0; i < array.length; i++){
             System.out.print(array[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public void print2(){
+        for(int row = 0; row < array.length; row++){
+            for (int column = 0; column < array.length; column++) {
+                if(array[row] == column){
+                    System.out.print("Q ");
+                }else{
+                    System.out.print("* ");
+                }
+            }
+            System.out.println();
         }
         System.out.println();
     }

@@ -23,6 +23,12 @@
                         password="root123456">
         </jdbcConnection>
 
+        <!--<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL=""
+                        userId=""
+                        password="">
+        </jdbcConnection>-->
+
         <javaTypeResolver type="com.deng.study.generate.MyJavaTypeResolver">
 
         </javaTypeResolver>
@@ -38,7 +44,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="tcc_local_try_log">
+        <table tableName="">
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
         </table>
 

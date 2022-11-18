@@ -38,6 +38,7 @@ public class MybatisGenerator {
             for (String warning : warnings) {
                 System.out.println(warning);
             }
+            System.out.println("------文件生成完毕------");
         } finally {
             is.close();
         }

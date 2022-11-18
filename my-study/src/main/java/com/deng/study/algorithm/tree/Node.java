@@ -1,6 +1,9 @@
 package com.deng.study.algorithm.tree;
 
+import lombok.Data;
+
 import java.util.ArrayDeque;
+import java.util.Objects;
 import java.util.Queue;
 
 /**
@@ -8,6 +11,7 @@ import java.util.Queue;
  * @Auther: dengyanliang
  * @Date: 2021/2/7 15:01
  */
+@Data
 public class Node {
     private int no;
     private String name;
@@ -151,38 +155,44 @@ public class Node {
         return resultNode;
     }
 
+    /**
+     * 使用先序遍历拷贝新树
+     * @param node
+     * @return
+     */
+    public Node copyNodeByPreFront(Node node){
+        if(Objects.nonNull(node)){
+            Node rootNode = new Node(node.getNo(),"pre-"+node.getName()); // 拷贝根节点
+            Node leftNode = copyNodeByPreFront(node.getLeft());   // 拷贝左子树
+            Node rightNode = copyNodeByPreFront(node.getRight()); // 拷贝右子树
 
-    public int getNo() {
-        return no;
+            rootNode.setLeft(leftNode);
+            rootNode.setRight(rightNode);
+
+            return rootNode;
+        }
+        return null;
     }
 
-    public void setNo(int no) {
-        this.no = no;
+    /**
+     * 使用后续遍历拷贝新树
+     * @param node
+     * @return
+     */
+    public Node copyNodeByLastFront(Node node){
+        if(Objects.nonNull(node)){
+            Node leftNode = copyNodeByLastFront(node.getLeft());   // 拷贝左子树
+            Node rightNode = copyNodeByLastFront(node.getRight()); // 拷贝右子树
+
+            Node rootNode = new Node(node.getNo(),"last-"+node.getName()); // 创建根节点
+            rootNode.setLeft(leftNode);
+            rootNode.setRight(rightNode);
+            return rootNode;
+        }
+        return null;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Node getLeft() {
-        return left;
-    }
-
-    public void setLeft(Node left) {
-        this.left = left;
-    }
-
-    public Node getRight() {
-        return right;
-    }
-
-    public void setRight(Node right) {
-        this.right = right;
-    }
 
     @Override
     public String toString() {
