@@ -1,5 +1,7 @@
 package com.deng.study.algorithm.tree;
 
+import org.junit.Test;
+
 /**
  * @Desc:
  * @Auther: dengyanliang
@@ -44,7 +46,6 @@ public class TreeTest {
         System.out.println("使用后序遍历拷贝新树：");
         tree.lastFront(newTree2.getRootNode());
 
-
 //
 //        tree.preFront();
 //        tree.midFront();
@@ -57,4 +58,12 @@ public class TreeTest {
 //        tree.levelOrder();
 
     }
+
+    @Test
+    public void testTree(){
+
+
+
+    }
+
 }

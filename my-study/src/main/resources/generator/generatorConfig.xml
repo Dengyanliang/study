@@ -17,17 +17,14 @@
             <property name="suppressAllComments" value="false"/>
         </commentGenerator>
 
+        <!--     -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/dtx_account?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai"
                         userId="root"
                         password="root123456">
         </jdbcConnection>
 
-        <!--<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                        connectionURL=""
-                        userId=""
-                        password="">
-        </jdbcConnection>-->
+
 
         <javaTypeResolver type="com.deng.study.generate.MyJavaTypeResolver">
 
@@ -45,6 +42,7 @@
         </javaClientGenerator>
 
         <table tableName="">
+            <property name="useActualColumnNames" value="true"/>
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
         </table>
 

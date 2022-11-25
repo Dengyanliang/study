@@ -77,11 +77,12 @@ public class Tree {
 
     /**
      * 求树的节点总数
-     * @param node
-     * @return
+     * @param node 当前节点
+     * @return 节点总数
      */
     public int nodeCount(Node node){
         if(Objects.nonNull(node)){
+            // 左子树的总个数+右子树的总个数+入参节点
             return nodeCount(node.getLeft()) + nodeCount(node.getRight()) + 1;
         }
         return 0;
@@ -93,16 +94,27 @@ public class Tree {
      */
     public int height(Node node){
         if(Objects.nonNull(node)){
+            // 左子树的高度 右子树的高度中的最大值   这里的1指的是当前节点，也是一层
             return Math.max(height(node.getLeft()),height(node.getRight())) + 1;
         }
         return 0;
     }
 
+    /**
+     * 通过前序遍历拷贝树
+     * @param tree
+     * @return
+     */
     public Tree copyTreeByPreFront(Tree tree){
         Node node = rootNode.copyNodeByPreFront(tree.getRootNode());
         return new Tree(node);
     }
 
+    /**
+     * 通过后续遍历拷贝树
+     * @param tree
+     * @return
+     */
     public Tree copyTreeByLastFront(Tree tree){
         Node node = rootNode.copyNodeByLastFront(tree.getRootNode());
         return new Tree(node);
