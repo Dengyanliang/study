@@ -55,7 +55,7 @@ public class TreeTest {
 //        tree.midSearch(1);
 //        tree.lastSearch(1);
 //
-//        tree.levelOrder();
+        tree.levelOrder();
 
     }
 

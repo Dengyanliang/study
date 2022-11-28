@@ -1,9 +1,9 @@
 package com.deng.study.algorithm.tree;
 
-        import lombok.Data;
+import lombok.Data;
+import org.checkerframework.checker.units.qual.C;
 
-        import java.util.Objects;
-        import java.util.Stack;
+import java.util.*;
 
 /**
  * @Desc:
@@ -15,6 +15,7 @@ public class BTree {
     private BTNode<Character> rootNode;
     private String bStr = "";
     private String ans = "";
+    private int kSumCount = 0;
 
     /**
      * 创建二叉树
@@ -29,27 +30,27 @@ public class BTree {
         while (i < str.length()){
             c = str.charAt(i);
             switch (c){
-                case '(' :      // 刚刚新建的节点有孩子，因此需要将其进栈
+                case '(' :      // 刚刚新建的结点有孩子，因此需要将其进栈
                     st.push(tempNode);
                     flag = true;  // 这里很关键，一定不能少
                     break;
                 case ')':       // 栈顶元素的子树处理完毕，退栈
                     st.pop();
                     break;
-                case ',':      // 开始处理栈顶节点的右孩子
+                case ',':      // 开始处理栈顶结点的右孩子
                     flag = false;
                     break;
                 default:
                     tempNode = new BTNode<>();
                     tempNode.setData(c);
-                    if (rootNode == null) {    // 没有建立根节点，则将新建的节点作为根节点
+                    if (rootNode == null) {    // 没有建立根结点，则将新建的结点作为根结点
                         rootNode = tempNode;
-                    } else {                   // 已经建立了根节点
-                        if (flag) {            // 新节点p作为栈顶节点的左子树
+                    } else {                   // 已经建立了根结点
+                        if (flag) {            // 新结点p作为栈顶结点的左子树
                             if (!st.isEmpty()) {
                                 st.peek().lchild = tempNode;
                             }
-                        } else {               // 新节点p作为栈顶节点的右子树
+                        } else {               // 新结点p作为栈顶结点的右子树
                             if (!st.isEmpty()) {
                                 st.peek().rchild = tempNode;
                             }
@@ -77,7 +78,7 @@ public class BTree {
 
 
     /**
-     * 获取指定节点所在的层次：根节点所在层次计为1
+     * 获取指定结点所在的层次：根结点所在层次计为1
      * @param bTree
      * @param x
      * @return
@@ -88,9 +89,9 @@ public class BTree {
 
     private int getLevel(BTNode<Character> node,char x, int h){
         if(Objects.isNull(node)){
-            return 0;   // 空树不能找到根节点
+            return 0;   // 空树不能找到根结点
         }else{
-            if(node.data == x){ // 根节点即为所找，返回其层次
+            if(node.data == x){ // 根结点即为所找，返回其层次
                 return h;
             }else{
                 int level = getLevel(node.lchild, x, h + 1); // 在左子树中查找
@@ -102,19 +103,64 @@ public class BTree {
         }
     }
 
-    public void preFront(){
-        System.out.println("先序遍历：");
-        preFront(this.getRootNode());
+    public int getLevel2(BTree bTree,char x){
+        return getLevel2(bTree.rootNode,x);
     }
 
-    public void preFront(BTNode node){
-        System.out.print(node.data + " ");
-        if(node.lchild != null){
-            preFront(node.lchild);
+    private int getLevel2(BTNode<Character> node,char x){
+        if(Objects.isNull(node)){
+            return 0;
         }
-        if(node.rchild != null){
-            preFront(node.rchild);
+        if(node.data == x){
+            return 1;
         }
+        int left = (Objects.isNull(node.lchild)) ? 0 : getLevel2(node.lchild,x);
+        int right = (Objects.isNull(node.rchild)) ? 0 : getLevel2(node.rchild,x);
+        return Math.max(left,right) + 1;
+    }
+
+    public void noRecursionPreOrder(){
+        if(Objects.isNull(this.rootNode)){
+            return;
+        }
+        this.rootNode.noRecursionPreOrder(this.rootNode);
+    }
+
+    public void noRecursionPreOrder2(){
+        if(Objects.isNull(this.rootNode)){
+            return;
+        }
+        this.rootNode.noRecursionPreOrder2(this.rootNode);
+    }
+
+    public void noRecursionMiddleOrder(){
+        if(Objects.isNull(this.rootNode)){
+            return;
+        }
+        this.rootNode.noRecursionMiddleOrder(this.rootNode);
+    }
+    public void noRecursionPostOrder(){
+        if(Objects.isNull(this.rootNode)){
+            return;
+        }
+        this.rootNode.noRecursionPostOrder(this.rootNode);
+    }
+
+    public void preFront(){
+        System.out.println("先序遍历：");
+        rootNode.preOrder(this.rootNode);
+        System.out.println();
+        System.out.println("先序遍历结束。。。");
+    }
+
+    /**
+     * 层序遍历
+     */
+    public void levelOrder(){
+        System.out.println("层序遍历：");
+        rootNode.levelOrder(this.rootNode);
+        System.out.println();
+        System.out.println("层序遍历结束。。。");
     }
 
     public void trans(String str){
@@ -126,10 +172,10 @@ public class BTree {
     }
 
     /**
-     * 求节点的所有祖先
+     * 求结点的所有祖先
      * @param bt 传入的树结构
-     * @param x  节点
-     * @return   节点的所有祖先
+     * @param x  结点
+     * @return   结点的所有祖先
      */
     public String getAncestor(BTree bt, char x){
         getAncestor(bt.rootNode,x);
@@ -140,13 +186,13 @@ public class BTree {
             return false;
         }else{
             if(Objects.nonNull(node.lchild)){   // 如果存在左子树
-                if(node.lchild.data == x){      // 左子树的节点值和入参节点相等，则把当前节点加入到祖先中
+                if(node.lchild.data == x){      // 左子树的结点值和入参结点相等，则把当前结点加入到祖先中
                     ans += node.data + " ";
                     return true;
                 }
             }
             if(Objects.nonNull(node.rchild)){   // 如果存在右子树
-                if(node.rchild.data == x){      // 右子树的节点值和入参节点相等，则把当前节点加入到祖先中
+                if(node.rchild.data == x){      // 右子树的结点值和入参结点相等，则把当前结点加入到祖先中
                     ans += node.data + " ";
                     return true;
                 }
@@ -159,6 +205,200 @@ public class BTree {
         return false;
     }
 
+    /**
+     * 使用集合的方式获取
+     * @param bt 传入的树
+     * @param x  要查询的结点
+     * @return  查找结点的所有祖先
+     */
+    public String getAncestor2(BTree bt, char x){
+        List<Character> path = new ArrayList<>();
+        getAncestor2(bt.rootNode,x ,path);
+        return ans;
+    }
+
+    private void getAncestor2(BTNode<Character> node, Character x, List<Character> path) {
+        if (Objects.isNull(node)) {
+            return;
+        }
+        path.add(node.data);
+        if (node.data == x) {
+            path.remove(path.size() - 1); // 相等时，删除当前结点，留下当前结点的所有父结点
+            ans = path.toString();              // 给结果赋值
+            return;
+        }
+        getAncestor2(node.lchild, x, path);
+        getAncestor2(node.rchild, x, path);
+        path.remove(path.size() - 1);
+    }
+
+    public String getAncestor3(BTree bTree, char x){
+        char[] path = new char[100];
+        int d = -1; // path[0..d]存放根结点到x的路径
+        getAncestor3(bTree.rootNode, x, path, d);
+        return ans;
+    }
+
+    private void getAncestor3(BTNode<Character> node, Character x, char[] path, int d) {
+        if(Objects.isNull(node)){
+            return;
+        }
+        // 不空时
+        d++;
+        path[d] = node.data;
+        if(x == node.data){
+            for (int i = 0; i < d; i++) { // 取0~~d-1的数据，也就是x的所有祖先
+                ans += path[i] + " ";
+            }
+            return;
+        }
+        getAncestor3(node.lchild,x,path,d);  // 每一次递归，栈中存放的是当时的实参值
+        getAncestor3(node.rchild,x,path,d);
+    }
+
+    /**
+     * 使用非递归后续遍历获取x的所有祖先
+     * @param bTree 当前树
+     * @param x     要比对的值
+     * @return      x的所有祖先
+     */
+    public String getAncestor4(BTree bTree, char x){
+        Stack<BTNode<Character>> stack = new Stack<>();
+        BTNode<Character> currentNode = bTree.rootNode;
+        BTNode<Character> tempNode;
+        boolean flag;
+        do {
+            while(Objects.nonNull(currentNode)){
+                stack.push(currentNode);
+                currentNode = currentNode.lchild;
+            }
+            tempNode = null;
+            flag = true;
+            while(!stack.isEmpty() && flag){
+                currentNode = stack.peek();
+                if(currentNode.rchild == tempNode){
+                    if(currentNode.data == x){
+                        stack.pop();    // 把当前结点删除。栈中剩余元素就是当前结点的所有祖先
+                        while (!stack.isEmpty())
+                            ans += stack.pop().data + " ";
+                        return ans;
+                    }else{
+                        stack.pop();
+                        tempNode = currentNode;
+                    }
+                }else{
+                    currentNode = currentNode.rchild;
+                    flag = false;
+                }
+            }
+
+        } while (!stack.isEmpty());
+
+        return "";
+    }
+
+    public int getWidth(BTree bTree){
+        int maxLevel = 100;                   // 最大层数
+        int[] w = new int[maxLevel];          // 存放每一层的结点个数
+        getWidth(bTree.rootNode, 1, w);      // 从第1层遍历
+        int width = 0;
+        for (int i = 0; i < maxLevel; i++) {  // 求w中的最大元素
+            if(width < w[i])
+                width = w[i];
+        }
+        return width;
+    }
+    private void getWidth(BTNode<Character> node, int h, int[] w){
+        if(Objects.isNull(node)){
+            return;
+        }
+        w[h]++;                         // 第h层的结点个数加1
+        getWidth(node.lchild,h+1,w); // 遍历左子树
+        getWidth(node.rchild,h+1,w); // 遍历右子树
+    }
+
+    /**
+     * 求第k层的结点个数
+     * @param bTree 当前树
+     * @param k     第k层
+     * @return      第k层的结点总数
+     */
+    public int getKCount(BTree bTree,int k){
+        kSumCount = 0;      // 每次调用该方法时，都要进行初始化，不然kSumCount在外层是个循环的情况下会累加
+        getKCount(bTree.rootNode, 1, k);  // 从第1层开始遍历
+        return kSumCount;
+    }
 
 
+    private void getKCount(BTNode<Character> node, int h, int k){
+        if(Objects.isNull(node)){
+            return;
+        }
+        if(h == k){
+            kSumCount++;
+        }
+        getKCount(node.lchild,h+1,k);
+        getKCount(node.rchild,h+1,k);
+    }
+
+    /**
+     * 使用层序遍历获取k层的结点个数
+     * @param bTree
+     * @param k
+     * @return
+     */
+    public int getKCount2(BTree bTree,int k){
+        int count = 0;
+        Queue<QNode<Character>> queue = new LinkedList<>();
+        QNode<Character> currentNode;
+        queue.offer(new QNode<Character>(1,bTree.rootNode));
+
+        while(!queue.isEmpty()){
+            currentNode = queue.poll();
+            if(currentNode.level > k)
+                return count;
+            if(currentNode.level == k){
+                count++;
+            }else {
+                if(Objects.nonNull(currentNode.node.lchild)){
+                    queue.offer(new QNode<>(currentNode.level+1,currentNode.node.lchild));
+                }
+                if(Objects.nonNull(currentNode.node.rchild)){
+                    queue.offer(new QNode<>(currentNode.level+1,currentNode.node.rchild));
+                }
+            }
+        }
+        return count;
+    }
+
+    public int getKCount3(BTree bTree,int k){
+        int count = 0;
+        Queue<BTNode<Character>> queue = new LinkedList<>();
+        BTNode<Character> currentNode,tempNode = null;
+        int curl = 1;                   // 当前层次，从1开始
+        BTNode<Character> last;         // 当前层的最右结点
+        last = bTree.rootNode;          // 第一层的最右结点，也就是根结点
+        queue.offer(bTree.rootNode);    // 根结点进队
+        while (!queue.isEmpty()){
+            if(curl > k)                // 当层号大于k时返回count，不再继续
+                return count;
+            currentNode = queue.poll(); // 出队一个结点
+            if(curl == k){              // 当前结点是第k层的结点，加1
+                count++;
+            }
+            if(Objects.nonNull(currentNode.lchild)){
+                tempNode = currentNode.lchild;
+                queue.offer(tempNode);
+            }
+            if(Objects.nonNull(currentNode.rchild)){
+                tempNode = currentNode.rchild;
+                queue.offer(tempNode);
+            }
+            if(currentNode == last){     // 当前层的所有结点处理完毕
+                last = tempNode;         // 让last指向下一层的最右结点
+                curl++;
+            }
+        }
+        return count;
+    }
 }

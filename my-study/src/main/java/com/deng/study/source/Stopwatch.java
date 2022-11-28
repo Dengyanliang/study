@@ -42,9 +42,9 @@ public class Stopwatch {
      *
      * @return elapsed CPU time (in seconds) since the stopwatch was created
      */
-    public double elapsedTime() {
+    public long elapsedTime() {
         long now = System.currentTimeMillis();
-        return (now - start) / 1000.0;
+        return (now - start);
     }
 
 
@@ -60,7 +60,7 @@ public class Stopwatch {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        int n = Integer.parseInt(args[0]);
+        int n = 10000000;
 
         // sum of square roots of integers from 1 to n using Math.sqrt(x).
         Stopwatch timer1 = new Stopwatch();
@@ -69,7 +69,7 @@ public class Stopwatch {
             sum1 += Math.sqrt(i);
         }
         double time1 = timer1.elapsedTime();
-        StdOut.printf("%e (%.2f seconds)\n", sum1, time1);
+        StdOut.printf("%e (%.2f 毫秒)\n", sum1, time1);
 
         // sum of square roots of integers from 1 to n using Math.pow(x, 0.5).
         Stopwatch timer2 = new Stopwatch();
@@ -78,6 +78,6 @@ public class Stopwatch {
             sum2 += Math.pow(i, 0.5);
         }
         double time2 = timer2.elapsedTime();
-        StdOut.printf("%e (%.2f seconds)\n", sum2, time2);
+        StdOut.printf("%e (%.2f 毫秒)\n", sum2, time2);
     }
 }

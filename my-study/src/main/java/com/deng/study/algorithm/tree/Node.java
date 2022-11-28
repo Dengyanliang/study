@@ -70,10 +70,11 @@ public class Node {
      * @return
      */
     public void levelOrder(){
-        Queue<Node> queue = new ArrayDeque();
-        queue.add(this);
-        Node node = queue.poll();
-        while(node != null){
+        Queue<Node> queue = new ArrayDeque<>();
+        queue.offer(this);
+        Node node;
+        while(!queue.isEmpty()){
+            node = queue.poll();
             System.out.println(node);
             if(node.left != null){
                 queue.add(node.left);
@@ -81,7 +82,6 @@ public class Node {
             if(node.right != null){
                 queue.add(node.right);
             }
-            node = queue.poll();
         }
     }
 

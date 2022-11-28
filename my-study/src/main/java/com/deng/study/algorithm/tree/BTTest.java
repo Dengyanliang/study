@@ -26,14 +26,42 @@ public class BTTest {
 
         String nodeStr = bTree.getNodeStr(bTree.getRootNode());
         System.out.println(nodeStr);
+//
+//        int level = bTree.getLevel2(bTree, 'G');
+//        System.out.println("节点所在层次：" + level);
+//
+//        bTree.preFront();
 
-        int level = bTree.getLevel(bTree, 'G');
-        System.out.println("节点所在层次：" + level);
+//        String ancestor = bTree.getAncestor(bTree, 'G');
+//        System.out.println("第一种办法获取节点的祖先：" + ancestor);
 
-        bTree.preFront();
-        System.out.println("-----------------");
+//        String ancestor2 = bTree.getAncestor2(bTree, 'G');
+//        System.out.println("第二种办法获取节点的祖先：" + ancestor2);
 
-        String ancestor = bTree.getAncestor(bTree, 'F');
-        System.out.println("节点的祖先：" + ancestor);
+//        String ancestor3 = bTree.getAncestor3(bTree, 'G');
+//        System.out.println("第三种办法获取节点的祖先：" + ancestor3);
+
+//        String ancestor4 = bTree.getAncestor4(bTree, 'G');
+//        System.out.println("第四种办法获取节点的祖先：" + ancestor4);
+//
+//        bTree.noRecursionPreOrder();
+//        bTree.noRecursionPreOrder2();
+//        bTree.noRecursionMiddleOrder();
+//        bTree.noRecursionPostOrder();
+//        bTree.levelOrder();
+
+//        int width = bTree.getWidth(bTree);
+//        System.out.println("width：" + width);
+//
+        for (int i = 1; i < 6; i++) {
+            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount(bTree, i));
+        }
+        System.out.println("---------------------");
+//        for (int i = 1; i < 6; i++) {
+//            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount2(bTree, i));
+//        }
+        for (int i = 1; i < 6; i++) {
+            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount3(bTree, i));
+        }
     }
 }
