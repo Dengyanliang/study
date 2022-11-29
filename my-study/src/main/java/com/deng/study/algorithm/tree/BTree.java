@@ -275,10 +275,10 @@ public class BTree {
             tempNode = null;
             flag = true;
             while(!stack.isEmpty() && flag){
-                currentNode = stack.peek();
+                currentNode = stack.peek();     // 访问当前栈顶节点。第一个while循环执行完，currentNode是空，所以这里要从栈中取出
                 if(currentNode.rchild == tempNode){
                     if(currentNode.data == x){
-                        stack.pop();    // 把当前结点删除。栈中剩余元素就是当前结点的所有祖先
+                        stack.pop();            // 把当前结点删除。栈中剩余元素就是当前结点的所有祖先
                         while (!stack.isEmpty())
                             ans += stack.pop().data + " ";
                         return ans;
@@ -297,10 +297,43 @@ public class BTree {
         return "";
     }
 
+    public String getAncestor5(BTree bTree, char x){
+        StringBuilder ans = new StringBuilder();
+        Queue<QNode<Character>> queue = new LinkedList<>();
+        QNode<Character> currentNode;
+        BTNode<Character> tempNode = bTree.rootNode;
+        queue.offer(new QNode<Character>(tempNode,null));   // 跟结点，双亲为null
+        while(!queue.isEmpty()){
+            currentNode = queue.poll();
+            if(currentNode.node.data == x){                        // 当前结点的data值等于x
+                QNode<Character> parent = currentNode.parent;      // 父节点
+                while(Objects.nonNull(parent)){                    // 找到跟结点为止
+                    ans.append(parent.node.data).append(" ");
+                    parent = currentNode.parent;
+                }
+                return ans.toString();
+            }
+
+            tempNode = currentNode.node;
+            if(Objects.nonNull(tempNode.lchild)){                  // 左孩子不空
+                queue.offer(new QNode<Character>(tempNode.lchild,currentNode));
+            }
+            if(Objects.nonNull(tempNode.rchild)){                 // 右孩子不空
+                queue.offer(new QNode<Character>(tempNode.rchild,currentNode));
+            }
+        }
+        return "";
+    }
+
+    /**
+     * 求树中的最大宽度，也就是层结点最大的个数
+     * @param bTree
+     * @return
+     */
     public int getWidth(BTree bTree){
         int maxLevel = 100;                   // 最大层数
         int[] w = new int[maxLevel];          // 存放每一层的结点个数
-        getWidth(bTree.rootNode, 1, w);      // 从第1层遍历
+        getWidth(bTree.rootNode, 1, w);    // 从第1层遍历
         int width = 0;
         for (int i = 0; i < maxLevel; i++) {  // 求w中的最大元素
             if(width < w[i])
@@ -313,12 +346,12 @@ public class BTree {
             return;
         }
         w[h]++;                         // 第h层的结点个数加1
-        getWidth(node.lchild,h+1,w); // 遍历左子树
-        getWidth(node.rchild,h+1,w); // 遍历右子树
+        getWidth(node.lchild, h + 1, w); // 遍历左子树
+        getWidth(node.rchild, h + 1, w); // 遍历右子树
     }
 
     /**
-     * 求第k层的结点个数
+     * 使用递归求第k层的结点个数
      * @param bTree 当前树
      * @param k     第k层
      * @return      第k层的结点总数
@@ -337,12 +370,12 @@ public class BTree {
         if(h == k){
             kSumCount++;
         }
-        getKCount(node.lchild,h+1,k);
-        getKCount(node.rchild,h+1,k);
+        getKCount(node.lchild, h + 1, k);
+        getKCount(node.rchild, h + 1, k);
     }
 
     /**
-     * 使用层序遍历获取k层的结点个数
+     * 使用层序遍历获取k层的结点个数：第一种做法
      * @param bTree
      * @param k
      * @return
@@ -371,21 +404,29 @@ public class BTree {
         return count;
     }
 
+    /**
+     * 使用层序遍历获取k层的结点个数：第二种做法
+     * @param bTree
+     * @param k
+     * @return
+     */
     public int getKCount3(BTree bTree,int k){
-        int count = 0;
         Queue<BTNode<Character>> queue = new LinkedList<>();
-        BTNode<Character> currentNode,tempNode = null;
-        int curl = 1;                   // 当前层次，从1开始
-        BTNode<Character> last;         // 当前层的最右结点
-        last = bTree.rootNode;          // 第一层的最右结点，也就是根结点
-        queue.offer(bTree.rootNode);    // 根结点进队
-        while (!queue.isEmpty()){
-            if(curl > k)                // 当层号大于k时返回count，不再继续
+        BTNode<Character> currentNode;
+        BTNode<Character> tempNode = null;
+        BTNode<Character> last;         // 当前层的最后一个结点
+        last = bTree.rootNode;          // 初始指向根节点
+        int currentLevel = 1;           // 当前层次，从第一层开始
+        int count = 0;                  // 结点数量
+        queue.offer(bTree.rootNode);    // 跟结点进栈
+        while(!queue.isEmpty()){
+            if(currentLevel > k){
                 return count;
-            currentNode = queue.poll(); // 出队一个结点
-            if(curl == k){              // 当前结点是第k层的结点，加1
+            }
+            if(currentLevel == k){
                 count++;
             }
+            currentNode = queue.poll();
             if(Objects.nonNull(currentNode.lchild)){
                 tempNode = currentNode.lchild;
                 queue.offer(tempNode);
@@ -394,11 +435,47 @@ public class BTree {
                 tempNode = currentNode.rchild;
                 queue.offer(tempNode);
             }
-            if(currentNode == last){     // 当前层的所有结点处理完毕
-                last = tempNode;         // 让last指向下一层的最右结点
-                curl++;
+            if(currentNode.equals(last)){   // 当前层的所有结点处理完毕
+                last = tempNode;            // last指向下一层的最后一个结点
+                currentLevel++;             // 当前层加1，指向下一层
             }
         }
         return count;
+    }
+
+    /**
+     * 使用层序遍历获取k层的结点个数：第三种做法
+     * @param bTree
+     * @param k
+     * @return
+     */
+    public int getKCount4(BTree bTree,int k){
+        if(k <= 0){
+            return 0;
+        }
+        int currentLevel = 1;
+        BTNode<Character> tempNode;
+        Queue<BTNode<Character>> queue = new LinkedList<>();
+        queue.offer(bTree.rootNode);
+        while(!queue.isEmpty()){
+            if(currentLevel == k){
+                return queue.size();
+            }
+            int size = queue.size();
+            // 把每一层结点的子节点加入到队列中
+            for (int i = 0; i < size; i++) {
+                tempNode = queue.poll();
+                if(Objects.nonNull(tempNode)){
+                    if(Objects.nonNull(tempNode.lchild)){
+                        queue.offer(tempNode.lchild);
+                    }
+                    if(Objects.nonNull(tempNode.rchild)){
+                        queue.offer(tempNode.rchild);
+                    }
+                }
+            }
+            currentLevel++;
+        }
+        return 0;
     }
 }

@@ -41,8 +41,12 @@ public class BTTest {
 //        String ancestor3 = bTree.getAncestor3(bTree, 'G');
 //        System.out.println("第三种办法获取节点的祖先：" + ancestor3);
 
-//        String ancestor4 = bTree.getAncestor4(bTree, 'G');
-//        System.out.println("第四种办法获取节点的祖先：" + ancestor4);
+        String ancestor4 = bTree.getAncestor4(bTree, 'G');
+        System.out.println("第四种办法获取节点的祖先：" + ancestor4);
+
+        String ancestor5 = bTree.getAncestor5(bTree, 'G');
+        System.out.println("第五种办法获取节点的祖先：" + ancestor5);
+
 //
 //        bTree.noRecursionPreOrder();
 //        bTree.noRecursionPreOrder2();
@@ -61,7 +65,7 @@ public class BTTest {
 //            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount2(bTree, i));
 //        }
         for (int i = 1; i < 6; i++) {
-            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount3(bTree, i));
+            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount4(bTree, i));
         }
     }
 }
