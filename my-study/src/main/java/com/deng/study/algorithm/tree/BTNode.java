@@ -28,6 +28,16 @@ public class BTNode<T> {
         }
     }
 
+    public void postOrder(BTNode<T> rootNode){
+        if(rootNode.lchild != null){
+            postOrder(rootNode.lchild);
+        }
+        if(rootNode.rchild != null){
+            postOrder(rootNode.rchild);
+        }
+        System.out.print(rootNode.data + " ");
+    }
+
     public void levelOrder(BTNode<T> rootNode){
         Queue<BTNode<T>> queue = new LinkedList<>();
         queue.offer(rootNode);

@@ -1,5 +1,7 @@
 package com.deng.study.algorithm.tree;
 
+import org.junit.Test;
+
 /**
  * @Desc:
  * @Author: dengyanliang
@@ -67,5 +69,22 @@ public class BTTest {
         for (int i = 1; i < 6; i++) {
             System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount4(bTree, i));
         }
+    }
+
+    @Test
+    public void test(){
+//        String pre = "ABDGCEF";
+//        String middle = "DGBAECF";
+//        BTree bTree = new BTree();
+//        bTree = bTree.createTreeByPreAndMiddleOrder(pre, middle);
+//        System.out.println(bTree);
+//        bTree.preFront();
+
+        String middle = "DGBAECF";
+        String last = "GDBEFCA";
+        BTree bTree = new BTree();
+        bTree = bTree.createTreeByMidAndLastOrder(last,middle);
+        System.out.println(bTree);
+        bTree.postFront();
     }
 }

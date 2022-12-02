@@ -22,11 +22,11 @@ public class BTree {
      * @param str
      */
     public void createBTree(String str){
-        Stack<BTNode> st = new Stack<>();
+        Stack<BTNode<Character>> st = new Stack<>();
         BTNode<Character> tempNode = null;
         char c;
         int i = 0;
-        boolean flag = true; // 用于处理左右孩子
+        boolean flag = true;    // 用于处理左右孩子
         while (i < str.length()){
             c = str.charAt(i);
             switch (c){
@@ -74,6 +74,109 @@ public class BTree {
             }
         }
         return bStr;
+    }
+
+    /**
+     * 通过先序遍历和中序遍历构造二叉树
+     * @param preStr 先序遍历字符串
+     * @param midStr 中序遍历字符串
+     * @return       构造成功的树
+     */
+    public BTree createTreeByPreAndMiddleOrder(String preStr,String midStr){
+        BTree bTree = new BTree();
+        bTree.rootNode = createTreeByPreAndMidOrder(preStr,0,midStr,0,preStr.length());
+        return bTree;
+    }
+
+    /**
+     * 根据先序遍历和中序遍历构造左右子树
+     * @param preStr    先序遍历字符串
+     * @param preFirst  先序遍历起始位置
+     * @param midStr    中序遍历字符串
+     * @param midFirst  中序遍历起始位置
+     * @param sumNum    字符串的长度
+     * @return          构造成功的左右子树
+     */
+    private BTNode<Character> createTreeByPreAndMidOrder(String preStr,int preFirst,String midStr,int midFirst, int sumNum){
+        if(sumNum <= 0){
+            return null;
+        }
+
+        char rootData = preStr.charAt(preFirst); // 从先序遍历字符串中找到第一个元素，就是跟结点
+        BTNode<Character> rootNode = new BTNode<>();
+        rootNode.setData(rootData);
+
+        int p = midFirst;              // 指向中序遍历的起始位置
+        while(p < midFirst + sumNum){  // 在中序遍历字符串中找到和跟结点相同的元素，那么p左边的就是左子树，p右边的就是右子树
+            if(midStr.charAt(p) == rootData){
+                break;
+            }
+            p++;
+        }
+
+        int leftNum = p-midFirst;    // 中序遍历字符串左子树的个数
+
+        // 左子树的构造：
+        // 先序遍历字符串从preFirst+1开始，是因为跟结点已经遍历过了。后续每次遍历都会往后移动一位
+        // 中序遍历字符串从middleFirst开始，是因为左子树还是要从头开始
+        rootNode.lchild = createTreeByPreAndMidOrder(preStr,preFirst+1,midStr,midFirst,leftNum);
+
+        // 右子树的构造：
+        // 先序遍历字符串从preFirst+1+leftNum，因为要加上中序遍历字符串中左边子树的个数
+        // 中序遍历字符串从p+1开始，因为p现在指向的是跟结点，所以右子树要加1开始
+        rootNode.rchild = createTreeByPreAndMidOrder(preStr,preFirst+1+leftNum,midStr,p+1,sumNum-leftNum-1);
+        return rootNode;
+    }
+
+    /**
+     * 通过中序遍历和后序遍历构造二叉树
+     * @param lastStr   后序遍历字符串
+     * @param midStr    中序遍历字符串
+     * @return          构造成功的树
+     */
+    public BTree createTreeByMidAndLastOrder(String lastStr,String midStr){
+        BTree bTree = new BTree();
+        bTree.rootNode = createTreeByMidAndLastOrder(lastStr,0,midStr,0,lastStr.length());
+        return bTree;
+    }
+
+    /**
+     * 通过中序遍历和后序遍历构造二叉树
+     * @param lastStr    后序遍历字符串
+     * @param lastFirst  后序遍历字符串的起始位置
+     * @param midStr     中序遍历字符串
+     * @param midFirst   中序遍历字符串的起始位置
+     * @param sumNum     字符串的长度
+     * @return           构造成功的树
+     */
+    private BTNode<Character> createTreeByMidAndLastOrder(String lastStr, int lastFirst, String midStr, int midFirst, int sumNum) {
+        if (sumNum <= 0) {
+            return null;
+        }
+        char rootData = lastStr.charAt(lastFirst + sumNum - 1); // 后序遍历字符串的最后一个位置就是跟结点
+        BTNode<Character> rootNode = new BTNode<>();
+        rootNode.setData(rootData);
+
+        int p = midFirst;                   // 指向中序遍历字符串的起始位置
+        while (p < midFirst + sumNum) {     // 在中序遍历字符串中找到和跟结点相同的元素，那么p左边的就是左子树，p右边的就是右子树
+            if (midStr.charAt(p) == rootData) {
+                break;
+            }
+            p++;
+        }
+        int leftNum = p - midFirst; // 中序遍历字符串左子树的个数
+
+        // 左子树的构造
+        // 后序遍历从lastFirst开始，因为跟结点在最后。所以每次遍历都是从头开始
+        // 中序遍历从midFirst开始，也就是从头开始
+        rootNode.lchild = createTreeByMidAndLastOrder(lastStr, lastFirst, midStr, midFirst, leftNum);
+
+        // 右子树的构造
+        // 后续遍历从last+leftNum开始，因为要加上中序遍历字符串中左边子树的个数
+        // 中序遍历从p+1开始，因为p目前指向的就是跟结点，加1后，就是右边子树的开始位置
+        rootNode.rchild = createTreeByMidAndLastOrder(lastStr, lastFirst + leftNum, midStr, p + 1, sumNum - leftNum - 1);
+
+        return rootNode;
     }
 
 
@@ -151,6 +254,13 @@ public class BTree {
         rootNode.preOrder(this.rootNode);
         System.out.println();
         System.out.println("先序遍历结束。。。");
+    }
+
+    public void postFront(){
+        System.out.println("后序遍历：");
+        rootNode.postOrder(this.rootNode);
+        System.out.println();
+        System.out.println("后序遍历结束。。。");
     }
 
     /**
