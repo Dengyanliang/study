@@ -1,7 +1,6 @@
 package com.deng.study.algorithm.tree;
 
 import lombok.Data;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.*;
 
@@ -16,6 +15,7 @@ public class BTree {
     private String bStr = "";
     private String ans = "";
     private int kSumCount = 0;
+    private int index = 0;
 
     /**
      * 创建二叉树
@@ -249,14 +249,51 @@ public class BTree {
         this.rootNode.noRecursionPostOrder(this.rootNode);
     }
 
-    public void preFront(){
+    public void preOrder(){
         System.out.println("先序遍历：");
         rootNode.preOrder(this.rootNode);
         System.out.println();
         System.out.println("先序遍历结束。。。");
     }
 
-    public void postFront(){
+    /**
+     * 对树的遍历进行序列化
+     * @return
+     */
+    public String preOrderSeq(){
+        return rootNode.preOrderSeq(this.rootNode);
+    }
+
+    /**
+     * 使用序列化字符串创建树
+     * @param seq 序列化字符串
+     * @return  构造成功的树
+     */
+    public BTree createTreeBySeq(String seq){
+        BTree bTree = new BTree();
+        bTree.rootNode = createNodeBySeq(seq);
+        return bTree;
+    }
+
+    private BTNode<Character> createNodeBySeq(String seq){
+        if(index >= seq.length()){
+            return null;
+        }
+        char data = seq.charAt(index);
+        index++;                 // 一定要在这里进行index++，不然就会出问题
+        if(data == '#'){
+            return null;
+        }
+        BTNode<Character> rootNode = new BTNode<>();
+        rootNode.setData(data);
+
+        rootNode.lchild = createNodeBySeq(seq);
+        rootNode.rchild = createNodeBySeq(seq);
+        return rootNode;
+    }
+
+
+    public void postOrder(){
         System.out.println("后序遍历：");
         rootNode.postOrder(this.rootNode);
         System.out.println();

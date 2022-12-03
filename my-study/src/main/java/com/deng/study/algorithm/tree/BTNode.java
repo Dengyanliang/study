@@ -17,6 +17,8 @@ public class BTNode<T> {
     T data;
     BTNode<T> lchild;
     BTNode<T> rchild;
+    int ltag; // 左标识
+    int rtag; // 右标识
 
     public void preOrder(BTNode<T> rootNode){
         System.out.print(rootNode.data + " ");
@@ -140,5 +142,15 @@ public class BTNode<T> {
         }while (!stack.isEmpty());
 
         System.out.println();
+    }
+
+    public String preOrderSeq(BTNode<T> rootNode){
+        if(Objects.isNull(rootNode)){
+            return "#";
+        }
+        String s = String.valueOf(rootNode.data);
+        s += preOrderSeq(rootNode.lchild);
+        s += preOrderSeq(rootNode.rchild);
+        return s;
     }
 }

@@ -32,7 +32,12 @@ public class BTTest {
 //        int level = bTree.getLevel2(bTree, 'G');
 //        System.out.println("节点所在层次：" + level);
 //
-//        bTree.preFront();
+//        bTree.preOrder();
+        String s = bTree.preOrderSeq();
+        System.out.println("序列化后的字符串为："+ s);
+
+        BTree treeBySeq = bTree.createTreeBySeq(s);
+        treeBySeq.preOrder();
 
 //        String ancestor = bTree.getAncestor(bTree, 'G');
 //        System.out.println("第一种办法获取节点的祖先：" + ancestor);
@@ -43,11 +48,11 @@ public class BTTest {
 //        String ancestor3 = bTree.getAncestor3(bTree, 'G');
 //        System.out.println("第三种办法获取节点的祖先：" + ancestor3);
 
-        String ancestor4 = bTree.getAncestor4(bTree, 'G');
-        System.out.println("第四种办法获取节点的祖先：" + ancestor4);
-
-        String ancestor5 = bTree.getAncestor5(bTree, 'G');
-        System.out.println("第五种办法获取节点的祖先：" + ancestor5);
+//        String ancestor4 = bTree.getAncestor4(bTree, 'G');
+//        System.out.println("第四种办法获取节点的祖先：" + ancestor4);
+//
+//        String ancestor5 = bTree.getAncestor5(bTree, 'G');
+//        System.out.println("第五种办法获取节点的祖先：" + ancestor5);
 
 //
 //        bTree.noRecursionPreOrder();
@@ -59,16 +64,16 @@ public class BTTest {
 //        int width = bTree.getWidth(bTree);
 //        System.out.println("width：" + width);
 //
-        for (int i = 1; i < 6; i++) {
-            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount(bTree, i));
-        }
-        System.out.println("---------------------");
+//        for (int i = 1; i < 6; i++) {
+//            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount(bTree, i));
+//        }
+//        System.out.println("---------------------");
 //        for (int i = 1; i < 6; i++) {
 //            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount2(bTree, i));
 //        }
-        for (int i = 1; i < 6; i++) {
-            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount4(bTree, i));
-        }
+//        for (int i = 1; i < 6; i++) {
+//            System.out.println("第" + (i) + "层的节点个数为：" + bTree.getKCount4(bTree, i));
+//        }
     }
 
     @Test
@@ -85,6 +90,6 @@ public class BTTest {
         BTree bTree = new BTree();
         bTree = bTree.createTreeByMidAndLastOrder(last,middle);
         System.out.println(bTree);
-        bTree.postFront();
+        bTree.postOrder();
     }
 }

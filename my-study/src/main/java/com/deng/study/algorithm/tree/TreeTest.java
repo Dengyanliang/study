@@ -60,10 +60,15 @@ public class TreeTest {
     }
 
     @Test
-    public void testTree(){
+    public void testHuffmanTree(){
+        String str = "abcdefgh";
+//        double[] weight = {0.07,0.19,0.02,0.06,0.32,0.03,0.21,0.10};
+        double[] weight = {7,19,2,6,32,3,21,10};
+        HuffmanTree huffmanTree = new HuffmanTree(str,weight);
 
-
-
+        huffmanTree.createHuffmanTree();
+        huffmanTree.createHuffmanCode();
+        huffmanTree.displayHufuffman();
     }
 
 }
