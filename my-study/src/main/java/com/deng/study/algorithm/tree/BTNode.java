@@ -20,6 +20,14 @@ public class BTNode<T> {
     int ltag; // 左标识
     int rtag; // 右标识
 
+    public BTNode(){
+
+    }
+
+    public BTNode(T data){
+        this.data = data;
+    }
+
     public void preOrder(BTNode<T> rootNode){
         System.out.print(rootNode.data + " ");
         if(rootNode.lchild != null){
@@ -27,6 +35,16 @@ public class BTNode<T> {
         }
         if(rootNode.rchild != null){
             preOrder(rootNode.rchild);
+        }
+    }
+
+    public void middleOrder(BTNode<T> rootNode){
+        if(rootNode.lchild != null){
+            middleOrder(rootNode.lchild);
+        }
+        System.out.print(rootNode.data + " ");
+        if(rootNode.rchild != null){
+            middleOrder(rootNode.rchild);
         }
     }
 
@@ -144,13 +162,22 @@ public class BTNode<T> {
         System.out.println();
     }
 
-    public String preOrderSeq(BTNode<T> rootNode){
-        if(Objects.isNull(rootNode)){
+    public String preOrderSeq(BTNode<T> currentNode){
+        if(Objects.isNull(currentNode)){
             return "#";
         }
-        String s = String.valueOf(rootNode.data);
-        s += preOrderSeq(rootNode.lchild);
-        s += preOrderSeq(rootNode.rchild);
+        String s = String.valueOf(currentNode.data);
+        s += preOrderSeq(currentNode.lchild);
+        s += preOrderSeq(currentNode.rchild);
         return s;
+    }
+
+    @Override
+    public String toString() {
+        return "BTNode{" +
+                "data=" + data +
+                ", ltag=" + ltag +
+                ", rtag=" + rtag +
+                '}';
     }
 }

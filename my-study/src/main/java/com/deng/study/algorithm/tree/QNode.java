@@ -1,6 +1,5 @@
 package com.deng.study.algorithm.tree;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**

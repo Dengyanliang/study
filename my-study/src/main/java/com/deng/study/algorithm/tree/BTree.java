@@ -284,12 +284,12 @@ public class BTree {
         if(data == '#'){
             return null;
         }
-        BTNode<Character> rootNode = new BTNode<>();
-        rootNode.setData(data);
+        BTNode<Character> currentNode = new BTNode<>();
+        currentNode.setData(data);
 
-        rootNode.lchild = createNodeBySeq(seq);
-        rootNode.rchild = createNodeBySeq(seq);
-        return rootNode;
+        currentNode.lchild = createNodeBySeq(seq);
+        currentNode.rchild = createNodeBySeq(seq);
+        return currentNode;
     }
 
 

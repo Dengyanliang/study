@@ -92,4 +92,46 @@ public class BTTest {
         System.out.println(bTree);
         bTree.postOrder();
     }
+
+    /**
+     *          A
+     *        /  \
+     *       B    C
+     *      /    / \
+     *     D    E   F
+     *     \
+     *      G
+     */
+    @Test
+    public void testThread(){
+        BTNode<Character> rootNode = new BTNode<>('A');
+        BTNode<Character> node1 = new BTNode<>('B');
+        BTNode<Character> node2 = new BTNode<>('C');
+        BTNode<Character> node3 = new BTNode<>('D');
+        BTNode<Character> node4 = new BTNode<>('E');
+        BTNode<Character> node5 = new BTNode<>('F');
+        BTNode<Character> node6 = new BTNode<>('G');
+
+        rootNode.setLchild(node1);
+        rootNode.setRchild(node2);
+        node1.setLchild(node3);
+        node2.setLchild(node4);
+        node2.setRchild(node5);
+        node3.setRchild(node6);
+
+        rootNode.middleOrder(rootNode);
+        System.out.println("---------------");
+
+        rootNode.preOrder(rootNode);
+        System.out.println("---------------");
+//
+        rootNode.postOrder(rootNode);
+        System.out.println("---------------");
+
+        ThreadClass threadClass = new ThreadClass();
+        threadClass.setRoot(rootNode);
+        threadClass.createThread();
+
+        threadClass.middleThreadOrder();
+    }
 }
