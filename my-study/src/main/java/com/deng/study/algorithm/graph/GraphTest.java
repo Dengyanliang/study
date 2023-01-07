@@ -1,5 +1,7 @@
 package com.deng.study.algorithm.graph;
 
+import org.junit.Test;
+
 /**
  * @Desc:
  * @Auther: dengyanliang
@@ -43,5 +45,19 @@ public class GraphTest {
         graph.bfs();
     }
 
+    @Test
+    public void testMatGraph(){
+        MatGraph matGraph = new MatGraph();
+        int[][] array = {{1, 2, 3}, {4,5,6}, {5, 6,8}};
+        matGraph.createMatGraph(array, 3, 3);
+        matGraph.displayMatGraph();
+    }
 
+    @Test
+    public void testAdjGraph(){
+        AdjGraph adjGraph = new AdjGraph();
+        int[][] array = {{1, 2, 3}, {4,5,6}, {5, 6,8}};
+        adjGraph.createAdjGraph(array, 3, 3);
+        adjGraph.displayAdjGraph();
+    }
 }

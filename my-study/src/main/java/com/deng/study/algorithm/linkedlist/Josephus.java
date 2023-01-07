@@ -47,15 +47,15 @@ public class Josephus {
         Node current = head; // 指向第一个节点
         int i = 1;
 
-        Node tail = head;
-        while(tail.next != null && tail.next != head){
-            tail = tail.next; // 遍历到结尾
-        }
-
-        Node pre = tail;
+//        Node tail = head;
+//        while(tail.next != null && tail.next != head){
+//            tail = tail.next; // 遍历到结尾
+//        }
+//        Node pre = tail;
+        Node pre = head;
         while(size > 1){
             if(i % 3 == 0){
-                System.out.println("delete currentNode:"+current.data);
+                System.out.println("delete currentNode by linkedlist:" + current.data);
                 pre.next = current.next;
                 current = current.next;
                 size--;
@@ -65,7 +65,6 @@ public class Josephus {
             }
             i++;
         }
-        System.out.println("delete currentNode:"+current.data);
     }
 
     /**
@@ -169,6 +168,7 @@ public class Josephus {
         josephus.addLast(4);
         josephus.addLast(5);
         josephus.addLast(6);
+        josephus.addLast(7);
 
         josephus.show();
 

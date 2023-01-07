@@ -1,9 +1,11 @@
 package com.deng.study.algorithm.basic;
 
-import com.deng.study.source.StdOut;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,6 +15,30 @@ import java.util.List;
  */
 @Slf4j
 public class NumberTest {
+
+
+    @Test
+    public void middleTest(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(3);
+        list.add(5);
+        list.add(2);
+        list.add(4);
+        list.add(6);
+
+        Collections.sort(list);
+        double middle = 0;
+        if(list.size() % 2 == 1){ // 奇数
+            middle = list.get(list.size()/2);
+        }else{                    // 偶数
+            // 加0.0是将计算int类型转换为浮点类型
+            middle = (list.get((list.size() / 2)) + list.get((list.size() - 1) / 2) + 0.0) / 2;
+        }
+        System.out.println("middle:"+middle);
+    }
+
+
 
     /**
      * 判断一个数是否为素数，素数是值大于1的自然数中，除了1和它本身之外没有别的因数的自然数

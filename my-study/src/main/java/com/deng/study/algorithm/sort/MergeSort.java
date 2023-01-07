@@ -27,9 +27,9 @@ public class MergeSort {
     private static void merge(int[] arr, int[] tempArr,int start,int end){
         int middle = start + (end-start)/2; // 避免数组越界
         if(start < end){
-            merge(arr,tempArr,start,middle);
-            merge(arr,tempArr,middle+1,end);
-            mergeSort(arr,tempArr,start,middle+1,end);
+            merge(arr, tempArr, start, middle);
+            merge(arr, tempArr, middle + 1, end);
+            mergeSort(arr, tempArr, start, middle + 1, end);
         }
     }
 
@@ -44,6 +44,8 @@ public class MergeSort {
     private static void mergeSort(int[] arr, int[] tempArr,int leftStart,int rightStart,int rightEnd){
         int index = leftStart;        // 开始位置
         int leftEnd = rightStart - 1; // 左边数组结束位置
+        int nums = rightEnd - leftStart + 1; // 总的数组长度，一定要在这里计算nums的长度
+
         while(leftStart <= leftEnd && rightStart <= rightEnd){
             if(arr[leftStart] < arr[rightStart]){
                 tempArr[index++] = arr[leftStart++];
@@ -59,12 +61,9 @@ public class MergeSort {
             tempArr[index++] = arr[rightStart++];
         }
 
-//        System.out.println("index:" + index +", leftStart:"+leftStart +", rightEnd:"+rightEnd);
-
         System.out.println("--"+(++count)+"--" + Arrays.toString(tempArr));
 
-        int length = rightEnd - leftStart + 1; // 总的数组长度
-        for(int i = 0; i < length; i++,rightEnd--){
+        for(int i = 0; i < nums; i++,rightEnd--){
             arr[rightEnd] = tempArr[rightEnd];     // 从后往前拷贝
         }
     }

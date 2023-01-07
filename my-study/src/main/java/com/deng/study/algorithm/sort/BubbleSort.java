@@ -15,8 +15,8 @@ public class BubbleSort {
      *
      * @param arr
      */
-    static boolean flag = false;
     public static void sort(int[] arr){
+        boolean flag = false;
         // 总共比较的次数，除去本身之外，共n-1次
         for(int i = 0; i < arr.length-1; i++){
             // 每一趟结束后，最值就在末尾了，所以比较的次数会越来越少
@@ -30,9 +30,8 @@ public class BubbleSort {
                 }
             }
             if(!flag){ // 在一趟排序中，一次都没有发生交换过，则直接退出，说明原始数组就是有序的
+                System.out.println("有序的，直接退出");
                 break;
-            }else{
-                flag = false;
             }
             System.out.println("--->"+Arrays.toString(arr));
         }

@@ -19,7 +19,6 @@ public class QuickSort {
         sort2(arr,0,arr.length-1);
     }
 
-
     /**
      * 第二种方法，使用第一个数字作为标杆
      * @param arr
@@ -32,26 +31,26 @@ public class QuickSort {
         }
         // 第0个位置的元素作为标准数
         int stard = arr[start];
-        int low = start;
-        int high = end;
+        int low = start;    // 低位指针
+        int high = end;     // 高位指针
         while(low < high){
             // 如果右边的数字比标准数大
             while(low < high && stard <= arr[high]){
-                high--;
+                high--;     // 高位指针左移
             }
             // 右边的数字比标准数小，则使用右边的数字替换左边的数字
             arr[low] = arr[high];
             // 如果左边的数字比标准数小
             while(low < high && stard >= arr[low]){
-                low++;
+                low++;      // 低位指针右移
             }
             // 左边的数字比标准数大，则使用左边的数字替换右边的数字
             arr[high] = arr[low];
         }
-        // 把标准数赋值给低所在的位置的元素
+        // 把标准数赋值给低位所在位置的元素
         arr[low] = stard;
         // 处理所有小的数字
-        sort2(arr,start,low);
+        sort2(arr,start,low);   // 上面循环结束后，low的位置已经右移，所以就从start~~low递归调用即可
         // 处理所有大的数字
         sort2(arr,low+1,end);
     }

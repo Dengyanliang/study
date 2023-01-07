@@ -1,5 +1,6 @@
 package com.deng.study.algorithm.tree;
 
+import com.deng.study.enums.ThreadClassEnum;
 import org.junit.Test;
 
 /**
@@ -99,8 +100,8 @@ public class BTTest {
      *       B    C
      *      /    / \
      *     D    E   F
-     *     \
-     *      G
+     *     \       /
+     *      G     H
      */
     @Test
     public void testThread(){
@@ -111,6 +112,7 @@ public class BTTest {
         BTNode<Character> node4 = new BTNode<>('E');
         BTNode<Character> node5 = new BTNode<>('F');
         BTNode<Character> node6 = new BTNode<>('G');
+        BTNode<Character> node7 = new BTNode<>('H');
 
         rootNode.setLchild(node1);
         rootNode.setRchild(node2);
@@ -118,20 +120,22 @@ public class BTTest {
         node2.setLchild(node4);
         node2.setRchild(node5);
         node3.setRchild(node6);
+        node5.setRchild(node7);
 
-        rootNode.middleOrder(rootNode);
-        System.out.println("---------------");
+//        rootNode.preOrder(rootNode);
+//        System.out.println("---------------");
 
-        rootNode.preOrder(rootNode);
-        System.out.println("---------------");
+//        rootNode.middleOrder(rootNode);
+//        System.out.println("---------------");
 //
         rootNode.postOrder(rootNode);
         System.out.println("---------------");
 
         ThreadClass threadClass = new ThreadClass();
+        threadClass.setThreadClassType(ThreadClassEnum.POST);
         threadClass.setRoot(rootNode);
         threadClass.createThread();
-
-        threadClass.middleThreadOrder();
+        threadClass.threadOrder();
     }
+
 }

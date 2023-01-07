@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @Desc:深度优先和广度优先
+ * @Desc: 深度优先和广度优先，这里使用邻接矩阵遍历
  * @Auther: dengyanliang
  * @Date: 2021/2/9 14:32
  */
@@ -91,11 +91,6 @@ public class Graph {
             }
             System.out.println();
         }
-
-//        for(int[] link : edges){
-//            System.out.println(Arrays.toString(link));
-//        }
-
     }
 
     /**
@@ -153,8 +148,8 @@ public class Graph {
         // 查找节点i的第一个邻接节点
         int w = getFirstNeighbor(i);
         while(w != -1){ // 说明存在
-            if(!isVisited[w]){
-                dfs(isVisited,w);
+            if (!isVisited[w]) {
+                dfs(isVisited, w);
             }
 
             // 如果节点已经被访问过，则取w的下一个邻接节点
@@ -170,7 +165,7 @@ public class Graph {
         isVisited = new boolean[vertexList.size()];
         for(int i = 0; i < getNumOfVertex(); i++){
             if(!isVisited[i]){  //当前节点是否被访问过
-                bfs(isVisited,i);
+                bfs(isVisited, i);
             }
         }
     }
