@@ -5,6 +5,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -278,5 +279,17 @@ public class NumberTest {
 //
 //        twoToTen(011);
 
+    }
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int[] nums = new int[nums1.length+nums2.length];
+
+
+        List list1 = Arrays.asList(nums1);
+        List list2 = Arrays.asList(nums2);
+        list1.addAll(list2);
+        Collections.sort(list1);
+
+        return 0;
     }
 }
