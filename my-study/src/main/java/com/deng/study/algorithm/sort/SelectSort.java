@@ -1,5 +1,6 @@
 package com.deng.study.algorithm.sort;
 
+import com.deng.study.util.ArrayUtil;
 import java.util.Arrays;
 
 /**
@@ -15,34 +16,27 @@ public class SelectSort {
      * @param arr
      */
     public static void sort(int[] arr){
-        int min = -1;
-        int indexOfMin = -1;
         for(int i = 0;  i < arr.length-1; i++){ // 最后一次不用再遍历，因为最后一个就是最值元素了，所以用 i < arr.length-1
-            min = arr[i];
-            indexOfMin = i;
+            int minIndex = i; // 以外层循环的当前索引作为最小值索引
             for(int j = i + 1; j < arr.length; j++){
-                if(arr[j] < min){
-                    min = arr[j];
-                    indexOfMin = j;
+                if(arr[j] < arr[i]){
+                    minIndex = j;
                 }
             }
-            if(i != indexOfMin){
-                int temp = arr[indexOfMin];
-                arr[indexOfMin] = arr[i];
-                arr[i] = temp;
+            System.out.println("--->i：" + i + "，minIndex：" + minIndex);
+            if(i != minIndex){
+                ArrayUtil.swap(arr,minIndex,i);
 
-                System.out.print("第"+(++count)+"趟："+Arrays.toString(arr));
+                System.out.println("i：" + i + "，minIndex：" + minIndex + "，第" + (++count) + "趟：" + Arrays.toString(arr));
                 System.out.println();
             }
         }
     }
 
-
-
     public static void main(String[] args) {
-        int[] arr = {2,1,9,8,10,5};
-        System.out.println(Arrays.toString(arr));
+        int[] arr = {5, 2, 7, 3, 1, 6, 9, 8};
+        System.out.println("原始数组：" + Arrays.toString(arr));
         sort(arr);
-        System.out.println(Arrays.toString(arr));
+        System.out.println("排序后：" + Arrays.toString(arr));
     }
 }

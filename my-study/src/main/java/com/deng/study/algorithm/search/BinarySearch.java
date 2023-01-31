@@ -24,10 +24,10 @@ public class BinarySearch {
      */
     public static int rank(int[] array,int key){
         int low = 0;
-        int height = array.length - 1; // 数组的索引，最高位为长度减1
-        while(low <= height){      // 当low和height相等的时候，才能找到数据
-            int middle = low + (height - low) / 2; // 在数学上等价于(height +low) / 2，但是后者会引起结果溢出，所以使用前者
-//            int middle = (height +low) / 2;
+        int height = array.length - 1;             // 数组的索引，最高位为长度减1
+        while(low <= height){                      // 当low和height相等的时候，才能找到数据
+//            int middle = low + (height - low) / 2; // 在数学上等价于(height +low) / 2，但是后者会引起结果溢出，所以使用前者
+            int middle = (low + height) >>> 1;       // 效率更高效
             log.info("low:{},middle:{},height:{}",low,middle,height);
             if(key < array[middle])
                 height = middle - 1;
@@ -43,19 +43,19 @@ public class BinarySearch {
      * 使用递归的方式
      * @param array
      * @param key
-     * @param left
-     * @param right
+     * @param low
+     * @param height
      * @return
      */
-    public static int rank(int[] array,int key,int left,int right){
-        if(left > right){
+    public static int rank(int[] array,int key,int low,int height){
+        if(low > height){
             return -1;
         }
-        int middle = left + (right-left)/2;
+        int middle = low + (height - low) / 2;
         if(key < array[middle]){
-            return rank(array,key,left,middle-1);
-        }else if(key > array[middle]){
-            return rank(array,key,middle+1,right);
+            return rank(array,key,low,middle - 1);
+        }else if(key > array[middle]) {
+            return rank(array,key,middle+1,height);
         }else{
             return middle;
         }
@@ -66,36 +66,38 @@ public class BinarySearch {
      * 返回相同数据的集合索引
      * @param array
      * @param key
-     * @param left
-     * @param right
+     * @param low
+     * @param height
      * @return
      */
-    public static List<Integer> rank2(int[] array,int key,int left,int right){
+    public static List<Integer> rank2(int[] array,int key,int low,int height){
         List<Integer> list = null;
-        if(left > right){
+        if(low > height){
             return list;
         }
-        int middle = left + (right-left)/2;
+        int middle = low + (height-low)/2;
         if(key < array[middle]){
-            return rank2(array,key,left,middle-1);
+            return rank2(array,key,low,middle-1);
         }else if(key > array[middle]){
-            return rank2(array,key,middle+1,right);
+            return rank2(array,key,middle+1,height);
         }else{
             list = new ArrayList<>();
-            // 向左遍历
-            int start = middle-1;
-            while(start >= 0 && array[start] == key){
-                list.add(start);
-                start--;
-            }
-            list.add(middle);
-            int end = middle+1;
-            // 向左遍历
-            while(end <= array.length-1 && array[end] == key){
-                list.add(end);
-                end++;
-            }
 
+            // 向左遍历
+            int left = middle-1;
+            while(left >= 0 && array[left] == key){
+                list.add(left);
+                left--;
+            }
+            // 中间值
+            list.add(middle);
+
+            // 向右遍历
+            int right = middle+1;
+            while(right <= array.length-1 && array[right] == key){
+                list.add(right);
+                right++;
+            }
             return list;
         }
     }
