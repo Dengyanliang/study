@@ -45,7 +45,9 @@ public class StringTest {
         System.out.println("nextval index:"+index2);
     }
 
-
+    /**
+     * 求最大重复子串
+     */
     @Test
     public void getMaxStr(){
         String s = "SSSSA";
