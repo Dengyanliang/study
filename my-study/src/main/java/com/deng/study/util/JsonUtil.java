@@ -9,9 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Type;
 import java.util.*;
 
-/**
- * Created by liyiwen on 2017/3/13.
- */
 public class JsonUtil {
     private static final Logger logger = LoggerFactory.getLogger(JsonUtil.class);
     private static final String EMPTY_JSON = "{}";

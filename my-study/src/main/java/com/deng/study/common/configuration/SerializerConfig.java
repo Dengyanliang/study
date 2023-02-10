@@ -1,7 +1,7 @@
 package com.deng.study.common.configuration;
 
 
-import com.deng.study.io.netty.MySerializer;
+import com.deng.study.netty.MySerializer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
