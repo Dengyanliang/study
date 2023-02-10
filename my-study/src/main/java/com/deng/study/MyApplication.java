@@ -1,6 +1,6 @@
 package com.deng.study;
 
-import com.deng.study.common.configuration.MyDataSourceConfiguration;
+import com.deng.study.common.configuration.MyDataSourceConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ImportResource("classpath:applicationContext.xml")
 @MapperScan("com.deng.study.dao.mapper")
 @EnableJms //启动消息队列
-@Import({MyDataSourceConfiguration.class})
+@Import({MyDataSourceConfig.class})
 public class MyApplication {
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.deng.study.netty.nio;
+package com.deng.study.io.nio;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

@@ -1,6 +1,4 @@
-package com.deng.study.netty.bio;
-
-import com.deng.study.source.In;
+package com.deng.study.io.bio;
 
 import java.io.BufferedReader;
 import java.io.IOException;

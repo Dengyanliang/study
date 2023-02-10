@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Configuration
 @Component
-public class MyDataSourceConfiguration {
+public class MyDataSourceConfig {
 
     @Bean("masterDsProperties")
     @ConfigurationProperties(prefix = "spring.datasource.master")
