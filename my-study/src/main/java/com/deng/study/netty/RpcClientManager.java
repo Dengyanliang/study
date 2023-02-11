@@ -8,6 +8,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.concurrent.DefaultPromise;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
@@ -41,8 +42,8 @@ public class RpcClientManager {
 
         // 使用代理类调用
         HelloService helloService = getProxyService(HelloService.class);
-        helloService.sayHello("张三");
-        helloService.sayHello("李四");
+        System.out.println(helloService.sayHello("张三"));
+        System.out.println(helloService.sayHello("李四"));
     }
 
     /**
@@ -56,13 +57,15 @@ public class RpcClientManager {
         ClassLoader loader = interfaceClass.getClassLoader();
         // 获取接口列表
         Class<?>[] interfaces = new Class[]{interfaceClass};
+        // 获取自顶的序列号
+        int sequenceId = SequenceIdGenerator.getNext();
         // 获取InvocationHandler
         InvocationHandler handler = new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 // 将方法调用转化为消息对象
                 RpcRequestMessage msg = new RpcRequestMessage(
-                        SequenceIdGenerator.getNext(),
+                        sequenceId,
                         interfaceClass.getName(),
                         method.getName(),
                         method.getReturnType(),
@@ -70,9 +73,20 @@ public class RpcClientManager {
                         args
                 );
                 // 将消息对象发送出去
-                getChannel().writeAndFlush(msg);
-                // 返回结果
-                return null;
+                Channel channel = getChannel();
+                channel.writeAndFlush(msg);
+
+                // 准备一个空的Promise对象，来接收消息 KeyPoint 非常重要，指定promise对象异步接收结果线程
+                DefaultPromise<Object> promise = new DefaultPromise<>(channel.eventLoop());
+                RpcResponseMessageHandler.put(sequenceId,promise);
+
+                // 等待promise返回结果-- 这里使用同步方式获取结果
+                promise.await();
+                if(promise.isSuccess()){
+                    return promise.getNow();
+                }else{
+                    throw new RuntimeException(promise.cause());
+                }
             }
         };
 

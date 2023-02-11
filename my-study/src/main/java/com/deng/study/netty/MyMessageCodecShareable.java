@@ -109,7 +109,7 @@ public class MyMessageCodecShareable extends MessageToMessageCodec<ByteBuf,MyMes
         log.debug("进行反序列之前。。。。。");
 
         // 根据消息类型获取对应的类信息
-        Class<?> messageClass = MyMessage.getMessageType(messageType);
+        Class<?> messageClass = MyMessage.getMessageByType(messageType);
         // 使用自定义的算法进行反序列化
         Object myMessage = algorithm.deserialize(messageClass, bytes);
 

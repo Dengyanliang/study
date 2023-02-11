@@ -14,10 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Data
 public abstract class MyMessage implements Serializable {
 
-    public static Class<?> getMessageType(int messageType){
-        return messageClasses.get(messageType);
-    }
-
     private int sequenceId;
     private int messageType;
     public abstract int getMessageType();
@@ -32,5 +28,9 @@ public abstract class MyMessage implements Serializable {
         messageClasses.put(LOGIN_REQUEST_MESSAGE, LoginRequestMessage.class);
         messageClasses.put(RPC_REQUEST_MESSAGE, RpcRequestMessage.class);
         messageClasses.put(RPC_RESPONSE_MESSAGE, RpcResponseMessage.class);
+    }
+
+    public static Class<?> getMessageByType(int messageType){
+        return messageClasses.get(messageType);
     }
 }

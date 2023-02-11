@@ -30,13 +30,21 @@ public class RpcRequestMessageHandler extends SimpleChannelInboundHandler<RpcReq
             Object result = method.invoke(service, message.getParameterValue());
             response.setReturnValue(result);
 
-            ctx.writeAndFlush(response);
         } catch (Exception e) {
             log.error("出现了异常",e);
-            response.setExceptionValue(e);
+            response.setExceptionValue(new Exception("远程调用出错" + e.getCause().getMessage()));
         }
+        ctx.writeAndFlush(response);
     }
 
+    /**
+     * 手动测试发送消息
+     * @param args
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         RpcRequestMessage message = new RpcRequestMessage(
                 1,

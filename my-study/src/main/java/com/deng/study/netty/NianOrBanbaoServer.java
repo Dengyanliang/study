@@ -26,7 +26,7 @@ public class NianOrBanbaoServer {
                 .channel(NioServerSocketChannel.class)
                 // 设置系统的接收缓冲器（滑动窗口）
 //                .option(ChannelOption.SO_RCVBUF,3)
-                // 设置netty的接收缓冲区 --- TODO 这里测试的是半包问题
+                // 设置netty的接收缓冲区 --- KeyPoint 这里测试的是半包问题
                 .childOption(ChannelOption.RCVBUF_ALLOCATOR,new AdaptiveRecvByteBufAllocator(16,16,16))
                 // 4、boss负责处理连接 worker(child)负责处理读写。childHandler决定了worker(child)能执行哪些handler
                 .childHandler(
