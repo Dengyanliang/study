@@ -44,9 +44,7 @@ public class ThreadTest {
 
         try {
             result2 = future.get(); // 注意和join的区别，需要抛出异常，而join不需要抛出异常
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         System.out.println("future.get(): "+result2);
