@@ -20,6 +20,9 @@ public class PrintNumberTest {
         printABC();
     }
 
+    /**
+     * 循环打印abc n次
+     */
     private static void printABC(){
         printABCByWaitNotify();
         printABCByAwaitSignal();
