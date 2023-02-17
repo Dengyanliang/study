@@ -1,5 +1,7 @@
 package com.deng.study.java.thread;
 
+import com.deng.study.util.ThreadUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,14 +37,10 @@ public interface Account {
             }));
         }
         long start = System.currentTimeMillis();
+
         threads.forEach(Thread::start);
-        threads.forEach(t->{
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        threads.forEach(ThreadUtil::join);
+
         long end = System.currentTimeMillis();
         System.out.println("余额：" +account.getBalance() + "，耗时：" + (end-start));
     }
