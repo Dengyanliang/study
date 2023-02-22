@@ -368,6 +368,13 @@
             <version>1</version>
         </dependency>
 
+        <!---分析对象在JVM中的占用和分布-->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.9</version>
+        </dependency>
+
     </dependencies>
 
     <build>

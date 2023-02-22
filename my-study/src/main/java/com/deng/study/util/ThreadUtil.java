@@ -1,5 +1,7 @@
 package com.deng.study.util;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @Desc: 线程工具类
  * @Auther: dengyanliang
