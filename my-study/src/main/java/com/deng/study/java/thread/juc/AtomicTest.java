@@ -1,5 +1,6 @@
-package com.deng.study.java.thread;
+package com.deng.study.java.thread.juc;
 
+import com.deng.study.java.thread.Student;
 import com.deng.study.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.formula.functions.T;

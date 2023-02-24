@@ -1,8 +1,10 @@
 package com.deng.study.java.thread.juc;
 
+import com.deng.study.util.RandomUtil;
 import com.deng.study.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,7 +17,31 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class CountDownLatchTest {
     public static void main(String[] args) throws InterruptedException {
-        testPool();
+        testGame();
+    }
+
+    /**
+     * 打印游戏玩家的加载进度
+     * @throws InterruptedException
+     */
+    private static void testGame() throws InterruptedException {
+        ExecutorService pool = Executors.newFixedThreadPool(10);
+        CountDownLatch countDownLatch = new CountDownLatch(10);
+        String[] all = new String[10];
+        for (int i = 0; i < 10; i++) {
+            final int finalT = i;
+            pool.submit(() -> {
+                for (int j = 0; j <= 100; j++) {
+                    all[finalT] = j + "%"; // 计算百分比
+                    ThreadUtil.sleep(RandomUtil.getInt(100)); // 加入睡眠时间模拟加载进度
+                    System.out.print("\r"+Arrays.toString(all)); // keypoint 不换行，并且使用'\r'可以让后面的打印覆盖掉前面的值
+                }
+                countDownLatch.countDown();
+            });
+        }
+        countDownLatch.await();
+        System.out.println("\n游戏开始");
+        pool.shutdown();
     }
 
     private static void testPool() throws InterruptedException {
@@ -47,6 +73,8 @@ public class CountDownLatchTest {
         log.debug("wating...");
         countDownLatch.await();
         log.debug("wating end...");
+
+        pool.shutdown();
     }
 
     private static void test1() throws InterruptedException {
