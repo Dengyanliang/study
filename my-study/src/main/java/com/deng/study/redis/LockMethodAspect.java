@@ -42,7 +42,7 @@ public class LockMethodAspect {
             throw new RuntimeException("系统异常");
         } finally {
             log.info("释放锁");
-            jedisUtil.releaseWithLua(key,value);
+            jedisUtil.releaseLockWithLua(key,value);
             jedisUtil.close(jedis);
         }
     }

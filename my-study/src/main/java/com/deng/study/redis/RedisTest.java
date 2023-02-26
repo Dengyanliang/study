@@ -2,7 +2,7 @@ package com.deng.study.redis;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,6 +11,7 @@ import redis.clients.jedis.Transaction;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class RedisTest {
@@ -122,22 +123,32 @@ public class RedisTest {
 
     @Test
     public void testJedis(){
-        Runnable runnable = () -> {
-            String key = "key";
-            String value = UUID.randomUUID().toString();
-            int seconds = 5;
 
-            jedisUtil.tryLockWithLua(key,value,seconds);
+        String key = "key";
+        String value = UUID.randomUUID().toString();
+        int seconds = 5;
 
-            secskill();
-            jedisUtil.releaseWithLua(key,value);
-//                redisLock.wrongReleaseLock(key); // 不能保证原子性
-        };
+        jedisUtil.tryLockWithLua(key, value, seconds, TimeUnit.SECONDS);
 
-        for (int i = 0; i < 1000; i++) {
-            Thread t = new Thread(runnable);
-            t.start();
-        }
+        secskill();
+        jedisUtil.releaseLockWithLua(key,value);
+
+//        Runnable runnable = () -> {
+//            String key = "key";
+//            String value = UUID.randomUUID().toString();
+//            int seconds = 5;
+//
+//            jedisUtil.tryLockWithLua(key,value,seconds);
+//
+//            secskill();
+//            jedisUtil.releaseLockWithLua(key,value);
+////                redisLock.wrongReleaseLock(key); // 不能保证原子性
+//        };
+
+//        for (int i = 0; i < 1000; i++) {
+//            Thread t = new Thread(runnable);
+//            t.start();
+//        }
     }
 
     public static void main(String[] args) {

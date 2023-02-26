@@ -6,11 +6,13 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.params.SetParams;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 分布式锁必须具备的条件：
+ *      独占性、高可用、防死锁、不乱抢、重入性
+ */
 @Component
 public class JedisUtil {
 
@@ -55,6 +57,8 @@ public class JedisUtil {
     }
 
     /**
+     * 使用setNx加锁，只能解决有无的问题，够用但是不够完美
+     *
      * @param key
      * @param value   必须具有唯一性
      * @param timeOut
@@ -62,26 +66,31 @@ public class JedisUtil {
      */
     public boolean tryLockWithNxEx(String key, String value,int timeOut, TimeUnit timeUnit) {
         int seconds = (int)timeUnit.toSeconds(timeOut);
-        SetParams setParams = SetParams.setParams().nx().ex(seconds);
+        SetParams setParams = SetParams.setParams().nx().ex(seconds); // 设置过期时间
         return "OK".equals(getJedis().set(key, value, setParams));
     }
 
     /**
-     * 使用lua脚本加锁
+     * 使用lua脚本加锁，保证原子性和可重入性
      *
      * @param key
      * @param value
-     * @param seconds
+     * @param time 时间
+     * @param unit 单位
      * @return
      */
-    public boolean tryLockWithLua(String key, String value, int seconds) {
-        String luaScript = "if redis.call('setnx',KEYS[1],ARGV[1]) == 1 then redis.call('expire',KEYS[1],ARGV[2]) return 1 else return 0 end";
+    public boolean tryLockWithLua(String key, String value, long time, TimeUnit unit) {
+        // 该脚本实现实现是否存在，但是实现不了可重入
+//        String luaScript = "if redis.call('setnx',KEYS[1],ARGV[1]) == 1 then redis.call('expire',KEYS[1],ARGV[2]) return 1 else return 0 end";
+
+        // 这个脚本可以实现是否存在，以及可重入
+        String luaScript = "if redis.call('exists',KEYS[1]) == 0 or redis.call('hexists',KEYS[1],ARGV[1]) == 1 then redis.call('hincrby',KEYS[1],ARGV[1],1) redis.call('expire',KEYS[1],ARGV[2]) return 1 else return 0 end";
         List<String> keys = new ArrayList<>();
         keys.add(key);
 
         List<String> values = new ArrayList<>();
         values.add(value);
-        values.add(String.valueOf(seconds));
+        values.add(String.valueOf(unit.toSeconds(time)));
         return Objects.equals(getJedis().eval(luaScript, keys, values), 1L);
     }
 
@@ -95,14 +104,18 @@ public class JedisUtil {
     }
 
     /**
-     * 使用lua脚本进行释放锁，保证原子性
+     * 使用lua脚本进行释放锁，保证原子性和可重入性
      *
      * @param key
      * @param value
      * @return
      */
-    public boolean releaseWithLua(String key, String value) {
-        String luaScript = "if redis.call('get',KEYS[1]) == ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
+    public boolean releaseLockWithLua(String key, String value) {
+        // 能保证原子性
+//        String luaScript = "if redis.call('get',KEYS[1]) == ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
+        // 能保证原子性和可重入性 TODO 在key不村子的时候，会返回null，java代码还没有测试
+        String luaScript = "if redis.call('HEXISTS',KEYS[1],ARGV[1]) == 0 then return nil elseif redis.call('HINCRBY',KEYS[1],ARGV[1],-1) == 0 then return redis.call('del',KEYS[1]) else return 0 end";
+
         List<String> keys = new ArrayList<>();
         keys.add(key);
 
@@ -110,5 +123,35 @@ public class JedisUtil {
         values.add(value);
 
         return Objects.equals(getJedis().eval(luaScript, keys, values), 1L);
+    }
+
+    /**
+     * 自动续期
+     * @param key
+     * @param value
+     * @param expireTime 续期时间
+     * @param unit
+     */
+    public void renewExpire(String key, String value,long expireTime, TimeUnit unit){
+        String luaScript = "if redis.call('hexists',KEYS[1],ARGV[1]) == 1 then return redis.call('expire',KEYS[1],ARGV[2]) else return 0 end";
+
+        long expireTimeSeconds = unit.toSeconds(expireTime); // 把传入的时间转化为秒
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                List<String> keys = new ArrayList<>();
+                keys.add(key);
+
+                List<String> values = new ArrayList<>();
+                values.add(value);
+                values.add(String.valueOf(expireTimeSeconds));
+
+                boolean flag = Objects.equals(getJedis().eval(luaScript, keys, values), 1L);
+                if(flag){
+                    renewExpire(key, value, expireTime, unit);
+                }
+            }
+        },(expireTimeSeconds * 1000) / 3);
     }
 }
