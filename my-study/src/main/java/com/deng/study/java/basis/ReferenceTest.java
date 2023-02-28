@@ -2,13 +2,10 @@ package com.deng.study.java.basis;
 
 import com.deng.study.util.ThreadUtil;
 import org.junit.Test;
-import sun.jvm.hotspot.utilities.BitMap;
 
 import java.lang.ref.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Desc: 四种引用测试
@@ -30,8 +27,6 @@ public class ReferenceTest {
 
     @Test
     public void testSoftReference(){
-        Map<String,SoftReference<BitMap>> imageCache = new HashMap<String,SoftReference<BitMap>>();
-
         SoftReference<MyObject> softReference = new SoftReference<>(new MyObject());
         System.gc();
         ThreadUtil.sleep(1000);

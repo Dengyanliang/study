@@ -3,7 +3,10 @@ package com.deng.study.common.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.Redisson;
+import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -18,8 +21,33 @@ import java.net.UnknownHostException;
  * @Auther: dengyanliang
  * @Date: 2020/10/3 16:29
  */
+@Slf4j
 @Configuration
 public class RedisConfig {
+
+    @Value("${spring.redis.host}")
+    private String host;
+
+    @Value("${spring.redis.port}")
+    private int port;
+
+    @Value("${spring.redis.password}")
+    private String password;
+
+    @Value("${spring.redis.timeout}")
+    private int timeout;
+
+    @Value("${spring.redis.jedis.pool.max-active}")
+    private int maxActive;
+
+    @Value("${spring.redis.jedis.pool.max-idle}")
+    private int maxIdle;
+
+    @Value("${spring.redis.jedis.pool.max-wait}")
+    private long maxWait;
+
+    @Value("${spring.redis.jedis.pool.min-idle}")
+    private int minIdle;
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
@@ -48,5 +76,14 @@ public class RedisConfig {
 
         template.afterPropertiesSet();
         return template;
+    }
+
+    @Bean
+    public Redisson redisson(){
+        Config config = new Config();
+        String address = "redis://" + host + ":" + port;
+        config.useSingleServer().setAddress(address).setDatabase(0).setPassword(password);
+
+        return (Redisson)Redisson.create(config);
     }
 }

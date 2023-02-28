@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @Slf4j
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.deng.study.dao.mapper")
 @EnableJms //启动消息队列
 @Import({MyDataSourceConfig.class})
+@EnableSwagger2
 public class MyApplication {
 
     public static void main(String[] args) {

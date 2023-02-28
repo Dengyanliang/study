@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -149,6 +150,23 @@ public class RedisTest {
 //            Thread t = new Thread(runnable);
 //            t.start();
 //        }
+    }
+
+    @Test
+    public void testHash(){
+        System.out.println("Aa".hashCode());
+        System.out.println("BB".hashCode());
+
+        Set<Integer> set = new HashSet<>();
+        int hashCode;
+        for (int i = 0; i < 200000; i++) {
+            hashCode = new Object().hashCode();
+            if(set.contains(hashCode)){
+                System.out.println("运行到"+i+"出现了hash冲突，hashcode：" + hashCode);
+                continue;
+            }
+            set.add(hashCode);
+        }
     }
 
     public static void main(String[] args) {

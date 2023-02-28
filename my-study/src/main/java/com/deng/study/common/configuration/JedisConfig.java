@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -11,28 +12,28 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 public class JedisConfig {
 
-    @Value("${spring.redis.host}")
+    @Value("${spring.redis.host:127.0.0.1}")
     private String host;
 
-    @Value("${spring.redis.port}")
+    @Value("${spring.redis.port:6379}")
     private int port;
 
-    @Value("${spring.redis.password}")
+    @Value("${spring.redis.password:123456}")
     private String password;
 
-    @Value("${spring.redis.timeout}")
+    @Value("${spring.redis.timeout:10000}")
     private int timeout;
 
     @Value("${spring.redis.jedis.pool.max-active}")
     private int maxActive;
 
-    @Value("${spring.redis.jedis.pool.max-idle}")
+    @Value("${spring.redis.jedis.pool.max-idle:20}")
     private int maxIdle;
 
     @Value("${spring.redis.jedis.pool.max-wait}")
     private long maxWait;
 
-    @Value("${spring.redis.jedis.pool.min-idle}")
+    @Value("${spring.redis.jedis.pool.min-idle:10}")
     private int minIdle;
 
     @Bean

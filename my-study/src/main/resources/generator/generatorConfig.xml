@@ -19,7 +19,7 @@
 
         <!--     -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/dtx_account?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/deng?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai"
                         userId="root"
                         password="root123456">
         </jdbcConnection>
@@ -41,7 +41,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="">
+        <table tableName="product">
             <property name="useActualColumnNames" value="true"/>
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
         </table>

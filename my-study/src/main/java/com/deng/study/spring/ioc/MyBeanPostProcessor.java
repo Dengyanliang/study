@@ -1,7 +1,7 @@
 package com.deng.study.spring.ioc;
 
 import com.deng.study.common.DataSource;
-import com.deng.study.spring.aop.MyAnnotation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,9 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
-import javax.annotation.Resource;
 import java.util.Objects;
 
+@Slf4j
 @Component
 public class MyBeanPostProcessor implements BeanPostProcessor {
 
@@ -22,11 +22,22 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
         System.out.println("MyBeanPostProcessor...");
     }
 
+
+    /**
+     *
+     * @param bean
+     * @param beanName
+     * @return
+     * @throws BeansException
+     */
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        if(beanName.equals("JHSTaskService")){
+            log.info("------JHSTaskService postProcessBeforeInitialization----");
+        }
 //        service1.test();
 //        System.out.println("MyBeanPostProcessor..postProcessBeforeInitialization: " + beanName + "," + bean.getClass().getName());
-        return null;
+        return bean; // keypoint 这里不能返回null，如果这里返回了null，那么就不会执行后面的@PostConstruct注解标注的方法了
     }
 
     @Override

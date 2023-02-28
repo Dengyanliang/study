@@ -3,6 +3,8 @@ package com.deng.study.redis;
 import com.deng.study.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,9 +35,42 @@ public class RedisService {
     @Value("${server.port}")
     private String port;
 
+    @Autowired
+    private Redisson redisson;
+
     public String sale(String queryKey){
         return "";
+
+
     }
+
+    public String saleVersion09(String queryKey){
+        String retMessage = "";
+        String redisLockKey = REDIS_KEY_PREFIX + queryKey;
+        RLock lock = redisson.getLock(redisLockKey);
+        lock.lock();
+        try {
+            String result = redisTemplate.opsForValue().get(queryKey);
+            Integer inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
+            if(inventoryNumber > 0){
+                redisTemplate.opsForValue().set("",String.valueOf(--inventoryNumber));
+                retMessage="成功卖出一个商品，库存剩余：" + inventoryNumber;
+                System.out.println(retMessage + " ，服务端口号：" + port);
+            }else{
+                retMessage = "商品卖完了";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(lock.isLocked() && lock.isHeldByCurrentThread()){ // 被当前线程持有的，才去解锁
+                lock.unlock();
+            }
+        }
+
+        return retMessage + "，服务端口号" + port;
+    }
+
+
 
     public String saleVersion06(String queryKey){
         String retMessage = "";

@@ -18,7 +18,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "product", shards = 3, replicas = 1)
-public class Product {
+public class ProductDomain {
 
     @Id
     private Long id;

@@ -1,7 +1,7 @@
 package com.deng.study.es;
 
 import com.deng.study.dao.ProductDao;
-import com.deng.study.domain.Product;
+import com.deng.study.domain.ProductDomain;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.FuzzyQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -43,63 +43,63 @@ public class SpringDataEsTest {
 
     @Test
     public void deleteIndex(){
-        boolean flag = elasticsearchRestTemplate.deleteIndex(Product.class);
+        boolean flag = elasticsearchRestTemplate.deleteIndex(ProductDomain.class);
         System.out.println("删除索引：" + flag);
 
     }
 
     @Test
     public void save(){
-        Product product = new Product();
-        product.setId(2L);
-        product.setTitle("华为手机");
-        product.setCategory("手机");
-        product.setPrice(2999.00);
-        product.setImages("http://localhost:8081/image.jpg");
-        productDao.save(product);
+        ProductDomain productDomain = new ProductDomain();
+        productDomain.setId(2L);
+        productDomain.setTitle("华为手机");
+        productDomain.setCategory("手机");
+        productDomain.setPrice(2999.00);
+        productDomain.setImages("http://localhost:8081/image.jpg");
+        productDao.save(productDomain);
     }
 
 
     @Test
     public void update(){
-        Product product = new Product();
-        product.setId(1L);
-        product.setTitle("苹果手机");
-        product.setCategory("手机");
-        product.setPrice(4999.00);
-        product.setImages("http://localhost:8081/image.jpg");
+        ProductDomain productDomain = new ProductDomain();
+        productDomain.setId(1L);
+        productDomain.setTitle("苹果手机");
+        productDomain.setCategory("手机");
+        productDomain.setPrice(4999.00);
+        productDomain.setImages("http://localhost:8081/image.jpg");
 
-        productDao.save(product);
+        productDao.save(productDomain);
     }
 
     @Test
     public void findById(){
-        Product product = productDao.findById(1L).get();
-        System.out.println(product);
+        ProductDomain productDomain = productDao.findById(1L).get();
+        System.out.println(productDomain);
     }
 
     @Test
     public void findAll(){
-        Iterable<Product> products = productDao.findAll();
-        for (Product product : products) {
-            System.out.println(product);
+        Iterable<ProductDomain> products = productDao.findAll();
+        for (ProductDomain productDomain : products) {
+            System.out.println(productDomain);
         }
     }
 
     @Test
     public void saveAll(){
-        List<Product> products = new ArrayList();
+        List<ProductDomain> productDomains = new ArrayList();
         for (int i = 0; i < 10; i++) {
-            Product product = new Product();
-            product.setId(Long.valueOf(i));
-            product.setTitle("小米手机-"+ (i+1));
-            product.setCategory("小米");
-            product.setPrice(1999.00 + i);
-            product.setImages("http://www.baidu.com");
+            ProductDomain productDomain = new ProductDomain();
+            productDomain.setId(Long.valueOf(i));
+            productDomain.setTitle("小米手机-"+ (i+1));
+            productDomain.setCategory("小米");
+            productDomain.setPrice(1999.00 + i);
+            productDomain.setImages("http://www.baidu.com");
 
-            products.add(product);
+            productDomains.add(productDomain);
         }
-        productDao.saveAll(products);
+        productDao.saveAll(productDomains);
     }
 
     @Test
@@ -110,24 +110,24 @@ public class SpringDataEsTest {
 
         PageRequest pageRequest = PageRequest.of(currentPage,pageSize,sort);
 
-        Page<Product> productPage = productDao.findAll(pageRequest);
-        for (Product product : productPage) {
-            System.out.println(product);
+        Page<ProductDomain> productPage = productDao.findAll(pageRequest);
+        for (ProductDomain productDomain : productPage) {
+            System.out.println(productDomain);
         }
     }
 
     @Test
     public void termQuery(){
         TermQueryBuilder queryBuilder = QueryBuilders.termQuery("category","小米");
-        Iterable<Product> products = productDao.search(queryBuilder);
-        for (Product product : products) {
-            System.out.println("------" + product);
+        Iterable<ProductDomain> products = productDao.search(queryBuilder);
+        for (ProductDomain productDomain : products) {
+            System.out.println("------" + productDomain);
         }
 
         FuzzyQueryBuilder fuzzyQueryBuilder = QueryBuilders.fuzzyQuery("title", "小米");
-        Iterable<Product> products2 = productDao.search(fuzzyQueryBuilder);
-        for (Product product : products2) {
-            System.out.println("========" + product);
+        Iterable<ProductDomain> products2 = productDao.search(fuzzyQueryBuilder);
+        for (ProductDomain productDomain : products2) {
+            System.out.println("========" + productDomain);
         }
     }
 
@@ -138,9 +138,9 @@ public class SpringDataEsTest {
         PageRequest pageRequest = PageRequest.of(currentPage,pageSize);
         TermsQueryBuilder queryBuilder = QueryBuilders.termsQuery("category", "小米");
 
-        Page<Product> products = productDao.search(queryBuilder, pageRequest);
-        for (Product product : products) {
-            System.out.println("========" + product);
+        Page<ProductDomain> products = productDao.search(queryBuilder, pageRequest);
+        for (ProductDomain productDomain : products) {
+            System.out.println("========" + productDomain);
         }
     }
 
