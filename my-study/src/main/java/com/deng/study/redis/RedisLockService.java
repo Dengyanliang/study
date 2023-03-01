@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Slf4j
 @Service
-public class RedisService {
+public class RedisLockService {
 
     private static final String REDIS_KEY_PREFIX = "redisLock_";
 

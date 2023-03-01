@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Desc:
@@ -42,6 +43,37 @@ public class ProductServiceImpl implements ProductService {
             productMapper.insert(product);
         }
     }
+
+    /**
+     * 查询数据，使用双检加锁策略
+     * @param productId
+     * @return
+     */
+    public Product findProductByDoubleCheck(Integer productId) {
+        Product product = null;
+        String key = RedisConstant.CACHE_KEY_PRODUCT + productId;
+
+        // 第一遍查询redis
+        product = (Product)redisTemplate.opsForValue().get(key);
+        // redis没有，进一步查询数据库
+        if(Objects.isNull(product)){
+            synchronized (ProductService.class){ // keypoint 这里就是双检加锁机制
+                // 第二遍查询redis
+                product = (Product)redisTemplate.opsForValue().get(key);
+                if(Objects.isNull(product)){
+                    // 查询数据库
+                    product = productMapper.selectByPrimaryKey(productId.longValue());
+                    if(Objects.nonNull(product)){
+                        // 把数据放入到redis
+                        redisTemplate.opsForValue().setIfAbsent(key,product,1, TimeUnit.DAYS);
+                    }
+                }
+            }
+        }
+        log.info("最后返回的数据：{}", JSON.toJSONString(product));
+        return product;
+    }
+
 
     @Override
     public Product findProductByIdWithBloomFilter(Integer productId) {

@@ -1,4 +1,4 @@
-package com.deng.study.java.basis;
+package com.deng.study.java.basic;
 
 /**
  * @Desc:

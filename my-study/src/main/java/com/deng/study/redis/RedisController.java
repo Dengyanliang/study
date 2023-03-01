@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RedisController {
 
     @Autowired
-    private RedisService redisService;
+    private RedisLockService redisLockService;
 
     @RedisLock(key = "redis_lock")
     @GetMapping("/index")
@@ -24,6 +24,6 @@ public class RedisController {
     @GetMapping("/sale")
     public String getSale(){
         String key = "inventoryOO1";
-        return redisService.sale(key);
+        return redisLockService.sale(key);
     }
 }

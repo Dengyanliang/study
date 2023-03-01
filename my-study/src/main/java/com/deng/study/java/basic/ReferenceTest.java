@@ -1,4 +1,4 @@
-package com.deng.study.java.basis;
+package com.deng.study.java.basic;
 
 import com.deng.study.util.ThreadUtil;
 import org.junit.Test;

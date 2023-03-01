@@ -2,6 +2,7 @@ package com.deng.study.java.thread;
 
 
 import com.deng.study.MyApplication;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Objects;
 import java.util.concurrent.*;
 
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= MyApplication.class)
 public class ThreadTest {
@@ -72,6 +74,17 @@ public class ThreadTest {
             e.printStackTrace();
         }
         return "hello2:" + s;
+    }
+
+
+    @Test
+    public void testSleep(){
+        Thread t1 = new Thread(() -> {
+           log.debug("running...");
+        }, "t1");
+        log.debug("before state:{}",t1.getState());
+        t1.start();
+        log.debug("end state:{}",t1.getState());
     }
 
 

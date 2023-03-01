@@ -1,4 +1,4 @@
-package com.deng.study.java.basis;
+package com.deng.study.java.basic;
 
 import com.deng.study.domain.Person;
 import com.deng.study.domain.Pet;

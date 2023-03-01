@@ -16,10 +16,10 @@ public class InterruptTest {
     private static volatile boolean isStop = false;
     private static AtomicBoolean atomicBoolean = new AtomicBoolean(false);
     public static void main(String[] args) {
-        testStatucInterrupted();
+        testStaticInterrupted();
     }
 
-    private static void testStatucInterrupted() {
+    private static void testStaticInterrupted() {
         System.out.println(Thread.currentThread().getName() + " " + Thread.interrupted()); // false
         System.out.println(Thread.currentThread().getName() + " " + Thread.interrupted()); // false
         System.out.println("--1--");
