@@ -4,9 +4,10 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class TimeClient1 {
+public class BIOClient2 {
     private static final String ADDRESS = "127.0.0.1";
     private static final int PORT = 8888;
+
     public static void main(String[] args) throws IOException {
         Socket socket  = new Socket(ADDRESS,PORT);
         OutputStream outputStream = socket.getOutputStream();
@@ -17,10 +18,12 @@ public class TimeClient1 {
                 break;
             }
             outputStream.write(str.getBytes());
-            System.out.println("----TimeClient1 input finish-------");
+            System.out.println("----TimeClient2 input finish-------");
         }
         outputStream.close();
         socket.close();
+
+
     }
 
 }

@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
  * @Auther: dengyanliang
  * @Date: 2021/7/18 22:44
  */
-public class TimeServer {
+public class BIOServer {
 
     public static void main(String[] args) throws IOException {
         // 创建一个线程池
@@ -63,14 +63,14 @@ public class TimeServer {
                 int readLength = inputStream.read(bytes);
                 System.out.println("-------444 读到数据");
 
-                if (readLength != -1) {
-                    System.out.println(new String(bytes, 0, readLength)); // 不会乱码
-                    System.out.println("==========" + UUID.randomUUID().toString());
-                    System.out.println();
-                } else {
+                if (readLength == -1) {
                     System.out.println("-------555 数据已经读完。。。");
                     break;
                 }
+
+                System.out.println(new String(bytes, 0, readLength)); // 不会乱码
+                System.out.println("==========" + UUID.randomUUID().toString());
+                System.out.println();
             }
         } catch (IOException e) {
             e.printStackTrace();

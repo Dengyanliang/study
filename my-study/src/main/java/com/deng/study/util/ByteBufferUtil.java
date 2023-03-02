@@ -46,4 +46,14 @@ public class ByteBufferUtil {
 //        buffer.compact();   // 把未读取完的部分向前移动，然后切换至写模式
     }
 
+    public static void debugAll(ByteBuffer buffer,int readLength){
+        log.debug("读取数据长度：{}", readLength);
+        buffer.flip();
+        byte[] bytes = new byte[readLength];
+        buffer.get(bytes);
+        String readData = new String(bytes);
+        log.debug("读取到数据：{}", readData);
+        buffer.clear();
+    }
+
 }
