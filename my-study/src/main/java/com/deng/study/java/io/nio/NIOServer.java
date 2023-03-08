@@ -80,6 +80,11 @@ public class NIOServer {
         // 设置非阻塞模式
         serverSocketChannel.configureBlocking(false);
 
+        /**
+         * select 其实就是把NIO中用户态要遍历的fd数组（我们每一个socket连接存入到ArrayList里面的那个）拷贝到了内核态，
+         * 让内核态来遍历，因为用户态判断socket是否有数据还是要调用内核态的，
+         * 所以拷贝到内核态后，遍历判断的时候就不用一直在用户态和内核态频繁切换了
+         */
         // 存放SocketChannel集合
         List<SocketChannel> socketChannelList = new ArrayList<>();
         while (true) {
@@ -87,7 +92,7 @@ public class NIOServer {
 //            System.out.println("------blockMode socketChannel--------"); // 在非阻塞模式下，accept()即使没有数据，也会执行该行代码
             if (socketChannel != null) {
                 log.debug("成功连接...{}", socketChannel);
-                socketChannel.configureBlocking(false); // keypoint 这里要对客户端也设置为非阻塞，否则会阻塞其他线程的运行
+                  socketChannel.configureBlocking(false); // keypoint 这里要对客户端也设置为非阻塞，否则会阻塞其他线程的运行
                 socketChannelList.add(socketChannel);
                 log.debug("socketChannelList：{}", socketChannelList.size());
             }

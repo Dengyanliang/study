@@ -51,4 +51,14 @@ public class BloomFilter {
             }
         }
     }
+
+
+    public boolean checkWithBloomFilter(String checkItem,String key){
+        int hashValue = Math.abs(key.hashCode());
+        long index = (long)(hashValue % Math.pow(2,32));
+        boolean existOk = redisTemplate.opsForValue().getBit(checkItem,index);
+        log.info("---key：{}对应的坑位下标index：{} 是否存在：{}",key,index,existOk);
+
+        return existOk;
+    }
 }

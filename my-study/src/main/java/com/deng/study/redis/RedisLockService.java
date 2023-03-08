@@ -233,7 +233,6 @@ public class RedisLockService {
         } finally {
             lock.unlock();
         }
-
         return retMessage + "，服务端口号" + port;
     }
 

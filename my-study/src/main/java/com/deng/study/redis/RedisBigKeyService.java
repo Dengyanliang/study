@@ -17,7 +17,6 @@ public class RedisBigKeyService {
     private static int count = 0;
 
 
-
     public static void main(String[] args) {
         Jedis jedis = RedisUtil.getJedis();
         String bigKey = "whitelistProduct";
@@ -55,7 +54,6 @@ public class RedisBigKeyService {
         Jedis jedis = RedisUtil.getJedis();
         ScanParams scanParams = new ScanParams().count(100);
         String cursor = "0";
-
     }
 
 }

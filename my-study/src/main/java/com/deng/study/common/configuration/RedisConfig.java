@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.net.UnknownHostException;
@@ -51,24 +53,24 @@ public class RedisConfig {
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
-        RedisTemplate<String, Object> template = new RedisTemplate();
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
 
         // json序列化配置
-        Jackson2JsonRedisSerializer<Object> jsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jsonRedisSerializer.setObjectMapper(objectMapper);
-
-        // String的序列化
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+//        Jackson2JsonRedisSerializer<Object> jsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        // 设置任何字段可见
+//        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+//        // 存入到redis的对象是有类型的，这样方便从redis中取出来的时候，直接转换成对应的对象
+//        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+//        jsonRedisSerializer.setObjectMapper(objectMapper);
 
         // string的key采用string的序列化方式
-        template.setKeySerializer(stringRedisSerializer);
+        template.setKeySerializer(RedisSerializer.string());
         // hash的key也采用string的序列化方式
-        template.setHashKeySerializer(stringRedisSerializer);
+        template.setHashKeySerializer(RedisSerializer.string());
 
+        GenericJackson2JsonRedisSerializer jsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
         // string的value序列化方式采用json
         template.setValueSerializer(jsonRedisSerializer);
         // hash的value序列化方式采用json

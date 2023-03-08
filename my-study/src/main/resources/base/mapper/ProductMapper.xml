@@ -97,7 +97,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.deng.study.dao.po.Product">
+  <insert id="insert" parameterType="com.deng.study.dao.po.Product" useGeneratedKeys="true">>
     insert into product (id, name, price
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=BIGINT}

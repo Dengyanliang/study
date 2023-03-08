@@ -7,5 +7,7 @@ package com.deng.study.common.constant;
  */
 public class RedisConstant {
     public static final String CACHE_KEY_PRODUCT = "product:";
+    public static final String LOCK_KEY_PRODUCT = "lockProduct:";
     public static final String WHITE_LIST_PRODUCT = "whitelistProduct";
+    public static final String SECKILL_STOCK_KEY = "seckill:stock:";
 }

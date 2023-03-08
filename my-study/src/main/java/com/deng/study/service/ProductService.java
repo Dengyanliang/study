@@ -19,5 +19,14 @@ public interface ProductService {
      * @param productId
      * @return
      */
-    Product findProductByIdWithBloomFilter(Integer productId);
+    Product findProductByIdWithBloomFilter(Long productId);
+
+    Product findProductById(Long productId);
+
+    /**
+     * 更新商品
+     * @param product
+     * @return
+     */
+    boolean updateProduct(Product product);
 }

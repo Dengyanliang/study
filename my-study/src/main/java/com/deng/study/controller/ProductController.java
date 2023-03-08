@@ -30,7 +30,7 @@ public class ProductController {
 
     @ApiOperation("通过布隆过滤器查询Product")
     @RequestMapping(value = "/product/{id}",method = RequestMethod.GET)
-    public Product findProductByIdWithBloomFilter(@PathVariable int id){
+    public Product findProductByIdWithBloomFilter(@PathVariable Long id){
         return productService.findProductByIdWithBloomFilter(id);
     }
 }

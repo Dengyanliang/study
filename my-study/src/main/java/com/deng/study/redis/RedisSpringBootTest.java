@@ -1,4 +1,4 @@
-package com.deng.study;
+package com.deng.study.redis;
 
 import com.deng.study.domain.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -48,7 +48,7 @@ public class RedisSpringBootTest {
         redisConnection.flushAll();
 
         User user = new User();
-        user.setName("zhangsan");
+        user.setName("张三");
         user.setAge(18);
 
 //        String jsonUser = new ObjectMapper().writeValueAsString(user);
@@ -56,10 +56,16 @@ public class RedisSpringBootTest {
 
         redisTemplate.opsForValue().set("user",user);
 
-        Object value = redisTemplate.opsForValue().get("user");
+        User value = (User)redisTemplate.opsForValue().get("user");
         log.info("value:{}",value);
     }
 
 
 
+    @Test
+    public void testString(){
+        redisTemplate.opsForValue().set("name2","张三");
+        final Object o = redisTemplate.opsForValue().get("name2");
+        System.out.println(o);
+    }
 }
