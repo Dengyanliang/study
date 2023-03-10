@@ -3,7 +3,7 @@ package com.deng.study.algorithm.graph;
 import org.junit.Test;
 
 /**
- * @Desc:
+ * @Desc: 图数据结构测试
  * @Auther: dengyanliang
  * @Date: 2021/2/9 14:29
  */
@@ -18,8 +18,8 @@ public class GraphTest {
      * @param args
      */
     public static void main(String[] args) {
-        int n = 5; // 顶点个数
         String[] vertexValue = {"A","B","C","D","E"};
+        int n = vertexValue.length;  // 顶点个数
         Graph graph = new Graph(n);
 
         // 添加顶点
@@ -27,8 +27,7 @@ public class GraphTest {
             graph.addVertex(vertex);
         }
 
-        // 添加边
-        // A-B A-C B-C B-D B-E
+        // 添加边 A-B A-C B-D B-E
         graph.addEdge(0,1,1); // A-B
         graph.addEdge(0,2,1); // A-C
 //        graph.addEdge(1,2,1); // B-C
@@ -45,18 +44,19 @@ public class GraphTest {
         graph.bfs();
     }
 
+
     @Test
-    public void testMatGraph(){
+    public void testMatGraph() {
         MatGraph matGraph = new MatGraph();
-        int[][] array = {{1, 2, 3}, {4,5,6}, {5, 6,8}};
+        int[][] array = {{1, 2, 3}, {4, 5, 6}, {5, 6, 8}};
         matGraph.createMatGraph(array, 3, 3);
         matGraph.displayMatGraph();
     }
 
     @Test
-    public void testAdjGraph(){
+    public void testAdjGraph() {
         AdjGraph adjGraph = new AdjGraph();
-        int[][] array = {{1, 2, 3}, {4,5,6}, {5, 6,8}};
+        int[][] array = {{1, 2, 3}, {4, 5, 6}, {5, 6, 8}};
         adjGraph.createAdjGraph(array, 3, 3);
         adjGraph.displayAdjGraph();
     }

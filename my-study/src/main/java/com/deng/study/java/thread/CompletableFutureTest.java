@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @Date: 2023/2/21 18:41
  */
 public class CompletableFutureTest {
-    static List<NetMall> list = Arrays.asList(
+    private static List<NetMall> list = Arrays.asList(
             new NetMall("jd"),
             new NetMall("taobao"),
             new NetMall("dangdang"),
@@ -86,7 +86,13 @@ public class CompletableFutureTest {
         // 在一定的时间内是否完成了，如果没有完成，则返回参数值； // false abc
         // 如果完成了，则按照结果返回                          // true complete
 //        boolean complete = future.complete("complete");
-        System.out.println(future.complete("complete")+" " + future.join());
+        System.out.println(future.complete("complete2")+" " + future.join());
+
+        CompletableFuture<Void> future2 = CompletableFuture.runAsync(()->{
+            System.out.println("当期线程："+Thread.currentThread().getName());
+            ThreadUtil.sleep(1000);
+        });
+        System.out.println(future2.get());
     }
 
 }
