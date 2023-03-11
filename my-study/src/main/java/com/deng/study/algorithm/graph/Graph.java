@@ -161,7 +161,7 @@ public class Graph {
                 dfs(isVisitedArray, neighborIndex);
             }
 
-            // 如果节点已经被访问过，则取w的下一个邻接节点
+            // 如果节点已经被访问过，则取neighborIndex的下一个邻接节点
             neighborIndex = getNextNeighborIndex(currentIndex, neighborIndex);
         }
     }
@@ -186,7 +186,7 @@ public class Graph {
      */
     public void bfs(boolean[] isVisitedArray, int currentIndex) {
         int queueFirstIndex; // 表示队列的头节点对应下标
-        int neighborIndex; // 表示邻接节点下标
+        int neighborIndex;   // 表示邻接节点下标
         // 队列，记录节点访问的顺序
         LinkedList<Integer> queue = new LinkedList<>();
         // 输出节点信息
@@ -207,10 +207,10 @@ public class Graph {
                     // 将节点置为已访问
                     isVisitedArray[neighborIndex] = true;
                     // 将节点加入队列  --- 这一步应该不需要
-//                    queue.addLast(currentNodeIndex);
+//                    queue.addLast(neighborIndex);
                 }
-                //以u为前驱节点，找w后面的下一个邻接节点
-                neighborIndex = getNextNeighborIndex(queueFirstIndex, neighborIndex);
+                // 以queueFirstIndex为前驱节点，找neighborIndex后面的下一个邻接节点
+                neighborIndex = getNextNeighborIndex(queueFirstIndex, neighborIndex); // 这里就体现出广度优先
             }
         }
 
