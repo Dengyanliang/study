@@ -1,9 +1,11 @@
 package com.deng.study.util;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * @author fuwuzhou
@@ -91,6 +93,34 @@ public class FileUtil {
                 ouputStream.close();
             }
 
+        }
+    }
+
+    /**
+     * 修改文件名称
+     */
+    @Test
+    public void updateFileName(){
+        String filePath = "";
+        File file = new File(filePath);
+        if(file.isDirectory()){
+            File[] files = file.listFiles();
+            if(Objects.nonNull(files) && files.length > 0){
+                for (File item : files) {
+                    String name = item.getName();
+//                    System.out.println(name.substring(name.indexOf("源码分析-")));
+//                    String substring = name.replace("源码分析","Spring");
+//                    String substring =  name.substring(name.indexOf("源码分析-"));
+                    String substring = name.replace("源码分析","");
+                    System.out.println(substring);
+
+//                    final String substring = name.
+
+                    File dest = new File(filePath+"/"+substring);
+                    item.renameTo(dest);
+//                    break;
+                }
+            }
         }
     }
 }
