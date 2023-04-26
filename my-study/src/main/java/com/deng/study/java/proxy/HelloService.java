@@ -5,6 +5,6 @@ package com.deng.study.java.proxy;
  * @Auther: dengyanliang
  * @Date: 2021/5/9 07:36
  */
-public interface Hello {
+public interface HelloService {
     String say();
 }

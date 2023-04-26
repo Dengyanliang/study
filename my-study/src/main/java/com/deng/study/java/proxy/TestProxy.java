@@ -1,7 +1,6 @@
 package com.deng.study.java.proxy;
 
 import org.junit.platform.commons.util.ClassLoaderUtils;
-import sun.misc.ClassLoaderUtil;
 
 import java.lang.reflect.Proxy;
 
@@ -16,7 +15,7 @@ public class TestProxy {
         MyJDKProxy proxy = new MyJDKProxy(new RealHello());
         ClassLoader classLoader = ClassLoaderUtils.getDefaultClassLoader();
 
-        Hello test = (Hello) Proxy.newProxyInstance(classLoader,new Class[]{Hello.class},proxy);
+        HelloService test = (HelloService) Proxy.newProxyInstance(classLoader,new Class[]{HelloService.class},proxy);
         System.out.println(test.say());
 
     }
