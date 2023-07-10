@@ -36,6 +36,8 @@ public class StringSort {
         StringBuilder result = new StringBuilder();
 
         // 3、遍历原始字符串
+        // i 控制原始字符串chars的访问进度
+        // j 控制过滤后的排好序的字符串characterList访问进度
         for (int i = 0, j = 0; i < chars.length; i++) {
             if(Character.isLetter(chars[i])){ // 如果是字符，则从characterList获取，因为已经有序
                 result.append(characterList.get(j));

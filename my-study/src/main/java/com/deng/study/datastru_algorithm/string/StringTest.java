@@ -4,6 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StringTest {
     public static void main(String[] args) {
@@ -242,4 +244,67 @@ public class StringTest {
     }
 
     /*********************************之前 old code end******************************************/
+
+
+    /**
+     * 删除字符串中出现次数最少的字符
+     */
+    @Test
+    public void strRemove() {
+        String s = "assssa";
+
+        // 统计字符串每个字符出现的次数
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            Character c = s.charAt(i);
+            if (!map.containsKey(c)) {
+                map.put(c, 1);
+            } else {
+                map.put(c, map.get(c) + 1);
+            }
+        }
+
+        // 统计字符次数最小的值
+        int minCount = Integer.MAX_VALUE;
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            Integer value = entry.getValue();
+            if (value < minCount) {
+                minCount = value;
+            }
+        }
+
+        // 把字符次数最小的值对应的字符删除
+        StringBuilder buffer = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            Character c = s.charAt(i);
+            Integer count = map.get(c);
+            if (minCount == count) {
+                continue;
+            } else {
+                buffer.append(c);
+            }
+        }
+        String result = buffer.toString();
+        System.out.println(result);
+    }
+
+    /**
+     * 字符串逆序
+     */
+    @Test
+    public void strResverse(){
+
+        String str = "abcd";
+        char[] array = new char[str.length()];
+
+        for(int i= 0; i < str.length(); i++){
+            char c = str.charAt(i);
+            array[array.length-i-1] = c;
+        }
+        StringBuilder result = new StringBuilder();
+        for (char c : array) {
+            result.append(c);
+        }
+        System.out.println(result.toString());
+    }
 }

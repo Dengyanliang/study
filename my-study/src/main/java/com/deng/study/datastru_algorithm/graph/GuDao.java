@@ -26,13 +26,13 @@ public class GuDao {
     }
 
 
-    private static int find(int[][] array) {
+    private static int find(int[][] grid) {
         int count = 0;
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                if (array[i][j] == 1) {
-                    System.out.println("当前坐标：" + i + "," + j);
-                    doFind(array, i, j);
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == 1) {
+                    System.out.println("当前坐标：" + r + "," + c);
+                    doFind(grid, r, c);
                     count++;
                 }
             }
@@ -40,16 +40,34 @@ public class GuDao {
         return count;
     }
 
-    private static void doFind(int[][] array, int i, int j) {
-        if (i < 0 || i >= array.length || j < 0 || j >= array[i].length || array[i][j] != 1) {
+    private static void doFind(int[][] grid, int r, int c) {
+        if(!isArea(grid,r,c)){
             return;
-        } else {
-            System.out.println("   走的路线：" + i + "," + j);
-            array[i][j] = 2;        // 走过的标记成2，然后向四周走
-            doFind(array, i, j + 1);
-            doFind(array, i, j - 1);
-            doFind(array, i + 1, j);
-            doFind(array, i - 1, j);
         }
+
+        if(grid[r][c] != 1){ // 表示已经走过或者是水域，无法走
+            return;
+        }
+
+        System.out.println("   走的路线：" + r + "," + c);
+
+        grid[r][c] = 2;        // 走过的标记成2，然后向四周走
+        doFind(grid, r, c + 1);
+        doFind(grid, r, c - 1);
+        doFind(grid, r + 1, c);
+        doFind(grid, r - 1, c);
+    }
+
+    /**
+     * 判断当前坐标是否在网格中的通用写法
+     *
+     * @param grid 网格
+     * @param r 横坐标
+     * @param c 纵坐标
+     * @return
+     */
+    private static boolean isArea(int[][] grid, int r, int c){
+        return  r >= 0 && r < grid.length &&
+                c >= 0 && c < grid[0].length;
     }
 }
