@@ -76,7 +76,7 @@ public class Permutation {
 
                     // 3、回溯
                     // 如果remove传入的是整型，则删除对应下标的元素。
-                    // 所以如果集合是整型，则必须传入下标；如果是非整型，则可以传入下标，也可以传入要删除的元素值
+                    // 如果集合是整型，则必须传入下标；如果是非整型，则可以传入下标，也可以传入要删除的元素值
                     // 所以通用解法是传入下标进行remove删除
                     solution.remove(i);
                     filledNumbers.remove(nums[j]);
@@ -127,7 +127,7 @@ public class Permutation {
             for (int j = i; j < n; j++) {
                 // 1、如果没有填充过，就填入当前的数
                 System.out.println("第一次交换前：" + solution + "，i=" + i + "，j=" + j);
-                Collections.swap(solution,i,j);
+                Collections.swap(solution, i, j);
                 System.out.println("第一次交换后：" + solution + "，i=" + i + "，j=" + j);
 
                 // 2、递归调用，继续填充后面的位置
@@ -135,7 +135,7 @@ public class Permutation {
 
                 // 3、回溯，考虑其他位置
                 System.out.println("-----第二次交换前：" + solution + "，i=" + i + "，j=" + j);
-                Collections.swap(solution,i,j);
+                Collections.swap(solution, i, j);
                 System.out.println("-----第二次交换后：" + solution + "，i=" + i + "，j=" + j);
             }
         }
