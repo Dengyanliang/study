@@ -1,11 +1,16 @@
 package com.deng.study.datastru_algorithm.string;
 
+import com.deng.study.domain.UnionFindSet;
+import com.deng.study.source.In;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringTest {
     public static void main(String[] args) {
@@ -257,11 +262,12 @@ public class StringTest {
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
             Character c = s.charAt(i);
-            if (!map.containsKey(c)) {
-                map.put(c, 1);
-            } else {
-                map.put(c, map.get(c) + 1);
-            }
+            map.put(c, map.getOrDefault(c, 0) + 1);
+//            if (!map.containsKey(c)) {
+//                map.put(c, 1);
+//            } else {
+//                map.put(c, map.get(c) + 1);
+//            }
         }
 
         // 统计字符次数最小的值
@@ -306,5 +312,194 @@ public class StringTest {
             result.append(c);
         }
         System.out.println(result.toString());
+    }
+
+
+    @Test
+    public void 火星文计算(){
+        String str = "7#6$5#12";
+        String reg = "(\\d+)\\$(\\d+)";
+        Pattern p = Pattern.compile(reg);
+        while (true){
+            Matcher m = p.matcher(str);
+            if(!m.find())
+                break;
+            String subStr = m.group(0);
+            System.out.println("subStr:"+subStr);
+
+            String group1 = m.group(1);
+            System.out.println("group1:"+group1);
+            int x = Integer.parseInt(group1);
+
+            String group2 = m.group(2);
+            System.out.println("group2:"+group2);
+            int y = Integer.parseInt(group2);
+
+            str = str.replace(subStr, 3 * x + y + 2 + "");
+            System.out.println("str:"+str);
+        }
+
+        Integer result = Arrays.stream(str.split("#")).
+                map(Integer::parseInt).reduce((x, y) -> 2 * x + 3 * y + 4).orElse(0);
+        System.out.println("result:"+result);
+    }
+
+    @Test
+    public void 字符统计及重排(){
+        String str = "xxyyXXZZ";
+//        String str = "abababb";
+        HashMap<Character, Integer> letter = new HashMap<>();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            letter.put(c,letter.getOrDefault(c,0)+1);
+        }
+        StringBuilder sb = new StringBuilder();
+        letter.entrySet().stream().sorted(new Comparator<Map.Entry<Character, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Character, Integer> o1, Map.Entry<Character, Integer> o2) {
+                // 如果value值不一样，按value值从大到小排序
+                if(o1.getValue() - o2.getValue() != 0){
+                    return o2.getValue()-o1.getValue();
+                }else{ // value值一样
+//                    // 如果都是同类型的，比如都是大小或者都是小写，则按照ascii编码升序
+                    if((isLower(o1.getKey()) && isLower(o2.getKey())) ||
+                            (isUpper(o1.getKey()) && isUpper(o2.getKey()))){
+                        System.out.println("2222222");
+                        return o1.getKey()- o2.getKey();
+                    }else{
+                        // 如果不是同类型的，则小写字母在大写字母前面
+                        if(isUpper(o1.getKey())){
+                            System.out.println("3333333");
+                            return 1;
+                        } else{
+                            System.out.println("444444");
+                            return -1;
+                        }
+                    }
+                }
+            }
+        }).
+        forEach(entry->sb.append(entry.getKey()).append(":").append(entry.getValue()).append(";"));
+
+        String result = sb.toString();
+        System.out.println(result);
+    }
+
+    private boolean isLower(char letter){
+        return letter >= 'a' && letter <= 'z';
+    }
+
+    private boolean isUpper(char letter){
+        return letter >= 'A' && letter <= 'Z';
+    }
+
+    /**
+     * 此题并不难，需要细心的看题目
+     */
+    @Test
+    public void 判断一组不等式是否满足约束并输出最大值(){
+        String str = "2.3,3,5.6,7,6;11,3,8.6,25,1;0.3,9,5.3,66,7.8;1,3,2,7,5;340,670,80.6;<=,<=,<=";
+        String[][] array = Arrays.stream(str.split(";")).map(s -> s.split(",")).toArray(String[][]::new);
+        Double[] a1 = Arrays.stream(array[0]).map(Double::parseDouble).toArray(Double[]::new);
+        Double[] a2 = Arrays.stream(array[1]).map(Double::parseDouble).toArray(Double[]::new);;
+        Double[] a3 = Arrays.stream(array[2]).map(Double::parseDouble).toArray(Double[]::new);;
+        Double[] x = Arrays.stream(array[3]).map(Double::parseDouble).toArray(Double[]::new);;
+        Double[] b = Arrays.stream(array[4]).map(Double::parseDouble).toArray(Double[]::new);;
+        String[] y = array[5];
+
+        double diff1 = a1[0] * x[0] + a1[1] * x[1] + a1[2] * x[2] + a1[3] * x[3] + a1[4] * x[4] - b[0];
+        double diff2 = a2[0] * x[0] + a2[1] * x[1] + a2[2] * x[2] + a2[3] * x[3] + a2[4] * x[4] - b[1];
+        double diff3 = a3[0] * x[0] + a3[1] * x[1] + a3[2] * x[2] + a3[3] * x[3] + a3[4] * x[4] - b[2];
+
+        boolean flag = compareWithZero(diff1,y[0])
+                        && compareWithZero(diff2,y[1])
+                        && compareWithZero(diff3,y[2]);
+        double maxDiff = Math.max(Math.max(diff1,diff2),diff3);
+        System.out.println(flag + " " + (int)Math.floor(maxDiff));
+    }
+
+    private boolean compareWithZero(double val, String constriant) {
+        boolean flag = false;
+        switch (constriant){
+            case ">":
+                flag = val > 0;
+                break;
+            case ">=":
+                flag = val >= 0;
+                break;
+            case "<":
+                flag = val < 0;
+                break;
+            case "<=":
+                flag = val <= 0;
+                break;
+            case "=":
+                flag = val == 0;
+                break;
+        }
+        return flag;
+    }
+
+    /**
+     * TODO: 这个题还是不明白
+     */
+    @Test
+    public void weAreATeam(){
+//        int n = 5; // 人数
+//        int m = 7; // 消息条数
+//        int[][] msgs = new int[][]{
+//                {1,2,0},
+//                {4,5,0},
+//                {2,3,0},
+//                {1,2,1},
+//                {2,3,1},
+//                {4,5,1},
+//                {1,5,1}
+//        };
+
+        int n = 5; // 人数
+        int m = 6; // 消息条数
+        int[][] msgs = new int[][]{
+                {1,2,0},
+                {1,2,1},
+                {1,5,0},
+                {2,3,1},
+                {2,5,1},
+                {1,3,2}
+        };
+
+        getResult_WeAreATeam(msgs,n,m);
+    }
+
+    private void getResult_WeAreATeam(int[][] msgs, int n, int m) {
+        if (n < 1 || n >= 100000 || m < 1 || m >= 100000) {
+            System.out.println("Null");
+            return;
+        }
+        UnionFindSet ufs = new UnionFindSet(n+1);
+        Arrays.sort(msgs, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[2] - o2[2];
+            }
+        });
+        for (int[] msg : msgs) {
+            int a = msg[0], b = msg[1], c = msg[2];
+            if (a < 1 || a > n || b < 1 || b > n) {
+                System.out.println("da pian zi");
+                continue;
+            }
+            if(c == 0){
+                ufs.union(a,b);
+            }else if(c == 1){
+                if(ufs.find(a) == ufs.find(b)){
+                    System.out.println("We are a team");
+                }else{
+                    System.out.println("We are not a team");
+                }
+            }else{
+                System.out.println("da pian zi");
+            }
+        }
     }
 }

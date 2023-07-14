@@ -419,7 +419,7 @@ public class NumberTest {
     private long ipToNumber(String ip){
         // 将ip地址通过.进行分割
         String[] ips = ip.split("\\.");
-        StringBuilder builder= new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 4; i++) {
             // 将分割后的每个数字转换为2进制
            StringBuilder binaryNum = new StringBuilder(Integer.toBinaryString(Integer.parseInt(ips[i])));
@@ -430,7 +430,7 @@ public class NumberTest {
             builder.append(binaryNum);
         }
         // parseLong(String s, int radix) 第二个参数是将s对应的radix格式转换为10进制，在这里就是将s对应的2进制格式转换为10进制
-        // 将二进制转换为10进制。
+        // 将2进制转换为10进制。
         return Long.parseLong(builder.toString(),2);
     }
 

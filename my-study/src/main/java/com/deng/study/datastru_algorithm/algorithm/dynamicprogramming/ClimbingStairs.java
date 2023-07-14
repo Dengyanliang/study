@@ -1,7 +1,7 @@
 package com.deng.study.datastru_algorithm.algorithm.dynamicprogramming;
 
 /**
- * @Desc: 爬楼梯
+ * @Desc: 爬楼梯：每次可以爬1阶或者2阶
  * @Auther: dengyanliang
  * @Date: 2023/4/19 20:30
  */
