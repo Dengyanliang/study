@@ -11,7 +11,17 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 分布式锁必须具备的条件：
- *      独占性、高可用、防死锁、不乱抢、重入性
+ * ----lua 脚本
+ *   独占性：任意时刻只能有一个客户端拥有锁，不能被多个客户端获取
+ *   原子性：
+ *   防误删：锁只能被持有该锁的客户端删除，不能被其他客户端删除
+ *   重入性：锁可以被同一个客户端端多次获取
+ * --- 加过期时间
+ *   防死锁：获取锁的客户端因某些原因宕机导致未能释放锁，那么其他客户端就无法获取该锁，需要有机制来避免该类问题的发生
+ * --- lua 脚本+Timer定时任务，自旋
+ *   自动续期：
+ * --- 多节点部署，redssion
+ *   高可用：当部分节点宕机时，客户端仍能获取锁或释放锁
  */
 @Component
 public class JedisUtil {
@@ -71,7 +81,8 @@ public class JedisUtil {
     }
 
     /**
-     * 使用lua脚本加锁，保证原子性和可重入性
+     * 获取锁
+     * 使用lua脚本加锁，保证原子性、可重入性、防死锁、独占性
      *
      * @param key
      * @param value
@@ -104,6 +115,7 @@ public class JedisUtil {
     }
 
     /**
+     * 释放锁
      * 使用lua脚本进行释放锁，保证原子性和可重入性
      *
      * @param key
@@ -113,7 +125,7 @@ public class JedisUtil {
     public boolean releaseLockWithLua(String key, String value) {
         // 能保证原子性
 //        String luaScript = "if redis.call('get',KEYS[1]) == ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
-        // 能保证原子性和可重入性 TODO 在key不村子的时候，会返回null，java代码还没有测试
+        // 能保证原子性和可重入性 TODO 在key不存在的时候，会返回null，java代码还没有测试
         String luaScript = "if redis.call('HEXISTS',KEYS[1],ARGV[1]) == 0 then return nil elseif redis.call('HINCRBY',KEYS[1],ARGV[1],-1) == 0 then return redis.call('del',KEYS[1]) else return 0 end";
 
         List<String> keys = new ArrayList<>();
@@ -147,7 +159,9 @@ public class JedisUtil {
                 values.add(value);
                 values.add(String.valueOf(expireTimeSeconds));
 
-                boolean flag = Objects.equals(getJedis().eval(luaScript, keys, values), 1L);
+                Object eval = getJedis().eval(luaScript, keys, values);
+                // 如果存在，表示业务逻辑还没有执行完，所以需要续期
+                boolean flag = Objects.equals(eval, 1L);
                 if(flag){
                     renewExpire(key, value, expireTime, unit);
                 }

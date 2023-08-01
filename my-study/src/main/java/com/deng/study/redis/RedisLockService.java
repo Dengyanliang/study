@@ -108,7 +108,7 @@ public class RedisLockService {
         }
         try {
             String result = redisTemplate.opsForValue().get(queryKey);
-            Integer inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
+            int inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
             if(inventoryNumber > 0){
                 redisTemplate.opsForValue().set("",String.valueOf(--inventoryNumber));
                 retMessage="成功卖出一个商品，库存剩余：" + inventoryNumber;
@@ -136,7 +136,7 @@ public class RedisLockService {
         }
         try {
             String result = redisTemplate.opsForValue().get(queryKey);
-            Integer inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
+            int inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
             if(inventoryNumber > 0){
                 redisTemplate.opsForValue().set("",String.valueOf(--inventoryNumber));
                 retMessage="成功卖出一个商品，库存剩余：" + inventoryNumber;
@@ -166,7 +166,7 @@ public class RedisLockService {
         }
         try {
             String result = redisTemplate.opsForValue().get(queryKey);
-            Integer inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
+            int inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
             if(inventoryNumber > 0){
                 redisTemplate.opsForValue().set("",String.valueOf(--inventoryNumber));
                 retMessage="成功卖出一个商品，库存剩余：" + inventoryNumber;
@@ -195,7 +195,7 @@ public class RedisLockService {
 //        }
         try {
             String result = redisTemplate.opsForValue().get(queryKey);
-            Integer inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
+            int inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
             if(inventoryNumber > 0){
                 redisTemplate.opsForValue().set("",String.valueOf(--inventoryNumber));
                 retMessage="成功卖出一个商品，库存剩余：" + inventoryNumber;
@@ -220,7 +220,7 @@ public class RedisLockService {
         lock.lock();
         try {
             String result = redisTemplate.opsForValue().get(queryKey);
-            Integer inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
+            int inventoryNumber = StringUtils.isBlank(result)?0: Integer.parseInt(result);
             if(inventoryNumber > 0){
                 redisTemplate.opsForValue().set("",String.valueOf(--inventoryNumber));
                 retMessage="成功卖出一个商品，库存剩余：" + inventoryNumber;

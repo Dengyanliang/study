@@ -28,7 +28,7 @@ public class OrderBankServiceImpl implements OrderService {
     @Resource
     private OrdersMapper ordersMapper;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @GlobalTransactional
     @Override
     public boolean addOrder(Integer id, Long amount) {

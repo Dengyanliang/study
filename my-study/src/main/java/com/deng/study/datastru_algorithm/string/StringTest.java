@@ -2,15 +2,15 @@ package com.deng.study.datastru_algorithm.string;
 
 import com.deng.study.domain.UnionFindSet;
 import com.deng.study.source.In;
+import com.google.common.collect.Lists;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class StringTest {
     public static void main(String[] args) {
@@ -502,4 +502,90 @@ public class StringTest {
             }
         }
     }
+
+
+    /**
+     * 仅包含小写字母
+     */
+    @Test
+    public void test字母异位词分组(){
+//        String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        String[] strs = {"bur","rub"};
+
+        // 第一种办法，排序
+        Collection<List<String>> values1 = Arrays.stream(strs).collect(Collectors.groupingBy(str -> {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            return new String(chars);
+        })).values();
+        System.out.println(values1);
+
+        // 第二种办法，统计每个字符的数量，并把字符和数量合并到一起作为key
+        Collection<List<String>> values2 = Arrays.stream(strs).collect(Collectors.groupingBy(str -> {
+            
+
+            // keypoint 由于数组类型没有重写hashcode和equals，所以不能直接作为HashMap的key进行聚合
+//            char[] chars = str.toCharArray();
+//            Map<Character, Integer> map = new HashMap<>();
+//            for (int i = 0; i < chars.length; i++) {
+//                char c = chars[i];
+//                map.put(c, map.getOrDefault(c, 0) + 1);
+//            }
+//
+//            StringBuilder sb = new StringBuilder();
+//            for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+//                sb.append(entry.getKey()).append(entry.getValue());
+//            }
+
+            int[] count = new int[26];
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                count[c-'a']++; // 由于仅包含小写字母，所以这里字符减去'a'，得到两者之间的差值，作为数组的下标
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 26; i++) {
+                if(count[i] != 0){
+                    sb.append((char)('a'+i)); // 这里加上'a'，能到得到原来的字符
+                    sb.append(count[i]);
+                }
+            }
+
+            System.out.println(sb.toString());
+            return sb.toString();
+        })).values();
+        System.out.println(values2);
+    }
+
+    @Test
+    public void test最长连续序列(){
+        int[] nums = {100,4,200,1,3,2};
+//        int[] nums = {1,2,0,1};
+//        int[] nums = {9,1,4,7,3,-1,0,5,8,-1,6};
+
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+
+        int longestStreak = 0;
+
+        // 判断当前数的前一个数和后一个数是否在连续序列中
+        for (Integer num : set) {
+            int currentNum = num;
+
+            // 当前数的前一个数不在集合中，则进行判断后面的数
+            if(!set.contains(currentNum-1)){
+                int currentStreak = 1;
+
+                // 判断当前数的下一个数是否在集合中，如果在集合中，则长度加1；如果不在，则结束
+                while (set.contains(currentNum + 1)) {
+                    currentNum++;
+                    currentStreak++;
+                }
+                longestStreak = Math.max(longestStreak,currentStreak);
+            }
+        }
+        System.out.println(longestStreak);
+    }
+
 }

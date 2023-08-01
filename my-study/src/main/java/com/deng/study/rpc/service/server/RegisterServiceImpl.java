@@ -1,6 +1,6 @@
 package com.deng.study.rpc.service.server;
 
-import com.deng.study.rpc.common.ZkConfig;
+import com.deng.study.common.constant.ZkConstant;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -16,9 +16,12 @@ public class RegisterServiceImpl implements RegisterService {
     private CuratorFramework curatorFramework;
 
     public RegisterServiceImpl() {
-        curatorFramework = CuratorFrameworkFactory.builder().connectString(ZkConfig.CONNECT_STRING).
-                sessionTimeoutMs(ZkConfig.SESSTION_TIMEOUT).
-                retryPolicy(new ExponentialBackoffRetry(1000,3)).build();
+        // 重试策略
+        ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
+
+        curatorFramework = CuratorFrameworkFactory.builder().connectString(ZkConstant.CONNECT_STRING).
+                sessionTimeoutMs(ZkConstant.SESSTION_TIMEOUT).
+                retryPolicy(retryPolicy).build();
         curatorFramework.start();
     }
 
@@ -33,7 +36,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public void register(String serviceName, String serviceAddress) {
         // 注册相应的服务
-        String serviceUrl = ZkConfig.PATH + ZkConfig.OBLIQUE_LINE + serviceName;
+        String serviceUrl = ZkConstant.PATH + ZkConstant.OBLIQUE_LINE + serviceName;
         System.out.println("serviceUrl:"+ serviceUrl);
         try {
             if(Objects.isNull(curatorFramework.checkExists().forPath(serviceUrl))){
@@ -41,7 +44,7 @@ public class RegisterServiceImpl implements RegisterService {
                 curatorFramework.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(serviceUrl,serviceName.getBytes());
             }
 
-            String addressUrl = serviceUrl + ZkConfig.OBLIQUE_LINE + serviceAddress;
+            String addressUrl = serviceUrl + ZkConstant.OBLIQUE_LINE + serviceAddress;
             System.out.println("addressUrl:"+ addressUrl);
             // 注册服务对应的服务器地址为服务名称节点下的临时节点
             curatorFramework.create().withMode(CreateMode.EPHEMERAL).forPath(addressUrl,addressUrl.getBytes());

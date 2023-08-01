@@ -1,8 +1,8 @@
-package com.deng.study.rpc;
+package com.deng.study.zk;
 
 
 import com.deng.study.domain.User;
-import com.deng.study.rpc.common.ZkConfig;
+import com.deng.study.common.constant.ZkConstant;
 import org.I0Itec.zkclient.IZkChildListener;
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;
@@ -12,11 +12,11 @@ import java.util.List;
 
 public class ZkClientTest {
     public static void main(String[] args) {
-        ZkClient zkClient = new ZkClient(ZkConfig.CONNECT_STRING, ZkConfig.SESSTION_TIMEOUT,
-                ZkConfig.SESSTION_TIMEOUT, new SerializableSerializer());
+        ZkClient zkClient = new ZkClient(ZkConstant.CONNECT_STRING, ZkConstant.SESSTION_TIMEOUT,
+                ZkConstant.SESSTION_TIMEOUT, new SerializableSerializer());
 
         // 监听当前节点和下面子节点的新增、删除
-        zkClient.subscribeChildChanges(ZkConfig.PATH,new IZkChildListener(){
+        zkClient.subscribeChildChanges(ZkConstant.PATH,new IZkChildListener(){
             @Override
             public void handleChildChange(String path, List<String> currentChilds) throws Exception {
                 System.out.println("path:" + path);
@@ -25,7 +25,7 @@ public class ZkClientTest {
         });
 
         // 监听 当前节点和子节点的内容修改、删除
-        zkClient.subscribeDataChanges(ZkConfig.PATH,new IZkDataListener(){
+        zkClient.subscribeDataChanges(ZkConstant.PATH,new IZkDataListener(){
             @Override
             public void handleDataChange(String path, Object data) throws Exception {
                 System.out.println("变更的节点为:" + path + ", 变更内容为:" + data);
@@ -42,12 +42,12 @@ public class ZkClientTest {
         user.setAge(12);
 
         // 创建目录节点
-        zkClient.createEphemeral(ZkConfig.PATH);
+        zkClient.createEphemeral(ZkConstant.PATH);
         // 往目录下写数据
-        zkClient.writeData(ZkConfig.PATH, user);
+        zkClient.writeData(ZkConstant.PATH, user);
 
         // 从目录下读数据
-        Object o = zkClient.readData(ZkConfig.PATH);
+        Object o = zkClient.readData(ZkConstant.PATH);
         System.out.println(o);
 
         // 读取所有的目录

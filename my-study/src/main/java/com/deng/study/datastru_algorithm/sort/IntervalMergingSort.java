@@ -12,10 +12,10 @@ public class IntervalMergingSort {
 
     public static void main(String[] args) {
         ArrayList<Interval> intervals = new ArrayList<Interval>();
-        intervals.add(new Interval(10, 30));
-        intervals.add(new Interval(20, 60));
-        intervals.add(new Interval(80, 100));
-        intervals.add(new Interval(150, 180));
+        intervals.add(new Interval(1,3));
+        intervals.add(new Interval(2,6));
+        intervals.add(new Interval(8,10));
+        intervals.add(new Interval(15,18));
 
         IntervalMergingSort sort = new IntervalMergingSort();
         ArrayList<Interval> result = sort.merge(intervals);
@@ -23,7 +23,7 @@ public class IntervalMergingSort {
     }
 
     public ArrayList<Interval> merge (ArrayList<Interval> intervals) {
-        // 对所有的区间进行升序排列
+        // 对所有的左区间进行升序排列
         Collections.sort(intervals,(v1,v2)->v1.start-v2.start);
         // 用于保存结果
         ArrayList<Interval> result = new ArrayList<>();

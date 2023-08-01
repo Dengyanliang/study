@@ -49,7 +49,7 @@ public class GuDao {
             return;
         }
 
-        System.out.println("   走的路线：" + r + "," + c);
+//        System.out.println("   走的路线：" + r + "," + c);
 
         grid[r][c] = 2;        // 走过的标记成2，然后向四周走
         doFind(grid, r, c + 1);

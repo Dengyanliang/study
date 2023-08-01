@@ -1,7 +1,11 @@
 package com.deng.study.datastru_algorithm.tree;
 
 import com.deng.study.enums.ThreadClassEnum;
+import com.sun.jmx.remote.internal.ArrayQueue;
+import lombok.val;
 import org.junit.Test;
+
+import java.util.*;
 
 /**
  * @Desc:
@@ -138,4 +142,35 @@ public class BTTest {
         threadClass.threadOrder();
     }
 
+    @Test
+    public void 二叉搜索树中第K小的元素(){
+        BTNode<Integer> rootNode = new BTNode<>(3);
+        BTNode<Integer> node1 = new BTNode<>(1);
+        BTNode<Integer> node2 = new BTNode<>(4);
+        BTNode<Integer> node3 = new BTNode<>(2);
+
+        rootNode.setLchild(node1);
+        rootNode.setRchild(node2);
+
+        node1.setRchild(node3);
+
+        System.out.println(get二叉搜索树中第K小的元素(rootNode,2));
+    }
+
+    private int get二叉搜索树中第K小的元素(BTNode root,int k){
+        Deque<BTNode> queue = new ArrayDeque<>();
+        while(Objects.nonNull(root) || !queue.isEmpty()){
+            while(Objects.nonNull(root)){
+                queue.push(root); // 添加到队头
+                root = root.lchild;
+            }
+            root = queue.poll(); // 从队头取
+            k--;
+            if(k == 0){
+                break;
+            }
+            root = root.rchild;
+        }
+        return (Integer)root.data;
+    }
 }

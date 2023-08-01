@@ -1,7 +1,7 @@
 package com.deng.study.rpc.service.client;
 
 
-import com.deng.study.rpc.common.ZkConfig;
+import com.deng.study.common.constant.ZkConstant;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
@@ -18,9 +18,12 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     private List<String> serviceNodes;
 
     public DiscoveryServiceImpl(String address){
+        // 重试策略
+        ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
+
         curatorFramework = CuratorFrameworkFactory.builder().connectString(address).
-                sessionTimeoutMs(ZkConfig.SESSTION_TIMEOUT).
-                retryPolicy(new ExponentialBackoffRetry(1000,3)).build();
+                sessionTimeoutMs(ZkConstant.SESSTION_TIMEOUT).
+                retryPolicy(retryPolicy).build();
         curatorFramework.start();
     }
 
@@ -29,7 +32,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     public String discovery(String serviceName) {
         try {
             // 根据路径获取所有节点
-            String serviceUrl = ZkConfig.PATH + ZkConfig.OBLIQUE_LINE + serviceName;
+            String serviceUrl = ZkConstant.PATH + ZkConstant.OBLIQUE_LINE + serviceName;
             System.out.println("serviceUrl:"+ serviceUrl);
 
             serviceNodes = curatorFramework.getChildren().forPath(serviceUrl);

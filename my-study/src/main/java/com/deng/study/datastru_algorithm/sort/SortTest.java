@@ -297,4 +297,44 @@ public class SortTest {
             System.out.println(country.name);
         }
     }
+
+
+    @Test
+    public void test移动零(){
+        int[] nums = {0,1,0,3,12};
+
+        // 第一种办法，直接把非零的移动到左边，并定位出最后一位非零元素的下标，从该下标开始到数组结束，全部置位0
+//        移动零_1(nums);
+
+        // 第二种办法，利用快速排序的思想，使用交换进行
+        移动零_2(nums);
+
+        System.out.println(Arrays.toString(nums));
+    }
+
+    private void 移动零_2(int[] nums) {
+        int j = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if(nums[i] != 0){
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                j++;
+            }
+        }
+    }
+
+    private void 移动零_1(int[] nums){
+        int j = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if(nums[i] != 0){
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+        for (int i = j; i < nums.length; i++) {
+            nums[i] = 0;
+        }
+
+    }
 }

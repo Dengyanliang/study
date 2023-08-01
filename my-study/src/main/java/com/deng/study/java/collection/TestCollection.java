@@ -191,4 +191,37 @@ public class TestCollection {
             }
         }
     }
+
+    /**
+     * 随机删除
+     */
+    @Test
+    public void testRandomRemove(){
+        HashMap map = new HashMap();
+        map.put("a",1);
+        map.put("b",2);
+        map.put("c",3);
+
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+
+        for (int i = 0; i < 3; i++) {
+            Random random =  new Random();
+            int index = random.nextInt(3-i);
+            String s = list.get(index);
+            System.out.println("s:" + s);
+            System.out.println("list remove before :" + list);
+            list.remove(index);
+            System.out.println("list remove after :" + list);
+
+            System.out.println("map remove before :" + map);
+            map.remove(s);
+            System.out.println("map remove after :" + map);
+            System.out.println("---------------");
+        }
+        System.out.println(list);
+        System.out.println(map);
+    }
 }

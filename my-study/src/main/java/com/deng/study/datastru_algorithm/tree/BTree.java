@@ -1,6 +1,7 @@
 package com.deng.study.datastru_algorithm.tree;
 
 import lombok.Data;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.*;
 
@@ -10,8 +11,8 @@ import java.util.*;
  * @Date: 2022-11-20 18:26:54
  */
 @Data
-public class BTree {
-    private BTNode<Character> rootNode;
+public class BTree <T> {
+    private BTNode<T> rootNode;
     private String bStr = "";
     private String ans = "";
     private int kSumCount = 0;
@@ -44,7 +45,7 @@ public class BTree {
                     tempNode = new BTNode<>();
                     tempNode.setData(c);
                     if (rootNode == null) {    // 没有建立根结点，则将新建的结点作为根结点
-                        rootNode = tempNode;
+                        rootNode = (BTNode<T>) tempNode;
                     } else {                   // 已经建立了根结点
                         if (flag) {            // 新结点p作为栈顶结点的左子树
                             if (!st.isEmpty()) {

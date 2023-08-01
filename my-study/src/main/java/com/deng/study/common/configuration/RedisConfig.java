@@ -84,7 +84,10 @@ public class RedisConfig {
     public Redisson redisson(){
         Config config = new Config();
         String address = "redis://" + host + ":" + port;
-        config.useSingleServer().setAddress(address).setDatabase(0).setPassword(password);
+        config.useSingleServer() // 单机模式
+                .setAddress(address) // redis服务器地址
+                .setDatabase(0) // 指定的数据库编号
+                .setPassword(password); // 密码
 
         return (Redisson)Redisson.create(config);
     }

@@ -16,7 +16,7 @@ package com.deng.study.datastru_algorithm.string;
  * @Auther: dengyanliang
  * @Date: 2023/1/31 17:36
  */
-public class StringEncAndDec {
+public class    StringEncAndDec {
 
     private static char[] SMALL_LETTER = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     private static char[] CAPITAL_LETTER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
