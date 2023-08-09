@@ -1,5 +1,7 @@
 package com.deng.study.datastru_algorithm.tree;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 
 import java.util.*;
@@ -225,4 +227,89 @@ public class TreeNodeTest {
         return res;
     }
 
+    @Test
+    public void  从前序与中序遍历序列构造二叉树(){
+        int[] preorder = {3,9,20,15,7};
+        int[] inorder = {9,3,15,20,7};
+        TreeNode treeNode = buildTree(preorder,inorder);
+        System.out.println(treeNode);
+    }
+
+    private TreeNode buildTree(int[] preorder, int[] inorder) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i],i);
+        }
+
+        return buildTree(preorder,0,inorder,0,preorder.length,map);
+    }
+
+    private TreeNode buildTree(int[] preorder,int preFirst, int[] inorder,int inFirst,int sumNum,HashMap<Integer,Integer> map) {
+        if(sumNum <= 0){
+            return null;
+        }
+        // 根节点的值
+        int rootVal = preorder[preFirst];
+        TreeNode treeNode = new TreeNode(rootVal);
+
+//        int p = inFirst; // 初始值指向中序遍历的起始位置
+//        while(p < inFirst + sumNum){ // 在中序遍历数组中找到根节点的位置，那么根节点左边的就是左子树，跟节点右边就是右子树
+//            if(inorder[p] == rootVal){
+//                break;
+//            }
+//            p++;
+//        }
+
+        int p = map.get(rootVal);  // 这里使用map，可以解决循环遍历效率问题
+
+        int leftNum = p-inFirst; // 左子树的个数
+
+        treeNode.left = buildTree(preorder,preFirst+1,inorder,inFirst,leftNum,map);
+        treeNode.right = buildTree(preorder,preFirst+1+leftNum,inorder,p+1,sumNum-leftNum-1,map);
+        return treeNode;
+    }
+
+
+    @Test
+    public void 二叉树的层序遍历(){
+//        int[] nums = {3,9,20,15,7};
+        TreeNode root = new TreeNode(3);
+        TreeNode node1 = new TreeNode(9);
+        TreeNode node2 = new TreeNode(20);
+        TreeNode node3 = new TreeNode(15);
+        TreeNode node4 = new TreeNode(7);
+        root.left = node1;
+        root.right = node2;
+        node2.left = node3;
+        node2.right = node4;
+        List<List<Integer>> lists = levelOrder(root);
+        for (List<Integer> list : lists) {
+            System.out.println(list);
+        }
+    }
+    private List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(Objects.nonNull(root)){
+            queue.add(root);
+        }
+
+        while(!queue.isEmpty()){
+            int n = queue.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                TreeNode node = queue.poll();
+                list.add(node.val);
+                if (Objects.nonNull(node.left)) {
+                    queue.add(node.left);
+                }
+                if (Objects.nonNull(node.right)) {
+                    queue.add(node.right);
+                }
+            }
+            result.add(list);
+        }
+        return result;
+    }
 }

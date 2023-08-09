@@ -33,6 +33,7 @@ public class AccountServiceImpl implements AccountService {
 
         Account account = new Account();
         account.setId(request.getUserId());
+        // 这种写法不好，要使用数据库的update set 才能保证数据的正确性
         account.setBalance(dbAccount.getBalance()-request.getAmount().doubleValue());
         account.setLastUpdateTime(new Date());
 

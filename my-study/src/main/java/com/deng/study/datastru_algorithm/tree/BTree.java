@@ -84,8 +84,13 @@ public class BTree <T> {
      * @return       构造成功的树
      */
     public BTree createTreeByPreAndMiddleOrder(String preStr,String midStr){
+        HashMap<Character,Integer> map = new HashMap<>();
+        for (int i = 0; i < midStr.length(); i++) {
+            map.put(midStr.charAt(i),i);
+        }
+
         BTree bTree = new BTree();
-        bTree.rootNode = createTreeByPreAndMidOrder(preStr,0,midStr,0,preStr.length());
+        bTree.rootNode = createTreeByPreAndMidOrder(preStr,0,midStr,0,preStr.length(),map);
         return bTree;
     }
 
@@ -98,7 +103,7 @@ public class BTree <T> {
      * @param sumNum    字符串的长度
      * @return          构造成功的左右子树
      */
-    private BTNode<Character> createTreeByPreAndMidOrder(String preStr,int preFirst,String midStr,int midFirst, int sumNum){
+    private BTNode<Character> createTreeByPreAndMidOrder(String preStr,int preFirst,String midStr,int midFirst, int sumNum,HashMap<Character,Integer> map){
         if(sumNum <= 0){
             return null;
         }
@@ -107,25 +112,27 @@ public class BTree <T> {
         BTNode<Character> rootNode = new BTNode<>();
         rootNode.setData(rootData);
 
-        int p = midFirst;              // 指向中序遍历的起始位置
-        while(p < midFirst + sumNum){  // 在中序遍历字符串中找到和跟结点相同的元素，那么p左边的就是左子树，p右边的就是右子树
-            if(midStr.charAt(p) == rootData){
-                break;
-            }
-            p++;
-        }
+//        int p = midFirst;              // 指向中序遍历的起始位置
+        // TODO 这里需要优化，因为每次都需要遍历
+//        while(p < midFirst + sumNum){  // 在中序遍历字符串中找到和跟结点相同的元素，那么p左边的就是左子树，p右边的就是右子树
+//            if(midStr.charAt(p) == rootData){
+//                break;
+//            }
+//            p++;
+//        }
+        int p = map.get(rootData);
 
-        int leftNum = p-midFirst;    // 中序遍历字符串左子树的个数
+        int leftNum = p-midFirst;    // 左子树的个数
 
         // 左子树的构造：
-        // 先序遍历字符串从preFirst+1开始，是因为跟结点已经遍历过了。后续每次遍历都会往后移动一位
-        // 中序遍历字符串从middleFirst开始，是因为左子树还是要从头开始
-        rootNode.lchild = createTreeByPreAndMidOrder(preStr,preFirst+1,midStr,midFirst,leftNum);
+        // 先序遍历字符串从preFirst+1开始，是因为根结点已经遍历过了。后续每次遍历都会往后移动一位
+        // 中序遍历字符串从midFirst开始，是因为左子树还是要从头开始
+        rootNode.lchild = createTreeByPreAndMidOrder(preStr,preFirst+1,midStr,midFirst,leftNum,map);
 
         // 右子树的构造：
         // 先序遍历字符串从preFirst+1+leftNum，因为要加上中序遍历字符串中左边子树的个数
         // 中序遍历字符串从p+1开始，因为p现在指向的是跟结点，所以右子树要加1开始
-        rootNode.rchild = createTreeByPreAndMidOrder(preStr,preFirst+1+leftNum,midStr,p+1,sumNum-leftNum-1);
+        rootNode.rchild = createTreeByPreAndMidOrder(preStr,preFirst+1+leftNum,midStr,p+1,sumNum-leftNum-1,map);
         return rootNode;
     }
 

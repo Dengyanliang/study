@@ -588,4 +588,28 @@ public class StringTest {
         System.out.println(longestStreak);
     }
 
+    @Test
+    public void 字符串转数字(){
+        String str = "123";
+        if(StringUtils.isBlank(str)){
+            return ;
+        }
+        // 如果不是数字，直接报错
+
+        // 如果超限也要报错
+
+        int result = 0;
+        int n = str.length()-1;
+        while(n >= 0){
+            int c = str.charAt(n) - '0';
+            if(n == str.length()-1){
+                result = c;
+            }else{
+                result += c * 10;
+            }
+            n--;
+        }
+        System.out.println(result);
+    }
+
 }

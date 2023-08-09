@@ -10,7 +10,7 @@ import java.util.List;
  * @Auther: dengyanliang
  * @Date: 2021/1/28 15:18
  */
-public class ThreadDemoTest3 {
+public class ThreadDemoTest3{
 
 
     public static void main(String[] args) throws Exception {
