@@ -38,20 +38,26 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-<!--            <version>1.16.18</version>-->
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
-<!--            <version>2.6.0</version>-->
         </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.0.5</version>
+            <version>3.5.1</version>
         </dependency>
+
+        <!--        -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>mysql</groupId>
@@ -63,7 +69,33 @@
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>3.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.deng.study</groupId>
+            <artifactId>my-study</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
+    <build>
+            <resources>
+                <resource>
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.properties</include>
+                        <include>**/*.xml</include>
+                    </includes>
+                    <filtering>false</filtering>
+                </resource>
+                <resource>
+                    <directory>src/main/resources</directory>
+                    <includes>
+                        <include>**/*.properties</include>
+                        <include>**/*.xml</include>
+                    </includes>
+                    <filtering>false</filtering>
+                </resource>
+            </resources>
+    </build>
 </project>

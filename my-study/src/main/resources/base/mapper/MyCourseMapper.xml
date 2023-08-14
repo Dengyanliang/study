@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.deng.study.dao.mapper.CourseMapper">
-  <resultMap id="BaseResultMap" type="com.deng.study.dao.po.Course">
+<mapper namespace="com.deng.study.dao.mapper.MyCourseMapper">
+  <resultMap id="BaseResultMap" type="com.deng.study.dao.po.MyCourse">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="create_Time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, user_id, status
+    id, name, user_id, status, create_Time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.deng.study.dao.po.CourseExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.deng.study.dao.po.MyCourseExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from course
+    from my_course
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,27 +87,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from course
+    from my_course
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from course
+    delete from my_course
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.deng.study.dao.po.CourseExample">
-    delete from course
+  <delete id="deleteByExample" parameterType="com.deng.study.dao.po.MyCourseExample">
+    delete from my_course
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.deng.study.dao.po.Course">
-    insert into course (id, name, user_id,
-      status)
+  <insert id="insert" parameterType="com.deng.study.dao.po.MyCourse">
+    insert into my_course (id, name, user_id, 
+      status, create_Time, update_time
+      )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
-      #{status,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.deng.study.dao.po.Course">
-    insert into course
+  <insert id="insertSelective" parameterType="com.deng.study.dao.po.MyCourse">
+    insert into my_course
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -118,6 +122,12 @@
       </if>
       <if test="status != null">
         status,
+      </if>
+      <if test="createTime != null">
+        create_Time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -133,16 +143,22 @@
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.deng.study.dao.po.CourseExample" resultType="java.lang.Long">
-    select count(*) from course
+  <select id="countByExample" parameterType="com.deng.study.dao.po.MyCourseExample" resultType="java.lang.Long">
+    select count(*) from my_course
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update course
+    update my_course
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -156,23 +172,31 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=VARCHAR},
       </if>
+      <if test="record.createTime != null">
+        create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update course
+    update my_course
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=BIGINT},
-      status = #{record.status,jdbcType=VARCHAR}
+      status = #{record.status,jdbcType=VARCHAR},
+      create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.deng.study.dao.po.Course">
-    update course
+  <update id="updateByPrimaryKeySelective" parameterType="com.deng.study.dao.po.MyCourse">
+    update my_course
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -183,14 +207,22 @@
       <if test="status != null">
         status = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null">
+        create_Time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.deng.study.dao.po.Course">
-    update course
+  <update id="updateByPrimaryKey" parameterType="com.deng.study.dao.po.MyCourse">
+    update my_course
     set name = #{name,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=BIGINT},
-      status = #{status,jdbcType=VARCHAR}
+      status = #{status,jdbcType=VARCHAR},
+      create_Time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -5,8 +5,23 @@ import com.deng.study.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 public class ThreadTest2 {
+
+    public static void main(String[] args) {
+        List<byte[]> list = new ArrayList<>();
+        new Thread(() -> {
+            while (true){
+                System.out.println("---每次添加一个byte[1]字节数组---");
+                ThreadUtil.sleep(100);
+                list.add(new byte[10]);
+            }
+        }, "t1").start();
+
+    }
 
     @Test
     public void testSleep(){

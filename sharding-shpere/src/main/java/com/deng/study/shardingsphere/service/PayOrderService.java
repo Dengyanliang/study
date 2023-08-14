@@ -1,8 +1,7 @@
 package com.deng.study.shardingsphere.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.deng.study.shardingsphere.po.Course;
-import com.deng.study.shardingsphere.po.PayOrder;
+import com.deng.study.shardingsphere.dao.po.PayOrder;
 
 /**
  * @Desc:

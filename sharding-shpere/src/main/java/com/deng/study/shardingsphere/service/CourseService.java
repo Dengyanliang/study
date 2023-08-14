@@ -1,7 +1,8 @@
 package com.deng.study.shardingsphere.service;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.deng.study.shardingsphere.po.Course;
+import com.deng.study.shardingsphere.dao.po.Course;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
  */
 public interface CourseService {
     void addCourse(Course course);
+
+    int batchAdd(List<Course> courseList);
 
     Course getCourse(QueryWrapper<Course> queryWrapper );
 }

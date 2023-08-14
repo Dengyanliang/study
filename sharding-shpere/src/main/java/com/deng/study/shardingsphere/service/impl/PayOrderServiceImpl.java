@@ -1,12 +1,8 @@
 package com.deng.study.shardingsphere.service.impl;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.deng.study.shardingsphere.dao.mapper.CourseMapper;
 import com.deng.study.shardingsphere.dao.mapper.PayOrderMapper;
-import com.deng.study.shardingsphere.po.Course;
-import com.deng.study.shardingsphere.po.PayOrder;
-import com.deng.study.shardingsphere.service.CourseService;
+import com.deng.study.shardingsphere.dao.po.PayOrder;
 import com.deng.study.shardingsphere.service.PayOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

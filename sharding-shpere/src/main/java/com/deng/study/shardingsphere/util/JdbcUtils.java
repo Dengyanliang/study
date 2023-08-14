@@ -1,4 +1,4 @@
-package com.deng.study.util;
+package com.deng.study.shardingsphere.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

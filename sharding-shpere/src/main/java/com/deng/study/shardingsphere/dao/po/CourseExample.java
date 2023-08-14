@@ -1,4 +1,4 @@
-package com.deng.study.dao.po;
+package com.deng.study.shardingsphere.dao.po;
 
 import java.util.ArrayList;
 import java.util.List;

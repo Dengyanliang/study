@@ -41,8 +41,9 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="product">
-            <property name="useActualColumnNames" value="true"/>
+        <table tableName="my_course">
+<!-- useActualColumnNames 默认值为false,则MyBatis Generator会将数据库中实际的字段名字转换为驼峰风格作为生成的实体类的属性名。-->
+<!--            <property name="useActualColumnNames" value="true"/>-->
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->
         </table>
 

@@ -6,7 +6,7 @@ package com.deng.study.shardingsphere.dao.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.deng.study.shardingsphere.po.Udict;
+import com.deng.study.shardingsphere.dao.po.Udict;
 import org.springframework.stereotype.Repository;
 
 /**

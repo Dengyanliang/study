@@ -1,4 +1,4 @@
-package com.deng.study.shardingsphere.po;
+package com.deng.study.shardingsphere.dao.po;
 
 
 import com.baomidou.mybatisplus.annotation.TableName;

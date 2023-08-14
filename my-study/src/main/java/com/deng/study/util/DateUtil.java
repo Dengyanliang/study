@@ -35,8 +35,8 @@ public class DateUtil {
 
 
     public static void main(String[] args) {
-        String dateStr1 = parseDateFormat(new Date(),YMD_MIN);
-        System.out.println(dateStr1);
+        java.sql.Date sqlDate = getSqlDate();
+        System.out.println(sqlDate);
     }
 
     /**
@@ -126,16 +126,18 @@ public class DateUtil {
     }
 
     public static java.sql.Date getSqlDate()  {
-        java.util.Date d = new java.util.Date();
+        java.util.Date now = new java.util.Date();
         //创建格式化对象
-        SimpleDateFormat formatter =new SimpleDateFormat(YMD);
+        SimpleDateFormat formatter = new SimpleDateFormat(YMD_HMS);
         //格式化对象 d
-        String strdf1=formatter.format(d);
+        String strdf1=formatter.format(now);
+        System.out.println(strdf1);
+
         //初始化一个sql.Date对象为setDate()作准备
-        java.sql.Date d2 =new java.sql.Date(1);
         //为sql.Date对象赋值
-        d2=d2.valueOf(strdf1);
-        return d2;
+        java.sql.Date date = new java.sql.Date(now.getTime());
+        return date;
     }
+
 
 }
