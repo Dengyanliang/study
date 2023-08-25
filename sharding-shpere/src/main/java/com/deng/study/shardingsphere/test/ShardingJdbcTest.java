@@ -74,9 +74,9 @@ public class ShardingJdbcTest {
 
         Random random = new Random();
         List<MyCourse> list = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 1; i <= 100; i++) {
             MyCourse course = new MyCourse();
-            course.setName("测试2-" + i);
+            course.setName("测试-" + i);
             course.setUserId((long) random.nextInt(100000000));
             course.setStatus("normal");
             list.add(course);
@@ -198,13 +198,14 @@ public class ShardingJdbcTest {
             }
             count += records.size();
 
-            List<Course>  courseList = new ArrayList<>();
+//            List<Course>  courseList = new ArrayList<>();
             for (MyCourse myCourse : records) {
                 Course course = new Course();
                 BeanUtils.copyProperties(myCourse,course);
-                courseList.add(course);
+//                courseList.add(course);
+                courseService.addCourse(course);
             }
-            courseService.batchAdd(courseList);
+//            courseService.batchAdd(courseList);
 
             System.out.println("迁移了---" +count+ "---条记录");
 
@@ -215,10 +216,18 @@ public class ShardingJdbcTest {
         long elapsedTime = stopwatch.elapsedTime();
         System.out.println("执行任务，耗时：" + elapsedTime);
 
-        ThreadUtil.sleep(1000000);
+        ThreadUtil.sleep(1000);
 
 //        System.out.println(courseAll.size());
 
+    }
+
+
+    @Test
+    public void test(){
+        long id = 901582505772056576l;
+        boolean result = id % 4 == 0;
+        System.out.println(result);
     }
 
 }

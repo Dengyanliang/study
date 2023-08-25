@@ -6,7 +6,7 @@ import com.deng.study.shardingsphere.dao.mapper.MyCourseMapper;
 import com.deng.study.shardingsphere.dao.po.MyCourse;
 import com.deng.study.shardingsphere.service.MyCourseService;
 import com.deng.study.shardingsphere.util.DateUtil;
-import com.deng.study.shardingsphere.util.JdbcUtils;
+import com.deng.study.util.JdbcUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +47,7 @@ public class MyCourseServiceImpl implements MyCourseService {
         int maxCommit = 100000;
         try{
             Connection conn = JdbcUtils.getConnection();
-            String sql = "insert into my_course (name, user_id, status, create_Time, update_time) values (?,?,?,?,?)";
+            String sql = "insert into my_course (name, user_id, status, create_time, update_time) values (?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             // 关闭自动提交，不然conn.commit()运行到这句会报错
             conn.setAutoCommit(false);

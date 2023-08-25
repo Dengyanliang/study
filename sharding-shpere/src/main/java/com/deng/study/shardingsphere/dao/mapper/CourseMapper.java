@@ -3,11 +3,9 @@ package com.deng.study.shardingsphere.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.deng.study.shardingsphere.dao.po.Course;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.List;
 
 
 /**

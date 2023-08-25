@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.deng.study.dao.mapper.PayOrderMapper">
-  <resultMap id="BaseResultMap" type="com.deng.study.dao.po.PayOrder">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="product_id" jdbcType="BIGINT" property="productId" />
-    <result column="order_Fee" jdbcType="BIGINT" property="orderFee" />
-    <result column="pay_status" jdbcType="TINYINT" property="payStatus" />
-    <result column="version" jdbcType="INTEGER" property="version" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="create_Time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="pay_finish_time" jdbcType="TIMESTAMP" property="payFinishTime" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.deng.study.dao.po.PayOrder">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="order_Fee" jdbcType="BIGINT" property="orderFee"/>
+        <result column="pay_status" jdbcType="TINYINT" property="payStatus"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="pay_finish_time" jdbcType="TIMESTAMP" property="payFinishTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, product_id, order_Fee, pay_status, version, update_time, create_Time, 
+    id, user_id, product_id, order_Fee, pay_status, version, update_time, create_time,
     pay_finish_time
   </sql>
   <select id="selectByExample" parameterType="com.deng.study.dao.po.PayOrderExample" resultMap="BaseResultMap">
@@ -107,7 +107,7 @@
   <insert id="insert" parameterType="com.deng.study.dao.po.PayOrder" useGeneratedKeys="true">
     insert into pay_order (id, user_id, product_id, 
       order_Fee, pay_status, version, 
-      update_time, create_Time, pay_finish_time
+      update_time, create_time, pay_finish_time
       )
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},
       #{orderFee,jdbcType=BIGINT}, #{payStatus,jdbcType=TINYINT}, #{version,jdbcType=INTEGER}, 
@@ -139,7 +139,7 @@
         update_time,
       </if>
       <if test="createTime != null">
-        create_Time,
+        create_time,
       </if>
       <if test="payFinishTime != null">
         pay_finish_time,
@@ -206,7 +206,7 @@
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.createTime != null">
-        create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.payFinishTime != null">
         pay_finish_time = #{record.payFinishTime,jdbcType=TIMESTAMP},
@@ -225,7 +225,7 @@
       pay_status = #{record.payStatus,jdbcType=TINYINT},
       version = #{record.version,jdbcType=INTEGER},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       pay_finish_time = #{record.payFinishTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -253,7 +253,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null">
-        create_Time = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="payFinishTime != null">
         pay_finish_time = #{payFinishTime,jdbcType=TIMESTAMP},
@@ -269,7 +269,7 @@
       pay_status = #{payStatus,jdbcType=TINYINT},
       version = #{version,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      create_Time = #{createTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       pay_finish_time = #{payFinishTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -279,7 +279,7 @@
                resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into pay_order (id, user_id, product_id,order_Fee, pay_status, version,update_time, create_Time, pay_finish_time)
+    insert into pay_order (id, user_id, product_id,order_Fee, pay_status, version,update_time, create_time, pay_finish_time)
     values
     <foreach collection="orderList" item="item" open="(" close=")" separator="),(">
       #{item.id,jdbcType=BIGINT},

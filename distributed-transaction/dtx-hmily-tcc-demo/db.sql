@@ -4,8 +4,7 @@ DROP DATABASE IF EXISTS dtx_order;
 CREATE DATABASE dtx_order;
 create table dtx_order.orders
 (
-    id               int auto_increment
-        primary key,
+    id               int auto_increment primary key,
     user_id          int                                null,
     product_id       int                                null,
     pay_amount       decimal                            null,

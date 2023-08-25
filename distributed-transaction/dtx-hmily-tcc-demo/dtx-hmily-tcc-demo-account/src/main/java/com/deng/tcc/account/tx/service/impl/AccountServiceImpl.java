@@ -38,6 +38,12 @@ public class AccountServiceImpl implements AccountService {
     public void updateBalance(AccountRequest request) {
         String txNo = HmilyTransactionContextLocal.getInstance().get().getTransId();
         log.info("account try 开始执行，txNo:{}",txNo);
+        try {
+            commit(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rollback(request);
+        }
     }
 
     @Transactional

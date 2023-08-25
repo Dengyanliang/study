@@ -11,7 +11,8 @@ public class Course implements Serializable {
     /**
      * 
      */
-    private Long id;
+//    private Long id;
+    private Long courseId;
 
     /**
      * 姓名
