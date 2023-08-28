@@ -41,6 +41,12 @@ public class MyCourseServiceImpl implements MyCourseService {
         return myCourseMapper.selectPage(page,queryWrapper);
     }
 
+    /**
+     * 批量插入时，使用url中添加rewriteBatchedStatements=true该参数，可以提高插入的效率
+     * 目前测试插入1千万的数据，花费15分钟左右；如果没有这个参数，则需要3个小时
+     *
+     * @param myCourseList
+     */
     @Override
     public void addBatchMyCourseByPreparedStatement(List<MyCourse> myCourseList) {
         //事务上限，每次累计这么多条数，提交一次事务

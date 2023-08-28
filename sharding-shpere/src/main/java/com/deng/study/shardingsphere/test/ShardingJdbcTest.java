@@ -71,10 +71,10 @@ public class ShardingJdbcTest {
     @Test
     public void addBatchMyCourse(){
         long start = System.currentTimeMillis();
-
+        int maxSize = 10000000;
         Random random = new Random();
         List<MyCourse> list = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= maxSize; i++) {
             MyCourse course = new MyCourse();
             course.setName("测试-" + i);
             course.setUserId((long) random.nextInt(100000000));
