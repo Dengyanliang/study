@@ -38,7 +38,8 @@ target
 
 #media 
 
-.mvn
+*.mvn
+*/mvnw/*
 
 *.jfr
 
