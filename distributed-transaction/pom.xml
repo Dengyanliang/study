@@ -15,9 +15,11 @@
 
     <modules>
         <module>discover-server</module>
+        <module>dtx-atomikos-xa</module>
         <module>dtx-seata-2pc</module>
         <module>dtx-hmily-tcc</module>
-        <module>dtx-atomikos-xa</module>
+        <module>dtx-narayana-xa</module>
+        <module>dtx-shardingsphere-atomikos-xa</module>
     </modules>
 
     <properties>

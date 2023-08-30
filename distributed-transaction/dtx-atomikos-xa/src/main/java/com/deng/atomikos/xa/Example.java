@@ -2,6 +2,7 @@ package com.deng.atomikos.xa;
 
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
+import com.mysql.jdbc.jdbc2.optional.MysqlXADataSource;
 
 import javax.sql.DataSource;
 import javax.transaction.SystemException;
@@ -11,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.util.Properties;
 
 /**
- * @Desc:
+ * @Desc: atomikos xa 分布式事务，不使用spring框架等
  * @Auther: dengyanliang
  * @Date: 2023/8/28 09:24
  */
@@ -30,15 +31,21 @@ public class Example {
 
     private void initDataSourceBeans(){
         // 设置第一个数据源的信息
-        Properties properties1 = new Properties();
-        properties1.setProperty("user","root");
-        properties1.setProperty("password","root123456");
-        properties1.setProperty("url","jdbc:mysql://localhost:3306/deng?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai");
+        MysqlXADataSource mysqlXADataSource1 = new MysqlXADataSource();
+        mysqlXADataSource1.setURL("jdbc:mysql://localhost:3306/deng?rewriteBatchedStatements=true&useUnicode=true&serverTimezone=Asia/Shanghai");
+        mysqlXADataSource1.setUser("root");
+        mysqlXADataSource1.setPassword("root123456");
+
+//        Properties properties1 = new Properties();
+//        properties1.setProperty("user","root");
+//        properties1.setProperty("password","root123456");
+//        properties1.setProperty("url","jdbc:mysql://localhost:3306/deng?rewriteBatchedStatements=true&useUnicode=true&serverTimezone=Asia/Shanghai");
 
         AtomikosDataSourceBean dataSource1 = new AtomikosDataSourceBean();
-        dataSource1.setXaDataSourceClassName("org.apache.commons.dbcp2.BasicDataSource");
+        dataSource1.setXaDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource");
         dataSource1.setUniqueResourceName("ds1");
-        dataSource1.setXaProperties(properties1);
+//        dataSource1.setXaProperties(properties1);
+        dataSource1.setXaDataSource(mysqlXADataSource1);
         dataSource1.setPoolSize(10);
 
         this.ds1 = dataSource1;
@@ -46,18 +53,18 @@ public class Example {
         // 设置第二个数据源的信息
         Properties properties2 = new Properties();
         properties2.setProperty("user","root");
-        properties1.setProperty("password","root123456");
-        properties1.setProperty("url","jdbc:mysql://localhost:3306/hu?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai");
+        properties2.setProperty("password","root123456");
+        properties2.setProperty("url","jdbc:mysql://localhost:3306/hu?rewriteBatchedStatements=true&useUnicode=true&serverTimezone=Asia/Shanghai");
 
         AtomikosDataSourceBean dataSource2 = new AtomikosDataSourceBean();
-        dataSource2.setXaDataSourceClassName("org.apache.commons.dbcp2.BasicDataSource");
+        dataSource2.setXaDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource");
         dataSource2.setUniqueResourceName("ds2");
         dataSource2.setXaProperties(properties2);
         dataSource2.setPoolSize(10);
         this.ds2 = dataSource2;
     }
 
-    public void test() throws SystemException {
+    public void test() {
         // 事务超时时间为60s
        try {
            userTransaction.setTransactionTimeout(60);
@@ -68,27 +75,28 @@ public class Example {
                try (PreparedStatement pst1 = conn1.prepareStatement("update pay_order set product_id = 2 where id = 1")){
                    pst1.executeUpdate();
                }
+//               int i = 10 / 0 ;
                try(PreparedStatement pst2 = conn2.prepareStatement("update product set count = 150 where id = 1;")){
                    pst2.executeUpdate();
                }
-               int i = 10 / 0 ;
+
            }
            userTransaction.commit();
        } catch (Exception e) {
            e.printStackTrace();
-           userTransaction.rollback();
+           try {
+               userTransaction.rollback();
+           } catch (Exception ex) {
+               ex.printStackTrace();
+           }
+
        }
     }
 
 
 
     public static void main(String[] args) {
-        try {
-            Example example = new Example();
-            example.test();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("出现了异常。。。");
-        }
+        Example example = new Example();
+        example.test();
     }
 }
