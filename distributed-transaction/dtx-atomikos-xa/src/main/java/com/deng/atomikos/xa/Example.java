@@ -29,6 +29,9 @@ public class Example {
         userTransaction = new UserTransactionImp();
     }
 
+    /**
+     * 该方法中包含两种设置数据源的信息的写法
+     */
     private void initDataSourceBeans(){
         // 设置第一个数据源的信息
         MysqlXADataSource mysqlXADataSource1 = new MysqlXADataSource();
@@ -76,7 +79,7 @@ public class Example {
                    pst1.executeUpdate();
                }
 //               int i = 10 / 0 ;
-               try(PreparedStatement pst2 = conn2.prepareStatement("update product set count = 150 where id = 1;")){
+               try(PreparedStatement pst2 = conn2.prepareStatement("update product set count = 150 where id = 1")){
                    pst2.executeUpdate();
                }
 

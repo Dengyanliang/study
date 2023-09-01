@@ -30,6 +30,19 @@
             <version>4.0.0-RC1</version>
         </dependency>
 
+<!--       -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>sharding-transaction-xa-core</artifactId>-->
+<!--        </dependency>-->
+
+<!--         xa需要的-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>sharding-transaction-core</artifactId>-->
+<!--            <version>4.1.1</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -50,7 +63,6 @@
             <artifactId>mybatis-plus-extension</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -61,17 +73,12 @@
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>3.1.1</version>
         </dependency>
+
         <dependency>
             <groupId>com.deng.study</groupId>
             <artifactId>my-study</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mysql-connector-java</artifactId>
-                    <groupId>mysql</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 

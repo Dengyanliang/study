@@ -1,4 +1,4 @@
-package com.deng.study.shardingsphere.dao.po;
+package com.deng.shardingsphere.atomikos.xa.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

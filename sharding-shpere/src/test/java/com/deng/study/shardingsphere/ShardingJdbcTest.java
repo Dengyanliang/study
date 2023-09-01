@@ -1,4 +1,4 @@
-package com.deng.study.shardingsphere.test;
+package com.deng.study.shardingsphere;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -34,7 +34,7 @@ import java.util.Random;
  */
 @Slf4j
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = ShardingShpereApplication.class)
 public class ShardingJdbcTest {
 
     @Autowired
@@ -70,12 +70,12 @@ public class ShardingJdbcTest {
     @Test
     public void addBatchMyCourse(){
         long start = System.currentTimeMillis();
-        int maxSize = 100;
+        int maxSize = 10000000;
         Random random = new Random();
         List<MyCourse> list = new ArrayList<>();
         for (int i = 1; i <= maxSize; i++) {
             MyCourse course = new MyCourse();
-            course.setName("测试事务------"+i);
+            course.setName("测试-" + i);
             course.setUserId((long) random.nextInt(100000000));
             course.setStatus("normal");
             list.add(course);
@@ -92,18 +92,16 @@ public class ShardingJdbcTest {
     @Test
     public void addCourse(){
         Random random = new Random();
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 0; i < 10; i++) {
             Course course = new Course();
-            course.setName("测试事务------"+i);
+            course.setName("化学------");
             course.setUserId((long) random.nextInt(100));
             course.setStatus("normal");
             course.setCreateTime(DateUtil.now());
             course.setUpdateTime(DateUtil.now());
 
+//            courseMapper.insert(course);
             courseService.addCourse(course);
-            if(i == 5){
-                throw new RuntimeException("测试报错");
-            }
         }
     }
 

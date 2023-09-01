@@ -1,8 +1,7 @@
-package com.deng.study.shardingsphere.dao.po;
+package com.deng.jta.atomikos.xa.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;

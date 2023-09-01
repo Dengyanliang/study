@@ -20,6 +20,7 @@
         <module>dtx-hmily-tcc</module>
         <module>dtx-narayana-xa</module>
         <module>dtx-shardingsphere-atomikos-xa</module>
+        <module>dtx-jta-atomikos-xa</module>
     </modules>
 
     <properties>
