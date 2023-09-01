@@ -21,6 +21,7 @@
         <module>dtx-narayana-xa</module>
         <module>dtx-shardingsphere-atomikos-xa</module>
         <module>dtx-jta-atomikos-xa</module>
+        <module>dtx-jta-bitronix-xa</module>
     </modules>
 
     <properties>
