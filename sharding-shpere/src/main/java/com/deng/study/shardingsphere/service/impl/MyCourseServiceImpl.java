@@ -6,7 +6,7 @@ import com.deng.study.shardingsphere.dao.mapper.MyCourseMapper;
 import com.deng.study.shardingsphere.dao.po.MyCourse;
 import com.deng.study.shardingsphere.service.MyCourseService;
 import com.deng.study.shardingsphere.util.DateUtil;
-import com.deng.study.util.JdbcUtils;
+import com.deng.study.shardingsphere.util.JdbcUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

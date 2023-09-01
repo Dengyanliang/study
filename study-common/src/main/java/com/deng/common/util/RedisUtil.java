@@ -1,4 +1,4 @@
-package com.deng.study.redis;
+package com.deng.common.util;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

@@ -18,3 +18,10 @@ mybatis-plus:
     # 设置驼峰命名规则
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com:
+      deng:
+        jta:
+          atomikos:
+            xa: DEBUG

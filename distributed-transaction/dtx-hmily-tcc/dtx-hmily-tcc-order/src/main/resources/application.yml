@@ -17,7 +17,12 @@ mybatis:
 
 eureka:
   client:
-    service-url:
+    service-logging:
+      level:
+        com:
+          webbdong:
+            jtaatomikosxa:
+              mapper: DEBUG:
       defaultZone: http://localhost:56080/eureka/
 
 org:

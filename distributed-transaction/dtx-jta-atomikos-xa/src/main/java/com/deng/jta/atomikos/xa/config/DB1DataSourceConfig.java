@@ -1,18 +1,18 @@
 package com.deng.jta.atomikos.xa.config;
 
 import com.atomikos.jdbc.AtomikosDataSourceBean;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.deng.jta.atomikos.xa.properties.DB1Properties;
 import com.mysql.jdbc.jdbc2.optional.MysqlXADataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -21,10 +21,10 @@ import javax.sql.DataSource;
  * @Date: 2023/8/30 20:44
  */
 @Configuration
-@MapperScan(basePackages = "com.deng.jta.atomikos.xa.mapper.db1",sqlSessionTemplateRef = "db1SqlSessionTemplate")
+@MapperScan(basePackages = "com.deng.jta.atomikos.xa.mapper.db1",sqlSessionFactoryRef = "db1SqlSessionFactory")
 public class DB1DataSourceConfig {
 
-    @Autowired
+    @Resource
     private DB1Properties db1Properties;
 
     @Primary
@@ -44,7 +44,7 @@ public class DB1DataSourceConfig {
 
     @Bean("db1SqlSessionFactory")
     public SqlSessionFactory db1SqlSessionFactory(@Qualifier("db1DS") DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         return factoryBean.getObject();
     }

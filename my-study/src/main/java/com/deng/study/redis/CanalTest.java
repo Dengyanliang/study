@@ -14,6 +14,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry.EntryType;
 import com.alibaba.otter.canal.protocol.CanalEntry.EventType;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowChange;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
+import com.deng.study.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Test;

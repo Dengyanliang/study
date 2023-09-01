@@ -5,7 +5,7 @@ import com.deng.study.shardingsphere.dao.mapper.CourseMapper;
 import com.deng.study.shardingsphere.dao.po.Course;
 import com.deng.study.shardingsphere.service.CourseService;
 import com.deng.study.shardingsphere.service.thread.BatchThread;
-import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
+//import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

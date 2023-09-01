@@ -11,40 +11,33 @@
 
     <artifactId>dtx-jta-atomikos-xa</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-
     <dependencies>
+        <!-- springboot启动失败不报错，需要引入web 包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jta-atomikos</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis.spring.boot</groupId>-->
-<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <!--  单元测试的时候，SpringBootTest会用到  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+        <!-- mysql的连接信息，MysqlXADataSource分布式事务管理器  -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

@@ -4,6 +4,7 @@ import com.deng.jta.atomikos.xa.entity.PayOrder;
 import com.deng.jta.atomikos.xa.entity.Product;
 import com.deng.jta.atomikos.xa.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,12 +18,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MyApplication.class)
-public class Test {
+public class AtomikosXaTest {
 
     @Autowired
     private OrderService orderService;
 
-    @org.junit.Test
+    @Test
     public void test(){
         PayOrder payOrder = new PayOrder();
         payOrder.setId(1L);

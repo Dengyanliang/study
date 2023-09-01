@@ -11,8 +11,8 @@ import com.deng.study.shardingsphere.dao.po.Udict;
 import com.deng.study.shardingsphere.service.CourseService;
 import com.deng.study.shardingsphere.service.MyCourseService;
 import com.deng.study.shardingsphere.service.PayOrderService;
-import com.deng.study.source.Stopwatch;
-import com.deng.study.util.ThreadUtil;
+import com.deng.study.shardingsphere.source.Stopwatch;
+import com.deng.study.shardingsphere.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.assertj.core.util.DateUtil;
@@ -53,9 +53,9 @@ public class ShardingJdbcTest {
     public void addMyCourse(){
         Random random = new Random();
         long start = System.currentTimeMillis();
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < 10; i++) {
             MyCourse course = new MyCourse();
-            course.setName("化学--"+i);
+            course.setName("化学09011051--"+i);
             course.setUserId((long) random.nextInt(1000000));
             course.setStatus("normal");
             course.setCreateTime(DateUtil.now());
