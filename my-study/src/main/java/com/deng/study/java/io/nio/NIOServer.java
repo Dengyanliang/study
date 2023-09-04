@@ -1,21 +1,23 @@
 package com.deng.study.java.io.nio;
 
 import com.alibaba.fastjson.JSON;
+import com.deng.common.util.ByteBufferUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static com.deng.study.util.ByteBufferUtil.debugAll;
 
 /**
  * @Desc:
@@ -56,7 +58,7 @@ public class NIOServer {
                 // keypoint 阻塞方法，线程停止运行，也就是当前线程阻塞后，会阻塞另外的方法去执行任务
                 int readLength = channel.read(buffer);
                 if (readLength > 0) {
-                    debugAll(buffer, readLength);
+                    ByteBufferUtil.debugAll(buffer, readLength);
                 }
             }
         }
@@ -92,14 +94,14 @@ public class NIOServer {
 //            System.out.println("------blockMode socketChannel--------"); // 在非阻塞模式下，accept()即使没有数据，也会执行该行代码
             if (socketChannel != null) {
                 log.debug("成功连接...{}", socketChannel);
-                  socketChannel.configureBlocking(false); // keypoint 这里要对客户端也设置为非阻塞，否则会阻塞其他线程的运行
+                socketChannel.configureBlocking(false); // keypoint 这里要对客户端也设置为非阻塞，否则会阻塞其他线程的运行
                 socketChannelList.add(socketChannel);
                 log.debug("socketChannelList：{}", socketChannelList.size());
             }
             for (SocketChannel channel : socketChannelList) {
                 int readLength = channel.read(buffer);
                 if (readLength > 0) {
-                    debugAll(buffer, readLength);
+                    ByteBufferUtil.debugAll(buffer, readLength);
                 }
             }
         }
@@ -162,7 +164,7 @@ public class NIOServer {
                     int readCount = channel.read(buffer);
                     System.out.println("读到的字节数：" + readCount);
                     if (readCount == -1) {
-                        debugAll(buffer);
+                        ByteBufferUtil.debugAll(buffer);
                         key.cancel();   // 处理完后，把当前SelectionKey删除，不然会循环调用
                     } else {
                         if (buffer.position() == buffer.capacity()) {  // 需要进行扩容
@@ -347,7 +349,7 @@ public class NIOServer {
                             if (read == -1) {
                                 key.cancel();
                             } else {
-                                debugAll(buffer);
+                                ByteBufferUtil.debugAll(buffer);
                             }
                         }
                     }
@@ -414,7 +416,7 @@ public class NIOServer {
                             if(read == -1){
                                 key.cancel();
                             }else{
-                                debugAll(buffer);
+                                ByteBufferUtil.debugAll(buffer);
                             }
                         }
                     }

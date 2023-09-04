@@ -1,7 +1,6 @@
 package com.deng.study.java.io.nio;
 
-import static com.deng.study.util.ByteBufferUtil.debugAll;
-
+import com.deng.common.util.ByteBufferUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -59,18 +58,18 @@ public class ByteBufferTest {
     public void testReadWrite() {
         ByteBuffer buffer = ByteBuffer.allocate(10);
         buffer.put((byte) 0x61);
-        debugAll(buffer);
+        ByteBufferUtil.debugAll(buffer);
 
         buffer.put(new byte[]{0x62, 0x63, 0x64});
-        debugAll(buffer);
+        ByteBufferUtil.debugAll(buffer);
 //
         buffer.flip();  // 切换到读模式，从头开始读取    flip和compact可以进行切换
         System.out.println(buffer.get());   // 读取一个
         buffer.compact();   // 把未读取完的部分向前移动，然后切换至写模式
 
-        debugAll(buffer);
+        ByteBufferUtil.debugAll(buffer);
         buffer.put(new byte[]{0x65, 0x66});
-        debugAll(buffer);
+        ByteBufferUtil.debugAll(buffer);
 
         ByteBuffer buffer2 = ByteBuffer.allocate(10);
         buffer2.put(new byte[]{'a', 'b', 'c', 'd'});
@@ -91,7 +90,7 @@ public class ByteBufferTest {
 //        System.out.println((char) buffer.get());
 
         System.out.println(buffer2.get(2));  // 和get()的区别是，get(i)不会影响索引的位置
-        debugAll(buffer2);
+        ByteBufferUtil.debugAll(buffer2);
     }
 
     @Test
@@ -108,15 +107,15 @@ public class ByteBufferTest {
     public void testByteBufferString() {
         ByteBuffer buffer1 = ByteBuffer.allocate(16);
         buffer1.put("hello".getBytes());
-        debugAll(buffer1);
+        ByteBufferUtil.debugAll(buffer1);
 
         // 第二种方式 Charset
         ByteBuffer buffer2 = StandardCharsets.UTF_8.encode("hello");
-        debugAll(buffer2);
+        ByteBufferUtil.debugAll(buffer2);
 
         // wrap
         ByteBuffer buffer3 = ByteBuffer.wrap("hello".getBytes());
-        debugAll(buffer3);
+        ByteBufferUtil.debugAll(buffer3);
 
         String str = StandardCharsets.UTF_8.decode(buffer2).toString();
         System.out.println(str);
@@ -140,9 +139,9 @@ public class ByteBufferTest {
             buffer2.flip();
             buffer3.flip();
 
-            debugAll(buffer1);
-            debugAll(buffer2);
-            debugAll(buffer3);
+            ByteBufferUtil.debugAll(buffer1);
+            ByteBufferUtil.debugAll(buffer2);
+            ByteBufferUtil.debugAll(buffer3);
 
         } catch (IOException e) {
             System.out.println(e);
@@ -190,7 +189,7 @@ public class ByteBufferTest {
                 for (int j = 0; j < length; j++) {
                     target.put(source.get());
                 }
-                debugAll(target);
+                ByteBufferUtil.debugAll(target);
             }
         }
         source.compact();
