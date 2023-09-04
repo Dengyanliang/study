@@ -1,6 +1,6 @@
 package com.deng.study.redis;
 
-import com.deng.study.util.RedisUtil;
+import com.deng.common.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
 package com.deng.study.geekbang.week07;
 
+import com.deng.common.util.DateUtil;
 import com.deng.study.MyApplication;
 import com.deng.study.dao.po.PayOrder;
 import com.deng.study.service.OrderService;
-import com.deng.study.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Desc:

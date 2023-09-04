@@ -3,6 +3,7 @@ package com.deng.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Desc: 如果传入的是String,只有按照传入的日期格式进行转化，才能格式化成功
@@ -34,8 +36,7 @@ public class DateUtil {
 
 
     public static void main(String[] args) {
-        java.sql.Date sqlDate = getSqlDate();
-        System.out.println(sqlDate);
+
     }
 
     /**
@@ -122,6 +123,37 @@ public class DateUtil {
         rightNow.setTime(date);
         rightNow.add(Calendar.MONTH, addMonth);
         return rightNow.getTime();
+    }
+
+    public static String getDateNow() {
+        Date now = new Date();
+        //创建格式化对象
+        SimpleDateFormat sdf = new SimpleDateFormat(YMDHMS);
+        //格式化对象 d
+        return sdf.format(now);
+    }
+
+    public static Timestamp getSqlDate2()  {
+        try {
+            Date now = new Date();
+            //创建格式化对象
+            SimpleDateFormat sdf = new SimpleDateFormat(YMDHMS);
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            //格式化对象 d
+            String strdf1 = sdf.format(now);
+
+            Date date = sdf.parse(strdf1);
+            //初始化一个sql.Date对象为setDate()作准备
+            //为sql.Date对象赋值
+
+            Timestamp timestamp = new Timestamp(date.getTime());
+            System.out.println(timestamp);
+            return timestamp;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static java.sql.Date getSqlDate()  {

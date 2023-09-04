@@ -2,17 +2,19 @@ package com.deng.study.shardingsphere.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.deng.common.util.DateUtil;
+import com.deng.common.util.JdbcUtils;
 import com.deng.study.shardingsphere.dao.mapper.MyCourseMapper;
 import com.deng.study.shardingsphere.dao.po.MyCourse;
 import com.deng.study.shardingsphere.service.MyCourseService;
-import com.deng.study.shardingsphere.util.DateUtil;
-import com.deng.study.shardingsphere.util.JdbcUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
+
+//import com.deng.study.shardingsphere.util.JdbcUtils;
 
 /**
  * @Desc:

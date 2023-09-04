@@ -1,43 +1,25 @@
 package com.deng.study.service.impl;
 
+import com.deng.common.util.DateUtil;
+import com.deng.common.util.JdbcUtils;
 import com.deng.study.common.DataSource;
 import com.deng.study.dao.OrderDao;
-import com.deng.study.dao.mapper.PayOrderMapper;
 import com.deng.study.dao.po.PayOrder;
 import com.deng.study.java.thread.ThreadDemo5;
 import com.deng.study.service.OrderService;
-import com.deng.study.util.DateUtil;
-import com.deng.study.util.JdbcUtils;
-import org.apache.catalina.core.ApplicationContext;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.mapping.Environment;
-import org.apache.ibatis.session.Configuration;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.transaction.Transaction;
-import org.apache.ibatis.transaction.TransactionFactory;
-import org.apache.ibatis.transaction.jdbc.JdbcTransaction;
-import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.apache.poi.ss.formula.functions.T;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.io.Reader;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Desc:

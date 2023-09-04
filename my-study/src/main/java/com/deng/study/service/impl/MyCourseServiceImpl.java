@@ -1,10 +1,10 @@
 package com.deng.study.service.impl;
 
+import com.deng.common.util.DateUtil;
+import com.deng.common.util.JdbcUtils;
 import com.deng.study.dao.MyCourseDao;
 import com.deng.study.dao.po.MyCourse;
 import com.deng.study.service.MyCourseService;
-import com.deng.study.util.DateUtil;
-import com.deng.study.util.JdbcUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
@@ -66,7 +66,7 @@ public class MyCourseServiceImpl implements MyCourseService {
                 pstmt.setString(1, myCourse.getName());
                 pstmt.setLong(2, myCourse.getUserId());
                 pstmt.setString(3, myCourse.getStatus());
-                pstmt.setDate(4,DateUtil.getSqlDate());
+                pstmt.setDate(4, DateUtil.getSqlDate());
                 pstmt.setDate(5,DateUtil.getSqlDate());
 
                 // 增加到批处理中

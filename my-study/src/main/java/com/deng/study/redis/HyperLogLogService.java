@@ -1,7 +1,7 @@
 package com.deng.study.redis;
 
-import com.deng.study.util.RandomUtil;
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.RandomUtil;
+import com.deng.common.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

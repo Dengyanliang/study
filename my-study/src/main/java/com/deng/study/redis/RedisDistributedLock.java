@@ -1,6 +1,6 @@
 package com.deng.study.redis;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.ThreadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.TimeUnit;

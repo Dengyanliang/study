@@ -1,6 +1,6 @@
 package com.deng.study.redis;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;

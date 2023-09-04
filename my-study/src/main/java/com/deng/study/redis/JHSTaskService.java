@@ -1,8 +1,8 @@
 package com.deng.study.redis;
 
+import com.deng.common.util.RandomUtil;
+import com.deng.common.util.ThreadUtil;
 import com.deng.study.domain.ProductDomain;
-import com.deng.study.util.RandomUtil;
-import com.deng.study.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
