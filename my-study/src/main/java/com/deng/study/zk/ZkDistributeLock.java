@@ -89,7 +89,7 @@ public class ZkDistributeLock implements Lock {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-//            ThreadUtil.sleep(100);
+//            MyThreadUtil.sleep(100);
 //            this.tryLock(); // 这里是自旋，效果不好，浪费cpu资源，应该换种方式
         }
         return false;

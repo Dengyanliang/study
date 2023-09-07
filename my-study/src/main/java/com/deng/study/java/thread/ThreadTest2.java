@@ -1,7 +1,7 @@
 package com.deng.study.java.thread;
 
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class ThreadTest2 {
         new Thread(() -> {
             while (true){
                 System.out.println("---每次添加一个byte[1]字节数组---");
-                ThreadUtil.sleep(100);
+                MyThreadUtil.sleep(100);
                 list.add(new byte[10]);
             }
         }, "t1").start();
@@ -47,13 +47,13 @@ public class ThreadTest2 {
         t1.start();
         log.debug("start end state：{}",t1.getState()); // RUNNABLE
 
-        ThreadUtil.sleep(500);
+        MyThreadUtil.sleep(500);
         log.debug("sleep end state：{}",t1.getState()); // TIMED_WAITING
 
         t1.interrupt();
         log.debug("interrupt end state：{}",t1.getState()); // TIMED_WAITING
 
-        ThreadUtil.sleep(3000);
+        MyThreadUtil.sleep(3000);
 
     }
 

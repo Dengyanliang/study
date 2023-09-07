@@ -1,6 +1,6 @@
 package com.deng.study.java.thread;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -44,13 +44,13 @@ public class InterruptTest {
         boolean interrupted = t1.isInterrupted();
         log.debug("t1默认中断标识..{}", interrupted);
 
-        ThreadUtil.sleep(1);
+        MyThreadUtil.sleep(1);
         log.debug("interrupt...");
         t1.interrupt();
         interrupted = t1.isInterrupted();
         log.debug("t1线程调用interrupted后中断标识 01..{}", interrupted);
 
-        ThreadUtil.sleep(2000);
+        MyThreadUtil.sleep(2000);
         interrupted = t1.isInterrupted(); // keypoint 2秒后，t1已经执行完了，再去中断，没有任何意义了。也就是中断不活动的线程不会产生任何影响
         log.debug("t1线程调用interrupted后中断标识 03..{}", interrupted);
     }
@@ -66,7 +66,7 @@ public class InterruptTest {
             }
         }, "t1").start();
 
-        ThreadUtil.sleep(20);
+        MyThreadUtil.sleep(20);
         new Thread(() -> {
             atomicBoolean.set(true);
         }, "t2").start();
@@ -83,7 +83,7 @@ public class InterruptTest {
             }
         }, "t1").start();
 
-        ThreadUtil.sleep(20);
+        MyThreadUtil.sleep(20);
         new Thread(() -> {
             isStop = true;
         }, "t2").start();
@@ -105,7 +105,7 @@ public class InterruptTest {
         }, "t1");
         t1.start();
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
         t1.interrupt(); // 打断后，可以执行park后面的内容
     }
 
@@ -116,7 +116,7 @@ public class InterruptTest {
         TwoPhaseTermination twoPhaseTermination = new TwoPhaseTermination();
         twoPhaseTermination.start();
 
-        ThreadUtil.sleep(3500);
+        MyThreadUtil.sleep(3500);
         twoPhaseTermination.stop();
     }
 
@@ -132,7 +132,7 @@ public class InterruptTest {
         }, "t1");
         t1.start();
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
         log.debug("interrupt...");
         t1.interrupt();
     }
@@ -140,11 +140,11 @@ public class InterruptTest {
     private static void test1() {
         Thread t1 = new Thread(() -> {
             log.debug("sleep...");
-            ThreadUtil.sleep(5000);
+            MyThreadUtil.sleep(5000);
         }, "t1");
         t1.start();
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
         log.debug("interrupt...");
         t1.interrupt();
         boolean interrupted = t1.isInterrupted();

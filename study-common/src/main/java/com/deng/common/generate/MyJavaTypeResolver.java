@@ -1,4 +1,4 @@
-package com.deng.study.generate;
+package com.deng.common.generate;
 
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;

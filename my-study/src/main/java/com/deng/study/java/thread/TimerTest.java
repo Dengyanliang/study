@@ -1,6 +1,6 @@
 package com.deng.study.java.thread;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Timer;
@@ -27,7 +27,7 @@ public class TimerTest {
         // 延时执行
 //        pool.schedule(()->{
 //            log.debug("1");
-////            ThreadUtil.sleep(1000);
+////            MyThreadUtil.sleep(1000);
 //            int i = 1/0;  // keypoint 即使出现了异常，还是会继续执行的
 //        },1, TimeUnit.SECONDS);
 
@@ -39,7 +39,7 @@ public class TimerTest {
 //        // 定时执行
 //        pool.scheduleAtFixedRate(()->{
 //            log.debug("3");
-//            ThreadUtil.sleep(2000); // 会影响执行的频率，也就是会影响最后2个参数
+//            MyThreadUtil.sleep(2000); // 会影响执行的频率，也就是会影响最后2个参数
 //        },3,1,TimeUnit.SECONDS);
 
         // 定时延时执行，会把任务执行的时间+频率加上
@@ -47,7 +47,7 @@ public class TimerTest {
         // 21:22:18.295 [pool-1-thread-3] DEBUG com.deng.study.java.thread.TimerTest - 4
 //        pool.scheduleWithFixedDelay(()->{
 //            log.debug("4");
-//            ThreadUtil.sleep(1000);
+//            MyThreadUtil.sleep(1000);
 //        },3,1,TimeUnit.SECONDS);
 
 
@@ -61,7 +61,7 @@ public class TimerTest {
             @Override
             public void run() {
                 log.debug("1");
-                ThreadUtil.sleep(1000);
+                MyThreadUtil.sleep(1000);
             }
         };
         TimerTask task2 = new TimerTask(){

@@ -1,6 +1,7 @@
 package com.deng.study.java.thread.juc;
 
-import com.deng.study.util.ThreadUtil;
+
+import com.deng.common.util.MyThreadUtil;
 
 import java.util.concurrent.locks.StampedLock;
 
@@ -30,7 +31,7 @@ public class StampedLockTest {
         long stamp = stampedLock.readLock();
         System.out.println(Thread.currentThread().getName() + " " + "读线程获取到读锁");
         for (int i = 0; i < 4; i++) {
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             System.out.println(Thread.currentThread().getName() + " " + "正在读取中...");
         }
         try {
@@ -51,7 +52,7 @@ public class StampedLockTest {
         System.out.println("4s前stamp值 " + stampedLock.validate(stamp));
         for (int i = 1; i <= 4; i++) {
             System.out.println("等待。。。");
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             System.out.println("等待结束。。。");
             System.out.println(Thread.currentThread().getName() + "，result："+ result + "，正在读取 " + i + "秒后 stamp值 " + stampedLock.validate(stamp));
         }
@@ -74,21 +75,21 @@ public class StampedLockTest {
 //            read();
 //        }, "readLock").start();
 //
-//        ThreadUtil.sleep(1000);
+//        MyThreadUtil.sleep(1000);
 //
 //        new Thread(() -> {
 //            System.out.println(Thread.currentThread().getName() + " " + "---come in");
 //            write();
 //        }, "writeLock").start();
 //
-//        ThreadUtil.sleep(5000);
+//        MyThreadUtil.sleep(5000);
 //        System.out.println(Thread.currentThread().getName() + " " + "number：" + number);
 
         new Thread(() -> {
             tryOptimisticRead();
         }, "readLock").start();
 
-        ThreadUtil.sleep(2000);
+        MyThreadUtil.sleep(2000);
 
         new Thread(() -> {
             System.out.println(Thread.currentThread().getName() + " " + "---come in");

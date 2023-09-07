@@ -1,6 +1,7 @@
 package com.deng.study.datastru_algorithm.algorithm.greedy;
 
-import com.deng.study.util.ArrayUtil;
+
+import com.deng.common.util.MyArrayUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,13 +34,13 @@ public class KnapsackProblem {
             unitValues[i] = new double[]{i, unitValue};
         }
         // 打印单价数组的结果
-        ArrayUtil.printArray(unitValues);
+        MyArrayUtil.printArray(unitValues);
 
         // 2、对单价数组结果按单价从大到小进行排序
         Arrays.sort(unitValues, (o1, o2) -> Double.compare(o2[1], o1[1]));
 
         System.out.println("----------");
-        ArrayUtil.printArray(unitValues);
+        MyArrayUtil.printArray(unitValues);
 
         // 3、遍历传入的数组，每次取单价最大物品放入
         int sumWeight = 0;

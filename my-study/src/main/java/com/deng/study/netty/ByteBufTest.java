@@ -1,6 +1,6 @@
 package com.deng.study.netty;
 
-import com.deng.study.util.MyByteBufUtil;
+import com.deng.common.util.MyByteBufUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.CompositeByteBuf;

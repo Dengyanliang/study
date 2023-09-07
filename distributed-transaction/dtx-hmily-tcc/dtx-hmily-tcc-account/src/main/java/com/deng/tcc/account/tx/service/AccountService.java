@@ -9,5 +9,11 @@ import com.deng.tcc.account.tx.facade.request.AccountRequest;
  * @Date: 2021/9/26 22:06
  */
 public interface AccountService {
-    void updateBalance(AccountRequest request);
+
+    /**
+     * 尝试冻结金额
+     * @param request
+     */
+    void tryFreezeAmount(AccountRequest request);
+
 }

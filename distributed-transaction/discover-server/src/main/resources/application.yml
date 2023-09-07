@@ -1,19 +1,27 @@
 spring:
-  applicaiton:
-    name: seata-demo-discovery
+  application:
+    name: discover-server
 
 server:
   port: 56080
 
 eureka:
+  instance:
+    hostname: ${hostname:localhost}
+    # 优先使用IP地址方式进行注册服务
+    prefer-ip-address: true
+    # 配置使用指定IP
+    ip-address: 127.0.0.1
+#    instance-id: ${spring.application.name}:${server.port}
   server:
     enable-self-preservation: false #关闭服务器自我保护，客户端心跳检测
-    eviction-interval-timer-in-ms: 1000 #清理间隔（单位毫秒）
+    eviction-interval-timer-in-ms: 20000 #定期删除操作的间隔（单位毫秒）
     response-cache-update-interval-ms: 3000 #刷新
     response-cache-auto-expiration-in-seconds: 180 #缓存
   client:
-    register-with-eureka: false #不作为一个客户端注册到注册中心
+    # 不进行注册（当服务注册中心是单点而非高可用时的配置方式）
+    register-with-eureka: false
+    # 不获取注册信息（当服务注册中心是单点而非高可用时的配置方式）
     fetch-registry: false
-    instance-info-replication-interval-seconds: 10
-    #service-url:
-
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

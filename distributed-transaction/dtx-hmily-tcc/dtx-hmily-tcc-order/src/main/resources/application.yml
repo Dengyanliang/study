@@ -1,6 +1,6 @@
 spring:
   application:
-    name: tcc-demo-order
+    name: hmily-tcc-demo-order
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -23,9 +23,9 @@ eureka:
 org:
   dromara:
     hmily:
-      serializer: kryo
-      recoverDelayTime: 128
-      retryMax: 30
+      serializer: kryo # 序列化
+      recoverDelayTime: 128 # 定时任务延迟时间（单位是秒，默认120。这个参数只是要大于你的rpc调用的超时时间设置
+      retryMax: 30  # 重试次数
       scheduledDelay: 128
       scheduledThreadMax: 10
       repositorySupport: db

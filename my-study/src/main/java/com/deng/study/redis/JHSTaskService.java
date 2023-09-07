@@ -1,7 +1,7 @@
 package com.deng.study.redis;
 
 import com.deng.common.util.RandomUtil;
-import com.deng.common.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import com.deng.study.domain.ProductDomain;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +64,7 @@ public class JHSTaskService  {
                 atomic(list);
 
                 // 暂停1分钟，间隔一分钟执行一次，模拟聚划算一天执行参加活动的品牌
-                ThreadUtil.sleep(1000 * 60);
+                MyThreadUtil.sleep(1000 * 60);
             }
         }, "t1").start();
     }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.deng.common.source.Stopwatch;
-import com.deng.common.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import com.deng.study.shardingsphere.dao.mapper.UdictMapper;
 import com.deng.study.shardingsphere.dao.po.Course;
 import com.deng.study.shardingsphere.dao.po.MyCourse;
@@ -217,7 +217,7 @@ public class ShardingJdbcTest {
         long elapsedTime = stopwatch.elapsedTime();
         System.out.println("执行任务，耗时：" + elapsedTime);
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
 
 //        System.out.println(courseAll.size());
 

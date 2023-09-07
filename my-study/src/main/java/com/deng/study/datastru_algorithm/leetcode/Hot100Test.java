@@ -1,6 +1,6 @@
 package com.deng.study.datastru_algorithm.leetcode;
 
-import com.deng.study.util.ArrayUtil;
+import com.deng.common.util.MyArrayUtil;
 import org.junit.Test;
 
 import java.util.*;
@@ -160,7 +160,7 @@ public class Hot100Test {
         }
 
         result = merged.toArray(new int[merged.size()][]);
-        ArrayUtil.printArray(result);
+        MyArrayUtil.printArray(result);
     }
 
     @Test
@@ -251,7 +251,7 @@ public class Hot100Test {
             }
         }
 
-        ArrayUtil.printArray(matrix);
+        MyArrayUtil.printArray(matrix);
     }
 
     @Test
@@ -268,7 +268,7 @@ public class Hot100Test {
             }
         }
 
-        ArrayUtil.printArray(matrix);
+        MyArrayUtil.printArray(matrix);
 
         System.out.println("---------------");
 
@@ -281,7 +281,7 @@ public class Hot100Test {
             }
         }
 
-        ArrayUtil.printArray(matrix);
+        MyArrayUtil.printArray(matrix);
     }
 
     @Test

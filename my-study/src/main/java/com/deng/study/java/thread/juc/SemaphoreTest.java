@@ -1,6 +1,6 @@
 package com.deng.study.java.thread.juc;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Semaphore;
@@ -21,7 +21,7 @@ public class SemaphoreTest {
                     semaphore.acquire();
 
                     log.debug("running...");
-                    ThreadUtil.sleep(1000);
+                    MyThreadUtil.sleep(1000);
                     log.debug("end....");
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -1,7 +1,7 @@
 package com.deng.study.datastru_algorithm.sort;
 
+import com.deng.common.util.MyArrayUtil;
 import com.deng.study.domain.Country;
-import com.deng.study.util.ArrayUtil;
 import org.junit.Test;
 
 import java.util.*;
@@ -167,7 +167,7 @@ public class SortTest {
         for (int i = 0; i < n; i++) {
             students[i] = new int[]{heights[i],weights[i],i+1};
         }
-        ArrayUtil.printArray(students);
+        MyArrayUtil.printArray(students);
 
         Arrays.sort(students, new Comparator<int[]>() {
             @Override

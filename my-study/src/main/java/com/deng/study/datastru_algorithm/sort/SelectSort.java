@@ -1,6 +1,7 @@
 package com.deng.study.datastru_algorithm.sort;
 
-import com.deng.study.util.ArrayUtil;
+import com.deng.common.util.MyArrayUtil;
+
 import java.util.Arrays;
 
 /**
@@ -25,7 +26,7 @@ public class SelectSort {
             }
             System.out.println("--->i：" + i + "，minIndex：" + minIndex);
             if(i != minIndex){
-                ArrayUtil.swap(arr,minIndex,i);
+                MyArrayUtil.swap(arr,minIndex,i);
 
                 System.out.println("i：" + i + "，minIndex：" + minIndex + "，第" + (++count) + "趟：" + Arrays.toString(arr));
                 System.out.println();

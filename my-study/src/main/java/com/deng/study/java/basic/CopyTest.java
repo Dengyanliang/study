@@ -1,9 +1,9 @@
 package com.deng.study.java.basic;
 
+import com.deng.common.util.ModelConvertUtil;
 import com.deng.study.domain.Person;
 import com.deng.study.domain.Pet;
 import com.deng.study.domain.User;
-import com.deng.study.util.ModelConvertUtil;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;

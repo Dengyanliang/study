@@ -1,14 +1,14 @@
 package com.deng.study.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.deng.common.util.MyThreadUtil;
+import com.deng.common.util.RandomUtil;
 import com.deng.study.common.constant.RedisConstant;
 import com.deng.study.dao.mapper.ProductMapper;
 import com.deng.study.dao.po.Product;
 import com.deng.study.domain.SeckillVoucher;
 import com.deng.study.redis.BloomFilter;
 import com.deng.study.service.ProductService;
-import com.deng.study.util.RandomUtil;
-import com.deng.study.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.BeanUtils;
@@ -126,7 +126,7 @@ public class ProductServiceImpl implements ProductService {
             // 获取锁
             final boolean flag = tryLock(lockProductRedisKey);
             if (!flag) {
-                ThreadUtil.sleep(100);          // 等待
+                MyThreadUtil.sleep(100);          // 等待
                 findProductByDoubleCheck(productId);  // 重新获取锁
             }
             try {

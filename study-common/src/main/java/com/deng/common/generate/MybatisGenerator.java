@@ -1,4 +1,4 @@
-package com.deng.study.generate;
+package com.deng.common.generate;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -23,7 +23,7 @@ public class MybatisGenerator {
         List<String> warnings = new ArrayList<>();
 
         //读取配置文件
-        InputStream is = MybatisGenerator.class.getResourceAsStream("/generator/generatorConfig.xml");
+        InputStream is = MybatisGenerator.class.getResourceAsStream("/generatorConfig.xml");
         try {
             ConfigurationParser cp = new ConfigurationParser(warnings);
             Configuration config = cp.parseConfiguration(is);

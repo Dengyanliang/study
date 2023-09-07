@@ -10,7 +10,7 @@
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
-        <commentGenerator type="com.deng.study.generate.MyCommentGenerator">
+        <commentGenerator type="com.deng.common.generate.MyCommentGenerator">
             <property name="suppressDate" value="true"/>
             <property name="addRemarkComments" value="false"/>
             <!--生成注释-->
@@ -19,29 +19,30 @@
 
         <!--     -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/deng?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai"
                         userId="root"
                         password="root123456">
         </jdbcConnection>
 
 
 
-        <javaTypeResolver type="com.deng.study.generate.MyJavaTypeResolver">
+        <javaTypeResolver type="com.deng.common.generate.MyJavaTypeResolver">
 
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.deng.study.dao.po"
-                            targetProject="my-study/src/main/java">
+        <javaModelGenerator targetPackage="com.deng.tcc.order.tx.dao.po"
+                            targetProject="study-common/src/main/java">
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="my-study/src/main/resources/base"/>
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.deng.study.dao.mapper"
-                             targetProject="my-study/src/main/java">
+        <sqlMapGenerator targetPackage="mapper" targetProject="study-common/src/main/resources/base"/>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.deng.tcc.order.tx.dao.mapper"
+                             targetProject="study-common/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="my_course">
+        <table tableName="orders">
 <!-- useActualColumnNames 默认值为false,则MyBatis Generator会将数据库中实际的字段名字转换为驼峰风格作为生成的实体类的属性名。-->
 <!--            <property name="useActualColumnNames" value="true"/>-->
 <!--            <generatedKey column="stu_id" sqlStatement="MySql"/>-->

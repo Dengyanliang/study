@@ -1,13 +1,12 @@
 package com.deng.tcc.order.tx.facade.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
-@Setter
-@Getter
+@Data
 public class OrderRequest implements Serializable {
     private Integer userId;
+    private Integer productId;
     private Long amount;
 }

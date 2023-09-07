@@ -1,7 +1,7 @@
 package com.deng.study.java.thread.juc;
 
-import com.deng.study.util.RandomUtil;
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
+import com.deng.common.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class CountDownLatchTest {
             pool.submit(() -> {
                 for (int j = 0; j <= 100; j++) {
                     all[finalT] = j + "%"; // 计算百分比
-                    ThreadUtil.sleep(RandomUtil.getInt(100)); // 加入睡眠时间模拟加载进度
+                    MyThreadUtil.sleep(RandomUtil.getInt(100)); // 加入睡眠时间模拟加载进度
                     System.out.print("\r"+Arrays.toString(all)); // keypoint 不换行，并且使用'\r'可以让后面的打印覆盖掉前面的值
                 }
                 countDownLatch.countDown();
@@ -50,21 +50,21 @@ public class CountDownLatchTest {
 
         pool.submit(() -> {
             log.debug("begin...");
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             countDownLatch.countDown();
             log.debug("end...{}",countDownLatch.getCount());
         });
 
         pool.submit(() -> {
             log.debug("begin...");
-            ThreadUtil.sleep(2000);
+            MyThreadUtil.sleep(2000);
             countDownLatch.countDown();
             log.debug("end...{}",countDownLatch.getCount());
         });
 
         pool.submit(() -> {
             log.debug("begin...");
-            ThreadUtil.sleep(1500);
+            MyThreadUtil.sleep(1500);
             countDownLatch.countDown();
             log.debug("end...{}",countDownLatch.getCount());
         });
@@ -82,21 +82,21 @@ public class CountDownLatchTest {
 
         new Thread(() -> {
             log.debug("begin...");
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             countDownLatch.countDown();
             log.debug("end...{}",countDownLatch.getCount());
         }).start();
 
         new Thread(() -> {
             log.debug("begin...");
-            ThreadUtil.sleep(2000);
+            MyThreadUtil.sleep(2000);
             countDownLatch.countDown();
             log.debug("end...{}",countDownLatch.getCount());
         }).start();
 
         new Thread(() -> {
             log.debug("begin...");
-            ThreadUtil.sleep(1500);
+            MyThreadUtil.sleep(1500);
             countDownLatch.countDown();
             log.debug("end...{}",countDownLatch.getCount());
         }).start();

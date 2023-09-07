@@ -1,8 +1,7 @@
 package com.deng.study.java.thread;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.Data;
-import lombok.Setter;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -106,7 +105,7 @@ public class CompletableFutureTest {
     @Test
     public void testMethod() throws InterruptedException, ExecutionException, TimeoutException {
         CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
-            ThreadUtil.sleep(2000);
+            MyThreadUtil.sleep(2000);
             return "abc";
         });
 
@@ -115,7 +114,7 @@ public class CompletableFutureTest {
 //        System.out.println(future.join());
 //        System.out.println(future.getNow("sss"));
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
 
         // 在一定的时间内是否完成了，如果没有完成，则返回参数值； // false abc
         // 如果完成了，则按照结果返回                          // true complete
@@ -124,7 +123,7 @@ public class CompletableFutureTest {
 
         CompletableFuture<Void> future2 = CompletableFuture.runAsync(()->{
             System.out.println("当期线程："+Thread.currentThread().getName());
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
         });
         System.out.println(future2.get());
     }
@@ -146,7 +145,7 @@ class NetMall implements Runnable{
     }
 
     public double getPrice(String productName) {
-        ThreadUtil.sleep(100);
+        MyThreadUtil.sleep(100);
         return ThreadLocalRandom.current().nextDouble() * 2 + productName.charAt(0);
     }
 

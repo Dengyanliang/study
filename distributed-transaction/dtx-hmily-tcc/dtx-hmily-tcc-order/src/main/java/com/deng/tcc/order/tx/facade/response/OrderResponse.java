@@ -1,12 +1,10 @@
 package com.deng.tcc.order.tx.facade.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 public class OrderResponse implements Serializable {
     private int code;
     private String message;

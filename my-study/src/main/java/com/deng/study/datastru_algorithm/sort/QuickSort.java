@@ -1,6 +1,7 @@
 package com.deng.study.datastru_algorithm.sort;
 
-import com.deng.study.util.ArrayUtil;
+
+import com.deng.common.util.MyArrayUtil;
 
 import java.util.Arrays;
 
@@ -89,7 +90,7 @@ public class QuickSort {
                 if(i != j){
                     System.out.println(Arrays.toString(arr) + ",交换i和j 开始 i=" + i + ",j=" + j);
                     // 将i，j进行交换，这样小的元素就交换到左边
-                    ArrayUtil.swap(arr,i,j);
+                    MyArrayUtil.swap(arr,i,j);
                     System.out.println(Arrays.toString(arr) + ",交换i和j 结束 i=" + i + ",j=" + j);
                 }
                 i++;
@@ -101,7 +102,7 @@ public class QuickSort {
         }
         if(i != end){
             System.out.println(Arrays.toString(arr) + ",交换i和end 开始 i=" + i + ",end=" + end);
-            ArrayUtil.swap(arr,i,end);
+            MyArrayUtil.swap(arr,i,end);
             System.out.println(Arrays.toString(arr) + ",交换i和end 结束 i=" + i + ",end=" + end);
         }
         return i;
@@ -125,7 +126,7 @@ public class QuickSort {
         int low = begin; // 从左往右查找比基准点大的元素
         int high = end;  // 从右往左查找比基准点小的元素
         while(low < high){
-            // 为何必须先执行右边的，再执行左边的？？  -- 为了避免ArrayUtil.swap(arr,begin,low) 时将小的值交换到右边
+            // 为何必须先执行右边的，再执行左边的？？  -- 为了避免MyArrayUtil.swap(arr,begin,low) 时将小的值交换到右边
             while(low < high && arr[high] >= stard){
                 high--;
             }
@@ -133,11 +134,11 @@ public class QuickSort {
                 low++;
             }
             // 将低位索引和高位索引交换
-            ArrayUtil.swap(arr,low,high);
+            MyArrayUtil.swap(arr,low,high);
         }
 
         // 将基准点元素和边界值交换
-        ArrayUtil.swap(arr,begin,low);
+        MyArrayUtil.swap(arr,begin,low);
 
         System.out.println(Arrays.toString(arr) + ",low=" + low + ",high=" + high);
         return high;
@@ -165,14 +166,14 @@ public class QuickSort {
 //                System.out.println("i:"+i+",j:"+j);
                 if(i < j){
 //                    System.out.println("before swap:"+Arrays.toString(arr));
-                    ArrayUtil.swap(arr,i,j);
+                    MyArrayUtil.swap(arr,i,j);
 //                    System.out.println("after swap:"+Arrays.toString(arr));
                 } else{
                     break;
                 }
             }
 //            System.out.println("-******-"+Arrays.toString(arr));
-            ArrayUtil.swap(arr,i,right-1);
+            MyArrayUtil.swap(arr,i,right-1);
 //            System.out.println("-******-"+Arrays.toString(arr));
 //            System.out.println();
 
@@ -192,16 +193,16 @@ public class QuickSort {
         int middle = left + (right-left)/2 ;
 //        System.out.println("arr[left]:"+arr[left]+",arr[middle]:"+arr[middle]+",arr[right]:"+arr[right]);
         if(arr[middle] < arr[left]){
-            ArrayUtil.swap(arr,middle,left);
+            MyArrayUtil.swap(arr,middle,left);
         }
         if(arr[right] < arr[middle]){
-            ArrayUtil.swap(arr,right,middle);
+            MyArrayUtil.swap(arr,right,middle);
         }
 
         if(arr[right] < arr[left]){
-            ArrayUtil.swap(arr,right,left);
+            MyArrayUtil.swap(arr,right,left);
         }
-        ArrayUtil.swap(arr,middle,right-1);
+        MyArrayUtil.swap(arr,middle,right-1);
 //        System.out.println("&&&&&-"+Arrays.toString(arr));
         return arr[right-1];
     }

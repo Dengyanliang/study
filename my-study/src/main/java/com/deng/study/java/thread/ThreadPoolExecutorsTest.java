@@ -1,6 +1,6 @@
 package com.deng.study.java.thread;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -49,15 +49,15 @@ public class ThreadPoolExecutorsTest {
     private static void invokeAll(ExecutorService pool) throws InterruptedException {
         List<Future<Object>> futures = pool.invokeAll(Arrays.asList(() -> {
             log.debug("1 begin");
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             return "1";
         }, () -> {
             log.debug("2 begin");
-            ThreadUtil.sleep(500);
+            MyThreadUtil.sleep(500);
             return "2";
         }, () -> {
             log.debug("3 begin");
-            ThreadUtil.sleep(2000);
+            MyThreadUtil.sleep(2000);
             return "3";
         }));
 
@@ -74,15 +74,15 @@ public class ThreadPoolExecutorsTest {
         try {
             String result = pool.invokeAny(Arrays.asList(() -> {
                 log.debug("1 begin");
-                ThreadUtil.sleep(1000);
+                MyThreadUtil.sleep(1000);
                 return "1";
             }, () -> {
                 log.debug("2 begin");
-                ThreadUtil.sleep(500);
+                MyThreadUtil.sleep(500);
                 return "2";
             }, () -> {
                 log.debug("3 begin");
-                ThreadUtil.sleep(2000);
+                MyThreadUtil.sleep(2000);
                 return "3";
             }));
 
@@ -95,19 +95,19 @@ public class ThreadPoolExecutorsTest {
     private static void shutdown(ExecutorService pool) {
         Future<String> result1 = pool.submit(() -> {
             log.debug("1 begin");
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             log.debug("1 end");
             return "1";
         });
         Future<String> result2 = pool.submit(() -> {
             log.debug("2 begin");
-            ThreadUtil.sleep(500);
+            MyThreadUtil.sleep(500);
             log.debug("2 end");
             return "2";
         });
         Future<String> result3 = pool.submit(() -> {
             log.debug("3 begin");
-            ThreadUtil.sleep(2000);
+            MyThreadUtil.sleep(2000);
             log.debug("3 end");
             return "3";
         });

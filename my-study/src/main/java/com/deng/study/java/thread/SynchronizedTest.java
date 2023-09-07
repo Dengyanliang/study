@@ -1,6 +1,6 @@
 package com.deng.study.java.thread;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import org.openjdk.jol.info.ClassLayout;
 
 /**
@@ -35,7 +35,7 @@ public class SynchronizedTest {
 
     private static void 偏向锁测试(){
         // KEYPOINT 这里要延迟5秒启动的原因，是因为偏向锁是默认延迟的，不会在程序启动时立即生效，JVM默认配置的-XX:BiasedLockingStartupDelay=4 默认是4秒
-        ThreadUtil.sleep(5000);
+        MyThreadUtil.sleep(5000);
         Object o = new Object();
         System.out.println(Integer.toHexString(o.hashCode()));
         System.out.println(Integer.toBinaryString(o.hashCode()));

@@ -1,7 +1,7 @@
 package com.deng.study.redis;
 
 import com.deng.common.util.RandomUtil;
-import com.deng.common.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class HyperLogLogService {
                         RandomUtil.getInt(256);
                 Long hll = redisTemplate.opsForHyperLogLog().add("hll", ip);
                 log.info("ip={}，该IP地址访问首页的次数={}", ip, hll);
-                ThreadUtil.sleep(30);
+                MyThreadUtil.sleep(30);
             }
 
             Long count = redisTemplate.opsForHyperLogLog().size("hll");

@@ -1,9 +1,8 @@
 package com.deng.study.java.thread.juc;
 
+import com.deng.common.util.MyThreadUtil;
 import com.deng.study.java.thread.Student;
-import com.deng.study.util.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.formula.functions.T;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class AtomicTest {
 
         String prev = reference.get();
         updateOther(reference);
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
         log.debug("change A->C：{}",reference.compareAndSet(prev,"C"));
     }
 
@@ -88,7 +87,7 @@ public class AtomicTest {
 
         updateOther(reference);
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
         log.debug("stamp:{}",stamp);
         log.debug("change A->C：{}",reference.compareAndSet(prev,"C",stamp,stamp+1));
         System.out.println(reference.getStamp());
@@ -106,7 +105,7 @@ public class AtomicTest {
         String prev = reference.getReference();
         log.debug("prev:{}", prev);
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
         log.debug("change A->C：{}", reference.compareAndSet(prev, "C", true, false));
         log.debug("第二次change A->C：{}", reference.compareAndSet(prev, "C", true, false));
     }
@@ -117,7 +116,7 @@ public class AtomicTest {
             log.debug("change A->B：{}",reference.compareAndSet(reference.get(),"B"));
         },"t1").start();
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
 
         new Thread(()->{
             log.debug("change B->A：{}",reference.compareAndSet(reference.get(),"A"));
@@ -131,7 +130,7 @@ public class AtomicTest {
             log.debug("change A->B：{}",reference.compareAndSet(reference.getReference(),"B",stamp,stamp+1));
         },"t1").start();
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
 
         new Thread(()->{
             int stamp = reference.getStamp();

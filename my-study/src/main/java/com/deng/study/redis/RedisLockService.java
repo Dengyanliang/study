@@ -1,6 +1,6 @@
 package com.deng.study.redis;
 
-import com.deng.common.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
@@ -104,7 +104,7 @@ public class RedisLockService {
         String redisLockKey = REDIS_KEY_PREFIX + queryKey;
         String redisLockValue = UUID.randomUUID().toString()+":"+Thread.currentThread().getId();
         while (!redisTemplate.opsForValue().setIfAbsent(redisLockKey, redisLockValue, 30, TimeUnit.SECONDS)) {
-            ThreadUtil.sleep(20);
+            MyThreadUtil.sleep(20);
         }
         try {
             String result = redisTemplate.opsForValue().get(queryKey);
@@ -132,7 +132,7 @@ public class RedisLockService {
         String redisLockKey = REDIS_KEY_PREFIX + queryKey;
         String redisLockValue = UUID.randomUUID().toString()+":"+Thread.currentThread().getId();
         if (!redisTemplate.opsForValue().setIfAbsent(redisLockKey, redisLockValue, 30, TimeUnit.SECONDS)) {
-            ThreadUtil.sleep(20);
+            MyThreadUtil.sleep(20);
         }
         try {
             String result = redisTemplate.opsForValue().get(queryKey);
@@ -162,7 +162,7 @@ public class RedisLockService {
         String redisLockKey = REDIS_KEY_PREFIX + queryKey;
         String redisLockValue = UUID.randomUUID().toString()+":"+Thread.currentThread().getId();
         while (!redisTemplate.opsForValue().setIfAbsent(redisLockKey, redisLockValue, 30, TimeUnit.SECONDS)) {
-            ThreadUtil.sleep(20);
+            MyThreadUtil.sleep(20);
         }
         try {
             String result = redisTemplate.opsForValue().get(queryKey);
@@ -191,7 +191,7 @@ public class RedisLockService {
         String redisLockKey = REDIS_KEY_PREFIX + queryKey;
         String redisLockValue = UUID.randomUUID().toString()+":"+Thread.currentThread().getId();
 //        while () {
-//            ThreadUtil.sleep(20);
+//            MyThreadUtil.sleep(20);
 //        }
         try {
             String result = redisTemplate.opsForValue().get(queryKey);

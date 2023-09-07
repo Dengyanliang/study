@@ -1,6 +1,6 @@
 package com.deng.study.java.thread;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.locks.LockSupport;
@@ -15,7 +15,7 @@ public class ParkUnParkTest {
     public static void main(String[] args) throws InterruptedException {
         Thread t1 = new Thread(()->{
             log.debug("start...");
-            ThreadUtil.sleep(2000);
+            MyThreadUtil.sleep(2000);
             log.debug("park 开始...");
             LockSupport.park();
             log.debug("park 结束...");

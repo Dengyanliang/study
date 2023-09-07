@@ -1,8 +1,7 @@
 package com.deng.study.datastru_algorithm.recursion;
 
-import com.deng.study.source.StdOut;
 
-import java.util.Arrays;
+import com.deng.common.source.StdOut;
 
 
 /**

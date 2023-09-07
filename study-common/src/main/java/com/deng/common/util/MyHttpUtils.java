@@ -15,12 +15,12 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.Objects;
 
-public class HttpUtils {
+public class MyHttpUtils {
 
     // 连接池
     private PoolingHttpClientConnectionManager cm;
 
-    public HttpUtils() {
+    public MyHttpUtils() {
         this.cm = new PoolingHttpClientConnectionManager();
         // 设置最大连接数
         this.cm.setMaxTotal(100);

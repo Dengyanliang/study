@@ -1,6 +1,6 @@
 package com.deng.study.datastru_algorithm.linear;
 
-import com.deng.study.source.StdOut;
+import com.deng.common.source.StdOut;
 import lombok.extern.slf4j.Slf4j;
 
 /**

@@ -1,13 +1,14 @@
 package com.deng.study.java.thread;
 
 
-import com.deng.study.util.ThreadUtil;
-//import lombok.extern.slf4j.Slf4j;
+import com.deng.common.util.MyThreadUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
+
+//import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Desc:
@@ -33,7 +34,7 @@ public class SellTicketTest{
             threadList.add(thread);
         }
 
-        threadList.forEach(ThreadUtil::join);
+        threadList.forEach(MyThreadUtil::join);
 
         int sellSum = countList.stream().mapToInt(i -> i).sum();
         int availCount = window.getCount();

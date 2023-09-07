@@ -1,10 +1,9 @@
 spring:
   application:
-    name: seata-demo-order
+    name: dtx-seata-order
   main:
     allow-bean-definition-overriding: true
   datasource:
-   # ds0:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root

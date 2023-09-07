@@ -24,11 +24,11 @@ public class AccountController {
     @Autowired
     private AccountService transferService;
 
-    @PostMapping("/updateBalance")
-    public AccountResponse updateBalance(@RequestBody AccountRequest request){
+    @PostMapping("/tryFreezeAmount")
+    public AccountResponse tryFreezeAmount(@RequestBody AccountRequest request){
         log.info("request:{}", JSON.toJSONString(request));
         AccountResponse response = new AccountResponse();
-        transferService.updateBalance(request);
+        transferService.tryFreezeAmount(request);
         return response;
     }
 }

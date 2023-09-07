@@ -1,6 +1,6 @@
 package com.deng.study.java.thread.juc;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
@@ -24,7 +24,7 @@ public class AqsTest {
             lock.lock();
             try {
                 log.debug("locking...");
-                ThreadUtil.sleep(1000);
+                MyThreadUtil.sleep(1000);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -37,7 +37,7 @@ public class AqsTest {
             lock.lock();
             try {
                 log.debug("locking...");
-                ThreadUtil.sleep(1000);
+                MyThreadUtil.sleep(1000);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

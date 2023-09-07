@@ -187,53 +187,113 @@ public class AccountExample {
             return (Criteria) this;
         }
 
-        public Criteria andBalanceEqualTo(Double value) {
+        public Criteria andBalanceEqualTo(Long value) {
             addCriterion("balance =", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceNotEqualTo(Double value) {
+        public Criteria andBalanceNotEqualTo(Long value) {
             addCriterion("balance <>", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceGreaterThan(Double value) {
+        public Criteria andBalanceGreaterThan(Long value) {
             addCriterion("balance >", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceGreaterThanOrEqualTo(Double value) {
+        public Criteria andBalanceGreaterThanOrEqualTo(Long value) {
             addCriterion("balance >=", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceLessThan(Double value) {
+        public Criteria andBalanceLessThan(Long value) {
             addCriterion("balance <", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceLessThanOrEqualTo(Double value) {
+        public Criteria andBalanceLessThanOrEqualTo(Long value) {
             addCriterion("balance <=", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceIn(List<Double> values) {
+        public Criteria andBalanceIn(List<Long> values) {
             addCriterion("balance in", values, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceNotIn(List<Double> values) {
+        public Criteria andBalanceNotIn(List<Long> values) {
             addCriterion("balance not in", values, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceBetween(Double value1, Double value2) {
+        public Criteria andBalanceBetween(Long value1, Long value2) {
             addCriterion("balance between", value1, value2, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andBalanceNotBetween(Double value1, Double value2) {
+        public Criteria andBalanceNotBetween(Long value1, Long value2) {
             addCriterion("balance not between", value1, value2, "balance");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountIsNull() {
+            addCriterion("freeze_amount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountIsNotNull() {
+            addCriterion("freeze_amount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountEqualTo(Long value) {
+            addCriterion("freeze_amount =", value, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountNotEqualTo(Long value) {
+            addCriterion("freeze_amount <>", value, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountGreaterThan(Long value) {
+            addCriterion("freeze_amount >", value, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountGreaterThanOrEqualTo(Long value) {
+            addCriterion("freeze_amount >=", value, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountLessThan(Long value) {
+            addCriterion("freeze_amount <", value, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountLessThanOrEqualTo(Long value) {
+            addCriterion("freeze_amount <=", value, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountIn(List<Long> values) {
+            addCriterion("freeze_amount in", values, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountNotIn(List<Long> values) {
+            addCriterion("freeze_amount not in", values, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountBetween(Long value1, Long value2) {
+            addCriterion("freeze_amount between", value1, value2, "freezeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFreezeAmountNotBetween(Long value1, Long value2) {
+            addCriterion("freeze_amount not between", value1, value2, "freezeAmount");
             return (Criteria) this;
         }
 

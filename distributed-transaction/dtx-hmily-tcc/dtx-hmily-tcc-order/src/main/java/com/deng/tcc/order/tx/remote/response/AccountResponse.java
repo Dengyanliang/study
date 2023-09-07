@@ -1,7 +1,6 @@
 package com.deng.tcc.order.tx.remote.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -10,8 +9,7 @@ import java.io.Serializable;
  * @Auther: dengyanliang
  * @Date: 2021/9/26 22:02
  */
-@Setter
-@Getter
+@Data
 public class AccountResponse implements Serializable {
     private int code;
     private String message;

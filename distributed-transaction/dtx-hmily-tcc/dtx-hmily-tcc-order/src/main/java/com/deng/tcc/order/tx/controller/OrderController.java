@@ -19,7 +19,7 @@ public class OrderController {
 
     @PostMapping("/add")
     public OrderResponse addOrder(@RequestBody OrderRequest orderRequest){
-        orderService.addOrder(orderRequest.getUserId(),orderRequest.getAmount());
+        orderService.addOrder(orderRequest);
 
         OrderResponse response = new OrderResponse();
         response.setCode(0);

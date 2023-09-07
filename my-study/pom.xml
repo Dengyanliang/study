@@ -18,6 +18,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
         <!-- 引入 swagger等相关依赖 -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -110,14 +115,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
         </dependency>
-
-        <!--mybatis-->
-        <dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <scope>compile</scope>
-        </dependency>
-
 
         <dependency>
             <groupId>com.google.code.gson</groupId>

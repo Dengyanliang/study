@@ -1,6 +1,6 @@
 package com.deng.study.redis;
 
-import com.deng.common.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.TimeUnit;
@@ -50,7 +50,7 @@ public class RedisDistributedLock implements MyLock {
         if (time == -1L) {
             // 自旋锁，这里是简化版的，一直自旋
             while (!flag) {
-                ThreadUtil.sleep(1000 * 10); // keypoint 一定要暂停一段时间再去自旋
+                MyThreadUtil.sleep(1000 * 10); // keypoint 一定要暂停一段时间再去自旋
                 flag = jedisUtil.tryLockWithLua(key, value, time, unit);
             }
             // 自动续期

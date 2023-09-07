@@ -1,6 +1,6 @@
 package com.deng.study.java.thread.juc;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -38,7 +38,7 @@ public class ReentrantReadWriteLockTest {
         new Thread(dataContainer::read, "t1").start();
         new Thread(dataContainer::read, "t2").start();
 
-        ThreadUtil.sleep(500);
+        MyThreadUtil.sleep(500);
 
         new Thread(dataContainer::write, "t3").start();
         new Thread(dataContainer::write, "t4").start();
@@ -58,7 +58,7 @@ class DataContainer{
         log.debug("获取读锁成功....");
         try {
             log.debug("读取数据");
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             return data;
         } finally {
             log.debug("释放读锁....");
@@ -74,7 +74,7 @@ class DataContainer{
         try {
             log.debug("写入数据");
 
-            ThreadUtil.sleep(200);
+            MyThreadUtil.sleep(200);
             log.debug("锁降级，获取读锁中....");
             readLock.lock();
             log.debug("锁降级，获取读锁成功");

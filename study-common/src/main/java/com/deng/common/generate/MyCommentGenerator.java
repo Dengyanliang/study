@@ -1,4 +1,4 @@
-package com.deng.study.generate;
+package com.deng.common.generate;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;

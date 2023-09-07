@@ -1,22 +1,23 @@
 package com.deng.study.jsoup;
 
-import com.deng.study.util.HttpUtils;
+import com.deng.common.util.MyHttpUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.*;
-import java.net.HttpURLConnection;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Objects;
 
 public class JsoupTest {
 
-    private HttpUtils httpUtils = new HttpUtils();
+    private MyHttpUtils httpUtils = new MyHttpUtils();
 
     @Test
     public void test(){

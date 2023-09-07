@@ -96,8 +96,9 @@
         <!--- hmily包 -->
         <dependency>
             <groupId>org.dromara</groupId>
-            <artifactId>hmily-springcloud</artifactId>
+            <artifactId>hmily-spring-boot-starter-springcloud</artifactId>
         </dependency>
+
 
     </dependencies>
 

@@ -1,7 +1,7 @@
 package com.deng.study.datastru_algorithm.sort;
 
-import com.deng.study.util.ArrayUtil;
 
+import com.deng.common.util.MyArrayUtil;
 import java.util.Arrays;
 
 /**
@@ -27,7 +27,7 @@ public class BubbleSort {
                 if (arr[j] > arr[j + 1]) {
                     flag = true;
                     System.out.println("第" + (j + 1) + "次交换前：" + Arrays.toString(arr));
-                    ArrayUtil.swap(arr, j, j + 1);
+                    MyArrayUtil.swap(arr, j, j + 1);
                     System.out.println("第" + (j + 1) + "次交换后：" + Arrays.toString(arr));
                 }
             }
@@ -54,7 +54,7 @@ public class BubbleSort {
                 System.out.println("第" + (i + 1) + "次冒泡前，第" + (j + 1) + "次比较");
                 if (arr[j] > arr[j + 1]) {
 //                    System.out.println("第"+(j+1)+"次交换前："+Arrays.toString(arr));
-                    ArrayUtil.swap(arr, j, j + 1);
+                    MyArrayUtil.swap(arr, j, j + 1);
 //                    System.out.println("第"+(j+1)+"次交换后："+Arrays.toString(arr));
                     last = j;
                 }

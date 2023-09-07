@@ -1,6 +1,6 @@
 package com.deng.study.java.thread.juc;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.BrokenBarrierException;
@@ -35,7 +35,7 @@ public class CyclicBarrierTest {
     private static void invoke(ExecutorService pool, CyclicBarrier cyclicBarrier) {
         pool.submit(()->{
             log.debug("task1 begin...");
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             try {
                 cyclicBarrier.await(); // 也是减1
                 log.debug("task1 end...");
@@ -46,7 +46,7 @@ public class CyclicBarrierTest {
 
         pool.submit(()->{
             log.debug("task2 begin...");
-            ThreadUtil.sleep(1000);
+            MyThreadUtil.sleep(1000);
             try {
                 cyclicBarrier.await();
                 log.debug("task2 end...");
@@ -56,7 +56,7 @@ public class CyclicBarrierTest {
         });
         pool.submit(()->{
             log.debug("task3 begin...");
-            ThreadUtil.sleep(3000);
+            MyThreadUtil.sleep(3000);
             try {
                 cyclicBarrier.await();
                 log.debug("task3 end...");

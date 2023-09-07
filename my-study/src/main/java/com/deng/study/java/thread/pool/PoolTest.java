@@ -1,6 +1,6 @@
 package com.deng.study.java.thread.pool;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
@@ -30,7 +30,7 @@ public class PoolTest {
         for (int i = 0; i < 3; i++) {
             int id = i;
             threadPool.execute(()->{
-                ThreadUtil.sleep(2000);
+                MyThreadUtil.sleep(2000);
                 log.debug("正在执行：{}",id);
             });
         }

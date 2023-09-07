@@ -1,6 +1,6 @@
 package com.deng.study.java.basic;
 
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 import org.junit.Test;
 
 import java.lang.ref.*;
@@ -21,7 +21,7 @@ public class ReferenceTest {
         myObject = null;
         System.gc(); // 人工开启GC，一般不用
 
-        ThreadUtil.sleep(500);
+        MyThreadUtil.sleep(500);
         System.out.println("gc after：" + myObject);
     }
 
@@ -29,7 +29,7 @@ public class ReferenceTest {
     public void testSoftReference(){
         SoftReference<MyObject> softReference = new SoftReference<>(new MyObject());
         System.gc();
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
         System.out.println(Thread.currentThread().getName() + " " + "gc after 内存够用：" + softReference.get());
         try {
             // 调试时需要再idea中配置参数 -Xms10m -Xmx10m 设置最大最小堆的内存都为10MB
@@ -52,7 +52,7 @@ public class ReferenceTest {
 
         System.gc();
 
-        ThreadUtil.sleep(1000);
+        MyThreadUtil.sleep(1000);
         System.out.println(Thread.currentThread().getName() + " " + "gc after 内存够用：" + weakReference.get());
     }
 
@@ -68,7 +68,7 @@ public class ReferenceTest {
         new Thread(() -> {
             while (true){
                 list.add(new byte[1* 1024 * 1024]);
-                ThreadUtil.sleep(200);
+                MyThreadUtil.sleep(200);
                 System.out.println(phantomReference.get() + " " + "list add ok");
             }
         }, "t1").start();
@@ -83,7 +83,7 @@ public class ReferenceTest {
             }
         }, "t2").start();
 
-        ThreadUtil.sleep(50000);
+        MyThreadUtil.sleep(50000);
 
     }
 }

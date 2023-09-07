@@ -28,4 +28,29 @@ public interface AccountMapper {
     int updateByPrimaryKeySelective(Account record);
 
     int updateByPrimaryKey(Account record);
+
+    /**
+     * 增加冻结金额
+     * @param id
+     * @param amount
+     * @return
+     */
+    int addFreezeAmountAndCheckBalanceById(@Param("id") long id,@Param("amount") long amount);
+
+    /**
+     * 扣减冻结金额
+     * @param id
+     * @param amount
+     * @return
+     */
+    int deductFreezeAmountById(@Param("id") long id, @Param("amount") long amount);
+
+    /**
+     * 扣减冻结金额、扣减余额
+     * @param id
+     * @param amount
+     * @return
+     */
+    int deductBalanceAndFreezeAmountById(@Param("id") long id, @Param("amount") long amount);
+
 }

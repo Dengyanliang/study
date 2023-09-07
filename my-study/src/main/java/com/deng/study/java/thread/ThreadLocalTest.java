@@ -1,7 +1,7 @@
 package com.deng.study.java.thread;
 
-import com.deng.study.util.RandomUtil;
-import com.deng.study.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
+import com.deng.common.util.RandomUtil;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -59,7 +59,7 @@ public class ThreadLocalTest {
                 }
             }, String.valueOf(i)).start();
         }
-        ThreadUtil.sleep(500);
+        MyThreadUtil.sleep(500);
         System.out.println(Thread.currentThread().getName() + " " + "共计多少条：" + sum.get());
     }
 }

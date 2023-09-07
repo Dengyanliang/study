@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "tcc-demo-account",fallbackFactory = AccountClientFallback.class)
+@FeignClient(name = "hmily-tcc-demo-account",fallbackFactory = AccountClientFallback.class)
 public interface AccountClient {
 
-    @PostMapping("/account/updateBalance")
-    @Hmily // 很重要，不能忘记
-    AccountResponse updateBalance(@RequestBody AccountRequest request);
+    @PostMapping("/account/tryFreezeAmount")
+    @Hmily // keypoint 很重要，不能忘记
+    AccountResponse tryFreezeAmount(@RequestBody AccountRequest request);
 }
