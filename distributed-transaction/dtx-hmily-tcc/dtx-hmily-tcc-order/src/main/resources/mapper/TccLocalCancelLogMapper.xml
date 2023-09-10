@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.deng.tcc.order.tx.dao.mapper.TccLocalCancelLogMapper">
-  <resultMap id="BaseResultMap" type="com.deng.tcc.order.tx.dao.po.TccLocalCancelLog">
+<mapper namespace="com.deng.hmily.tcc.order.tx.dao.mapper.TccLocalCancelLogMapper">
+  <resultMap id="BaseResultMap" type="com.deng.hmily.tcc.order.tx.dao.po.TccLocalCancelLog">
     <id column="tx_no" jdbcType="VARCHAR" property="txNo" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
@@ -66,7 +66,7 @@
   <sql id="Base_Column_List">
     tx_no, create_time
   </sql>
-  <select id="selectByExample" parameterType="com.deng.tcc.order.tx.dao.po.TccLocalCancelLogExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.deng.hmily.tcc.order.tx.dao.po.TccLocalCancelLogExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -90,17 +90,17 @@
     delete from tcc_local_cancel_log
     where tx_no = #{txNo,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.deng.tcc.order.tx.dao.po.TccLocalCancelLogExample">
+  <delete id="deleteByExample" parameterType="com.deng.hmily.tcc.order.tx.dao.po.TccLocalCancelLogExample">
     delete from tcc_local_cancel_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.deng.tcc.order.tx.dao.po.TccLocalCancelLog">
+  <insert id="insert" parameterType="com.deng.hmily.tcc.order.tx.dao.po.TccLocalCancelLog">
     insert into tcc_local_cancel_log (tx_no, create_time)
     values (#{txNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.deng.tcc.order.tx.dao.po.TccLocalCancelLog">
+  <insert id="insertSelective" parameterType="com.deng.hmily.tcc.order.tx.dao.po.TccLocalCancelLog">
     insert into tcc_local_cancel_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="txNo != null">
@@ -119,7 +119,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.deng.tcc.order.tx.dao.po.TccLocalCancelLogExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.deng.hmily.tcc.order.tx.dao.po.TccLocalCancelLogExample" resultType="java.lang.Long">
     select count(*) from tcc_local_cancel_log
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -147,7 +147,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.deng.tcc.order.tx.dao.po.TccLocalCancelLog">
+  <update id="updateByPrimaryKeySelective" parameterType="com.deng.hmily.tcc.order.tx.dao.po.TccLocalCancelLog">
     update tcc_local_cancel_log
     <set>
       <if test="createTime != null">
@@ -156,7 +156,7 @@
     </set>
     where tx_no = #{txNo,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.deng.tcc.order.tx.dao.po.TccLocalCancelLog">
+  <update id="updateByPrimaryKey" parameterType="com.deng.hmily.tcc.order.tx.dao.po.TccLocalCancelLog">
     update tcc_local_cancel_log
     set create_time = #{createTime,jdbcType=TIMESTAMP}
     where tx_no = #{txNo,jdbcType=VARCHAR}

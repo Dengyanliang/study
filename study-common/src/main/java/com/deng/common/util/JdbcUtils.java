@@ -14,7 +14,7 @@ import java.util.Objects;
 public class JdbcUtils {
 
     private static final String name = "com.mysql.jdbc.Driver";
-    private static final String url = "jdbc:mysql://127.0.0.1:3306/deng?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+    private static final String url = "jdbc:mysql://127.0.0.1:3306/deng?useUnicode=true&useSSL=false";
     private static final String user = "root";
     private static final String password = "root123456";
 

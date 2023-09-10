@@ -1,17 +1,13 @@
 package com.deng.study.rpc.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * 请求传输模型
  */
-@Setter
-@Getter
-@ToString
+@Data
 public class RequestModel implements Serializable{
     /**
      * 将要调用的对象

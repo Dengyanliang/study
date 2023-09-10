@@ -1,13 +1,13 @@
 package com.deng.seata.order.tx.dao.po;
 
-import lombok.Getter;
-import lombok.Setter;
+
+
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Setter
-@Getter
+@Data
 public class Orders {
     /**
      * 

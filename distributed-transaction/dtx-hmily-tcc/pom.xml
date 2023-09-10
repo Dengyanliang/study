@@ -16,6 +16,7 @@
     <modules>
         <module>dtx-hmily-tcc-account</module>
         <module>dtx-hmily-tcc-order</module>
+        <module>dtx-hmily-tcc-storage</module>
     </modules>
 
 </project>
