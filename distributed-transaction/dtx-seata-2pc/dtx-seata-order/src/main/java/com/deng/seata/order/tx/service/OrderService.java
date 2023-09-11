@@ -1,6 +1,8 @@
 package com.deng.seata.order.tx.service;
 
 
+import com.deng.seata.order.tx.facade.request.OrderRequest;
+
 public interface OrderService {
-    boolean addOrder(Integer id,Long amount);
+    void addOrder(OrderRequest orderRequest);
 }

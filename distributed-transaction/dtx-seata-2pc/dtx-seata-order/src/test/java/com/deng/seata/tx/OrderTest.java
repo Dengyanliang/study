@@ -1,6 +1,7 @@
 package com.deng.seata.tx;
 
 import com.deng.seata.order.tx.OrderServer;
+import com.deng.seata.order.tx.facade.request.OrderRequest;
 import com.deng.seata.order.tx.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -19,6 +20,11 @@ public class OrderTest {
 
     @Test
     public void test(){
-        orderService.addOrder(1,10L);
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setUserId(2);
+        orderRequest.setAmount(10L);
+        orderRequest.setProductId(1L);
+        orderRequest.setCount(1L);
+        orderService.addOrder(orderRequest);
     }
 }

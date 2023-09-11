@@ -8,5 +8,5 @@ import com.deng.seata.account.tx.facade.request.AccountRequest;
  * @Date: 2021/9/26 22:06
  */
 public interface AccountService {
-    boolean transfer(AccountRequest request);
+    void transfer(AccountRequest request);
 }

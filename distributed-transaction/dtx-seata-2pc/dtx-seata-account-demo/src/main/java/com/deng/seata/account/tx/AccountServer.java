@@ -4,17 +4,15 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 /**
  * @Desc:
  * @Auther: dengyanliang
- * @Date: 2021/9/26 07:54
+ * @Date: 2023/9/11 15:48
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableHystrix
-@MapperScan("com.deng.seata.account.tx.dao.mapper")
+@MapperScan(basePackages = "com.deng.seata.account.tx.dao.mapper")
 public class AccountServer {
     public static void main(String[] args) {
         SpringApplication.run(AccountServer.class,args);

@@ -1,9 +1,9 @@
 package com.deng.seata.account.tx.service.impl;
 
+import com.deng.seata.account.tx.dao.mapper.AccountMapper;
+import com.deng.seata.account.tx.dao.po.Account;
 import com.deng.seata.account.tx.facade.request.AccountRequest;
 import com.deng.seata.account.tx.service.AccountService;
-import com.deng.seata.account.tx.dao.po.Account;
-import com.deng.seata.account.tx.dao.mapper.AccountMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +24,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public boolean transfer(AccountRequest request) {
+    public void transfer(AccountRequest request) {
 
         Account dbAccount = accountMapper.selectByPrimaryKey(request.getUserId());
         if (Objects.isNull(dbAccount) || dbAccount.getBalance() < request.getAmount()) {
@@ -38,7 +38,8 @@ public class AccountServiceImpl implements AccountService {
         account.setLastUpdateTime(new Date());
 
         int count = accountMapper.updateByPrimaryKey(account);
-
-        return count > 0;
+        if(count <= 0){
+            throw new RuntimeException("转账失败！");
+        }
     }
 }

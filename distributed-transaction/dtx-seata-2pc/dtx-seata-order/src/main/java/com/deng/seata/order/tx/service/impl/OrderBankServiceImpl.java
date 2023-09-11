@@ -1,8 +1,10 @@
 package com.deng.seata.order.tx.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.deng.seata.order.tx.dao.po.Orders;
+import com.deng.common.enums.PayStatusEnum;
 import com.deng.seata.order.tx.dao.mapper.OrdersMapper;
+import com.deng.seata.order.tx.dao.po.Orders;
+import com.deng.seata.order.tx.facade.request.OrderRequest;
 import com.deng.seata.order.tx.remote.client.AccountClient;
 import com.deng.seata.order.tx.remote.request.AccountRequest;
 import com.deng.seata.order.tx.remote.response.AccountResponse;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.Date;
 
 // https://www.iocoder.cn/Spring-Cloud-Alibaba/Seata/
@@ -31,23 +32,26 @@ public class OrderBankServiceImpl implements OrderService {
     @Transactional(rollbackFor = Exception.class)
     @GlobalTransactional
     @Override
-    public boolean addOrder(Integer id, Long amount) {
+    public void addOrder(OrderRequest orderRequest) {
 
         // 新增订单
         Orders orders = new Orders();
-        orders.setUserId(id);
-        orders.setProductId(2);
-        orders.setPayAmount(new BigDecimal(amount));
+        orders.setUserId(orderRequest.getUserId());
+        orders.setProductId(orderRequest.getProductId());
+        orders.setPayAmount(orderRequest.getAmount());
+        orders.setPayStatus(PayStatusEnum.INIT.getCode());
+        orders.setCount(orderRequest.getCount());
         orders.setAddTime(new Date());
         orders.setLastUpdateTime(new Date());
-
-        ordersMapper.insert(orders);
+        int addCount = ordersMapper.insert(orders);
+        if(addCount <= 0){
+            throw new RuntimeException("添加订单失败");
+        }
 
         AccountRequest request = new AccountRequest();
-        request.setUserId(id);
-        request.setAmount(amount);
+        request.setUserId(orderRequest.getUserId());
+        request.setAmount(orderRequest.getAmount());
         AccountResponse response = accountClient.transfer(request);
         log.info("response:{}", JSON.toJSONString(response));
-        return true;
     }
 }
