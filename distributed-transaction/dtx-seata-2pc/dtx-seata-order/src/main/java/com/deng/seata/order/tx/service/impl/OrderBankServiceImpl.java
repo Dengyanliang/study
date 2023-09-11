@@ -53,5 +53,7 @@ public class OrderBankServiceImpl implements OrderService {
         request.setAmount(orderRequest.getAmount());
         AccountResponse response = accountClient.transfer(request);
         log.info("response:{}", JSON.toJSONString(response));
+
+//        int i =  10 / 0;
     }
 }

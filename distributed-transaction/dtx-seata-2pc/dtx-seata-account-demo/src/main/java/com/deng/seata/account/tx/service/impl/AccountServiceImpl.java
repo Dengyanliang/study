@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountMapper accountMapper;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void transfer(AccountRequest request) {
 
         Account dbAccount = accountMapper.selectByPrimaryKey(request.getUserId());
@@ -37,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
         account.setBalance(dbAccount.getBalance()-request.getAmount().doubleValue());
         account.setLastUpdateTime(new Date());
 
-        int count = accountMapper.updateByPrimaryKey(account);
+        int count = accountMapper.updateByPrimaryKeySelective(account);
         if(count <= 0){
             throw new RuntimeException("转账失败！");
         }
