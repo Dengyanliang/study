@@ -1,2 +1,87 @@
-server:
-  port: 8081
+#spring:
+#  main:
+#    allow-bean-definition-overriding: true
+#  shardingsphere:
+#    datasource:
+#      names: m0,m1,m2,s1,s2
+#      # 默认库 0
+#      m0:
+#        url: jdbc:mysql://localhost:3306/deng?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#        type: org.apache.commons.dbcp2.BasicDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        username: root
+#        password: root123456
+#      # 主库 1
+#      m1:
+#        url: jdbc:mysql://localhost:3306/course_old_db_1?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#        type: org.apache.commons.dbcp2.BasicDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        username: root
+#        password: root123456
+#      # 主库2
+#      m2:
+#        url: jdbc:mysql://localhost:3306/course_old_db_2?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#        type: org.apache.commons.dbcp2.BasicDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        username: root
+#        password: root123456
+#      # 主库1的从库1
+#      s1:
+#        url: jdbc:mysql://localhost:3306/course_new_db_1?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#        type: org.apache.commons.dbcp2.BasicDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        username: root
+#        password: root123456
+#      # 主库2的从库1
+#      s2:
+#        url: jdbc:mysql://localhost:3306/course_new_db_2?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#        type: org.apache.commons.dbcp2.BasicDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        username: root
+#        password: root123456
+#    sharding:
+#      # 所有库都不分库分表时默认的数据源
+#      default-data-source-name: m0
+#      #
+#      binding-tables: t_course
+#      # 公共表
+#      broadcast-tables: t_udict
+#      tables:
+#        t_course:
+#          actual-data-nodes: m$->{1..2}.course_old_db_$->{1..2}
+#          # 配置分库策略：userId为偶数时添加到course_db1库，如果userId值为奇数添加到course_db2库中
+#          database-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: m$->{user_id % 2 + 1}
+#        # 配置分表策略：course_id值为偶数时添加到course_1表，如果id值为奇数添加到course_2表中
+#          table-strategy:
+#            inline:
+#              sharding-column: course_id
+#              algorithm-expression: course_old_db_$->{course_id % 2 + 1}
+#          key-generate-strategy:
+#            column: id
+#            key-generator-name: SNOWFLAKE
+#        t_udict:
+#          key-generate-strategy:
+#            column: id
+#            key-generator-name: SNOWFLAKE
+#      default-database-strategy:
+#        none:
+#      default-table-strategy:
+#        none:
+#      master-slave-rules:
+#        m1:
+#          master-data-source-name: m1
+#          slave-data-source-names: s1
+#        m2:
+#          master-data-source-name: m2
+#          slave-data-source-names: m2
+#    props:
+#      sql:
+#        show: true
+#mybatis-plus:
+#  type-aliases-package: com.deng.study.shardingsphere.dao.po
+#  configuration:
+#    # 设置驼峰命名规则
+#    map-underscore-to-camel-case: true

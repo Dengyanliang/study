@@ -5,14 +5,12 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Slf4j
 @MapperScan("com.deng.study.shardingsphere.dao.mapper")
-@EnableTransactionManagement
-@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
+// 开启spring注解版事务功能，并往容器中注册DataSource、JdbcTemplate、PlatformTransactionManager这三个bean对象
+//@EnableTransactionManagement
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 //@SpringBootApplication
 //@EnableConfigurationProperties(DataSourceProperties.class)
 public class ShardingShpereApplication {

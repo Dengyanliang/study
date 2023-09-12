@@ -94,7 +94,7 @@ public class ShardingJdbcTest {
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Course course = new Course();
-            course.setName("化学------");
+            course.setName("测试事务------"+i);
             course.setUserId((long) random.nextInt(100));
             course.setStatus("normal");
             course.setCreateTime(DateUtil.now());

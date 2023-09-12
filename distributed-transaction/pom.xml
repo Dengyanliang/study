@@ -19,7 +19,6 @@
         <module>dtx-seata-2pc</module>
         <module>dtx-hmily-tcc</module>
         <module>dtx-narayana-xa</module>
-        <module>dtx-shardingsphere-atomikos-xa</module>
         <module>dtx-jta-atomikos-xa</module>
         <module>dtx-jta-bitronix-xa</module>
     </modules>
@@ -29,14 +28,12 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-
-
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.3.2.RELEASE</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

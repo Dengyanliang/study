@@ -1,17 +1,21 @@
 package com.deng.study.shardingsphere.dao.po;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
+//@TableName("t_course")
 public class Course implements Serializable {
     /**
      * 
      */
 //    private Long id;
+    @TableId(value = "course_id", type = IdType.NONE)
     private Long courseId;
 
     /**

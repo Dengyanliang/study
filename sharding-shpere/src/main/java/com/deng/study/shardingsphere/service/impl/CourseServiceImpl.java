@@ -5,7 +5,7 @@ import com.deng.study.shardingsphere.dao.mapper.CourseMapper;
 import com.deng.study.shardingsphere.dao.po.Course;
 import com.deng.study.shardingsphere.service.CourseService;
 import com.deng.study.shardingsphere.service.thread.BatchThread;
-//import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
+import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +28,17 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private ThreadPoolExecutor threadPoolExecutor;
 
+    private int i = 0;
+
     @Override
-//    @Transactional
-//    @ShardingTransactionType(TransactionType.XA)
+    @Transactional(rollbackFor = Exception.class)
+    @ShardingTransactionType(TransactionType.XA) // 使用XA管理事务
     public void addCourse(Course course) {
+        i++;
         courseMapper.insert(course);
+        if(i == 5){
+            throw new RuntimeException("测试报错");
+        }
     }
 
     @Override
