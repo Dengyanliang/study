@@ -4,6 +4,7 @@
 #  shardingsphere:
 #    datasource:
 #      names: m0,m1,m2,s1,s2
+##      names: m0,m1,m2
 #      # 默认库 0
 #      m0:
 #        url: jdbc:mysql://localhost:3306/deng?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
@@ -48,8 +49,8 @@
 #      broadcast-tables: t_udict
 #      tables:
 #        t_course:
-#          actual-data-nodes: m$->{1..2}.course_old_db_$->{1..2}
-#          # 配置分库策略：userId为偶数时添加到course_db1库，如果userId值为奇数添加到course_db2库中
+#          actual-data-nodes: m$->{1..2}.course_$->{1..2}
+#          # 配置分库策略：userId为偶数时添加到course_old_db_1库，如果userId值为奇数添加到course_old_db_2库中
 #          database-strategy:
 #            inline:
 #              sharding-column: user_id
@@ -58,7 +59,7 @@
 #          table-strategy:
 #            inline:
 #              sharding-column: course_id
-#              algorithm-expression: course_old_db_$->{course_id % 2 + 1}
+#              algorithm-expression: course_$->{course_id % 2 + 1}
 #          key-generate-strategy:
 #            column: id
 #            key-generator-name: SNOWFLAKE

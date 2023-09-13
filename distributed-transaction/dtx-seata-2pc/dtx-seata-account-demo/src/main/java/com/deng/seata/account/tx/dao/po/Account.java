@@ -1,7 +1,10 @@
 package com.deng.seata.account.tx.dao.po;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class Account {
     /**
      * 
@@ -9,60 +12,18 @@ public class Account {
     private Integer id;
 
     /**
-     * 
+     * 用户余额，单位分
      */
-    private Double balance;
+    private Long balance;
+
+    /**
+     * 冻结金额，扣款暂存余额，单位分
+     */
+    private Long freezeAmount;
 
     /**
      * 
      */
     private Date lastUpdateTime;
 
-    /**
-     * 
-     * @return id 
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * 
-     * @param id 
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * 
-     * @return balance 
-     */
-    public Double getBalance() {
-        return balance;
-    }
-
-    /**
-     * 
-     * @param balance 
-     */
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
-    /**
-     * 
-     * @return last_update_time 
-     */
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    /**
-     * 
-     * @param lastUpdateTime 
-     */
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
 }

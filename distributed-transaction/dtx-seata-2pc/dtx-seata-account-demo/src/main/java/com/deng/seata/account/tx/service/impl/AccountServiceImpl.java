@@ -4,6 +4,8 @@ import com.deng.seata.account.tx.dao.mapper.AccountMapper;
 import com.deng.seata.account.tx.dao.po.Account;
 import com.deng.seata.account.tx.facade.request.AccountRequest;
 import com.deng.seata.account.tx.service.AccountService;
+import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import java.util.Objects;
  * @Auther: dengyanliang
  * @Date: 2021/9/26 22:06
  */
+@Slf4j
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -26,6 +29,8 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(rollbackFor = Exception.class)
     public void transfer(AccountRequest request) {
 
+        log.info("事务ID------>{}", RootContext.getXID());
+
         Account dbAccount = accountMapper.selectByPrimaryKey(request.getUserId());
         if (Objects.isNull(dbAccount) || dbAccount.getBalance() < request.getAmount()) {
             throw new RuntimeException("账户为空或者余额不足");
@@ -34,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = new Account();
         account.setId(request.getUserId());
         // 这种写法不好，要使用数据库的update set 才能保证数据的正确性
-        account.setBalance(dbAccount.getBalance()-request.getAmount().doubleValue());
+        account.setBalance(dbAccount.getBalance()-request.getAmount());
         account.setLastUpdateTime(new Date());
 
         int count = accountMapper.updateByPrimaryKeySelective(account);

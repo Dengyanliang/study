@@ -9,6 +9,7 @@ import com.deng.seata.order.tx.remote.client.AccountClient;
 import com.deng.seata.order.tx.remote.request.AccountRequest;
 import com.deng.seata.order.tx.remote.response.AccountResponse;
 import com.deng.seata.order.tx.service.OrderService;
+import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,15 @@ public class OrderBankServiceImpl implements OrderService {
     @Resource
     private OrdersMapper ordersMapper;
 
+
+    // @Transactional 这个注解在AT模式下必须加上，在XA模式下可以不要，所以都加上吧
     @Transactional(rollbackFor = Exception.class)
     @GlobalTransactional
     @Override
     public void addOrder(OrderRequest orderRequest) {
+
+
+        log.info("事务ID------>{}", RootContext.getXID());
 
         // 新增订单
         Orders orders = new Orders();
@@ -54,6 +60,6 @@ public class OrderBankServiceImpl implements OrderService {
         AccountResponse response = accountClient.transfer(request);
         log.info("response:{}", JSON.toJSONString(response));
 
-//        int i =  10 / 0;
+        int i =  10 / 0;
     }
 }

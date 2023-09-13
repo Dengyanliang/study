@@ -14,8 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dtx-seata-order</module>
+        <module>dtx-seata-order-demo</module>
         <module>dtx-seata-account-demo</module>
     </modules>
-
 </project>
