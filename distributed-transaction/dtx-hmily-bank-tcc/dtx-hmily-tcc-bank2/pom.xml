@@ -3,13 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>dtx-hmily-tcc</artifactId>
+        <artifactId>dtx-hmily-bank-tcc</artifactId>
         <groupId>com.deng.study</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dtx-hmily-tcc-order</artifactId>
+    <artifactId>dtx-hmily-tcc-bank2</artifactId>
+
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -21,7 +22,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -36,11 +36,6 @@
                     <groupId>com.google.guava</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
 
         <dependency>
@@ -83,6 +78,7 @@
             <artifactId>fastjson</artifactId>
         </dependency>
 
+        <!--- hmily包 -->
         <dependency>
             <groupId>org.dromara</groupId>
             <artifactId>hmily-spring-boot-starter-springcloud</artifactId>
@@ -92,6 +88,7 @@
             <groupId>com.deng.study</groupId>
             <artifactId>study-common</artifactId>
         </dependency>
+
 
     </dependencies>
 

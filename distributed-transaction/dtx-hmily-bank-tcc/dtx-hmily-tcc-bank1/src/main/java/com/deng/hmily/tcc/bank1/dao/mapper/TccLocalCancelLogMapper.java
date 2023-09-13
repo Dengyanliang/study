@@ -1,6 +1,6 @@
-package com.deng.hmily.tcc.account.tx.dao.mapper;
+package com.deng.hmily.tcc.bank1.dao.mapper;
 
-import com.deng.hmily.tcc.account.tx.dao.po.TccLocalCancelLog;
+import com.deng.hmily.tcc.bank1.dao.po.TccLocalCancelLog;
 
 public interface TccLocalCancelLogMapper {
 

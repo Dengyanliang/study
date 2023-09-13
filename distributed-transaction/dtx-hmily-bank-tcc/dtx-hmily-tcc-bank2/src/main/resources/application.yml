@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: hmily-tcc-bank2
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    ## 如果当前链接因为超时断掉了，那么驱动程序会自动重新连接数据库：autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://127.0.0.1:3306/dtx_account2?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: root123456
+
+server:
+  port: 56088
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:56080/eureka/
+
+org:
+  dromara:
+    hmily:
+      serializer: kryo # 序列化
+      recoverDelayTime: 128 # 定时任务延迟时间（单位是秒，默认120。这个参数只是要大于你的rpc调用的超时时间设置
+      retryMax: 30  # 重试次数
+      scheduledDelay: 128
+      scheduledThreadMax: 10
+      repositorySupport: db
+      started: true  # 服务调用方为true，其余为false
+      hmilyDbConfig:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/dtx_hmily?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: root123456

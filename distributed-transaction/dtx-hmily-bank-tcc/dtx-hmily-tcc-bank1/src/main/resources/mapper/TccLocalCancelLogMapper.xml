@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.deng.hmily.tcc.account.tx.dao.mapper.TccLocalCancelLogMapper">
-  <resultMap id="BaseResultMap" type="com.deng.hmily.tcc.account.tx.dao.po.TccLocalCancelLog">
+<mapper namespace="com.deng.hmily.tcc.bank1.dao.mapper.TccLocalCancelLogMapper">
+  <resultMap id="BaseResultMap" type="com.deng.hmily.tcc.bank1.dao.po.TccLocalCancelLog">
     <id column="tx_no" jdbcType="VARCHAR" property="txNo" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
@@ -10,7 +10,7 @@
     tx_no, create_time
   </sql>
 
-  <insert id="insert" parameterType="com.deng.hmily.tcc.account.tx.dao.po.TccLocalCancelLog">
+  <insert id="insert" parameterType="com.deng.hmily.tcc.bank1.dao.po.TccLocalCancelLog">
     insert into tcc_local_cancel_log (tx_no, create_time)
     values (#{txNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>

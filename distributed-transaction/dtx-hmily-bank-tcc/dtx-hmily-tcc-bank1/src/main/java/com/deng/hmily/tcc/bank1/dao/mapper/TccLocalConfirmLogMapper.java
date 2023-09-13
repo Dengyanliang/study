@@ -1,6 +1,6 @@
-package com.deng.hmily.tcc.account.tx.dao.mapper;
+package com.deng.hmily.tcc.bank1.dao.mapper;
 
-import com.deng.hmily.tcc.account.tx.dao.po.TccLocalConfirmLog;
+import com.deng.hmily.tcc.bank1.dao.po.TccLocalConfirmLog;
 
 public interface TccLocalConfirmLogMapper {
 
