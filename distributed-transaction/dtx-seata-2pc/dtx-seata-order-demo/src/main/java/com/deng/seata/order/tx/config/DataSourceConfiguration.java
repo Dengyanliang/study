@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-//import io.seata.rm.datasource.DataSourceProxy;
 
 /**
  * 依赖 seata-spring-boot-starter 时，自动代理数据源，无需额外处理，默认是AT模式
