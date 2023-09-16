@@ -16,5 +16,6 @@
     <modules>
         <module>dtx-seata-order-demo</module>
         <module>dtx-seata-account-demo</module>
+        <module>dtx-seata-dynamic-datasource</module>
     </modules>
 </project>

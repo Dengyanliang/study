@@ -449,6 +449,7 @@
                 <version>4.1.1</version>
             </dependency>
 
+            <!--动态数据源-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
@@ -460,6 +461,12 @@
 <!--                <artifactId>druid-spring-boot-starter</artifactId>-->
 <!--                <version>1.2.16</version>-->
 <!--            </dependency>-->
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>1.4.1</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

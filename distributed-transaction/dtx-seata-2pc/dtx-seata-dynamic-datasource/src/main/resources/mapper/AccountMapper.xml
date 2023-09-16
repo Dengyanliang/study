@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.deng.seata.account.tx.dao.mapper.AccountMapper">
-  <resultMap id="BaseResultMap" type="com.deng.seata.account.tx.dao.po.Account">
+<mapper namespace="com.deng.seata.dynamic.ds.dao.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.deng.seata.dynamic.ds.dao.po.Account">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="balance" jdbcType="BIGINT" property="balance" />
     <result column="freeze_amount" jdbcType="BIGINT" property="freezeAmount" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
   </resultMap>
-
+  
   <sql id="Base_Column_List">
     id, balance, freeze_amount, last_update_time
   </sql>
@@ -18,7 +18,7 @@
     from account
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <update id="updateByPrimaryKeySelective" parameterType="com.deng.seata.account.tx.dao.po.Account">
+  <update id="updateByPrimaryKeySelective" parameterType="com.deng.seata.dynamic.ds.dao.po.Account">
     update account
     <set>
       <if test="balance != null">

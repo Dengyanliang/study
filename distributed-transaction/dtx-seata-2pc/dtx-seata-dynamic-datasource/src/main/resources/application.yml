@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: dtx-seata-dynamic-ds
+  datasource:
+    dynamic:
+      primary: order-ds
+      datasource:
+        order-ds:
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: root123456
+        account-ds:
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/dtx_account?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: root123456
+        storage-ds:
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/dtx_storage?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: root123456
+      seata: true # 是否自动启动对Seata的集成
+
+server:
+  port: 56089
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:56080/eureka/
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  #客户端和服务端在同一个事务组
+  tx-service-group: my_test_tx_group
+  data-source-proxy-mode: AT
+  config:
+    type: file
+  registry:
+    type: file
+

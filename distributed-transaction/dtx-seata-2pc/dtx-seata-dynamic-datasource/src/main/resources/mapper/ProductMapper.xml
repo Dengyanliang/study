@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deng.seata.dynamic.ds.dao.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.deng.seata.dynamic.ds.dao.po.Product">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="stock" jdbcType="BIGINT" property="stock" />
+    <result column="freeze_stock" jdbcType="BIGINT" property="freezeStock" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, stock, freeze_stock, last_update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <update id="deductStockById" parameterType="map">
+    update product
+    set stock = stock - #{count}
+    where id = #{id}
+  </update>
+
+</mapper>

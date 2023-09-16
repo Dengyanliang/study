@@ -22,7 +22,7 @@ import java.util.Date;
 // https://www.iocoder.cn/Spring-Cloud-Alibaba/Seata/
 @Slf4j
 @Service
-public class OrderBankServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private AccountClient accountClient;
