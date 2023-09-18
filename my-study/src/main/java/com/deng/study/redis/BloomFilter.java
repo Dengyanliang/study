@@ -27,6 +27,7 @@ public class BloomFilter {
     @Resource
     private ProductMapper productMapper;
 
+
     /**
      * 往布隆过滤器中初始化一些数据
      */
@@ -52,7 +53,13 @@ public class BloomFilter {
         }
     }
 
-
+    /**
+     * 判断该id是否在布隆过滤器中，防止缓存穿透
+     *  1）如果数据在布隆过滤器中，则有可能存在，需要进一步查询数据库
+     *  2）如果没有在布隆过滤中，则一定不存在，直接返回
+     * @param
+     * @return
+     */
     public boolean checkWithBloomFilter(String checkItem,String key){
         int hashValue = Math.abs(key.hashCode());
         long index = (long)(hashValue % Math.pow(2,32));

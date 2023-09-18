@@ -2,6 +2,7 @@ package com.deng.study.redis;
 
 import com.deng.common.util.MyThreadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @Auther: dengyanliang
  * @Date: 2023/2/26 17:14
  */
+@Component
 public class RedisDistributedLock implements MyLock {
 
     @Autowired
@@ -20,6 +22,9 @@ public class RedisDistributedLock implements MyLock {
     private long time;
     private long expireTime;
     private TimeUnit unit;
+
+    public RedisDistributedLock() {
+    }
 
     public RedisDistributedLock(String key, String value) {
         this.key = key;

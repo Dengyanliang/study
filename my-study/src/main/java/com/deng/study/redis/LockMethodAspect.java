@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
 
 import java.lang.reflect.Method;
 import java.util.UUID;
@@ -18,11 +17,10 @@ import java.util.UUID;
 public class LockMethodAspect {
 
     @Autowired
-    private JedisUtil jedisUtil;
+    private RedisDistributedLock redisDistributedLock;
 
     @Around("@annotation(com.deng.study.redis.RedisLock)")
     public Object around(ProceedingJoinPoint joinPoint){
-        Jedis jedis = jedisUtil.getJedis();
         MethodSignature signature = (MethodSignature)joinPoint.getSignature();
         Method method = signature.getMethod();
 
@@ -31,7 +29,7 @@ public class LockMethodAspect {
         String value = UUID.randomUUID().toString();
 
         try {
-            boolean isLock = jedisUtil.tryLock(key, value, redisLock.expire());
+            boolean isLock = redisDistributedLock.tryLock(key, value, redisLock.waitTime(),redisLock.expire(),redisLock.timeUnit());
             log.info("key:{},value:{},isLock:{}",key,value,isLock);
             if (!isLock) {
                 log.error("获取锁失败");
@@ -42,8 +40,7 @@ public class LockMethodAspect {
             throw new RuntimeException("系统异常");
         } finally {
             log.info("释放锁");
-            jedisUtil.releaseLockWithLua(key,value);
-            jedisUtil.close(jedis);
+            redisDistributedLock.unlock();
         }
     }
 
