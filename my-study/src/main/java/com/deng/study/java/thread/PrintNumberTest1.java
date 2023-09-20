@@ -7,12 +7,12 @@ import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * @Desc: 打印数字
+ * @Desc: 三个线程交替打印abc 循环n次
  * @Auther: dengyanliang
  * @Date: 2023/2/14 20:42
  */
 @Slf4j
-public class PrintNumberTest {
+public class PrintNumberTest1 {
 
     private static final Object lock = new Object();
 
@@ -24,8 +24,8 @@ public class PrintNumberTest {
      * 循环打印abc n次
      */
     private static void printABC(){
-//        printABCByWaitNotify();
-        printABCByAwaitSignal();
+        printABCByWaitNotify();
+//        printABCByAwaitSignal();
 //        printABCByParkUnpark();
     }
 
@@ -189,8 +189,11 @@ class PrintABCByWaitNotify{
     public void print(String str,int waitFlag, int nextFlag) {
         for (int i = 0; i < loopNumber; i++) {
             synchronized (this){
+                // 唤醒别人
+                this.notifyAll();
                 while (flag != waitFlag){
                     try {
+                        // 睡眠自己
                         this.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -198,6 +201,7 @@ class PrintABCByWaitNotify{
                 }
                 System.out.println(Thread.currentThread().getName() + "," + str);
                 flag = nextFlag;
+                // 唤醒所有线程，防止最后线程永远等待
                 this.notifyAll();
             }
         }

@@ -1,6 +1,5 @@
 package com.deng.study.java.thread;
 
-import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.locks.LockSupport;
@@ -15,7 +14,7 @@ public class ParkUnParkTest {
     public static void main(String[] args) throws InterruptedException {
         Thread t1 = new Thread(()->{
             log.debug("start...");
-            MyThreadUtil.sleep(2000);
+//            MyThreadUtil.sleep(20);
             log.debug("park 开始...");
             LockSupport.park();
             log.debug("park 结束...");
@@ -24,7 +23,7 @@ public class ParkUnParkTest {
 
         t1.start();
 
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
 
         log.debug("begin unpark...");
         LockSupport.unpark(t1); // 先执行unpark，还会继续执行park

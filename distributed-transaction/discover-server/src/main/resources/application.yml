@@ -19,9 +19,11 @@ eureka:
     response-cache-update-interval-ms: 3000 #刷新
     response-cache-auto-expiration-in-seconds: 180 #缓存
   client:
-    # 不进行注册（当服务注册中心是单点而非高可用时的配置方式）
+    # 默认情况下，这个应用会向注册中心（也是它自己）注册，由于我们目前创建的应用是一个服务注册中心，而不是普通的应用，
+    # 所以设置为false表示禁止这种自己向自己注册的默认行为
     register-with-eureka: false
-    # 不获取注册信息（当服务注册中心是单点而非高可用时的配置方式）
+    # 表示不去从服务端检索其他服务信息，因为自己就是服务端，服务注册中心本身的职责就是维护服务实例，它不需要去检索其他服务
     fetch-registry: false
     service-url:
+      # 指定服务注册中心的位置
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

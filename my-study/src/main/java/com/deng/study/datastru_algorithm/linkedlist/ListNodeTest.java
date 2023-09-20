@@ -2,6 +2,9 @@ package com.deng.study.datastru_algorithm.linkedlist;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @Desc:
  * @Auther: dengyanliang
@@ -119,4 +122,77 @@ public class ListNodeTest {
         }
         return dummyNode.next;
     }
+
+    /**
+     * 判断链表中是否有环
+     */
+    @Test
+    public void hasCycle(){
+        ListNode first = new ListNode(3);
+        ListNode second = new ListNode(2);
+        ListNode third = new ListNode(0);
+        ListNode fourth = new ListNode(1);
+
+        first.next = second;
+        second.next = third;
+        third.next = fourth;
+//        fourth.next = second;
+
+        ListNode head = new ListNode(0,first);
+        checkHasCycle1(head);
+        checkHasCycle2(head);
+    }
+
+    /**
+     * 第一种办法，借助于集合set
+     *   时间复杂度：O(N)，最坏的情况下需要遍历每个节点一次
+     *   空间复杂度：O(N)，最坏的情况下需要把每个节点插入到哈希表中一次
+     *
+     * @param head 头节点
+     */
+    private void checkHasCycle1(ListNode head){
+        Set<ListNode> set = new HashSet<>();
+        boolean flag = false;
+        while(head != null){
+            ListNode currentNode = head.next;
+            // 直接add，看是否成功。这种办法比先判断contains再add效率要高
+            if(!set.add(currentNode)){
+                flag = true;
+                break;
+            }
+//            if(set.contains(currentNode)){
+//                System.out.println(currentNode.val);
+//                flag = true;
+//                break;
+//            }else{
+//                set.add(currentNode);
+//            }
+            head = head.next;
+        }
+        System.out.println(flag);
+    }
+
+    /**
+     * 使用快慢指针
+     *  时间复杂度：O(N)
+     *      当链表中不存在环时，快指针将先于慢指针达到链表尾部，链表中的每个节点至多被访问两次
+     *      当链表中存在环时，每一轮移动后，快慢指针的距离将减少一。而初始距离为环的长度，因此至多移动N轮
+     *  空间复杂度：O(1) 我们只使用了两个指针的额外空间
+     * @param head 头节点
+     */
+    private void checkHasCycle2(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head.next;
+        boolean flag = true;
+        while(slow != fast){
+            if(fast == null || fast.next == null){
+                flag = false;
+                break;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        System.out.println(flag);
+    }
+
 }
