@@ -127,7 +127,7 @@ public class ListNodeTest {
      * 判断链表中是否有环
      */
     @Test
-    public void hasCycle(){
+    public void pasCycle(){
         ListNode first = new ListNode(3);
         ListNode second = new ListNode(2);
         ListNode third = new ListNode(0);
@@ -139,8 +139,8 @@ public class ListNodeTest {
 //        fourth.next = second;
 
         ListNode head = new ListNode(0,first);
-        checkHasCycle1(head);
-        checkHasCycle2(head);
+        checkpasCycle1(head);
+        checkpasCycle2(head);
     }
 
     /**
@@ -150,7 +150,7 @@ public class ListNodeTest {
      *
      * @param head 头节点
      */
-    private void checkHasCycle1(ListNode head){
+    private void checkpasCycle1(ListNode head){
         Set<ListNode> set = new HashSet<>();
         boolean flag = false;
         while(head != null){
@@ -180,7 +180,7 @@ public class ListNodeTest {
      *  空间复杂度：O(1) 我们只使用了两个指针的额外空间
      * @param head 头节点
      */
-    private void checkHasCycle2(ListNode head){
+    private void checkpasCycle2(ListNode head){
         ListNode slow = head;
         ListNode fast = head.next;
         boolean flag = true;
@@ -194,5 +194,73 @@ public class ListNodeTest {
         }
         System.out.println(flag);
     }
+
+    /**
+     * 判断两个链表是否相交
+     */
+    @Test
+    public void getIntersectionNode() {
+        ListNode firstA = new ListNode(3);
+        ListNode secondA = new ListNode(2);
+
+        ListNode third = new ListNode(1);
+        ListNode four = new ListNode(4);
+        ListNode five = new ListNode(5);
+
+        firstA.next = secondA;
+        secondA.next = third;
+        // 构造链表A
+        ListNode headA = new ListNode(0,firstA);
+
+        ListNode firstB = new ListNode(8);
+        ListNode secondB = new ListNode(9);
+        ListNode thirdB = new ListNode(6);
+
+        firstB.next = secondB;
+        secondB.next = thirdB;
+        thirdB.next = third;
+
+        third.next = four;
+        four.next = five;
+        // 构造链表B
+        ListNode headB = new ListNode(0,firstB);
+
+        // 第一种办法：借助哈希表，具体就是Set，时间复杂度：O(m+n)，空间复杂度：O(m)
+
+        // 第二种办法：使用双指针法
+        ListNode node = getIntersectionNode(headA, headB);
+        System.out.println(node == null ? "" : node.val);
+    }
+
+    /**
+     * 使用双指针法：
+     *  时间复杂度：O(m+n)，两个指针同时遍历两个链表，每个指针遍历两个链表各一次
+     *      第一种情况：两个链表相交
+ *              链表A的长度为m，链表B的长度是n。假设链表A不相交的长度为a，链表B不相交的长度为b，两个链表相交的长度为c。则a+c=m，b+c=n
+     *              1）如果a=b，则两个指针同时到达两个链表相交的节点，此时返回即可
+     *              2）如果a!=b，则指针pA会遍历完链表A，指针pB会遍历完链表B，两个指针不会同时到达链表的尾部。然后pA指向链表B的头节点，pB指向链表A的头节点，
+     *                  然后两个指针同时移动，在pA移动了a+c+b，pB移动了b+c+a之后，两个指针会同时达到链表相交的节点，该节点也是两个指针第一次同时指向的节点，返回即可
+     *      第二种情况：两个链表不相交
+     *          链表A的长度为m，链表B的长度是n。
+     *              1） m=n时，两个指针会同时达到链表的尾部，然后同时变成null，此时返回null
+     *              2) m!=n时，由于两个链表没有相同部分，两个指针也不会同时达到链表尾部，因此两个指针都会完两个链表，在pA移动了m+n次，pB移动了n+m次之后，两个指针
+     *                  会同时变成null，此时返回null
+     *  空间复杂度：O(1)，是指用了两个指针
+     * @param headA
+     * @param headB
+     * @return
+     */
+    private ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null){
+            return null;
+        }
+        ListNode pA = headA, pB = headB;
+        while(pA != pB){
+            pA = pA == null ? headB : pA.next;
+            pB = pB == null ? headA : pB.next;
+        }
+        return pA;
+    }
+
 
 }

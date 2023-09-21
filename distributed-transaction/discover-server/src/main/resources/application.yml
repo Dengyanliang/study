@@ -12,12 +12,18 @@ eureka:
     prefer-ip-address: true
     # 配置使用指定IP
     ip-address: 127.0.0.1
-#    instance-id: ${spring.application.name}:${server.port}
+    # 每间隔2s，向服务端发送一次心跳，证明自己依然存活
+    lease-renewal-interval-in-seconds: 2
+    # 告诉服务端，如果当前客户端10s之内没有给服务端发心跳，就代表当前客户端故障了，可以将其剔除
+    lease-expiration-duration-in-seconds: 10
+  #    instance-id: ${spring.application.name}:${server.port}
   server:
-    enable-self-preservation: false #关闭服务器自我保护，客户端心跳检测
-    eviction-interval-timer-in-ms: 20000 #定期删除操作的间隔（单位毫秒）
-    response-cache-update-interval-ms: 3000 #刷新
-    response-cache-auto-expiration-in-seconds: 180 #缓存
+    # 测试时关闭自我保护机制，保证不可用服务及时剔除
+    enable-self-preservation: false
+    # 清理无效节点的时间间隔，默认60000毫秒，也就是60秒
+    eviction-interval-timer-in-ms: 20000
+#    response-cache-update-interval-ms: 3000 #刷新
+#    response-cache-auto-expiration-in-seconds: 180 #缓存
   client:
     # 默认情况下，这个应用会向注册中心（也是它自己）注册，由于我们目前创建的应用是一个服务注册中心，而不是普通的应用，
     # 所以设置为false表示禁止这种自己向自己注册的默认行为

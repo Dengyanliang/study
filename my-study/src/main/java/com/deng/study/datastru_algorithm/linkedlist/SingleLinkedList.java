@@ -900,8 +900,8 @@ public class SingleLinkedList {
 //        singleLinkedList.reversePrint();
 //
 //        System.out.print("reverse: ");
-//        singleLinkedList.reverse();
-//        singleLinkedList.show();
+        singleLinkedList.reverse();
+        singleLinkedList.show();
 
 //        System.out.println("reversePrint2");
 //        singleLinkedList.reversePrint2();
@@ -966,8 +966,8 @@ public class SingleLinkedList {
 //        singleLinkedList.mergeSort2(singleLinkedList2);
 
 //        System.out.println("deleteNthFromEnd:");
-        singleLinkedList.deleteNthFromEnd3(10);
-        singleLinkedList.show();
+//        singleLinkedList.deleteNthFromEnd3(10);
+//        singleLinkedList.show();
 
 //        singleLinkedList.reversePrint2();
 

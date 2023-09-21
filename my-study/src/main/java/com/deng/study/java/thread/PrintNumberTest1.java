@@ -73,11 +73,11 @@ public class PrintNumberTest1 {
             printABC.print("c", c, a);
         }, "t3").start();
 
-//        try {
-//            Thread.sleep(1000); // 让 t1 t2 t3 三个线程都进入等待状态
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(1000); // 让 t1 t2 t3 三个线程都进入等待状态
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         printABC.lock();    // 主线程加锁
         a.signal();         // t1线程唤醒 keypoint 必须有在monitor块中，不然会报错java.lang.IllegalMonitorStateException。所以主线程加锁解锁必须存在
         printABC.unlock();  // 主线程解锁

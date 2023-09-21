@@ -1,5 +1,7 @@
 package com.deng.study.java.thread;
 
+import org.junit.Test;
+
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -16,75 +18,67 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class PrintNumberTest2{
 
-    public static void main(String[] args) {
 
-//        printByMyThread1();
-//        printByMyThread2();
-//
-        printByMyThread3();
-//        printByMyThread4();
-
-    }
-
-    private static void printByMyThread1(){
+    @Test
+    public void printByMyThread1(){
         Thread t1 = new MyThread1("t1");
         Thread t2 = new MyThread1("t2");
-        Thread t3 = new MyThread1("t3");
         t1.start();
         t2.start();
-        t3.start();
     }
 
-    private static void printByMyThread2(){
+    @Test
+    public void printByMyThread2(){
         Thread t1 = new MyThread2("t1");
         Thread t2 = new MyThread2("t2");
         t1.start();
         t2.start();
     }
 
-    private static void printByMyThread3(){
-        MyThread3 myThread3 = new MyThread3();
-        Condition condition1 = myThread3.newCondition();
-        Condition condition2 = myThread3.newCondition();
-        Condition condition3 = myThread3.newCondition();
-        Condition condition4 = myThread3.newCondition();
+    @Test
+    public void printByAwaitSignal(){
+        PrintByAwaitSignal printByAwaitSignal = new PrintByAwaitSignal();
+        Condition condition1 = printByAwaitSignal.newCondition();
+        Condition condition2 = printByAwaitSignal.newCondition();
+        Condition condition3 = printByAwaitSignal.newCondition();
+        Condition condition4 = printByAwaitSignal.newCondition();
         new Thread(()->{
-            myThread3.print(condition1,condition2);
+            printByAwaitSignal.print(condition1,condition2);
         },"t1").start();
         new Thread(()->{
-            myThread3.print(condition2,condition3);
+            printByAwaitSignal.print(condition2,condition3);
         },"t2").start();
         new Thread(()->{
-            myThread3.print(condition3,condition4);
+            printByAwaitSignal.print(condition3,condition4);
         },"t3").start();
         new Thread(()->{
-            myThread3.print(condition4,condition1);
+            printByAwaitSignal.print(condition4,condition1);
         },"t4").start();
 
 
-        myThread3.lock();
+        printByAwaitSignal.lock();
         condition1.signal();
-        myThread3.unlock();
+        printByAwaitSignal.unlock();
     }
 
-    private static void printByMyThread4(){
-        MyThread4 myThread4 = new MyThread4(1);
+    @Test
+    public void printByWaitNotify(){
+        PrintByWaitNotify printByWaitNotify = new PrintByWaitNotify(1);
 
         new Thread(() -> {
-            myThread4.print(1, 2);
+            printByWaitNotify.print(1, 2);
         }, "t1").start();
         new Thread(() -> {
-            myThread4.print(2, 3);
+            printByWaitNotify.print(2, 3);
         }, "t2").start();
         new Thread(() -> {
-            myThread4.print(3, 4);
+            printByWaitNotify.print(3, 4);
         }, "t3").start();
         new Thread(() -> {
-            myThread4.print(4, 1);
+            printByWaitNotify.print(4, 1);
         }, "t4").start();
     }
 }
-
 
 
 class MyThread1 extends Thread{
@@ -105,6 +99,7 @@ class MyThread1 extends Thread{
                 }
                 System.out.println(name + " num:" + count);
                 count++;
+
                 // 唤醒对方
                 MyThread1.class.notifyAll();
                 try {
@@ -113,8 +108,9 @@ class MyThread1 extends Thread{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                // keypoint 唤醒所有线程，防止最后线程永远等待
-                MyThread1.class.notifyAll();
+
+                // 唤醒对方
+//                MyThread1.class.notifyAll();
             }
         }
     }
@@ -135,67 +131,67 @@ class MyThread2 extends Thread{
     public void run() {
         while (count <= NUM) {
             lock.lock();
-            if (count > NUM) {
-                break;
-            }
-            System.out.println(name + " num:" + count);
-            count++;
-            // 唤醒对方
-            condition.signalAll();
             try {
-                // 睡眠自己
-                condition.await();
-            } catch (InterruptedException e) {
+                if (count > NUM) {
+                    break;
+                }
+
+                System.out.println(name + " num:" + count);
+                count++;
+
+                // 唤醒对方
+                condition.signalAll();
+
+                try {
+                    // 睡眠自己
+                    condition.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                // 唤醒对方
+//                condition.signalAll();
+            } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                lock.unlock();
             }
-            // keypoint 唤醒所有线程，防止最后线程永远等待
-            condition.signalAll();
-            lock.unlock();
         }
     }
 }
 
-class MyThread3 extends ReentrantLock{
+class PrintByAwaitSignal extends ReentrantLock{
     private static final int NUM = 20;
     private static int count = 1;
 
-    public MyThread3(){
+    public PrintByAwaitSignal(){
     }
 
     public void print(Condition current,Condition next)  {
         while(count <= NUM){
             lock();
             try {
-                System.out.println(Thread.currentThread().getName() + " await begin");
                 current.await();
-                System.out.println(Thread.currentThread().getName() + " await end");
                 if(count > NUM){
                     break;
                 }
                 System.out.println(Thread.currentThread().getName() + " num:" + count);
                 count++;
-
-                System.out.println(Thread.currentThread().getName() + " signalAll begin");
                 next.signalAll();
-                System.out.println(Thread.currentThread().getName() + " signalAll end");
-
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-//                current.notifyAll();
-                System.out.println(Thread.currentThread().getName() + " unlock");
                 unlock();
             }
         }
     }
 }
 
-class MyThread4{
+class PrintByWaitNotify {
     private static final int NUM = 20;
     private static int count = 1;
     private int flag; // 等待标记
 
-    public MyThread4(int flag){
+    public PrintByWaitNotify(int flag){
         this.flag = flag;
     }
 
@@ -204,15 +200,13 @@ class MyThread4{
             synchronized (this){
                 while(waitFlag != flag){
                     try {
-//                        System.out.println(Thread.currentThread().getName() + " waiting..begin");
                         this.wait();
-//                        System.out.println(Thread.currentThread().getName() + " waiting..end");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 if(count > NUM){
-                    break;
+                    return;
                 }
                 System.out.println(Thread.currentThread().getName() + " num:" + count);
                 count++;
