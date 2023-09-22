@@ -2,7 +2,9 @@ package com.deng.study.datastru_algorithm.linkedlist;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -262,5 +264,133 @@ public class ListNodeTest {
         return pA;
     }
 
+
+    /**
+     * 判断链表是否为回文链表
+     */
+    @Test
+    public void isPalindrome(){
+        ListNode first = new ListNode(1);
+        ListNode second = new ListNode(2);
+        ListNode third = new ListNode(3);
+        ListNode four = new ListNode(2);
+        ListNode five = new ListNode(1);
+//        ListNode six = new ListNode(1);
+
+        first.next = second;
+        second.next = third;
+        third.next = four;
+        four.next = five;
+//        five.next = six;
+
+        boolean flag = checkIsPalindromeByArray(first);
+        System.out.println(flag);
+
+        boolean flag2 = checkIsPalindromeByPointer(first);
+        System.out.println(flag2);
+
+    }
+
+    /**
+     * 通过数组的方式
+     *  1、把链表依次存入到数组中
+     *  2、使用两个指针，分别指向数组的头部和尾部，进行判断
+     *  时间复杂度：O(N)
+     *      1）把整个链表复制到数组中，O(N)
+     *      2) 遍历整个数组，执行了O(N/2)次判断，即O(N)
+     *      所以，整个复杂度：O(N)
+     *  空间复杂度：O(N)：使用数组存放所有的链表元素
+     *
+     * @param head
+     */
+    private boolean checkIsPalindromeByArray(ListNode head){
+        List<Integer> list = new ArrayList<>();
+        ListNode currNode = head;
+        while(currNode != null){
+            list.add(currNode.val);
+            currNode = currNode.next;
+        }
+
+        int begin = 0;
+        int end = list.size() - 1;
+        while(begin < end){
+            if(!list.get(begin).equals(list.get(end))){
+                return false;
+            }
+            begin++;
+            end--;
+        }
+        return true;
+    }
+
+    /**
+     * 1、使用快慢指针找到链表的中间位置
+     * 2、对后半段进行翻转
+     * 3、判断是否回文
+     * 4、恢复链表
+     * 5、返回结果
+     * 时间复杂度：O(N)
+     * 空间复杂度：O(1)
+     *
+     * @param head
+     * @return
+     */
+    private boolean checkIsPalindromeByPointer(ListNode head){
+
+        ListNode firstHalfEnd = getFirstHalfEnd(head);
+        ListNode secondHalfBegin = reverseList(firstHalfEnd.next);
+
+        ListNode p1 = head; // 指向头节点
+        ListNode p2 = secondHalfBegin; // 指向翻转后链表的头节点
+
+        boolean flag = true;
+        // while()中加入flag判断条件的原因是一旦发现flag为flase，则进行短路，不再进行后续的判断
+        // 这里只用判断p2是否为空的原因是因为，后半部分的长度 <= 前半部分
+        while(flag && p2 != null){
+            if(p1.val != p2.val){
+                flag = false;
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+
+        // 还原反转后的链表
+        firstHalfEnd.next = reverseList(secondHalfBegin);
+        return flag;
+    }
+
+    /**
+     * 使用头插法进行链表反转
+     * @param head 当前链表的起始节点
+     * @return
+     */
+    private ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head; // 指向头节点
+        while(curr != null){
+            ListNode nextTemp = curr.next; // 指向当前节点的下一个节点，先保存起来
+            curr.next = prev; // 当前节点的下一个节点指向prev，第一次指向的时候，刚好next为null。从第二次开始，就不再为空
+            prev = curr; // 指向当前节点，永远指向当前节点，也就是链表的第一个节点
+            curr = nextTemp;
+        }
+        return prev;
+    }
+
+    /**
+     * 如果链表为偶数，则前后两个部分链表长度相同
+     * 如果链表为奇数，则中间的节点应该看做前半部分
+     *
+     * @param head
+     * @return
+     */
+    private ListNode getFirstHalfEnd(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
 
 }

@@ -27,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @DS("account-ds")
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public void deductAmount(Integer userId, Long amount) {
 
         String txNo = RootContext.getXID();

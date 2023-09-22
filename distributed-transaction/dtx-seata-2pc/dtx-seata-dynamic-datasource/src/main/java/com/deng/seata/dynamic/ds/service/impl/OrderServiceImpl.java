@@ -53,6 +53,6 @@ public class OrderServiceImpl implements OrderService {
 
         storageService.deductStock(orderRequest.getProductId(),orderRequest.getCount());
 
-        int i =  10 / 0;
+//        int i =  10 / 0;
     }
 }

@@ -22,6 +22,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     @DS("storage-ds")
+    // TODO 这是是否真的需要 propagation = Propagation.REQUIRES_NEW ？？
     @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRES_NEW)
     public void deductStock(Long productId, Long count) {
         String txNo = RootContext.getXID();
