@@ -20,9 +20,7 @@ public class ParkUnParkTest {
             log.debug("park 结束...");
         });
 
-
         t1.start();
-
 //        Thread.sleep(1000);
 
         log.debug("begin unpark...");

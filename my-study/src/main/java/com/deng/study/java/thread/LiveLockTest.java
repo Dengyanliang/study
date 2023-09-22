@@ -15,7 +15,7 @@ public class LiveLockTest {
         new Thread(()->{
             while (count > 0){
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

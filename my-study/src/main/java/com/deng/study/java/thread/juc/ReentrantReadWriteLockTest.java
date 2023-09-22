@@ -11,8 +11,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @Date: 2023/2/17 13:30
  */
 public class ReentrantReadWriteLockTest {
-    static final int SHARED_SHIFT   = 16;
-    static final int EXCLUSIVE_MASK = (1 << SHARED_SHIFT) - 1;
+    private static final int SHARED_SHIFT   = 16;
+    private static final int EXCLUSIVE_MASK = (1 << SHARED_SHIFT) - 1;
 
     /** Returns the number of shared holds represented in count  */
     private static int sharedCount(int c) {

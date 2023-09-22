@@ -26,6 +26,7 @@ public class WaitNotifyTest {
         for (Integer id : MailBoxs.getIds()) {
             new PostMan(id,"内容"+id).start();
         }
+        test1();
     }
 
     private static void test1() {
@@ -80,7 +81,7 @@ class PostMan extends Thread{
         GuardedObject guardedObject = MailBoxs.getGuardedObject(id);
         log.debug("开始送信，id：{}，内容：{}",id,mail);
         guardedObject.complete(mail);
-//        log.debug("送信完成，id：{}，内容：{}",id,mail);
+        log.debug("送信完成，id：{}，内容：{}",id,mail);
     }
 
 

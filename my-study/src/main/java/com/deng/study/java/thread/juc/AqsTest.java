@@ -69,7 +69,9 @@ class MyLock implements Lock {
         // 尝试解锁
         @Override
         protected boolean tryRelease(int arg) {
+            // 把当前线程移除
             setExclusiveOwnerThread(null);
+            // 状态为复原
             setState(0);
             return true;
         }

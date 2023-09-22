@@ -16,13 +16,14 @@ public class SemaphoreTest {
         Semaphore semaphore = new Semaphore(3);
 
         for (int i = 0; i < 10; i++) {
+            int id = i;
             new Thread(() -> {
                 try {
                     semaphore.acquire();
 
-                    log.debug("running...");
+                    log.debug("running...{}", id);
                     MyThreadUtil.sleep(1000);
-                    log.debug("end....");
+                    log.debug("end....{}", id);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {

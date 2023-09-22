@@ -36,7 +36,7 @@ public class BlockQueue<T> {
     }
 
     /**
-     *
+     * 在一定时间内阻塞
      * @param timeout 超时时间
      * @param timeUnit 时间单位
      * @return

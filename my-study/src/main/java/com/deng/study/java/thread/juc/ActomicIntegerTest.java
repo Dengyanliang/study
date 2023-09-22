@@ -1,7 +1,6 @@
 package com.deng.study.java.thread.juc;
 
 
-import org.junit.Test;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,13 +25,11 @@ public class ActomicIntegerTest {
         for(int j = 0; j < 10; j++){
             counter = 0;
             for(int i = 0 ; i < 10; i++){
-                new Thread(){
-                    public void run(){
-                        for(int k = 0 ; k < 1000; k++) {
-                            counter++;
-                        }
+                new Thread(() -> {
+                    for(int k = 0 ; k < 1000; k++) {
+                        counter++;
                     }
-                }.start();
+                }).start();
             }
             Thread.sleep(10);
             System.out.println("test count :"+counter);
@@ -44,15 +41,13 @@ public class ActomicIntegerTest {
         for(int j = 0; j < 10; j++){
             counter = 0;
             for(int i = 0 ; i < 10; i++){
-                new Thread(){
-                    public void run(){
-                        for(int k = 0 ; k < 1000; k++) {
-                            synchronized (object){
-                                counter++;
-                            }
+                new Thread(() -> {
+                    for(int k = 0 ; k < 1000; k++) {
+                        synchronized (object){
+                            counter++;
                         }
                     }
-                }.start();
+                }).start();
             }
             Thread.sleep(10);
             System.out.println("test2() count :"+counter);
@@ -67,15 +62,13 @@ public class ActomicIntegerTest {
 //            counter = 0;
                 final AtomicInteger count = new AtomicInteger(0);
                 for(int i = 0 ; i < 10; i++){
-                    new Thread(){
-                        public void run(){
-                            for(int k = 0 ; k < 1000; k++) {
-                                synchronized (object){
-                                    count.incrementAndGet();
-                                }
+                    new Thread(() -> {
+                        for(int k = 0 ; k < 1000; k++) {
+                            synchronized (object){
+                                count.incrementAndGet();
                             }
                         }
-                    }.start();
+                    }).start();
                 }
                 Thread.sleep(10);
                 System.out.println("test3() count :"+count);
@@ -89,7 +82,6 @@ public class ActomicIntegerTest {
         for(int j = 0; j < 10; j++){
 
             Thread.sleep(10);
-//            System.out.println("test4 incrementAndGet :"+count.incrementAndGet());
             System.out.println("test4 getAndIncrement :"+count.getAndIncrement());
         }
     }
