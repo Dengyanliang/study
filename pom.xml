@@ -19,6 +19,7 @@
         <module>sharding-shpere</module>
         <module>distributed-transaction</module>
         <module>study-common</module>
+        <module>dynamic-datasource</module>
     </modules>
 
     <properties>

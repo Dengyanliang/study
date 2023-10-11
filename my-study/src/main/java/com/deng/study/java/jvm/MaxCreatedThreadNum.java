@@ -1,4 +1,4 @@
-package com.deng.study.java;
+package com.deng.study.java.jvm;
 
 import java.util.concurrent.TimeUnit;
 

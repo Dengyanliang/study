@@ -2,10 +2,7 @@ package com.deng.study.datastru_algorithm.linkedlist;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Desc:
@@ -138,29 +135,39 @@ public class ListNodeTest {
         first.next = second;
         second.next = third;
         third.next = fourth;
-//        fourth.next = second;
+        fourth.next = second;
 
-        ListNode head = new ListNode(0,first);
-        checkpasCycle1(head);
-        checkpasCycle2(head);
+        //
+        ListNode listNode = checkPasCycle1(first);
+        System.out.println("flag1：" + Objects.nonNull(listNode));
+        if(listNode != null){
+            System.out.println("listNode.val：" + listNode.val);
+        }
+
+        boolean flag2 = checkPasCycle2(first);
+        System.out.println("flag2：" + flag2);
+
+        ListNode listNode1 = detectCycle(first);
+        if(listNode1 != null){
+            System.out.println("listNode.val：" + listNode1.val);
+        }
     }
 
     /**
-     * 第一种办法，借助于集合set
+     * 判断链表是否存在环路。
+     * 第一种办法，借助于集合set，这种办法也可以判断环路的入口点
      *   时间复杂度：O(N)，最坏的情况下需要遍历每个节点一次
      *   空间复杂度：O(N)，最坏的情况下需要把每个节点插入到哈希表中一次
      *
      * @param head 头节点
      */
-    private void checkpasCycle1(ListNode head){
+    private ListNode checkPasCycle1(ListNode head){
         Set<ListNode> set = new HashSet<>();
-        boolean flag = false;
-        while(head != null){
-            ListNode currentNode = head.next;
+        ListNode currentNode = head;
+        while(currentNode != null){
             // 直接add，看是否成功。这种办法比先判断contains再add效率要高
             if(!set.add(currentNode)){
-                flag = true;
-                break;
+                return currentNode;
             }
 //            if(set.contains(currentNode)){
 //                System.out.println(currentNode.val);
@@ -169,32 +176,65 @@ public class ListNodeTest {
 //            }else{
 //                set.add(currentNode);
 //            }
-            head = head.next;
+            currentNode = currentNode.next;
         }
-        System.out.println(flag);
+        return null;
     }
 
     /**
-     * 使用快慢指针
+     * 判断链表是否存在环路
+     * 第二种办法，使用快慢指针
      *  时间复杂度：O(N)
      *      当链表中不存在环时，快指针将先于慢指针达到链表尾部，链表中的每个节点至多被访问两次
      *      当链表中存在环时，每一轮移动后，快慢指针的距离将减少一。而初始距离为环的长度，因此至多移动N轮
      *  空间复杂度：O(1) 我们只使用了两个指针的额外空间
      * @param head 头节点
      */
-    private void checkpasCycle2(ListNode head){
+    private boolean checkPasCycle2(ListNode head){
+        if(head == null || head.next == null){
+            return false;
+        }
         ListNode slow = head;
-        ListNode fast = head.next;
-        boolean flag = true;
-        while(slow != fast){
+        ListNode fast = head;
+        do{
             if(fast == null || fast.next == null){
-                flag = false;
-                break;
+               return false;
             }
             slow = slow.next;
             fast = fast.next.next;
+        }while (slow != fast);
+
+        return true;
+    }
+
+    /**
+     * 发现链表中环的位置
+     *
+     * @param head
+     * @return
+     */
+    private ListNode detectCycle(ListNode head){
+        if(head == null){
+            return null;
         }
-        System.out.println(flag);
+        ListNode slow = head,fast = head;
+        while(fast != null){
+            slow = slow.next;
+            if(fast.next != null){
+                fast = fast.next.next;
+            }else{
+                return null;
+            }
+            if(slow == fast){
+                ListNode pos = head;
+                while(pos != slow){
+                    pos = pos.next;
+                    slow = slow.next;
+                }
+                return pos;
+            }
+        }
+        return null;
     }
 
     /**
