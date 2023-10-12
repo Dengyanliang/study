@@ -54,7 +54,7 @@ public class ConsistentHash {
      */
     public static String getRealServerNode(String value) {
         // 1. 传递来一个字符串, 得到它的hash值
-        Integer vnode = value.hashCode() % 1024;
+        Integer vnode = value.hashCode() % VIRTUAL_NODE_COUNT;
         // 2.找到对应节点最近的key的节点值
         String realNode = virtualNodeMap.ceilingEntry(vnode).getValue();
         return realNode;
@@ -100,11 +100,15 @@ public class ConsistentHash {
         String requestValue = "hello";
         // 2. 打印虚拟节点和真实节点的对应关系;
         System.out.println(virtualNodeMap);
+
         // 3. 核心: 传入请求信息, 返回实际调用的节点信息
         System.out.println("==========删除之前, 获取节点的真正node节点对应者: " + getRealServerNode(requestValue));
+
         // 4. 删除某个虚拟节点后
         System.out.println("==========删除 node_2 : ================");
+
         dropBadNode("node_2");
+
         System.out.println("==========删除之后的虚拟节点map: ===========");
         System.out.println(virtualNodeMap);
         System.out.println("==========删除之后, 获取节点的真正node节点对应者: " + getRealServerNode(requestValue));

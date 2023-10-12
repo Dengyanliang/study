@@ -1,7 +1,9 @@
 package com.deng.study.datastru_algorithm.recursion;
 
 
+import com.alibaba.fastjson.JSON;
 import com.deng.common.source.StdOut;
+import org.junit.Test;
 
 
 /**
@@ -10,6 +12,34 @@ import com.deng.common.source.StdOut;
  * @Date: 2020/10/12 19:24
  */
 public class Fibonacci {
+
+    @Test
+    public void testProd(){
+//        int prod = 714; // 800;
+        int prod = 800; // 800;
+        long[] result = new long[3];
+
+        long s1 = 0;
+        long s2 = 0;
+        for(int i = 3; ;i++){
+            s1 = f1(i);
+            s2 = f1(i+1);
+
+            result[0] = s1;
+            result[1] = s2;
+
+            if(s1 * s2 == prod) {
+                result[2] = 1;
+                break;
+            }
+
+            if(s1 * s2 > prod){
+                result[2] = -1;
+                break;
+            }
+        }
+        System.out.println(JSON.toJSONString(result));
+    }
 
     /**
      * 使用递归处理
