@@ -478,4 +478,33 @@ public class NumberTest {
         }
         return String.join(".",ips);
     }
+
+
+    /**
+     * 从0-maxSize中每次都把奇数位置的值去掉，看最后一个数字是什么
+     */
+    @Test
+    public void test(){
+        int maxSize = 100;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i <= maxSize; i++) {
+            list.add(i);
+        }
+
+        while(true){
+            List<Integer> tempList = new ArrayList<>();
+            for (int i = 0; i < list.size(); i++) {
+                if(i % 2 == 1){ // 这里判断是奇数，但是数组是从0开始的，所以这里是将偶数位置的数字放入到临时集合中
+                    tempList.add(list.get(i));
+                }
+            }
+            list = tempList;
+            System.out.println(list);
+            if(list.size() == 1){
+                break;
+            }
+        }
+
+    }
+
 }

@@ -13,16 +13,21 @@ import org.junit.Test;
  */
 public class Fibonacci {
 
+    /**
+     * 给定一个数，通过斐波那契计算是否有两个数的值等于给定的数
+     */
     @Test
     public void testProd(){
-//        int prod = 714; // 800;
-        int prod = 800; // 800;
+        int prod = 714; // 800;
+//        int prod = 800; // 800;
         long[] result = new long[3];
 
         long s1 = 0;
         long s2 = 0;
+        long temp = -1; // 用于保存f(n+1)的值，避免下一次循环的过程中再次计算
+
         for(int i = 3; ;i++){
-            s1 = f1(i);
+            s1 = temp == -1 ? f1(i) : temp;
             s2 = f1(i+1);
 
             result[0] = s1;
@@ -37,6 +42,7 @@ public class Fibonacci {
                 result[2] = -1;
                 break;
             }
+            temp = s2;
         }
         System.out.println(JSON.toJSONString(result));
     }
@@ -71,6 +77,7 @@ public class Fibonacci {
         }
         return dp[n-1]; // 数组是从0下标开始的，所以第n个数，存放在数组的n-1位置上
     }
+
 
     /**
      * 使用动态规划处理：只用保留当前n之前的两个数即可

@@ -210,6 +210,16 @@ public class ListNodeTest {
     /**
      * 发现链表中环的位置
      *
+     * 使用快慢指针，快指针一次走两步，慢指针一次走一步
+     *
+     * 假设链表中环外部分的长度为a，慢指针进去环后，走了b的长度与快指针相遇，剩余未走环的长度为c，则b+c=一圈
+     * 此时，快指针走的长度为 a+n(b+c)+b = a+(n+1)b+nc
+     *      慢指针走的长度为 2(a+b)
+     *      所以两个关联，则 a+(n+1)b+nc = 2(a+b) ===> a=c+(n-1)(b+c)
+     * 从a=c+(n-1)(b+c)这个公式来看，从相遇点到入环点的距离加上n-1圈的环长，恰好等于从链表到入环点的距离a
+     *
+     * 由于使用快慢指针，慢指针走一圈，快指针可以走两圈，所以一定会在慢指针走第一圈的时候相遇
+     *
      * @param head
      * @return
      */
@@ -217,6 +227,7 @@ public class ListNodeTest {
         if(head == null){
             return null;
         }
+        // 使用两个指针，起始都位于链表的头部
         ListNode slow = head,fast = head;
         while(fast != null){
             slow = slow.next;
@@ -225,8 +236,11 @@ public class ListNodeTest {
             }else{
                 return null;
             }
+            // 快慢指针相遇
             if(slow == fast){
+                // pos指向链表头部
                 ListNode pos = head;
+                // 最后会在入环点相遇
                 while(pos != slow){
                     pos = pos.next;
                     slow = slow.next;

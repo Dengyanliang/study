@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * @Desc: 一致性hash
+ * @Desc: 简化版的一致性hash
  * @Auther: dengyanliang
  * @Date: 2023/10/11 18:34
  */
@@ -54,7 +54,7 @@ public class ConsistentHash {
      */
     public static String getRealServerNode(String value) {
         // 1. 传递来一个字符串, 得到它的hash值
-        Integer vnode = value.hashCode() % VIRTUAL_NODE_COUNT;
+        Integer vnode = value.hashCode() % 2^32;
         // 2.找到对应节点最近的key的节点值
         String realNode = virtualNodeMap.ceilingEntry(vnode).getValue();
         return realNode;
