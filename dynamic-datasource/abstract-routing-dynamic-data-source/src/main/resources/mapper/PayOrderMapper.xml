@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deng.study.dynamic.datasource.mapper.PayOrderMapper">
+    <resultMap id="BaseResultMap" type="com.deng.study.dynamic.datasource.entity.PayOrder">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="order_Fee" jdbcType="BIGINT" property="orderFee"/>
+        <result column="pay_status" jdbcType="TINYINT" property="payStatus"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="pay_finish_time" jdbcType="TIMESTAMP" property="payFinishTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, product_id, order_Fee, pay_status, version, update_time, create_time,
+    pay_finish_time
+  </sql>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByPrimaryKeyAndProductId" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pay_order
+    where id = #{id,jdbcType=BIGINT} and product_id = #{productId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pay_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.deng.study.dynamic.datasource.entity.PayOrder" useGeneratedKeys="true">
+    insert into pay_order (id, user_id, product_id, 
+      order_Fee, pay_status, version, 
+      update_time, create_time, pay_finish_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},
+      #{orderFee,jdbcType=BIGINT}, #{payStatus,jdbcType=TINYINT}, #{version,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{payFinishTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.deng.study.dynamic.datasource.entity.PayOrder">
+    update pay_order
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="orderFee != null">
+        order_Fee = #{orderFee,jdbcType=BIGINT},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payFinishTime != null">
+        pay_finish_time = #{payFinishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

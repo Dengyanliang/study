@@ -1,0 +1,41 @@
+spring:
+  shardingsphere:
+    enabled: true
+    datasource:
+      names: master,slave1,slave2,slave3
+      master:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/deng?useUnicode=true&useSSL=false
+        type: org.apache.commons.dbcp2.BasicDataSource
+        username: root
+        password: root123456
+      slave1:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/hu?useUnicode=true&useSSL=false
+        type: org.apache.commons.dbcp2.BasicDataSource
+        username: root
+        password: root123456
+      slave2:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/hu2?useUnicode=true&useSSL=false
+        type: org.apache.commons.dbcp2.BasicDataSource
+        username: root
+        password: root123456
+      slave3:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/hu3?useUnicode=true&useSSL=false
+        type: org.apache.commons.dbcp2.BasicDataSource
+        username: root
+        password: root123456
+    masterslave:
+       load-balance-algorithm-type: round_robin
+       master-data-source-name: master
+       slave-data-source-names: slave1,slave2,slave3
+       name: ms  # 这个名称可以随意定义，但是name这个键值对不能少
+    props:
+      sql.show: false
+mybatis:
+  # 这个xml的位置必须配置，否则会报 no statement 的错误
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true

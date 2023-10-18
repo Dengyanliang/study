@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>dynamic-datasource</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>abstract-routing-dynamic-data-source</module>
+        <module>mybatis-plus-dynamic-data-source</module>
+        <module>shardingsphere-dynamic-datasource</module>
+        <module>shardingsphere-read-write-split</module>
+    </modules>
 
 
 </project>
