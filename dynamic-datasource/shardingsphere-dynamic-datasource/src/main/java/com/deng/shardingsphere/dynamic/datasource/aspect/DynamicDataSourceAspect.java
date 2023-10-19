@@ -10,7 +10,7 @@ import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 /**
- * @Desc: 动态切换数据源切面 第一种方法
+ * @Desc: 动态切换数据源切面
  * @Auther: dengyanliang
  * @Date: 2021/3/21 14:11
  */

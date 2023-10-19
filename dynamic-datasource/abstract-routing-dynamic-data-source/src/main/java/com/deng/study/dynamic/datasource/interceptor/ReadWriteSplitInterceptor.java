@@ -12,7 +12,6 @@ import org.apache.ibatis.ognl.OgnlContext;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ import java.util.List;
  * @Date: 2023/10/17 19:56
  */
 @Slf4j
-@Order(-2)
+//@Order(-2) // 不起作用
 @Component
 @Intercepts({
         @Signature(type = Executor.class,method = "query",

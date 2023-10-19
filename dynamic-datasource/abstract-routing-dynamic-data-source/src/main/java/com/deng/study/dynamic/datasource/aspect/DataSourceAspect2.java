@@ -11,7 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * @Desc: 动态切换数据源切面 第二种方法
+ * @Desc: 动态切换数据源切面 第二种方法：切注解
  * @Auther: dengyanliang
  * @Date: 2023/10/18 15:14
  */

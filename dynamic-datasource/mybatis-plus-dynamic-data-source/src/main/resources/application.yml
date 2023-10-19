@@ -9,17 +9,17 @@ spring:
           username: root
           password: root123456
         # 以 _ 分割的数据源名，首部为组名，相同组名称的数据源会放在一个组下
-        slave_0:
+        slave_1:
           driver-class-name: com.mysql.jdbc.Driver
           url: jdbc:mysql://127.0.0.1:3306/hu?useUnicode=true&useSSL=false
           username: root
           password: root123456
-        slave_1:
+        slave_2:
           driver-class-name: com.mysql.jdbc.Driver
           url: jdbc:mysql://127.0.0.1:3306/hu2?useUnicode=true&useSSL=false
           username: root
           password: root123456
-        slave_2:
+        slave_3:
           driver-class-name: com.mysql.jdbc.Driver
           url: jdbc:mysql://127.0.0.1:3306/hu3?useUnicode=true&useSSL=false
           username: root

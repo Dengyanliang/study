@@ -1,6 +1,7 @@
 package com.deng.study.mybatis.plus.dynamic.datasource.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.dynamic.datasource.annotation.Slave;
 import com.deng.study.mybatis.plus.dynamic.datasource.entity.PayOrder;
 import com.deng.study.mybatis.plus.dynamic.datasource.mapper.PayOrderMapper;
 import com.deng.study.mybatis.plus.dynamic.datasource.service.PayOrderService;
@@ -28,7 +29,17 @@ public class PayOrderServiceImpl implements PayOrderService {
 //        int i = 10 / 0;
     }
 
-    @DS("slave")
+
+    /**
+     * 如果不配置，默认走主库 master
+     * @param id
+     * @param productId
+     * @return
+     */
+//  @DS("master") // 强制走主库查询
+//  @DS("slave") // 轮询算法走从库查询
+//  @Master // 强制走主库查询
+    @Slave
     @Override
     public PayOrder getOrder(Long id,Long productId) {
         return payOrderMapper.selectByPrimaryKey(id);

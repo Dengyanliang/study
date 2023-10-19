@@ -1,5 +1,6 @@
 package com.deng.study.dynamic.datasource.aspect;
 
+import com.deng.study.dynamic.datasource.constant.DataSourceConsts;
 import com.deng.study.dynamic.datasource.datasouce.DynamicDataSourceHandler;
 import com.deng.study.dynamic.datasource.annotation.MyDS;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,7 @@ import org.springframework.core.Ordered;
 import java.lang.reflect.Method;
 
 /**
- * @Desc: 动态切换数据源切面 第一种方法
+ * @Desc: 动态切换数据源切面 第一种方法：切包名，这种办法适用性比较差，一定
  * @Auther: dengyanliang
  * @Date: 2021/3/21 14:11
  */
@@ -43,7 +44,8 @@ public class DataSourceAspect implements Ordered {
                 log.info("******* DataSourceAspect set current dataSource *******");
                 DynamicDataSourceHandler.setCurrentDataSource(dsName);
             }else {
-                log.error("数据源：{} 不存在-->{}", dsName, joinPoint.getSignature());
+                log.error("数据源：{} 不存在，默认走主库-->{}", dsName, joinPoint.getSignature());
+                DynamicDataSourceHandler.setCurrentDataSource(DataSourceConsts.MASTER);
             }
         } else{
             log.info("******* DataSourceAspect set slave datasource *******");

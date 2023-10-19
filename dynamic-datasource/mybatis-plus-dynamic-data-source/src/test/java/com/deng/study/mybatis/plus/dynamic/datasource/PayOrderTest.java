@@ -45,7 +45,7 @@ public class PayOrderTest {
 
     @Test
     public void getOrder(){
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             PayOrder payOrder = payOrderService.getOrder(1L,2L);
             log.info("第 {} 次 查询，payOrder：{}",(i+1),payOrder);
         }
