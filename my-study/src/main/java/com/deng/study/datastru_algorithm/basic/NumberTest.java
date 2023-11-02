@@ -507,4 +507,11 @@ public class NumberTest {
 
     }
 
+    @Test
+    public void testAdd(){
+        int a = 9999999;
+        int b = 9999;
+        System.out.println(a+b);
+    }
+
 }

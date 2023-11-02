@@ -1,6 +1,9 @@
 package com.deng.study.datastru_algorithm.linkedlist;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -11,8 +14,8 @@ import java.util.Stack;
 @Slf4j
 public class SingleLinkedList {
 
-    private Node head;
-    int size;
+    public Node head;
+    public int size;
 
     // https://blog.csdn.net/m0_37572458/article/details/78199507
     public SingleLinkedList(){
@@ -42,8 +45,7 @@ public class SingleLinkedList {
         while(tail.next != null){
             tail = tail.next; // 遍历到结尾
         }
-        Node newNode = new Node(element);
-        tail.next = newNode;
+        tail.next = new Node(element);
         size++;
     }
 
@@ -489,144 +491,147 @@ public class SingleLinkedList {
         }
     }
 
+    @Test
+    public void mergeSort(){
+        SingleLinkedList list1 = getSingleLinkedList1();
+        SingleLinkedList list2 = getSingleLinkedList2();
+        // keypoint 使用头插法合并两个链表，只能是降序
+//        mergeSortByAddFirst(list1,list2);
+
+        // keypoint 使用尾插法合并两个链表，只能是升序
+        mergeSortByAddLast(list1,list2);
+    }
+
     /**
-     * 两个带头节点的单链表递增,合并两个单链表，组成一个新的链表，使其递减显示,利用原来单链表的节点
-     * 遍历两个单链表，并比较当前节点的值，如果相等，就一起插入的新的链表中，否则，小的往后遍历，继续比较。
-     * 采用头插法
+     * 两个带头节点的单链表递增,合并两个单链表，组成一个新的链表，使其递减显示
+     *
+     * 使用头插法合并两个链表，只能是降序；
+     * 利用原来单链表的节点，遍历两个单链表，并比较当前节点的值，如果相等，就一起插入的新的链表中，否则，小的往后遍历，继续比较。
+     *
      * @param list2
      */
-    public void mergeSort2(SingleLinkedList list2){
-        // 先排序
-        sort();
+    private void mergeSortByAddFirst(SingleLinkedList list1,SingleLinkedList list2){
+        list1.sort();
         list2.sort();
 
-        Node curNode1 = this.head.next;
+        Node curNode1 = list1.head.next;
         Node curNode2 = list2.head.next;
+        SingleLinkedList newlist = new SingleLinkedList();
 
-        SingleLinkedList newList = new SingleLinkedList();
-        Node newNode = newList.head;
+        Node newNode = newlist.head;
         newNode.next = null;
 
-        Node nextNode1 = null, nextNode2 = null;
+        Node temp = null;
 
         while(curNode1 != null && curNode2 != null){
-            nextNode1 = curNode1.next;
-            nextNode2 = curNode2.next;
-
             if(curNode1.data < curNode2.data){
+                temp = curNode1.next;
                 curNode1.next = newNode.next;
                 newNode.next = curNode1;
-
-                curNode1 = nextNode1;
-            }else{   // 这里包含了 >=，都是应该往右移  可以看下面的代码
-                curNode1.next = newNode.next;
-                newNode.next= curNode1;
-
+                curNode1 = temp;
+            }else{
+                temp = curNode2.next;
                 curNode2.next = newNode.next;
                 newNode.next = curNode2;
-
-                curNode1 = nextNode1;
-                curNode2 = nextNode2;
+                curNode2 = temp;
             }
-
-
-//            if(curNode1.data == curNode2.data){
-//                curNode1.next = newNode.next;
-//                newNode.next= curNode1;
-//
-//                curNode2.next = newNode.next;
-//                newNode.next = curNode2;
-//
-//                curNode1 = nextNode1;
-//                curNode2 = nextNode2;
-//            }else if(curNode1.data > curNode2.data){
-//                curNode2.next = newNode.next;
-//                newNode.next = curNode2;
-//
-//                curNode2 = nextNode2;
-//            }else{
-//                curNode1.next = newNode.next;
-//                newNode.next = curNode1;
-//
-//                curNode1 = nextNode1;
-//            }
         }
 
         while(curNode1 != null){
-            nextNode1 = curNode1.next;
-
+            temp = curNode1.next;
             curNode1.next = newNode.next;
             newNode.next = curNode1;
-
-            curNode1 = nextNode1;
+            curNode1 = temp;
         }
-
 
         while(curNode2 != null){
-            nextNode2 = curNode2.next;
-
+            temp = curNode2.next;
             curNode2.next = newNode.next;
             newNode.next = curNode2;
-
-            curNode2 = nextNode2;
+            curNode2 = temp;
         }
-        System.out.println("newNode mergeSort2 show");
-        newList.show();
+
+        System.out.println("newList:");
+        print(newlist);
+    }
+
+    /**
+     * 合并两个本来已经有序的链表，使其升序显示
+     * 使用尾插法
+     *
+     * @param list1
+     * @param list2
+     */
+    private void mergeSortByAddLast(SingleLinkedList list1,SingleLinkedList list2){
+        list1.sort();
+        list2.sort();
+
+        Node curNode1 = list1.head.next;
+        Node curNode2 = list2.head.next;
+        SingleLinkedList newlist = new SingleLinkedList();
+
+        Node newHead = newlist.head;
+        newHead.next = null;
+
+        Node temp = null;
+
+        while(curNode1 != null && curNode2 != null){
+            if(curNode1.data < curNode2.data){
+                temp = curNode1.next;
+
+                newHead.next = curNode1;
+                newHead = newHead.next;
+
+                curNode1 = temp;
+            }else{
+                temp = curNode2.next;
+
+                newHead.next = curNode2;
+                newHead = newHead.next;
+
+                curNode2 = temp;
+            }
+        }
+
+        while(curNode1 != null){
+            temp = curNode1.next;
+
+            newHead.next = curNode1;
+            newHead = newHead.next;
+
+            curNode1 = temp;
+        }
+
+        while(curNode2 != null){
+            temp = curNode2.next;
+
+            newHead.next = curNode2;
+            newHead = newHead.next;
+
+            curNode2 = temp;
+        }
+
+        System.out.println("newList:");
+        print(newlist);
     }
 
 
+    @Test
+    public void intersect() {
+        SingleLinkedList list1 = getSingleLinkedList1();
+        SingleLinkedList list2 = getSingleLinkedList2();
+        intersect1(list1,list2);
+        intersect2(list1,list2);
 
-    /**
-     * 两个带头节点的单链表递增,合并两个单链表，组成一个新的链表，使其递减显示,利用原来单链表的节点
-     */
-    public void mergeSort(SingleLinkedList list2){ // TODO
-        sort();
-        list2.sort();
-
-        Node p = this.head.next;
-        Node q = list2.head.next;
-        SingleLinkedList newlist = new SingleLinkedList();
-        Node r = newlist.head;
-        Node after = null;
-        while(p != null && q != null){
-            if(p.data < q.data){
-                after = p.next;
-                p.next = r.next;
-                r.next = p;
-                p = after;
-            }else{
-                after = q.next;
-                q.next = r.next;
-                r.next = q;
-                q = after;
-            }
-            if(q == null){
-                while(p != null){
-                    after = p.next;
-                    p.next = r.next;
-                    r.next = p;
-                    p = after;
-                }
-            }
-            if(p == null){
-                while(q != null){
-                    after = q.next;
-                    q.next = r.next;
-                    r.next = q;
-                    q = after;
-                }
-            }
-        }
-        System.out.println("newList:");
-        print(newlist);
+        list1.show();
     }
 
     /**
      * 两个带头节点的单链表递增有序,求两个链表的交集并存放于其中一个表,时间复杂度O(len1*len2)
      * @param list2
      */
-    public void intersect1(SingleLinkedList list2){
-        Node curNode = head.next;
+    private void intersect1(SingleLinkedList list1,SingleLinkedList list2){
+        Node curNode = list1.head.next;
         Node curNode2 = list2.head.next;
 
         Node pre = this.head; // 该句等同于以下两句，结果一样
@@ -661,16 +666,17 @@ public class SingleLinkedList {
      * 两个带头节点的单链表递增有序,求两个链表的交集并存放于其中一个表,时间复杂度O(len1+len2)
      * @param list2
      */
-    public void intersect2(SingleLinkedList list2){
-        System.out.println("sort():");
-        sort();
-        show();
+    private void intersect2(SingleLinkedList list1,SingleLinkedList list2){
+        System.out.println("list1.sort():");
+        list1.sort();
+        list1.show();
+
         System.out.println("list2.sort():");
         list2.sort();
         list2.show();
 
-        Node pre = this.head;
-        Node curNode = head.next;
+        Node pre = list1.head;
+        Node curNode = list1.head.next;
         Node curNode2 = list2.head.next;
 
         // 如果有Node pre = this.head;就不用下面这两句了，结果是一样的
@@ -694,12 +700,26 @@ public class SingleLinkedList {
         System.out.println("newList intersect2 : ");
     }
 
+    @Test
+    public void intersectC(){
+        SingleLinkedList list1 = getSingleLinkedList1();
+        SingleLinkedList list2 = getSingleLinkedList2();
+
+
+        SingleLinkedList newList = intersectC(list1, list2);
+
+        System.out.println("newList intersectC : ");
+        newList.show();
+    }
+
+
     /**
      * A,B两个带头节点的 单链表递增有序,求AB公共元素构成有序单链表C
      */
-    public SingleLinkedList intersectC(SingleLinkedList list2){
-        System.out.println("intersectC sort():");
-        sort();
+    private SingleLinkedList intersectC(SingleLinkedList list1,SingleLinkedList list2){
+        System.out.println("intersectC list1.sort():");
+        list1.sort();
+
         System.out.println("intersectC list2.sort():");
         list2.sort();
 
@@ -727,14 +747,30 @@ public class SingleLinkedList {
         return newlist;
     }
 
+    @Test
+    public void aisContainsB1(){
+        SingleLinkedList list1 = getSingleLinkedList1();
+        SingleLinkedList list2 = getSingleLinkedList2();
+
+        System.out.println("aisContainsB1 : ");
+
+        boolean flag1 = aisContainsB1(list1,list2);
+        System.out.println("flag:"+flag1);
+
+        boolean flag2 = aisContainsB2(list1,list2);
+        System.out.println("flag2:"+flag2);
+
+
+    }
+
     /**
      * 两个整数序列构成两个带头节点的单链表A,B,判断B是否是A的连续子序列
      * @param list2
      * @return
      */
-    public boolean aisContainsB1(SingleLinkedList list2){
+    private boolean aisContainsB1(SingleLinkedList list1,SingleLinkedList list2){
 
-        Node curNode = this.head.next;
+        Node curNode = list1.head.next;
         Node curNode2 = list2.head.next;
 
         boolean flag = true;
@@ -756,14 +792,16 @@ public class SingleLinkedList {
 
     /**
      * 两个整数序列构成两个带头节点的单链表A,B,判断B是否是A的连续子序列
+     *
+     * @param list1
      * @param list2
      * @return
      */
-    public boolean aisContainsB2(SingleLinkedList list2){
+    public boolean aisContainsB2(SingleLinkedList list1,SingleLinkedList list2){
         if(this.getLength() < list2.getLength()){
             return false;
         }
-        Node curNode1 = this.head.next;
+        Node curNode1 = list1.head.next;
         Node curNode2 = list2.head.next;
         while(curNode1 != null && curNode2 != null){
             if(curNode1.data == curNode2.data){
@@ -848,23 +886,22 @@ public class SingleLinkedList {
     }
 
 
-//    private static Node reverseChainRecursive(Node head){
-//        System.out.println("before ----"+ head);
-//        if(head == null || head.next == null){
-//            System.out.println("after ---" + head);
-//            return head;
-//        }
-//        Node headOfReverseChain = reverseChainRecursive(head.next);
-//        System.out.println("before "+ headOfReverseChain);
-//        head.next.next = head;
-//        head.next = null;
-//        System.out.println("after "+ headOfReverseChain);
-////        head = headOfReverseChain;
-//        return headOfReverseChain;
-//    }
+    private static Node reverseChainRecursive(Node head){
+        System.out.println("before ----"+ head);
+        if(head == null || head.next == null){
+            System.out.println("after ---" + head);
+            return head;
+        }
+        Node headOfReverseChain = reverseChainRecursive(head.next);
+        System.out.println("before "+ headOfReverseChain);
+        head.next.next = head;
+        head.next = null;
+        System.out.println("after "+ headOfReverseChain);
+//        head = headOfReverseChain;
+        return headOfReverseChain;
+    }
 
-
-    public static void main(String[] args) {
+    private SingleLinkedList getSingleLinkedList1(){
         SingleLinkedList singleLinkedList = new SingleLinkedList();
         singleLinkedList.addFirst(3);
         singleLinkedList.addFirst(2);
@@ -877,99 +914,95 @@ public class SingleLinkedList {
 
         singleLinkedList.show();
 
-//        int count = singleLinkedList.size();
-//        System.out.println("count:"+count);
-//
-//        Node node = singleLinkedList.findByIndex(4);
-//        System.out.println(node.data);
-//
-//        node = singleLinkedList.findByValue(1);
-//        System.out.println(Objects.nonNull(node) ? node.data : null);
-//
-//        singleLinkedList.insert(3,100);
-//        singleLinkedList.show();
+        return singleLinkedList;
+    }
 
-//        singleLinkedList.deleteByIndex(3);
-//        singleLinkedList.show();
+    private SingleLinkedList getSingleLinkedList2(){
+        SingleLinkedList singleLinkedList2 = new SingleLinkedList();
+        singleLinkedList2.addLast(15);
+        singleLinkedList2.addLast(10);
+        singleLinkedList2.addLast(99);
+        singleLinkedList2.addLast(66);
+        return singleLinkedList2;
+    }
 
-//        System.out.println("删除对应的节点：3");
-//        singleLinkedList.deleteAllByValue(3);
-//        singleLinkedList.show();
 
-//        System.out.println("reversePrint:");
-//        singleLinkedList.reversePrint();
-//
-//        System.out.print("reverse: ");
+    @Test
+    public void testBasic() {
+        SingleLinkedList singleLinkedList = getSingleLinkedList1();
+
+        int count = singleLinkedList.size();
+        System.out.println("count:" + count);
+
+        Node node = singleLinkedList.findByIndex(4);
+        System.out.println(node.data);
+
+        node = singleLinkedList.findByValue(1);
+        System.out.println(Objects.nonNull(node) ? node.data : null);
+
+        singleLinkedList.insert(3, 100);
+        singleLinkedList.show();
+
+        System.out.println("sort:");
+        singleLinkedList.sort();
+        singleLinkedList.show();
+
+        System.out.println("sortPrint:");
+        singleLinkedList.sortPrint();
+
+        System.out.println("breakIntoTwo:");
+        singleLinkedList.breakIntoTwo1();
+        singleLinkedList.breakIntoTwo2();
+    }
+
+
+    @Test
+    public void testDelete(){
+        SingleLinkedList singleLinkedList = getSingleLinkedList1();
+
+        singleLinkedList.deleteByIndex(3);
+        singleLinkedList.show();
+
+        System.out.println("删除对应的节点：3");
+        singleLinkedList.deleteAllByValue(3);
+        singleLinkedList.show();
+
+        System.out.println("删除最小的节点：");
+        singleLinkedList.deleteMin();
+        singleLinkedList.show();
+
+        System.out.println("删除所有的节点：");
+        singleLinkedList.deleteAll();
+        singleLinkedList.show();
+
+        System.out.println("deleteInteval:");
+        singleLinkedList.deleteInteval(2,3);
+        singleLinkedList.show();
+
+        singleLinkedList.deleteDuplicate();
+        singleLinkedList.show();
+
+        System.out.println("deleteNthFromEnd:");
+        singleLinkedList.deleteNthFromEnd3(10);
+        singleLinkedList.show();
+    }
+
+    @Test
+    public void testReverse(){
+        SingleLinkedList singleLinkedList = getSingleLinkedList1();
+
+        System.out.println("reversePrint:");
+        singleLinkedList.reversePrint();
+
+        System.out.print("reverse: ");
         singleLinkedList.reverse();
         singleLinkedList.show();
 
-//        System.out.println("reversePrint2");
-//        singleLinkedList.reversePrint2();
+        System.out.println("reversePrint2");
+        singleLinkedList.reversePrint2();
 
-//        System.out.println("删除最小的节点：");
-//        singleLinkedList.deleteMin();
-//        singleLinkedList.show();
-
-//        reverseChainRecursive(singleLinkedList.head);
-//        singleLinkedList.show();
-
-//        System.out.println("删除所有的节点：");
-//        singleLinkedList.deleteAll();
-//        singleLinkedList.show();
-
-//        System.out.println("sort:");
-//        singleLinkedList.sort();
-//        singleLinkedList.show();
-
-//        System.out.println("deleteInteval:");
-//        singleLinkedList.deleteInteval(2,3);
-//        singleLinkedList.show();
-
-//        System.out.println("sortPrint:");
-//        singleLinkedList.sortPrint();
-//        singleLinkedList.show();
-
-//        singleLinkedList.breakIntoTwo1();
-
-//        singleLinkedList.breakIntoTwo2();
-
-//        singleLinkedList.deleteDuplicate();
-//        singleLinkedList.show();
-
-
-//        SingleLinkedList singleLinkedList2 = new SingleLinkedList();
-//        singleLinkedList2.addLast(15);
-//        singleLinkedList2.addLast(10);
-//        singleLinkedList2.addLast(99);
-//        singleLinkedList2.addLast(66);
-
-
-//        singleLinkedList.mergeSort(singleLinkedList2);
-
-//        singleLinkedList.intersect1(singleLinkedList2);
-
-//        singleLinkedList.intersect2(singleLinkedList2);
-//        singleLinkedList.show();
-
-//        System.out.println("newList intersectC : ");
-//        SingleLinkedList singleLinkedList3 = singleLinkedList.intersectC(singleLinkedList2);
-//        singleLinkedList3.show();
-
-//        System.out.println("aisContainsB1 : ");
-//        boolean flag = singleLinkedList.aisContainsB1(singleLinkedList2);
-//        System.out.println("flag:"+flag);
-//
-//        boolean flag2 = singleLinkedList.aisContainsB2(singleLinkedList2);
-//        System.out.println("flag2:"+flag2);
-//
-//        System.out.println("mergeSort:");
-//        singleLinkedList.mergeSort2(singleLinkedList2);
-
-//        System.out.println("deleteNthFromEnd:");
-//        singleLinkedList.deleteNthFromEnd3(10);
-//        singleLinkedList.show();
-
-//        singleLinkedList.reversePrint2();
+        reverseChainRecursive(singleLinkedList.head);
+        singleLinkedList.show();
 
     }
 }

@@ -11,7 +11,6 @@ import java.util.*;
  */
 public class ListNodeTest {
 
-
     @Test
     public void 两两交换链表中的节点(){
         ListNode first = new ListNode(1);
@@ -64,10 +63,7 @@ public class ListNodeTest {
         ListNode head = new ListNode(0,first);
 
         ListNode listNode = do_排序链表(head, null);
-        while(listNode != null){
-            System.out.println(listNode.val);
-            listNode = listNode.next;
-        }
+        listNode.print();
     }
 
     /**
@@ -137,7 +133,6 @@ public class ListNodeTest {
         third.next = fourth;
         fourth.next = second;
 
-        //
         ListNode listNode = checkPasCycle1(first);
         System.out.println("flag1：" + Objects.nonNull(listNode));
         if(listNode != null){
@@ -445,6 +440,197 @@ public class ListNodeTest {
             fast = fast.next.next;
         }
         return slow;
+    }
+
+    @Test
+    public void merge(){
+        ListNode firstA = new ListNode(1);
+        ListNode secondA = new ListNode(2);
+        ListNode thirdA = new ListNode(4);
+        firstA.next = secondA;
+        secondA.next = thirdA;
+
+        ListNode firstB = new ListNode(1);
+        ListNode secondB = new ListNode(3);
+        ListNode thirdB = new ListNode(4);
+        firstB.next = secondB;
+        secondB.next = thirdB;
+
+//        ListNode newList = mergeTwoListsByAddFirst(firstA, firstB);
+//        newList.print();
+
+        ListNode newList2 = mergeTwoListsByAddLast(firstA, firstB);
+        newList2.print();
+    }
+
+    /**
+     * 使用头插法
+     *
+     * @param list1
+     * @param list2
+     * @return
+     */
+    private ListNode mergeTwoListsByAddFirst(ListNode list1, ListNode list2) {
+        if(list1 == null && list2 == null){
+            return null;
+        }
+        if(list1 == null){
+            return list2;
+        }
+        if(list2 == null){
+            return list1;
+        }
+        ListNode p1 = list1;
+        ListNode p2 = list2;
+
+        ListNode newList = new ListNode();
+        ListNode temp = null;
+
+        while(p1 != null && p2 != null){
+            if(p1.val > p2.val){
+                temp = p2.next;
+
+                p2.next = newList.next; // 第一次运行到这里之后，此时p2.next为空
+                newList.next = p2;
+
+                p2 = temp;
+            }else{
+                temp = p1.next;
+
+                p1.next = newList.next; // 第一次运行到这里之后，此时p1.next为空
+                newList.next = p1;
+
+                p1 = temp;
+            }
+        }
+        while (p1 != null){
+            temp = p1.next;
+
+            p1.next = newList.next;
+            newList.next = p1;
+
+            p1 = temp;
+        }
+        while(p2 != null){
+            temp = p2.next;
+
+            p2.next = newList.next;
+            newList.next = p2;
+
+            p2 = temp;
+        }
+
+        return newList;
+    }
+
+    private ListNode mergeTwoListsByAddLast(ListNode list1, ListNode list2) {
+        if(list1 == null && list2 == null){
+            return null;
+        }
+        if(list1 == null){
+            return list2;
+        }
+        if(list2 == null){
+            return list1;
+        }
+        ListNode p1 = list1;
+        ListNode p2 = list2;
+
+        ListNode newList = new ListNode();
+        ListNode newHead = newList;
+        ListNode temp = null;
+
+        while(p1 != null && p2 != null){
+            if(p1.val < p2.val){
+                temp = p1.next;
+
+                newHead.next = p1;
+                newHead = newHead.next;
+
+                p1 = temp;
+            }else{
+                temp = p2.next;
+
+                newHead.next = p2;
+                newHead = newHead.next;
+
+                p2 = temp;
+
+            }
+        }
+        while (p1 != null){
+            temp = p1.next;
+
+            newHead.next = p1;
+            newHead = newHead.next;
+
+            p1 = temp;
+        }
+        while(p2 != null){
+            temp = p2.next;
+
+            newHead.next = p2;
+            newHead = newHead.next;
+
+            p2 = temp;
+        }
+
+        return newList;
+    }
+
+    /**
+     * 两数相加：
+     *
+     * 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+     * 请你将两个数相加，并以相同形式返回一个表示和的链表。
+     * 你可以假设除了数字 0 之外，这两个数都不会以 0 开头
+     */
+    @Test
+    public void addTwoNumbers(){
+        ListNode l11 = new ListNode(2);
+        ListNode l12 = new ListNode(4);
+        ListNode l13 = new ListNode(3);
+        l11.next = l12;
+        l12.next = l13;
+
+
+        ListNode l21 = new ListNode(5);
+        ListNode l22 = new ListNode(6);
+        ListNode l23 = new ListNode(7);
+        l21.next = l22;
+        l22.next = l23;
+
+        ListNode newList = addTwoNumbers(l11,l21);
+        newList.print();
+    }
+
+    private ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+       ListNode head = null, tail = null;
+       int carry = 0; // 进位值
+       while (l1 != null || l2 != null) {
+           int n1 = l1 != null ? l1.val : 0;
+           int n2 = l2 != null ? l2.val : 0;
+           int sum = n1 + n2 + carry; // sum 只能单次循环使用，不能定义在外面
+           if(head == null){
+               head = tail = new ListNode(sum % 10);
+           }else{
+               tail.next = new ListNode(sum % 10);
+               tail = tail.next;
+           }
+           carry = sum / 10;
+           if(l1 != null){
+               l1 = l1.next;
+           }
+           if(l2 != null){
+               l2 = l2.next;
+           }
+       }
+       // 链表结束后，如果carry > 0，则表示是进位值，需要新构造一个链表
+       if(carry > 0){
+           tail.next = new ListNode(carry);
+       }
+       return head;
+
     }
 
 }

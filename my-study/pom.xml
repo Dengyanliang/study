@@ -18,11 +18,6 @@
     </properties>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.projectlombok</groupId>-->
-<!--            <artifactId>lombok</artifactId>-->
-<!--        </dependency>-->
-
         <!-- 引入 swagger等相关依赖 -->
         <dependency>
             <groupId>io.springfox</groupId>
