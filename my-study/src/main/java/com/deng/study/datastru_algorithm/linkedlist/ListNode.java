@@ -30,4 +30,22 @@ public class ListNode {
         }
         System.out.println();
     }
+
+    public static ListNode createList(int...vals){
+        if(vals.length == 0){
+            return null;
+        }
+
+        ListNode head = new ListNode(vals[0]);
+        ListNode prev = head;
+
+        for (int i = 1; i < vals.length; i++) {
+            ListNode curr = new ListNode(vals[i]);
+            prev.next = curr;
+            prev = curr;
+        }
+
+        return head;
+    }
+
 }

@@ -54,6 +54,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+
+
         <!--对于自己写的注解能够提示-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

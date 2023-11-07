@@ -13,16 +13,9 @@ public class ListNodeTest {
 
     @Test
     public void 两两交换链表中的节点(){
-        ListNode first = new ListNode(1);
-        ListNode second = new ListNode(2);
-        ListNode third = new ListNode(3);
-        ListNode fourth = new ListNode(4);
+        ListNode first = ListNode.createList(1, 2, 3, 4);
 
-        first.next = second;
-        second.next = third;
-        third.next = fourth;
-
-        ListNode head = new ListNode(0,first);
+        ListNode head = new ListNode(-1,first);
         // 临时指向头节点
         ListNode temp = head;
         // 如果下一个节点和下一个的下一个节点都不为空，则循环
@@ -41,29 +34,17 @@ public class ListNodeTest {
             temp = start;
         }
 
-
-        ListNode pre = head.next;
-        while(pre != null){
-            System.out.println(pre.val);
-            pre = pre.next;
-        }
+        ListNode newList = head.next;
+        newList.print();
     }
 
     @Test
     public void 排序链表(){
-        ListNode first = new ListNode(4);
-        ListNode second = new ListNode(2);
-        ListNode third = new ListNode(1);
-        ListNode fourth = new ListNode(3);
+        ListNode first = ListNode.createList(4, 2, 1, 3);
+        ListNode head = new ListNode(-1,first);
 
-        first.next = second;
-        second.next = third;
-        third.next = fourth;
-
-        ListNode head = new ListNode(0,first);
-
-        ListNode listNode = do_排序链表(head, null);
-        listNode.print();
+        ListNode newList = do_排序链表(head, null);
+        newList.print();
     }
 
     /**
@@ -95,7 +76,7 @@ public class ListNodeTest {
     }
 
     private ListNode merge(ListNode head1, ListNode head2) {
-        ListNode dummyNode = new ListNode(0);
+        ListNode dummyNode = new ListNode(-1);
         ListNode tempNode = dummyNode;
         ListNode temp1 = head1,temp2 = head2;
         // 遍历两个链表并进行比较
@@ -123,15 +104,7 @@ public class ListNodeTest {
      */
     @Test
     public void pasCycle(){
-        ListNode first = new ListNode(3);
-        ListNode second = new ListNode(2);
-        ListNode third = new ListNode(0);
-        ListNode fourth = new ListNode(1);
-
-        first.next = second;
-        second.next = third;
-        third.next = fourth;
-        fourth.next = second;
+        ListNode first = ListNode.createList(3, 2, 0, 1);
 
         ListNode listNode = checkPasCycle1(first);
         System.out.println("flag1：" + Objects.nonNull(listNode));
@@ -417,10 +390,10 @@ public class ListNodeTest {
         ListNode prev = null;
         ListNode curr = head; // 指向头节点
         while(curr != null){
-            ListNode nextTemp = curr.next; // 指向当前节点的下一个节点，先保存起来
+            ListNode nextNode = curr.next; // 指向当前节点的下一个节点，先保存起来
             curr.next = prev; // 当前节点的下一个节点指向prev，第一次指向的时候，刚好next为null。从第二次开始，就不再为空
             prev = curr; // 指向当前节点，永远指向当前节点，也就是链表的第一个节点
-            curr = nextTemp;
+            curr = nextNode;
         }
         return prev;
     }
@@ -444,17 +417,9 @@ public class ListNodeTest {
 
     @Test
     public void merge(){
-        ListNode firstA = new ListNode(1);
-        ListNode secondA = new ListNode(2);
-        ListNode thirdA = new ListNode(4);
-        firstA.next = secondA;
-        secondA.next = thirdA;
+        ListNode firstA = ListNode.createList(1, 2, 4);
 
-        ListNode firstB = new ListNode(1);
-        ListNode secondB = new ListNode(3);
-        ListNode thirdB = new ListNode(4);
-        firstB.next = secondB;
-        secondB.next = thirdB;
+        ListNode firstB = ListNode.createList(1, 3, 4);
 
 //        ListNode newList = mergeTwoListsByAddFirst(firstA, firstB);
 //        newList.print();
@@ -587,18 +552,8 @@ public class ListNodeTest {
      */
     @Test
     public void addTwoNumbers(){
-        ListNode l11 = new ListNode(2);
-        ListNode l12 = new ListNode(4);
-        ListNode l13 = new ListNode(3);
-        l11.next = l12;
-        l12.next = l13;
-
-
-        ListNode l21 = new ListNode(5);
-        ListNode l22 = new ListNode(6);
-        ListNode l23 = new ListNode(7);
-        l21.next = l22;
-        l22.next = l23;
+        ListNode l11 = ListNode.createList(2, 4, 3);
+        ListNode l21 = ListNode.createList(5, 6, 7);
 
         ListNode newList = addTwoNumbers(l11,l21);
         newList.print();
@@ -632,5 +587,143 @@ public class ListNodeTest {
        return head;
 
     }
+
+    /**
+     * 删除排序链表中的重复元素 II
+     * 一次遍历解决
+     * 时间复杂度：O(N)
+     * 空间复杂度：O(1)
+     */
+    @Test
+    public void deleteDuplicates(){
+        ListNode l1 = ListNode.createList(1, 2, 3, 3, 4, 4, 5);
+        l1.print();
+
+        ListNode listNode = deleteDuplicates(l1);
+        listNode.print();
+
+    }
+
+    private ListNode deleteDuplicates(ListNode head) {
+        if(head == null){
+            return null;
+        }
+        ListNode dummy = new ListNode(-1,head);
+        ListNode curr = dummy;
+        while(curr.next != null && curr.next.next != null){
+            if(curr.next.val == curr.next.next.val){
+                int x = curr.next.val;
+                while(curr.next != null && curr.next.val == x){
+                    curr.next = curr.next.next;
+                }
+            }else{
+                curr = curr.next;
+            }
+        }
+        return dummy.next;
+    }
+
+
+    /**
+     * 反转链表 II
+     *
+     */
+    @Test
+    public void reverseBetween() {
+        ListNode head = ListNode.createList(9, 7, 2, 5, 4, 3, 6);
+
+        /********** 第一种办法 ************/
+//        ListNode reveredList1 = reverseBetween1(head,2,5);
+//        reveredList1.print();
+
+        ListNode reveredList2 = reverseBetween2(head,2,5);
+        reveredList2.print();
+
+    }
+
+
+    /**
+     * 时间复杂度：O(N)
+     * 空间复杂度：O(1)
+     *
+     * 这里如果开始节点和结束节点分别是头节点和尾节点，那么就需要遍历两次
+     *
+     * @param head 原始链表的头节点
+     * @param left 需要翻转的左侧节点的位置
+     * @param right 需要翻转的右侧节点的位置
+     * @return
+     */
+    private ListNode reverseBetween1(ListNode head, int left, int right) {
+        ListNode dummy = new ListNode(-1,head);
+
+        // 从虚拟节点走left-1步，走到left的前驱节点
+        ListNode leftPrev = dummy;
+        for (int i = 0; i < left-1; i++) {
+            leftPrev = leftPrev.next;
+        }
+
+        ListNode rightNode = leftPrev;
+        // 再从prev出发，再走right-left+1步，定位出right的节点
+        for (int i = 0; i < right-left+1; i++) {
+            rightNode = rightNode.next;
+        }
+
+        // 定义出需要反转的左右结点，进行切断
+        ListNode leftNode = leftPrev.next;
+        ListNode curr = rightNode.next;
+
+        // 对待翻转的链表进行截断
+        leftPrev.next = null;
+        rightNode.next = null;
+
+        // 进行翻转
+        reverseList(leftNode);
+
+        // 进行拼装
+        leftPrev.next = rightNode;
+        // 通过上述翻转后，leftNode已经移动到rightNode位置，所以它的next就是当前的节点
+        leftNode.next = curr;
+
+        return dummy.next;
+    }
+
+    /**
+     * 第二种方法，只遍历一次，类似于冒泡算法
+     * 这里需要使用三个指针变量：
+     *  prev：永远指向待翻转节点的第一个节点的前驱节点
+     *  curr：带翻转节点的第一个节点left
+     *  next：永远指向curr的下一个节点，curr变化后，next会变化
+     *
+     * @return
+     */
+    private ListNode reverseBetween2(ListNode head, int left, int right) {
+        ListNode dummy = new ListNode(-1,head);
+
+        ListNode prev = dummy;
+        for (int i = 0; i < left - 1; i++) {
+            prev = prev.next;
+        }
+        ListNode curr = prev.next;
+        ListNode next = null;
+        for (int i = 0; i < right - left; i++) {
+            // 把当前节点的下一个节点保存起来
+            next = curr.next;
+
+            // curr指向下一个节点的next
+            curr.next = next.next;
+
+            // next指向前驱节点的next，这样相当于后面两个节点进行了交换
+            next.next = prev.next;
+
+            // 前驱节点指向下一个节点
+            prev.next = next;
+        }
+
+        return dummy.next;
+
+    }
+
+
+
 
 }
