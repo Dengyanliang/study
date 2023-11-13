@@ -724,6 +724,77 @@ public class ListNodeTest {
     }
 
 
+    /**
+     * 旋转链表：给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。
+     *
+     */
+    @Test
+    public void rotateRight() {
+        ListNode head = ListNode.createList(1, 2, 3, 4, 5);
+        ListNode newList = rotateRight(head, 2);
+        newList.print();
+    }
+
+    private ListNode rotateRight(ListNode head, int k) {
+        if(k == 0 || head == null || head.next == null){
+            return head;
+        }
+        // 找到原始链表的最后一个节点，以及链表的长度
+        int n = 1; // 这里n=1是因为head节点不为空
+        ListNode iter = head;
+        while(iter.next != null){
+            iter = iter.next;
+            n++;
+        }
+
+        // 计算出需要移动多少个位置
+        int add = n - k % n;
+        if(add == n){ // 说明不需要移动
+            return head;
+        }
+        // 把原始链表首尾连接起来，构成一个环路
+        iter.next = head;
+        while (add-- > 0){
+            iter = iter.next;
+        }
+        // 指向新链表的起始位置
+        ListNode newHead = iter.next;
+        // 原始环路链表的最后一个节点进行截断
+        iter.next = null;
+        return newHead;
+    }
+
+    /**
+     * 给你一个链表的头节点 head 和一个特定值 x ，请你对链表进行分隔，使得所有 小于 x 的节点都出现在 大于或等于 x 的节点之前。
+     *
+     */
+    @Test
+    public void partition() {
+        ListNode head = ListNode.createList(1, 4, 3, 2, 5, 2);
+        ListNode newList = partition(head, 3);
+        newList.print();
+    }
+
+    private ListNode partition(ListNode head, int x) {
+        ListNode small = new ListNode(-1); // 拼接链表中小于x的值
+        ListNode smallHead = small;  // 一直指向small的头部
+        ListNode large = new ListNode(-1); // 拼接链表中大于x的值
+        ListNode largeHead = large; // 一直指向large的头部
+        while(head != null){
+            if (head.val < x) {
+                small.next = head;
+                small = small.next;
+            } else {
+                large.next = head;
+                large = large.next;
+            }
+            head = head.next;
+        }
+        large.next = null; // 阶段原始链表的拼接
+        small.next = largeHead.next; // 把small的尾部拼接上large的头部
+        return smallHead.next; // 返回small的头部下一个值，就是真正的链表值
+    }
+
 
 
 }

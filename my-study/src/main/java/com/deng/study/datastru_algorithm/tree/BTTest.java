@@ -1,11 +1,11 @@
 package com.deng.study.datastru_algorithm.tree;
 
 import com.deng.study.enums.ThreadClassEnum;
-import com.sun.jmx.remote.internal.ArrayQueue;
-import lombok.val;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Objects;
 
 /**
  * @Desc:
@@ -30,19 +30,19 @@ public class BTTest {
 
         BTree bTree = new BTree();
         bTree.createBTree(str);
-
-        String nodeStr = bTree.getNodeStr(bTree.getRootNode());
-        System.out.println(nodeStr);
 //
-//        int level = bTree.getLevel2(bTree, 'G');
-//        System.out.println("节点所在层次：" + level);
+//        String nodeStr = bTree.getNodeStr(bTree.getRootNode());
+//        System.out.println(nodeStr);
+////
+////        int level = bTree.getLevel2(bTree, 'G');
+////        System.out.println("节点所在层次：" + level);
+////
+////        bTree.preOrder();
+//        String s = bTree.preOrderSeq();
+//        System.out.println("序列化后的字符串为："+ s);
 //
-//        bTree.preOrder();
-        String s = bTree.preOrderSeq();
-        System.out.println("序列化后的字符串为："+ s);
-
-        BTree treeBySeq = bTree.createTreeBySeq(s);
-        treeBySeq.preOrder();
+//        BTree treeBySeq = bTree.createTreeBySeq(s);
+//        treeBySeq.preOrder();
 
 //        String ancestor = bTree.getAncestor(bTree, 'G');
 //        System.out.println("第一种办法获取节点的祖先：" + ancestor);
@@ -62,7 +62,7 @@ public class BTTest {
 //
 //        bTree.noRecursionPreOrder();
 //        bTree.noRecursionPreOrder2();
-//        bTree.noRecursionMiddleOrder();
+        bTree.noRecursionMiddleOrder();
 //        bTree.noRecursionPostOrder();
 //        bTree.levelOrder();
 
