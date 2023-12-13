@@ -1,7 +1,5 @@
 package com.deng.study.datastru_algorithm.tree;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 
 import java.util.*;
@@ -282,34 +280,38 @@ public class TreeNodeTest {
         root.right = node2;
         node2.left = node3;
         node2.right = node4;
-        List<List<Integer>> lists = levelOrder(root);
-        for (List<Integer> list : lists) {
-            System.out.println(list);
-        }
+        TreeNode.levelOrder(root);
     }
-    private List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
 
-        Queue<TreeNode> queue = new LinkedList<>();
-        if(Objects.nonNull(root)){
-            queue.add(root);
-        }
+    @Test
+    public void invertTree() {
+        TreeNode root = new TreeNode(4);
+        TreeNode node1 = new TreeNode(2);
+        TreeNode node2 = new TreeNode(7);
+        TreeNode node3 = new TreeNode(1);
+        TreeNode node4 = new TreeNode(3);
+        root.left = node1;
+        root.right = node2;
 
-        while(!queue.isEmpty()){
-            int n = queue.size();
-            List<Integer> list = new ArrayList<>();
-            for (int i = 0; i < n; i++) {
-                TreeNode node = queue.poll();
-                list.add(node.val);
-                if (Objects.nonNull(node.left)) {
-                    queue.add(node.left);
-                }
-                if (Objects.nonNull(node.right)) {
-                    queue.add(node.right);
-                }
-            }
-            result.add(list);
-        }
-        return result;
+        node2.left = node3;
+        node2.right = node4;
+
+        TreeNode newTreeNode = invertTree(root);
+        TreeNode.levelOrder(newTreeNode);
     }
+
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+
+        root.left = right;
+        root.right = left;
+
+        return root;
+    }
+
+
 }

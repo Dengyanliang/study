@@ -104,6 +104,7 @@ public class TreeTest {
         if(left.data != right.data){
             return false;
         }
+        // 判断左子树的左节点和右子树的右节点 && 左子树的右节点和右子树的左节点
         return isSymmetricalCore(left.lchild,right.rchild) && isSymmetricalCore(left.rchild,right.lchild);
     }
 
@@ -133,7 +134,7 @@ public class TreeTest {
     }
 
     private BTNode getNode2(){
-        BTNode rootNode = new BTNode("a");
+        BTNode<String> rootNode = new BTNode<>("a");
         BTNode node1 = new BTNode("c");
         BTNode node2 = new BTNode("b");
 

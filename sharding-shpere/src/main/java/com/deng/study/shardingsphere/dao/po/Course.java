@@ -3,13 +3,14 @@ package com.deng.study.shardingsphere.dao.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
-//@TableName("t_course")
+@TableName("t_course")
 public class Course implements Serializable {
     /**
      * type = IdType.NONE 数据库未设置主键类型（当手动设置主键id值后插入数据库，值会按设置的值插入，

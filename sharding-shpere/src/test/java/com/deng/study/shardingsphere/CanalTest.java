@@ -18,6 +18,7 @@ import redis.clients.jedis.Jedis;
 import javax.annotation.Resource;
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Desc: Canal监听数据库，并同步到新的数据库表中
@@ -29,10 +30,8 @@ import java.util.List;
 @SpringBootTest(classes = ShardingShpereApplication.class)
 public class CanalTest {
 
-    private static final String MY_COURSE = "my_course";
     @Resource
     private CanalMapper canalMapper;
-
 
     @Test
     public void test(){
@@ -55,14 +54,12 @@ public class CanalTest {
 //            connector.subscribe(".*\\..*"); // 这是监听所有的库的所有表，不建议这么做
 //             3、订阅数据库
             connector.subscribe("course_db.course");
-            connector.rollback();
-            int totalEmptyCount = 120; // 120秒就结束x`了
+            connector.rollback(); // 回到上次读取的位置，重新回到上次binlog消费的地方
+            int totalEmptyCount = 120; // 120秒就结束了
             while (emptyCount < totalEmptyCount) {
                 // 4、获取指定数量的数据
                 Message message = connector.getWithoutAck(batchSize);
-                long batchId = message.getId();
-                int size = message.getEntries().size();
-                if (batchId == -1 || size == 0) {
+                if (Objects.isNull(message) || message.getId() < 0 || message.getEntries().size() == 0) {
                     System.out.println("没有获取到数据。。。");
                     emptyCount++;
                     System.out.println("empty count : " + emptyCount);
@@ -77,9 +74,9 @@ public class CanalTest {
                     try {
                         // 处理数据，打印、写入到缓存、写入到数据库
                         handleEntry(message.getEntries());
-                        connector.ack(batchId); // 提交确认
+                        connector.ack(message.getId()); // 提交确认
                     } catch (Exception e) {
-//                        connector.rollback(batchId); // 处理失败, 回滚数据
+//                        connector.rollback(message.getId()); // 处理失败, 回滚数据
                     }
                 }
             }
@@ -90,8 +87,8 @@ public class CanalTest {
         }
     }
 
-    private void handleEntry(List<Entry> entrys) throws Exception{
-        for (Entry entry : entrys) {
+    private void handleEntry(List<Entry> entries) throws Exception{
+        for (Entry entry : entries) {
             // 如果不是数据变化，则过滤掉
             if (entry.getEntryType() != EntryType.ROWDATA) {
                 continue;
@@ -142,7 +139,7 @@ public class CanalTest {
         }
         // update table set col1=value1,col2=value2 where id = ?;
         StringBuilder sql = new StringBuilder("update ");
-        sql.append(MY_COURSE).append(" set ");
+        sql.append(tableName).append(" set ");
         for (int i = 0; i < columns.size(); i++) {
             Column column = columns.get(i);
             sql.append(column.getName()).append("= '").append(column.getValue()).append("'");
@@ -186,7 +183,7 @@ public class CanalTest {
         }
         // insert into table(col1,col2) values (value1,value2);
         StringBuilder sql = new StringBuilder("insert into ");
-        sql.append(MY_COURSE).append("(");
+        sql.append(tableName).append("(");
         for (int i = 0; i < columns.size(); i++) {
             sql.append(columns.get(i).getName());
             if(i != columns.size() - 1){
@@ -227,7 +224,7 @@ public class CanalTest {
         }
         // delete from table where id = ?;
         StringBuilder sql = new StringBuilder("delete from ");
-        sql.append(MY_COURSE).append(" where ");
+        sql.append(tableName).append(" where ");
         for (int i = 0; i < columns.size(); i++) {
             Column column = columns.get(i);
             // 如果是主键

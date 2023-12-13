@@ -3,6 +3,7 @@ package com.deng.study.java.string;
 import com.google.common.base.Stopwatch;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -41,6 +42,20 @@ public class StringTest {
         String logMessage = String.format(msg, orderId, Arrays.toString(object));
         log.info(logMessage);
         log.info("**********************");
+    }
+
+    @Test
+    public void test(){
+        String s = "aaa"; // 不可变，如果尝试去修改，则会生成一个新的字符串对象，而StringBuffer、StringBuilder是可变的
+        s = "bbb";
+        System.out.println(s);
+
+        // 线程下不安全，效率比StringBuffer效率高
+        StringBuilder builder = new StringBuilder();
+
+        // 线程安全
+        StringBuffer buffer = new StringBuffer();
+
     }
 
 }
