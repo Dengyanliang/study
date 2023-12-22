@@ -3,36 +3,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.deng.study</groupId>
         <artifactId>learning</artifactId>
+        <groupId>com.deng.study</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>distributed-transaction</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+
+    <artifactId>microservice</artifactId>
     <packaging>pom</packaging>
-
     <modules>
-        <module>discover-server</module>
-        <module>dtx-atomikos-xa</module>
-        <module>dtx-seata-2pc</module>
-        <module>dtx-hmily-tcc</module>
-        <module>dtx-narayana-xa</module>
-        <module>dtx-jta-atomikos-xa</module>
-        <module>dtx-jta-bitronix-xa</module>
-        <module>dtx-hmily-bank-tcc</module>
+        <module>employee-center</module>
+        <module>restroom-center</module>
     </modules>
-
 
     <properties>
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-        <alibaba-cloud.version>2.2.3.RELEASE</alibaba-cloud.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
+        <alibaba-cloud.version>2.2.6.RELEASE</alibaba-cloud.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
 
     <dependencyManagement>
         <dependencies>

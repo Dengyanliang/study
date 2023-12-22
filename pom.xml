@@ -20,6 +20,7 @@
         <module>distributed-transaction</module>
         <module>study-common</module>
         <module>dynamic-datasource</module>
+        <module>microservice</module>
     </modules>
 
     <properties>

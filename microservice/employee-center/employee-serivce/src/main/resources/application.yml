@@ -1,0 +1,96 @@
+
+server:
+  port: 21000
+  # spring boot 2.3.x 和2.2.X的一个异常处理的改动
+  error:
+    include-exception: true
+    include-stacktrace: on_param
+    include-message: always
+
+spring:
+  application:
+    name: employee-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        metadata:
+          myname: liang
+          mylover: xin
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+  datasource:
+    # 数据源
+    driver-class-name: com.mysql.jdbc.Driver
+    ## 如果当前链接因为超时断掉了，那么驱动程序会自动重新连接数据库：autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://127.0.0.1:3306/deng?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: root123456
+    type: com.zaxxer.hikari.HikariDataSource
+    # 连接池
+    hikari:
+      connection-timeout: 20000
+      idle-timeout: 20000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      max-lifetime: 30000
+      auto-commit: true
+      pool-name: imoocHikari
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
