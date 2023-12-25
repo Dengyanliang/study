@@ -8,10 +8,14 @@ import com.deng.employee.feign.RestroomFeignClient;
 import com.deng.employee.feign.response.Toilet;
 import com.deng.employee.pojo.ActivityType;
 import com.deng.employee.pojo.EmployeeActivity;
+import io.seata.core.context.RootContext;
+import io.seata.rm.tcc.api.BusinessActionContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,7 +54,7 @@ public class EmployeeService implements IEmployeeActivityService {
      * {
      * 	"host": "192.168.2.18",
      *
-     * 	### 这就是元数据
+     * 	### metadata包含的就是元数据
      * 	"metadata": {
      * 		"mylover": "xin",
      *
@@ -78,6 +83,8 @@ public class EmployeeService implements IEmployeeActivityService {
 
     @Override
     @PostMapping("/toilet-break")
+    @Transactional(rollbackFor = Exception.class)
+    @GlobalTransactional
     public EmployeeActivity useToilet(Long employeeId) {
 
         int count = employeeActivityDao.
@@ -105,11 +112,39 @@ public class EmployeeService implements IEmployeeActivityService {
         EmployeeActivity result = new EmployeeActivity();
         BeanUtils.copyProperties(toiletBreak,result);
 
+//        throw new RuntimeException("分布式测试");
         return result;
     }
 
     @Override
+    @PostMapping("/done")
+    @Transactional(rollbackFor = Exception.class)
+    @GlobalTransactional  // 分布式事务控制
     public EmployeeActivity restoreToilet(Long employeeId) {
-        return null;
+
+        EmployeeActivityEntity record = employeeActivityDao.findById(employeeId).
+                orElseThrow(()-> new RuntimeException("record not found"));
+        if(!record.isActive()){
+            throw new RuntimeException("activity is no longer active");
+        }
+
+        // 抢坑，这里需要用分布式事务
+        String xid = RootContext.getXID();
+        BusinessActionContext actionContext = new BusinessActionContext();
+        actionContext.setXid(xid);
+
+        restroomFeignClient.releaseTCC(record.getResourceId());
+
+        record.setActive(false);
+        record.setEndTime(new Date());
+        employeeActivityDao.save(record);
+
+        // 保存如厕记录
+
+        EmployeeActivity result = new EmployeeActivity();
+        BeanUtils.copyProperties(record,result);
+
+        throw new RuntimeException("分布式测试");
+//        return result;
     }
 }

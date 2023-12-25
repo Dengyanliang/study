@@ -43,7 +43,7 @@ public interface RestroomFeignClient {
     ToiletResponse proto(@RequestParam("id") String id);
 
 //    @PostMapping("/toilet-service/releaseTCC")
-//    public Toilet releaseTCC(@RequestBody BusinessActionContext actionContext,
+//    Toilet releaseTCC(@RequestBody BusinessActionContext actionContext,
 //                                     @RequestParam("id") Long id);
 
     @PostMapping("/toilet-service/releaseTCC")

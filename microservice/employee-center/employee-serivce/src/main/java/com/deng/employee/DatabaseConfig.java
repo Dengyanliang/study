@@ -10,14 +10,17 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 /**
- * @Desc:
+ * @Desc: 用于控制分布式事务
  * @Auther: dengyanliang
  * @Date: 2023/12/22 12:22
  */
 @Configuration
 public class DatabaseConfig {
 
-
+    /**
+     * 配置数据源
+     * @return
+     */
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DruidDataSource druidDataSource(){
@@ -25,23 +28,15 @@ public class DatabaseConfig {
     }
 
 
+    /**
+     * 配置数据源的代理
+     * @param druidDataSource
+     * @return
+     */
     @Primary
     @Bean("datasource")
     public DataSource dataSource(DruidDataSource druidDataSource){
         return new DataSourceProxy(druidDataSource);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

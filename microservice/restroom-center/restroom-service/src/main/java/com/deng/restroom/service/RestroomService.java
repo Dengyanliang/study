@@ -5,12 +5,14 @@ import com.deng.restroom.dao.ToiletDao;
 import com.deng.restroom.entity.ToiletEntity;
 import com.deng.restroom.pojo.Toilet;
 import com.deng.restroom.response.ToiletResponse;
+import io.seata.rm.tcc.api.BusinessActionContext;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 @RequestMapping("toilet-service")
 public class RestroomService implements IRestroomTccService{
 
-    @Autowired
+    @Resource
     private ToiletDao toiletDao;
 
     @GetMapping("/get")
@@ -58,6 +60,7 @@ public class RestroomService implements IRestroomTccService{
 
         toiletEntity.setClean(false);
         toiletEntity.setAvailable(false);
+
         toiletDao.save(toiletEntity);
 
         return ToiletConverter.convert(toiletEntity);
@@ -97,11 +100,66 @@ public class RestroomService implements IRestroomTccService{
     }
 
 
+    @Override
+    @Transactional
+    @PostMapping("/releaseTCC")
+    public Toilet releaseTCC(Long id) {
+        log.info("**** Try release TCC **** id={}",id);
+        ToiletEntity entity = toiletDao.findById(id)
+                .filter(s -> !s.isReserved())
+                .orElseThrow(() -> new RuntimeException("toilet not found"));
 
+        entity.setReserved(true);
+        toiletDao.save(entity);
 
+        return ToiletConverter.convert(entity);
+    }
 
+    @Override
+    @Transactional
+    public boolean releaseCommit(BusinessActionContext actionContext) {
+        try {
+            log.info("class = {}" , actionContext.getActionContext("id").getClass());
 
+            Long id = Long.parseLong(actionContext.getActionContext("id").toString());
+            log.info("**** Confirm release TCC **** id={}, xid={}", id, actionContext);
 
+            Optional<ToiletEntity> optional = toiletDao.findById(id);
+            if(optional.isPresent()){
+                ToiletEntity toiletEntity = optional.get();
+                toiletEntity.setClean(true);
+                toiletEntity.setAvailable(true);
+                toiletEntity.setReserved(false);
+                toiletDao.save(toiletEntity);
+            }
+            return true;
+        } catch (Exception e) {
+            log.error("releaseCommit the restroom occur execption",e);
+            return false;
+        }
+    }
 
+    @Override
+    public boolean releaseCancel(BusinessActionContext actionContext) {
+        try {
+            log.info("class = {}" , actionContext.getActionContext("id").getClass()); // class java.lang.Integer
 
+            Long id = Long.parseLong(actionContext.getActionContext("id").toString());
+            log.info("**** Confirm release TCC **** id={}, xid={}", id, actionContext);
+
+            Optional<ToiletEntity> optional = toiletDao.findById(id);
+            if(optional.isPresent()){
+                ToiletEntity toiletEntity = optional.get();
+                toiletEntity.setClean(false);
+                toiletEntity.setAvailable(false);
+                toiletEntity.setReserved(false);
+                toiletDao.save(toiletEntity);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("releaseCancel the restroom occur execption",e);
+            return false;
+        }
+    }
 }

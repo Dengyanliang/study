@@ -65,3 +65,19 @@ management:
   health:
     rabbit:
       enabled: false
+
+seata:
+  enabled: true
+  application-id: restroom-service
+  tx-service-group: my_test_tx_group
+#  service:
+#    vgroup-mapping:
+#      my_test_tx_group: defalut
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      application: seata-server
+      cluster: default
+      group: SEATA_GROUP
+      namespace:
