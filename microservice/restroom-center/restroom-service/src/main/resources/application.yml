@@ -15,7 +15,14 @@ spring:
     sentinel:
       transport:
         dashboard: localhost:8081
-        port: 8179
+        port: 8719
+      datasource:
+        flow:
+          nacos:
+            server-addr: localhost:8848
+            groupId:
+
+
     nacos:
         discovery:
           # 可以配置多个，逗号分割

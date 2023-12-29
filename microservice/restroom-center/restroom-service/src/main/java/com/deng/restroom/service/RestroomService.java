@@ -1,10 +1,12 @@
 package com.deng.restroom.service;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.deng.restroom.convert.ToiletConverter;
 import com.deng.restroom.dao.ToiletDao;
 import com.deng.restroom.entity.ToiletEntity;
 import com.deng.restroom.pojo.Toilet;
 import com.deng.restroom.response.ToiletResponse;
+import com.google.common.collect.Lists;
 import io.seata.rm.tcc.api.BusinessActionContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @Desc:
@@ -39,13 +40,21 @@ public class RestroomService implements IRestroomTccService{
 
     @Override
     @GetMapping("checkAvailable")
+    @SentinelResource(value = "checkAvailableBySentinel",fallback = "getAvailableToiletFallback") // 限流
     public List<Toilet> getAvailableToilet() {
-        List<ToiletEntity> list = toiletDao.findByCleanAndAvailable(true, true);
-
-        return list.stream().
-                map(ToiletConverter::convert).
-                collect(Collectors.toList());
+        throw new RuntimeException("test checkAvailable 限流和熔断");
+//        List<ToiletEntity> list = toiletDao.findByCleanAndAvailable(true, true);
+//
+//        return list.stream().
+//                map(ToiletConverter::convert).
+//                collect(Collectors.toList());
     }
+
+    public List<Toilet> getAvailableToiletFallback() {
+        log.info("getAvailableToiletFallback......");
+        return Lists.newArrayList();
+    }
+
 
 
     @Override
