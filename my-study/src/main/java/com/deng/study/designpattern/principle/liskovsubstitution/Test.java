@@ -1,7 +1,7 @@
 package com.deng.study.designpattern.principle.liskovsubstitution;
 
 /**
- * @Desc:
+ * @Desc: 里氏替换原则
  * @Date: 2023/12/29 10:58
  * @Auther: dengyanliang
  */

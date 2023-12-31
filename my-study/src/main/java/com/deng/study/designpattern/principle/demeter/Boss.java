@@ -1,9 +1,9 @@
 package com.deng.study.designpattern.principle.demeter;
 
 /**
- * @Auther: yanliangdeng
+ * @Auther: dengyanliang
  * @Date: 2023/12/29 10:12
- * @Description:
+ * @Desc:
  */
 public class Boss {
     // 这里Boss类不应该知道DCourse类，而只应该和TeamLeader打交道

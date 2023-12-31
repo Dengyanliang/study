@@ -3,7 +3,7 @@ package com.deng.study.designpattern.principle.liskovsubstitution;
 /**
  * @Desc: 长方形
  * @Date: 2023/12/29 10:51
- * @Auther: yanliangdeng
+ * @Auther: dengyanliang
  */
 public class Rectangle_V1 {
     private long width;

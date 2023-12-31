@@ -55,7 +55,7 @@ public class ExcelUtil {
      */
     public void readExcel() throws Exception {
 
-        String srcPath = "/Users/yanliangdeng/老话题导入.xlsx";
+        String srcPath = "/Users/dengyanliang/老话题导入.xlsx";
         File path = new File(srcPath);
 
         //1.读取Excel文档对象

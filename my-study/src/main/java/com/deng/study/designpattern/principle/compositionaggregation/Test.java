@@ -1,7 +1,7 @@
 package com.deng.study.designpattern.principle.compositionaggregation;
 
 /**
- * @Desc:
+ * @Desc: 合成复用原则
  * @Date: 2023/12/29 12:58
  * @Auther: dengyanliang
  */

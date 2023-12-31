@@ -1,9 +1,9 @@
 package com.deng.study.designpattern.principle.interfacesegregation;
 
 /**
- * @Auther: yanliangdeng
+ * @Auther: dengyanliang
  * @Date: 2023/12/29 09:53
- * @Description:
+ * @Desc:
  */
 public class Bird implements IEatAnimalAction,IFlyAnimalAction{
     @Override

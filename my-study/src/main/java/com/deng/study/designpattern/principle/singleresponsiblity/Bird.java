@@ -3,9 +3,9 @@ package com.deng.study.designpattern.principle.singleresponsiblity;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @Auther: yanliangdeng
+ * @Auther: dengyanliang
  * @Date: 2023/12/28 22:25
- * @Description:
+ * @Desc:
  */
 public class Bird {
     public void mainMoveMode(String birdName){

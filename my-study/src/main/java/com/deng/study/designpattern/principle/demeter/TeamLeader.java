@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Auther: yanliangdeng
+ * @Auther: dengyanliang
  * @Date: 2023/12/29 10:12
- * @Description:
+ * @Desc:
  */
 public class TeamLeader {
 //    public void checkNumberOfCourse_V1(List<DCourse> courseList){

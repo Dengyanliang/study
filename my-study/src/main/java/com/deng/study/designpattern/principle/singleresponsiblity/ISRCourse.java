@@ -1,9 +1,9 @@
 package com.deng.study.designpattern.principle.singleresponsiblity;
 
 /**
- * @Auther: yanliangdeng
+ * @Auther: dengyanliang
  * @Date: 2023/12/28 22:32
- * @Description:
+ * @Desc:
  */
 public interface ISRCourse {
 

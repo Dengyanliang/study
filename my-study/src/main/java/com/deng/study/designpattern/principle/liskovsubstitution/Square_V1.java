@@ -3,7 +3,7 @@ package com.deng.study.designpattern.principle.liskovsubstitution;
 /**
  * @Desc: 正方形
  * @Date: 2023/12/29 10:54
- * @Auther: yanliangdeng
+ * @Auther: dengyanliang
  */
 public class Square_V1 extends Rectangle_V1{
     private long sideLength;

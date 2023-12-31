@@ -1,9 +1,9 @@
 package com.deng.study.designpattern.principle.interfacesegregation;
 
 /**
- * @Auther: yanliangdeng
+ * @Desc:
+ * @Auther: dengyanliang
  * @Date: 2023/12/28 22:44
- * @Description:
  */
 public interface IEatAnimalAction {
     void eat();
