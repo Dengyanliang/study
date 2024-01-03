@@ -2,9 +2,9 @@ package com.deng.study.service.impl;
 
 import com.deng.common.util.DateUtil;
 import com.deng.common.util.JdbcUtils;
-import com.deng.study.dao.MyCourseDao;
-import com.deng.study.dao.po.MyCourse;
-import com.deng.study.service.MyCourseService;
+import com.deng.study.dao.MyOrderDao;
+import com.deng.study.dao.po.MyOrder;
+import com.deng.study.service.MyOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
@@ -21,10 +21,10 @@ import java.util.List;
  * @Date: 2021/3/19 00:03
  */
 @Service
-public class MyCourseServiceImpl implements MyCourseService {
+public class MyOrderServiceImpl implements MyOrderService {
 
     @Autowired
-    MyCourseDao myCourseDao;
+    MyOrderDao myOrderDao;
 
     @Resource
     ThreadPoolTaskExecutor taskExecutor;
@@ -32,14 +32,14 @@ public class MyCourseServiceImpl implements MyCourseService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addMyCourse(MyCourse myCourse) {
-        myCourseDao.addMyCourse(myCourse);
+    public void addMyOrder(MyOrder MyOrder) {
+        myOrderDao.addMyOrder(MyOrder);
     }
 
 
     @Override
     @Transactional
-    public void addBatchMyCourseByThread(List<MyCourse> myCourseList) {
+    public void addBatchMyOrderByThread(List<MyOrder> myOrderList) {
 //        orderDao.addList(orderList);
         int count = taskExecutor.getActiveCount();
         System.out.println(count+"----");
@@ -50,22 +50,22 @@ public class MyCourseServiceImpl implements MyCourseService {
     }
 
     @Override
-    public void addBatchMyCourseByPreparedStatement(List<MyCourse> myCourseList) {
+    public void addBatchMyOrderByPreparedStatement(List<MyOrder> myOrderList) {
         //事务上限，每次累计这么多条数，提交一次事务
         int maxCommit = 100000;
         try{
             Connection conn = JdbcUtils.getConnection();
-            String sql = "insert into my_course (name, user_id, status, create_Time, update_time) values (?,?,?,?,?)";
+            String sql = "insert into my_order (name, user_id, status, create_Time, update_time) values (?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             // 关闭自动提交，不然conn.commit()运行到这句会报错
             conn.setAutoCommit(false);
 
-            for (int i = 0; i < myCourseList.size(); i++) {
-                MyCourse myCourse = myCourseList.get(i);
+            for (int i = 0; i < myOrderList.size(); i++) {
+                MyOrder MyOrder = myOrderList.get(i);
                 // 设置参数
-                pstmt.setString(1, myCourse.getName());
-                pstmt.setLong(2, myCourse.getUserId());
-                pstmt.setString(3, myCourse.getStatus());
+                pstmt.setString(1, MyOrder.getName());
+                pstmt.setLong(2, MyOrder.getUserId());
+                pstmt.setString(3, MyOrder.getStatus());
                 pstmt.setDate(4, DateUtil.getSqlDate());
                 pstmt.setDate(5,DateUtil.getSqlDate());
 

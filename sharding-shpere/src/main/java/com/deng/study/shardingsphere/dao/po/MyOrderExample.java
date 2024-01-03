@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MyCourseExample {
+public class MyOrderExample {
     /**
-     * my_course
+     * my_order
      */
     protected String orderByClause;
 
     /**
-     * my_course
+     * my_order
      */
     protected boolean distinct;
 
     /**
-     * my_course
+     * my_order
      */
     protected List<Criteria> oredCriteria;
 
-    public MyCourseExample() {
+    public MyOrderExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -74,7 +74,7 @@ public class MyCourseExample {
     }
 
     /**
-     * my_course null
+     * my_order null
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -499,7 +499,7 @@ public class MyCourseExample {
     }
 
     /**
-     * my_course
+     * my_order
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -509,7 +509,7 @@ public class MyCourseExample {
     }
 
     /**
-     * my_course null
+     * my_order null
      */
     public static class Criterion {
         private String condition;

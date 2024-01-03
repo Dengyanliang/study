@@ -40,7 +40,7 @@ public class CanalTest {
             connector.connect();
 //            connector.subscribe(".*\\..*"); // 这是监听所有的库的所有表，不建议这么做
 //             3、订阅数据库
-            connector.subscribe("course_db.course");
+            connector.subscribe("course_db.order");
             connector.rollback();
             int totalEmptyCount = 120; // 120秒就结束x`了
             while (emptyCount < totalEmptyCount) {

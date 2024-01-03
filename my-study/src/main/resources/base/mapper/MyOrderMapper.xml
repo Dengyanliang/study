@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.deng.study.dao.mapper.MyCourseMapper">
-  <resultMap id="BaseResultMap" type="com.deng.study.dao.po.MyCourse">
+<mapper namespace="com.deng.study.dao.mapper.MyOrderMapper">
+  <resultMap id="BaseResultMap" type="com.deng.study.dao.po.MyOrder">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
@@ -70,13 +70,13 @@
   <sql id="Base_Column_List">
     id, name, user_id, status, create_Time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.deng.study.dao.po.MyCourseExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.deng.study.dao.po.MyOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from my_course
+    from my_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,29 +87,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from my_course
+    from my_order
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from my_course
+    delete from my_order
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.deng.study.dao.po.MyCourseExample">
-    delete from my_course
+  <delete id="deleteByExample" parameterType="com.deng.study.dao.po.MyOrderExample">
+    delete from my_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.deng.study.dao.po.MyCourse">
-    insert into my_course (id, name, user_id, 
+  <insert id="insert" parameterType="com.deng.study.dao.po.MyOrder">
+    insert into my_order (id, name, user_id,
       status, create_Time, update_time
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
       #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.deng.study.dao.po.MyCourse">
-    insert into my_course
+  <insert id="insertSelective" parameterType="com.deng.study.dao.po.MyOrder">
+    insert into my_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -151,14 +151,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.deng.study.dao.po.MyCourseExample" resultType="java.lang.Long">
-    select count(*) from my_course
+  <select id="countByExample" parameterType="com.deng.study.dao.po.MyOrderExample" resultType="java.lang.Long">
+    select count(*) from my_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update my_course
+    update my_order
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -184,7 +184,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update my_course
+    update my_order
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=BIGINT},
@@ -195,8 +195,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.deng.study.dao.po.MyCourse">
-    update my_course
+  <update id="updateByPrimaryKeySelective" parameterType="com.deng.study.dao.po.MyOrder">
+    update my_order
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -216,8 +216,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.deng.study.dao.po.MyCourse">
-    update my_course
+  <update id="updateByPrimaryKey" parameterType="com.deng.study.dao.po.MyOrder">
+    update my_order
     set name = #{name,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=BIGINT},
       status = #{status,jdbcType=VARCHAR},

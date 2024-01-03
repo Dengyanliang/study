@@ -6,12 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.deng.common.source.Stopwatch;
 import com.deng.common.util.MyThreadUtil;
 import com.deng.study.shardingsphere.dao.mapper.UdictMapper;
-import com.deng.study.shardingsphere.dao.po.Course;
-import com.deng.study.shardingsphere.dao.po.MyCourse;
+import com.deng.study.shardingsphere.dao.po.MyOrder;
+import com.deng.study.shardingsphere.dao.po.Order;
 import com.deng.study.shardingsphere.dao.po.PayOrder;
 import com.deng.study.shardingsphere.dao.po.Udict;
-import com.deng.study.shardingsphere.service.CourseService;
-import com.deng.study.shardingsphere.service.MyCourseService;
+import com.deng.study.shardingsphere.service.MyOrderService;
+import com.deng.study.shardingsphere.service.OrderService;
 import com.deng.study.shardingsphere.service.PayOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -38,10 +38,10 @@ import java.util.Random;
 public class ShardingJdbcTest {
 
     @Autowired
-    private CourseService courseService;
+    private OrderService orderService;
 
     @Autowired
-    private MyCourseService myCourseService;
+    private MyOrderService myOrderService;
 
     @Autowired
     private UdictMapper udictMapper;
@@ -50,37 +50,37 @@ public class ShardingJdbcTest {
     private PayOrderService payOrderService;
 
     @Test
-    public void addMyCourse(){
+    public void addMyOrder(){
         Random random = new Random();
         long start = System.currentTimeMillis();
         for (int i = 0; i < 10000000; i++) {
-            MyCourse course = new MyCourse();
-            course.setName("化学--"+i);
-            course.setUserId((long) random.nextInt(1000000));
-            course.setStatus("normal");
-            course.setCreateTime(DateUtil.now());
-            course.setUpdateTime(DateUtil.now());
+            MyOrder myOrder = new MyOrder();
+            myOrder.setName("化学--"+i);
+            myOrder.setUserId((long) random.nextInt(1000000));
+            myOrder.setStatus("normal");
+            myOrder.setCreateTime(DateUtil.now());
+            myOrder.setUpdateTime(DateUtil.now());
 
-            myCourseService.addCourse(course);
+            myOrderService.addMyOrder(myOrder);
         }
         long end = System.currentTimeMillis();
         System.out.println("耗费：" + (end-start));
     }
 
     @Test
-    public void addBatchMyCourse(){
+    public void addBatchMyOrder(){
         long start = System.currentTimeMillis();
         int maxSize = 10000000;
         Random random = new Random();
-        List<MyCourse> list = new ArrayList<>();
+        List<MyOrder> list = new ArrayList<>();
         for (int i = 1; i <= maxSize; i++) {
-            MyCourse course = new MyCourse();
-            course.setName("测试-" + i);
-            course.setUserId((long) random.nextInt(100000000));
-            course.setStatus("normal");
-            list.add(course);
+            MyOrder myOrder = new MyOrder();
+            myOrder.setName("测试-" + i);
+            myOrder.setUserId((long) random.nextInt(100000000));
+            myOrder.setStatus("normal");
+            list.add(myOrder);
         }
-        myCourseService.addBatchMyCourseByPreparedStatement(list);
+        myOrderService.addBatchMyOrderByPreparedStatement(list);
 
         long end = System.currentTimeMillis();
         System.out.println("耗费：" + (end-start));
@@ -90,18 +90,18 @@ public class ShardingJdbcTest {
      * 分库分表都能使用
      */
     @Test
-    public void addCourse(){
+    public void addOrder(){
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
-            Course course = new Course();
-            course.setName("测试事务------"+i);
-            course.setUserId((long) random.nextInt(100));
-            course.setStatus("normal");
-            course.setCreateTime(DateUtil.now());
-            course.setUpdateTime(DateUtil.now());
+            Order order = new Order();
+            order.setName("测试事务------"+i);
+            order.setUserId((long) random.nextInt(100));
+            order.setStatus("normal");
+            order.setCreateTime(DateUtil.now());
+            order.setUpdateTime(DateUtil.now());
 
-//            courseMapper.insert(course);
-            courseService.addCourse(course);
+//            courseMapper.insert(order);
+            orderService.addOrder(order);
         }
     }
 
@@ -109,16 +109,16 @@ public class ShardingJdbcTest {
      * 测试分表不分库
      */
     @Test
-    public void getCourseByTable(){
+    public void getOrderByTable(){
         for (int i = 0; i < 10; i++) {
-            QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("id",1428868022394122241L);
-//        Course course = courseMapper.selectOne(queryWrapper);
+            QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("order_id",1428868022394122241L);
+//        Order order = courseMapper.selectOne(queryWrapper);
 
-            Course course = courseService.getCourse(queryWrapper);
-            System.out.println(course);
+            Order order = orderService.getOrder(queryWrapper);
+            System.out.println(order);
 
-            if(course.getUserId().intValue() == 53){
+            if(order.getUserId().intValue() == 53){
                 System.out.println("=============");
             }
         }
@@ -128,12 +128,12 @@ public class ShardingJdbcTest {
      * 测试分库分表
      */
     @Test
-    public void getCourseByDbAndTable(){
-        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+    public void getOrderByDbAndTable(){
+        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id",59);
-        queryWrapper.eq("id",1433960431667847169L);
-        Course course = courseService.getCourse(queryWrapper);
-        System.out.println(course);
+        queryWrapper.eq("order_id",1433960431667847169L);
+        Order order = orderService.getOrder(queryWrapper);
+        System.out.println(order);
     }
 
     @Test
@@ -153,7 +153,7 @@ public class ShardingJdbcTest {
     }
 
     @Test
-    public void addOrder(){
+    public void addPayOrder(){
         long start = System.currentTimeMillis();
         int max = 10;
         PayOrder order = null;
@@ -181,30 +181,32 @@ public class ShardingJdbcTest {
     public void transfer(){
 
         Stopwatch stopwatch = new Stopwatch();
-        IPage<MyCourse> queryPage = new Page<>(1,10000);
+        IPage<MyOrder> queryPage = new Page<>(1,10000);
 
-//        QueryWrapper<MyCourse> queryWrapper = new QueryWrapper<>();
+//        QueryWrapper<MyOrder> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.between("create_Time","2023-08-11 21:35:56","2023-08-11 23:59:59");
-        IPage<MyCourse> page = null;
-        List<MyCourse> records = null;
+        IPage<MyOrder> page = null;
+        List<MyOrder> records = null;
         
         int count = 0;
         while(true){
-            page = myCourseService.getCourseByPage(queryPage, null);
+            page = myOrderService.getMyOrderByPage(queryPage, null);
             records = page.getRecords();
             if(CollectionUtils.isEmpty(records)){
                 break;
             }
             count += records.size();
 
-//            List<Course>  courseList = new ArrayList<>();
-            for (MyCourse myCourse : records) {
-                Course course = new Course();
-                BeanUtils.copyProperties(myCourse,course);
-//                courseList.add(course);
-                courseService.addCourse(course);
+//            List<Order>  orderList = new ArrayList<>();
+            for (MyOrder MyOrder : records) {
+                Order order = new Order();
+                BeanUtils.copyProperties(MyOrder,order);
+//                order.setOrderId(MyOrder.getId());
+
+//                orderList.add(order);
+                orderService.addOrder(order);
             }
-//            courseService.batchAdd(courseList);
+//            orderService.batchAdd(orderList);
 
             System.out.println("迁移了---" +count+ "---条记录");
 

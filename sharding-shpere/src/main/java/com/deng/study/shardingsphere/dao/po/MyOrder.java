@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class MyCourse implements Serializable {
+public class MyOrder implements Serializable {
     /**
      * 
      */

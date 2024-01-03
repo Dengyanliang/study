@@ -2,7 +2,7 @@ package com.deng.study.shardingsphere.dao.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.deng.study.shardingsphere.dao.po.MyCourse;
+import com.deng.study.shardingsphere.dao.po.MyOrder;
 import org.springframework.stereotype.Repository;
 
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * @Date: 2021/8/14 20:32
  */
 @Repository
-public interface MyCourseMapper extends BaseMapper<MyCourse> {
+public interface MyOrderMapper extends BaseMapper<MyOrder> {
 
 }

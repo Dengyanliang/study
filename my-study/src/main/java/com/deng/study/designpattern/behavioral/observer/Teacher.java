@@ -22,9 +22,9 @@ public class Teacher implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        OCourse course = (OCourse)o;
+        OCourse order = (OCourse)o;
         Question question = (Question)arg;
-        System.out.println(teacherName+"老师的"+course.getCourseName()+"课程接收到"
+        System.out.println(teacherName+"老师的"+order.getCourseName()+"课程接收到"
                 +question.getUserName()+"提交的问题："+question.getQuestionContent());
     }
 }

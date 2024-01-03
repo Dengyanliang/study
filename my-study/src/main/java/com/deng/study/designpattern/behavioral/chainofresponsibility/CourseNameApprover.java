@@ -10,14 +10,14 @@ import org.apache.commons.lang3.StringUtils;
 public class CourseNameApprover extends Approver{
 
     @Override
-    public void deploy(CRCourse course) {
-        if(StringUtils.isNotBlank(course.getName())){
-            System.out.println(course.getName()+"含有课程名称，批准");
+    public void deploy(CRCourse order) {
+        if(StringUtils.isNotBlank(order.getName())){
+            System.out.println(order.getName()+"含有课程名称，批准");
             if(approver != null){
-                approver.deploy(course);
+                approver.deploy(order);
             }
         }else{
-            System.out.println(course.getName()+"不含有课程名称，不予批准，流程结束");
+            System.out.println(order.getName()+"不含有课程名称，不予批准，流程结束");
         }
     }
 }

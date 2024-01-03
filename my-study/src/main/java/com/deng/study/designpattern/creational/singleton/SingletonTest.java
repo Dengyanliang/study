@@ -39,8 +39,8 @@ public class SingletonTest {
 //        concurrentTest(Singleton7.class);
 //        singletonTest(Singleton7.getInstance());
 //
-//        concurrentTest(Singleton8.class);
-//        singletonTest(Singleton8.getInstance());
+        concurrentTest(Singleton8.class);
+        singletonTest(Singleton8.getInstance());
 //
 //        threadPoolExecutor.shutdown();
 

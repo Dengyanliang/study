@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.deng.common.util.DateUtil;
 import com.deng.common.util.JdbcUtils;
-import com.deng.study.shardingsphere.dao.mapper.MyCourseMapper;
-import com.deng.study.shardingsphere.dao.po.MyCourse;
-import com.deng.study.shardingsphere.service.MyCourseService;
+import com.deng.study.shardingsphere.dao.mapper.MyOrderMapper;
+import com.deng.study.shardingsphere.dao.po.MyOrder;
+import com.deng.study.shardingsphere.service.MyOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,50 +22,50 @@ import java.util.List;
  * @Date: 2021/3/19 00:03
  */
 @Service
-public class MyCourseServiceImpl implements MyCourseService {
+public class MyOrderServiceImpl implements MyOrderService {
 
     @Autowired
-    private MyCourseMapper myCourseMapper;
+    private MyOrderMapper myOrderMapper;
 
     @Override
-    public void addCourse(MyCourse myCourse) {
-        myCourseMapper.insert(myCourse);
+    public void addMyOrder(MyOrder MyOrder) {
+        myOrderMapper.insert(MyOrder);
     }
 
     @Override
-    public MyCourse getCourse(QueryWrapper<MyCourse> queryWrapper ) {
-        return myCourseMapper.selectOne(queryWrapper);
+    public MyOrder getMyOrder(QueryWrapper<MyOrder> queryWrapper ) {
+        return myOrderMapper.selectOne(queryWrapper);
     }
 
 
     @Override
-    public IPage<MyCourse> getCourseByPage(IPage<MyCourse> page, QueryWrapper<MyCourse> queryWrapper) {
-        return myCourseMapper.selectPage(page,queryWrapper);
+    public IPage<MyOrder> getMyOrderByPage(IPage<MyOrder> page, QueryWrapper<MyOrder> queryWrapper) {
+        return myOrderMapper.selectPage(page,queryWrapper);
     }
 
     /**
      * 批量插入时，使用url中添加rewriteBatchedStatements=true该参数，可以提高插入的效率
      * 目前测试插入1千万的数据，花费15分钟左右；如果没有这个参数，则需要3个小时
      *
-     * @param myCourseList
+     * @param myOrderList
      */
     @Override
-    public void addBatchMyCourseByPreparedStatement(List<MyCourse> myCourseList) {
+    public void addBatchMyOrderByPreparedStatement(List<MyOrder> myOrderList) {
         //事务上限，每次累计这么多条数，提交一次事务
         int maxCommit = 100000;
         try{
             Connection conn = JdbcUtils.getConnection();
-            String sql = "insert into my_course (name, user_id, status, create_time, update_time) values (?,?,?,?,?)";
+            String sql = "insert into my_order (name, user_id, status, create_time, update_time) values (?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             // 关闭自动提交，不然conn.commit()运行到这句会报错
             conn.setAutoCommit(false);
 
-            for (int i = 0; i < myCourseList.size(); i++) {
-                MyCourse myCourse = myCourseList.get(i);
+            for (int i = 0; i < myOrderList.size(); i++) {
+                MyOrder MyOrder = myOrderList.get(i);
                 // 设置参数
-                pstmt.setString(1, myCourse.getName());
-                pstmt.setLong(2, myCourse.getUserId());
-                pstmt.setString(3, myCourse.getStatus());
+                pstmt.setString(1, MyOrder.getName());
+                pstmt.setLong(2, MyOrder.getUserId());
+                pstmt.setString(3, MyOrder.getStatus());
 
                 // 设置日期，直接用string
                 pstmt.setString(4, DateUtil.getDateNow());

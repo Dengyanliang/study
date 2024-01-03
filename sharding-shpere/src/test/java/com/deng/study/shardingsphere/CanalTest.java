@@ -35,7 +35,7 @@ public class CanalTest {
 
     @Test
     public void test(){
-        String sql = "insert into my_course(id,name,user_id,status,create_time,update_time) values ('103','wangwu','123','normal','2023-08-26 20:18:14','2023-08-26 20:18:14')";
+        String sql = "insert into my_order(id,name,user_id,status,create_time,update_time) values ('103','wangwu','123','normal','2023-08-26 20:18:14','2023-08-26 20:18:14')";
         int count = canalMapper.insert(sql);
         System.out.println(count);
     }
@@ -53,7 +53,7 @@ public class CanalTest {
             connector.connect();
 //            connector.subscribe(".*\\..*"); // 这是监听所有的库的所有表，不建议这么做
 //             3、订阅数据库
-            connector.subscribe("course_db.course");
+            connector.subscribe("course_db.order");
             connector.rollback(); // 回到上次读取的位置，重新回到上次binlog消费的地方
             int totalEmptyCount = 120; // 120秒就结束了
             while (emptyCount < totalEmptyCount) {

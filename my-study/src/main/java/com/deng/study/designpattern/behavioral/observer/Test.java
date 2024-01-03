@@ -7,20 +7,20 @@ package com.deng.study.designpattern.behavioral.observer;
  */
 public class Test {
     public static void main(String[] args) {
-        OCourse course = new OCourse("Java设计模式精讲");
+        OCourse order = new OCourse("Java设计模式精讲");
         Teacher teacher1 = new Teacher("Kevin");
         Teacher teacher2 = new Teacher("Timu");
 
         // 给课程添加一个观察者，这里就是teacher观察
-        course.addObserver(teacher1);
-        course.addObserver(teacher2);
+        order.addObserver(teacher1);
+        order.addObserver(teacher2);
 
         // 产生问题
         Question question = new Question();
         question.setUserName("张三");
         question.setQuestionContent("Java代码如何优化");
 
-        course.produceQuestion(question);
+        order.produceQuestion(question);
 
     }
 }

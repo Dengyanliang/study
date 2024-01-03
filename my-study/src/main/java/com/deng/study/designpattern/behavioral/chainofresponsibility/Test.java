@@ -15,11 +15,11 @@ public class Test {
         courseNameApprover.setNextApprover(articleApprover);
         articleApprover.setNextApprover(vedioApprover);
 
-        CRCourse course = new CRCourse();
-        course.setName("Java");
-        course.setArticle("Java手记");
-        course.setVideo("Java视频");
+        CRCourse order = new CRCourse();
+        order.setName("Java");
+        order.setArticle("Java手记");
+        order.setVideo("Java视频");
 
-        courseNameApprover.deploy(course);
+        courseNameApprover.deploy(order);
     }
 }

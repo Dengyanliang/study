@@ -2,7 +2,7 @@ package com.deng.study.shardingsphere.dao.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.deng.study.shardingsphere.dao.po.Course;
+import com.deng.study.shardingsphere.dao.po.Order;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -14,11 +14,11 @@ import java.util.Collection;
  * @Date: 2021/8/14 20:32
  */
 @Repository
-public interface CourseMapper extends BaseMapper<Course> {
+public interface OrderMapper extends BaseMapper<Order> {
     /**
      * 批量插入
-     * @param courseList 实体列表
+     * @param orderList 实体列表
      * @return 影响行数
      */
-    Integer insertBatchSomeColumn(Collection<Course> courseList);
+    Integer insertBatchSomeColumn(Collection<Order> orderList);
 }

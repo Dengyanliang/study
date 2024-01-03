@@ -1,7 +1,7 @@
 package com.deng.study.shardingsphere.service.thread;
 
-import com.deng.study.shardingsphere.dao.mapper.CourseMapper;
-import com.deng.study.shardingsphere.dao.po.Course;
+import com.deng.study.shardingsphere.dao.mapper.OrderMapper;
+import com.deng.study.shardingsphere.dao.po.Order;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
@@ -13,20 +13,20 @@ import java.util.List;
  */
 public class BatchThread implements Runnable{
 
-    private CourseMapper courseMapper;
-    private List<Course> courseList;
+    private OrderMapper orderMapper;
+    private List<Order> orderList;
 
-    public BatchThread(CourseMapper courseMapper, List<Course> courseList) {
-        this.courseMapper = courseMapper;
-        this.courseList = courseList;
+    public BatchThread(OrderMapper orderMapper, List<Order> orderList) {
+        this.orderMapper = orderMapper;
+        this.orderList = orderList;
     }
 
     @Override
     public void run() {
         System.out.println("开始添加....");
-        if(CollectionUtils.isNotEmpty(courseList)){
-            courseMapper.insertBatchSomeColumn(courseList);
+        if(CollectionUtils.isNotEmpty(orderList)){
+            orderMapper.insertBatchSomeColumn(orderList);
         }
-        System.out.println("结束添加....添加总数为："  + courseList.size());
+        System.out.println("结束添加....添加总数为："  + orderList.size());
     }
 }

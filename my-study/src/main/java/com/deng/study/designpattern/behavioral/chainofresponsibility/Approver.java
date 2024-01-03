@@ -17,5 +17,5 @@ public abstract class Approver {
         this.approver = approver;
     }
 
-    public abstract void deploy(CRCourse course);
+    public abstract void deploy(CRCourse order);
 }

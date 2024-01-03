@@ -1,9 +1,9 @@
 package com.deng.study.shardingsphere.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.deng.study.shardingsphere.dao.mapper.CourseMapper;
-import com.deng.study.shardingsphere.dao.po.Course;
-import com.deng.study.shardingsphere.service.CourseService;
+import com.deng.study.shardingsphere.dao.mapper.OrderMapper;
+import com.deng.study.shardingsphere.dao.po.Order;
+import com.deng.study.shardingsphere.service.OrderService;
 import com.deng.study.shardingsphere.service.thread.BatchThread;
 import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
@@ -20,10 +20,10 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @Date: 2021/3/19 00:03
  */
 @Service
-public class CourseServiceImpl implements CourseService {
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    private CourseMapper courseMapper;
+    private OrderMapper orderMapper;
 
     @Autowired
     private ThreadPoolExecutor threadPoolExecutor;
@@ -33,26 +33,26 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @ShardingTransactionType(TransactionType.XA) // 使用XA管理事务
-    public void addCourse(Course course) {
+    public void addOrder(Order order) {
         i++;
-        courseMapper.insert(course);
+        orderMapper.insert(order);
         if(i == 5){
             throw new RuntimeException("测试报错");
         }
     }
 
     @Override
-    public int batchAdd(List<Course> courseList) {
+    public int batchAdd(List<Order> orderList) {
 
-        BatchThread batchThread = new BatchThread(courseMapper,courseList);
+        BatchThread batchThread = new BatchThread(orderMapper,orderList);
         threadPoolExecutor.execute(batchThread);
 
         return 0;
     }
 
     @Override
-    public Course getCourse(QueryWrapper<Course> queryWrapper ) {
-        return courseMapper.selectOne(queryWrapper);
+    public Order getOrder(QueryWrapper<Order> queryWrapper ) {
+        return orderMapper.selectOne(queryWrapper);
     }
 }
 

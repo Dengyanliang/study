@@ -10,14 +10,14 @@ import org.apache.commons.lang3.StringUtils;
 public class VedioApprover extends Approver{
 
     @Override
-    public void deploy(CRCourse course) {
-        if(StringUtils.isNotBlank(course.getVideo())){
-            System.out.println(course.getName()+"含有视频，批准");
+    public void deploy(CRCourse order) {
+        if(StringUtils.isNotBlank(order.getVideo())){
+            System.out.println(order.getName()+"含有视频，批准");
             if(approver != null){
-                approver.deploy(course);
+                approver.deploy(order);
             }
         }else{
-            System.out.println(course.getName()+"不含有视频，不予批准，流程结束");
+            System.out.println(order.getName()+"不含有视频，不予批准，流程结束");
         }
     }
 }

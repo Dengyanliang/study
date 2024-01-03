@@ -20,7 +20,7 @@ public class Test {
         OrderServiceDynamicProxy dynamicProxy = new OrderServiceDynamicProxy(orderService);
         // TODO 报错？？？
         IOrderService orderServiceProxy = (IOrderService)dynamicProxy.bind();
-
+        System.out.println(orderServiceProxy);
         // 通过代理类操作方法
         orderServiceProxy.saveOrder(order);
 
