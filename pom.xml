@@ -12,6 +12,8 @@
     <groupId>com.deng.study</groupId>
     <artifactId>learning</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <!-- 父项目的打包方式，必须是pom，不能是war，也不能是jar -->
     <packaging>pom</packaging>
 
     <modules>
@@ -21,6 +23,7 @@
         <module>study-common</module>
         <module>dynamic-datasource</module>
         <module>microservice</module>
+        <module>redis</module>
     </modules>
 
     <properties>
@@ -37,21 +40,31 @@
         <gson.version>2.8.6</gson.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-        </dependency>
-    </dependencies>
+    <!-- <scope> 的作用范围-->
+    <!-- compile范围：编译、运行、测试、打包都依赖的jar包，如spring-core  -->
+    <!-- providerd范围：编译和运行时有效，打包时不会包含这样的jar，如servlet-api-->
+    <!-- system范围：本地jar，作用范围和provided一致，但必须配合systemPath指定本地依赖的路径才能有效使用，不常用-->
+    <!-- test范围：只有测试的时候有效，如junit依赖的就是test范围  -->
+    <!-- runtime范围：只在运行时有效，但是打包时会将对应的jar包包含进来。
+                      如jdbc驱动在编译时是不需要参与的，但是运行时需要具体的第三方实现的jar包的  -->
 
-    <dependencyManagement>
+    <!-- dependencies 表示父项目的基本依赖，子项目可以直接引用-->
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--            <version>${lombok.version}</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+
+    <!-- 父项目中统一管理的依赖：依赖容器，在子项目中使用的时候需要手动引入，但不需要用引入版本号 -->
+<!--    <dependencyManagement>-->
         <dependencies>
-<!--            <dependency>-->
-<!--                <groupId>org.projectlombok</groupId>-->
-<!--                <artifactId>lombok</artifactId>-->
-<!--                <version>${lombok.version}</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
@@ -103,14 +116,14 @@
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.0.9.Final</version>
+                <version>6.1.5.Final</version>
             </dependency>
 
 
             <dependency>
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
             </dependency>
 
             <dependency>
@@ -146,7 +159,7 @@
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
-                <version>4.5.2</version>
+                <version>4.5.12</version>
             </dependency>
 
             <dependency>
@@ -158,13 +171,13 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.4</version>
+                <version>3.10</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
-                <version>2.3</version>
+                <version>2.8.0</version>
             </dependency>
 
             <dependency>
@@ -238,7 +251,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.8.0</version>
+                <version>2.4</version>
             </dependency>
 
             <dependency>
@@ -373,11 +386,11 @@
             </dependency>
 
             <!-- elasticsearch BEGIN-->
-            <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
-                <version>7.8.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.elasticsearch</groupId>-->
+<!--                <artifactId>elasticsearch</artifactId>-->
+<!--                <version>7.8.0</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
@@ -452,7 +465,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
-                <version>1.1.21</version>
+                <version>1.1.23</version>
 <!--                <scope>compile</scope>-->
             </dependency>
 
@@ -512,16 +525,18 @@
             </dependency>
 
         </dependencies>
-    </dependencyManagement>
+<!--    </dependencyManagement>-->
 
     <build>
         <pluginManagement>
             <plugins>
+                <!-- 操作系统信息，设置各种有用属性-->
                 <plugin>
                     <groupId>kr.motd.maven</groupId>
                     <artifactId>os-maven-plugin</artifactId>
                     <version>${os-maven-plugin.version}</version>
                 </plugin>
+                <!-- 插件编译proto文件 -->
                 <plugin>
                     <groupId>org.xolstice.maven.plugins</groupId>
                     <artifactId>protobuf-maven-plugin</artifactId>
@@ -529,44 +544,34 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <!-- 开启热部署 repackage failed: Unable to find main class 打包时报错，先把这个注释掉-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <includeSystemScope>true</includeSystemScope>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>repackage</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
 
-            <!-- maven 打包时跳过测试 -->
+        <plugins>
+            <!--执行测试用例的插件，不显示配置就会用默认配置-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!-- maven 打包时跳过测试 -->
                     <skip>true</skip>
                 </configuration>
             </plugin>
 
             <plugin>
+                <!-- 使用该插件对项目进行编译  -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
+                    <!-- 源代码和目标代码的版本 -->
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <!-- 指定了注解处理器的路径-->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <!-- 表示从项目的属性或外部配置文件中获取的注解处理器版本-->
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
@@ -574,4 +579,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
