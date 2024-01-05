@@ -2,10 +2,9 @@ package com.deng.study.service.impl;
 
 import com.deng.common.util.DateUtil;
 import com.deng.common.util.JdbcUtils;
-import com.deng.study.dao.MyOrderDao;
-import com.deng.study.dao.po.MyOrder;
+import com.deng.study.mapper.MyOrderMapper;
+import com.deng.study.pojo.MyOrder;
 import com.deng.study.service.MyOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,17 +22,17 @@ import java.util.List;
 @Service
 public class MyOrderServiceImpl implements MyOrderService {
 
-    @Autowired
-    MyOrderDao myOrderDao;
+    @Resource
+    private MyOrderMapper myOrderMapper;
 
     @Resource
-    ThreadPoolTaskExecutor taskExecutor;
+    private ThreadPoolTaskExecutor taskExecutor;
 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addMyOrder(MyOrder MyOrder) {
-        myOrderDao.addMyOrder(MyOrder);
+        myOrderMapper.insert(MyOrder);
     }
 
 

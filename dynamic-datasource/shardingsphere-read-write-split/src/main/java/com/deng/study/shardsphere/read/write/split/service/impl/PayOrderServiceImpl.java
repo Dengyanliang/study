@@ -3,6 +3,7 @@ package com.deng.study.shardsphere.read.write.split.service.impl;
 import com.deng.study.shardsphere.read.write.split.entity.PayOrder;
 import com.deng.study.shardsphere.read.write.split.mapper.PayOrderMapper;
 import com.deng.study.shardsphere.read.write.split.service.PayOrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
  * @Auther: dengyanliang
  * @Date: 2021/3/19 00:03
  */
+@Slf4j
 @Service
 public class PayOrderServiceImpl implements PayOrderService {
 

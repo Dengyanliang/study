@@ -1,8 +1,8 @@
 package com.deng.study.zk;
 
 
+import com.deng.common.constant.ZkConstant;
 import com.deng.study.domain.User;
-import com.deng.study.common.constant.ZkConstant;
 import org.I0Itec.zkclient.IZkChildListener;
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;

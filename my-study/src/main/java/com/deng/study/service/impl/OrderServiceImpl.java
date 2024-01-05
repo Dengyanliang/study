@@ -3,9 +3,9 @@ package com.deng.study.service.impl;
 import com.deng.common.util.DateUtil;
 import com.deng.common.util.JdbcUtils;
 import com.deng.study.common.DataSource;
-import com.deng.study.dao.OrderDao;
-import com.deng.study.dao.po.PayOrder;
 import com.deng.study.java.thread.ThreadDemo5;
+import com.deng.study.mapper.PayOrderMapper;
+import com.deng.study.pojo.PayOrder;
 import com.deng.study.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,37 +29,24 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    OrderDao orderDao;
+    @Resource
+    private PayOrderMapper payOrderMapper;
 
     @Resource
-    ThreadPoolTaskExecutor taskExecutor;
-
-//    @Autowired
-//    BasicDataSource dataSource_master;
-//
-//    @Autowired
-//    BasicDataSource dataSource_slave;
-
-
-//    @Autowired
-//    SqlSessionFactoryBean sqlSessionFactory_master;
-//
-//    @Autowired  TODO 会报错
-//    SqlSessionFactoryBean sqlSessionFactory_salve;
+    private ThreadPoolTaskExecutor taskExecutor;
 
     @Autowired
-    JdbcTemplate jdbcTemplate_master;
+    private JdbcTemplate jdbcTemplate_master;
 
     @Autowired
-    JdbcTemplate jdbcTemplate_slave;
+    private JdbcTemplate jdbcTemplate_slave;
 
 
     @Override
-    @Transactional(transactionManager = "")
+    @Transactional
     public void addOrder(PayOrder payOrder) {
 //        sqlSessionFactoryBean.setMapperLocations(resource);
-        orderDao.insert(payOrder);
+        payOrderMapper.insert(payOrder);
     }
 
     @Override
@@ -121,7 +108,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @DataSource(isMaster = false)
     public PayOrder getOrder2(Long id) {
-        return orderDao.select(id);
+        return payOrderMapper.selectByPrimaryKey(id);
     }
 
     @Override
@@ -131,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
         int count = taskExecutor.getActiveCount();
         System.out.println(count+"----");
 
-        ThreadDemo5 threadDemo5 = new ThreadDemo5(orderList,orderDao);
+        ThreadDemo5 threadDemo5 = new ThreadDemo5(orderList,payOrderMapper);
         taskExecutor.execute(threadDemo5);
 
     }

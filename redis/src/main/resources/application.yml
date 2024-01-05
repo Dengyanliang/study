@@ -1,0 +1,28 @@
+server:
+  port: 8091
+
+spring:
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/deng?useUnicode=true&useSSL=false
+    username: root
+    password: root123456
+  redis:
+    port: 6379
+    host: 127.0.0.1
+    # 如果没有设置redis的密码，则这里的password需要注释掉，否则启动报错
+    password: 123456
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+    timeout: 0
+
+mybatis:
+  ## 扫描当前包以及依赖包路径下的mapper.xml文件
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true

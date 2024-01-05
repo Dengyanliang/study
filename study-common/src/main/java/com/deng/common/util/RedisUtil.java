@@ -6,6 +6,8 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.Objects;
 
+import static com.deng.common.constant.RedisConstant.*;
+
 /**
  * @Desc: redis工具类，方便main方法测试
  * @Auther: dengyanliang
@@ -14,10 +16,7 @@ import java.util.Objects;
 public class RedisUtil {
 
     private static JedisPool jedisPool;
-    public static final String REDIS_HOST_IP = "127.0.0.1";
-    public static final Integer REDIS_PORT = 6379;
-    public static final Integer TIMEOUT = 10000;
-    public static final String REDIS_PASSWORD = "123456";
+
 
     static {
         JedisPoolConfig config = new JedisPoolConfig();

@@ -14,7 +14,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.stream.Collectors;
 
-import static com.deng.study.common.constant.ZkConstant.*;
+import static com.deng.common.constant.ZkConstant.OBLIQUE_LINE;
+import static com.deng.common.constant.ZkConstant.PATH;
+
 
 /**
  * @Desc: 自定义zk分布式锁

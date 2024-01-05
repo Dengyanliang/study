@@ -1,14 +1,12 @@
 package com.deng.study.java.thread;
 
-import com.deng.study.dao.MyCourseDao;
-import com.deng.study.dao.OrderDao;
-import com.deng.study.dao.po.MyOrder;
-import com.deng.study.dao.po.PayOrder;
+import com.deng.study.mapper.MyOrderMapper;
+import com.deng.study.mapper.PayOrderMapper;
+import com.deng.study.pojo.MyOrder;
+import com.deng.study.pojo.PayOrder;
 import org.apache.commons.collections4.CollectionUtils;
-import org.junit.Test;
 
 import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Desc:批量插入数据库
@@ -16,29 +14,29 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @Date: 2021/3/19 16:07
  */
 public class ThreadDemo5 implements Runnable{
-    private OrderDao orderDao;
+    private PayOrderMapper payOrderMapper;
     private List<PayOrder> payOrderList;
 
-    private MyCourseDao myCourseDao;
+    private MyOrderMapper myOrderMapper;
     private List<MyOrder> myOrderList;
 
-    public ThreadDemo5(final List<PayOrder> payOrderList,OrderDao orderDao){
+    public ThreadDemo5(final List<PayOrder> payOrderList,PayOrderMapper payOrderMapper){
         this.payOrderList = payOrderList;
-        this.orderDao = orderDao;
+        this.payOrderMapper = payOrderMapper;
     }
 
-    public ThreadDemo5(MyCourseDao myCourseDao, List<MyOrder> myOrderList) {
-        this.myCourseDao = myCourseDao;
+    public ThreadDemo5(MyOrderMapper myOrderMapper, List<MyOrder> myOrderList) {
+        this.myOrderMapper = myOrderMapper;
         this.myOrderList = myOrderList;
     }
 
     @Override
     public void run() {
         if(CollectionUtils.isNotEmpty(payOrderList)){
-            orderDao.batchInsert(payOrderList);
+            payOrderMapper.batchInsert(payOrderList);
         }
-        if(CollectionUtils.isNotEmpty(myOrderList)){
-//            myCourseDao.batchInsert(payOrderList);
-        }
+//        if(CollectionUtils.isNotEmpty(myOrderList)){
+//            myOrderMapper.batchInsert(payOrderList);
+//        }
     }
 }

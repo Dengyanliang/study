@@ -7,6 +7,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.2.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <groupId>com.deng.study</groupId>
@@ -24,6 +25,8 @@
         <module>dynamic-datasource</module>
         <module>microservice</module>
         <module>redis</module>
+        <module>study-dao</module>
+        <module>elasticsearch</module>
     </modules>
 
     <properties>
@@ -49,22 +52,17 @@
                       如jdbc驱动在编译时是不需要参与的，但是运行时需要具体的第三方实现的jar包的  -->
 
     <!-- dependencies 表示父项目的基本依赖，子项目可以直接引用-->
-<!--    <dependencies>-->
-<!--        <dependency>-->
-<!--            <groupId>org.projectlombok</groupId>-->
-<!--            <artifactId>lombok</artifactId>-->
-<!--            <version>${lombok.version}</version>-->
-<!--        </dependency>-->
-<!--    </dependencies>-->
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+    </dependencies>
 
     <!-- 父项目中统一管理的依赖：依赖容器，在子项目中使用的时候需要手动引入，但不需要用引入版本号 -->
-<!--    <dependencyManagement>-->
+    <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
@@ -297,12 +295,12 @@
             <!--gprc end-->
 
             <!--devtools热部署-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-devtools</artifactId>
-                <optional>true</optional>
-                <scope>compile</scope>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-devtools</artifactId>-->
+<!--                <optional>true</optional>-->
+<!--                <scope>compile</scope>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
@@ -386,11 +384,11 @@
             </dependency>
 
             <!-- elasticsearch BEGIN-->
-<!--            <dependency>-->
-<!--                <groupId>org.elasticsearch</groupId>-->
-<!--                <artifactId>elasticsearch</artifactId>-->
-<!--                <version>7.8.0</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>7.8.0</version>
+            </dependency>
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
@@ -525,7 +523,7 @@
             </dependency>
 
         </dependencies>
-<!--    </dependencyManagement>-->
+    </dependencyManagement>
 
     <build>
         <pluginManagement>

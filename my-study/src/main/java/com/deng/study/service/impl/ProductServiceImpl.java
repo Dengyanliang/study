@@ -1,25 +1,24 @@
 package com.deng.study.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.deng.common.constant.RedisConstant;
 import com.deng.common.util.MyThreadUtil;
 import com.deng.common.util.RandomUtil;
-import com.deng.study.common.constant.RedisConstant;
-import com.deng.study.dao.mapper.ProductMapper;
-import com.deng.study.dao.po.Product;
 import com.deng.study.domain.SeckillVoucher;
-import com.deng.study.redis.BloomFilter;
+import com.deng.study.mapper.ProductMapper;
+import com.deng.study.pojo.Product;
 import com.deng.study.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.BooleanUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Objects;
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @Desc:
@@ -30,14 +29,11 @@ import java.util.concurrent.*;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+//    @Autowired
+//    private RedisTemplate redisTemplate;
 
     @Resource
     private ProductMapper productMapper;
-
-    @Autowired
-    private BloomFilter bloomFilter;
 
     private BlockingQueue<Product> orderTasks = new ArrayBlockingQueue<>(1024);
     private static final ExecutorService pool = Executors.newSingleThreadExecutor();
@@ -75,8 +71,8 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice((long) RandomUtil.getInt(100));
             productMapper.insert(product);
 
-            key = getProductRedisKey(product.getId());
-            redisTemplate.opsForValue().set(key,product);
+//            key = getProductRedisKey(product.getId());
+//            redisTemplate.opsForValue().set(key,product);
         }
     }
 
@@ -90,8 +86,8 @@ public class ProductServiceImpl implements ProductService {
         BeanUtils.copyProperties(voucher,seckillVoucher);
         // 保存到数据库
 
-        // 保存到缓存
-        redisTemplate.opsForValue().set(RedisConstant.SECKILL_STOCK_KEY + voucher.getId(), seckillVoucher);
+//         保存到缓存
+//        redisTemplate.opsForValue().set(RedisConstant.SECKILL_STOCK_KEY + voucher.getId(), seckillVoucher);
     }
 
 
@@ -118,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
         String key = getProductRedisKey(productId);
 
         // 第一遍查询redis
-        product = (Product)redisTemplate.opsForValue().get(key);
+//        product = (Product)redisTemplate.opsForValue().get(key);
 
         // redis没有，进一步查询数据库
         if (Objects.isNull(product)) {
@@ -131,17 +127,17 @@ public class ProductServiceImpl implements ProductService {
             }
             try {
                 // 第二遍查询redis
-                product = (Product) redisTemplate.opsForValue().get(key);
+//                product = (Product) redisTemplate.opsForValue().get(key);
                 if (Objects.isNull(product)) { // keypoint 这里就是双检加锁机制
                     // 查询数据库
                     product = productMapper.selectByPrimaryKey(productId);
                     if (Objects.nonNull(product)) {
                         // 把数据放入到redis
-                        redisTemplate.opsForValue().setIfAbsent(key, product, 1, TimeUnit.DAYS);
+//                        redisTemplate.opsForValue().setIfAbsent(key, product, 1, TimeUnit.DAYS);
                     } else {
                         product = new Product();
                         // keypoint 防止缓存穿透，存入空对象，存放的时间短一些
-                        redisTemplate.opsForValue().setIfAbsent(key, product, 5, TimeUnit.MINUTES);
+//                        redisTemplate.opsForValue().setIfAbsent(key, product, 5, TimeUnit.MINUTES);
                     }
                 }
             } finally {
@@ -153,12 +149,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private boolean tryLock(String key){
-        Boolean flag = redisTemplate.opsForValue().setIfAbsent(key, "1", 10, TimeUnit.SECONDS);
-        return BooleanUtils.isTrue(flag);
+//        Boolean flag = redisTemplate.opsForValue().setIfAbsent(key, "1", 10, TimeUnit.SECONDS);
+//        return BooleanUtils.isTrue(flag);
+        return true;
     }
 
     private void unLock(String key){
-        redisTemplate.delete(key);
+//        redisTemplate.delete(key);
     }
 
     /**
@@ -172,20 +169,20 @@ public class ProductServiceImpl implements ProductService {
         String key = getProductRedisKey(productId);
 
         // 布隆过滤器check，如果布隆过滤器没有，则绝对没有；如果有，则有可能有
-        if (!bloomFilter.checkWithBloomFilter(RedisConstant.WHITE_LIST_PRODUCT, key)) {
-            log.info("白名单无此商品，不可访问：{}",key);
-            return product;
-        }
+//        if (!bloomFilter.checkWithBloomFilter(RedisConstant.WHITE_LIST_PRODUCT, key)) {
+//            log.info("白名单无此商品，不可访问：{}",key);
+//            return product;
+//        }
 
         // 查询redis
-        product = (Product)redisTemplate.opsForValue().get(key);
+//        product = (Product)redisTemplate.opsForValue().get(key);
         // redis没有，进一步查询数据库
         if(Objects.isNull(product)){
             // 查询数据库
             product = productMapper.selectByPrimaryKey(productId.longValue());
             if (Objects.nonNull(product)) {
                 // 把数据放入到redis
-                redisTemplate.opsForValue().setIfAbsent(key, product, 1, TimeUnit.DAYS);
+//                redisTemplate.opsForValue().setIfAbsent(key, product, 1, TimeUnit.DAYS);
             }
         }
         log.info("最后返回的数据：{}", JSON.toJSONString(product));
@@ -207,7 +204,7 @@ public class ProductServiceImpl implements ProductService {
         productMapper.updateByPrimaryKeySelective(product);
 
         // 再删除缓存
-        redisTemplate.delete(getProductRedisKey(id));
+//        redisTemplate.delete(getProductRedisKey(id));
 
         return true;
     }

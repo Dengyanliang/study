@@ -1,14 +1,11 @@
 package com.deng.study;
 
 import com.deng.study.common.configuration.MyDataSourceConfig;
-import com.deng.study.domain.Hello;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.jms.annotation.EnableJms;
@@ -20,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
 @EnableTransactionManagement
 @ImportResource("classpath:applicationContext.xml")
-@MapperScan("com.deng.study.dao.mapper")
+@MapperScan("com.deng.study.mapper")
 @EnableJms //启动消息队列
 @Import({MyDataSourceConfig.class})
 @EnableSwagger2

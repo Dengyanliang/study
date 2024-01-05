@@ -1,6 +1,7 @@
 package com.deng.study.service;
 
-import com.deng.study.dao.po.MyOrder;
+
+import com.deng.study.pojo.MyOrder;
 
 import java.util.List;
 

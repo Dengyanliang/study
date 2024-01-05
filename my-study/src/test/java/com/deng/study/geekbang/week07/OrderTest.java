@@ -2,7 +2,7 @@ package com.deng.study.geekbang.week07;
 
 import com.deng.common.util.DateUtil;
 import com.deng.study.MyApplication;
-import com.deng.study.dao.po.PayOrder;
+import com.deng.study.pojo.PayOrder;
 import com.deng.study.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

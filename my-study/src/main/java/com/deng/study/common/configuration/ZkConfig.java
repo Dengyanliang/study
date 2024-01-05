@@ -1,6 +1,6 @@
 package com.deng.study.common.configuration;
 
-import com.deng.study.common.constant.ZkConstant;
+import com.deng.common.constant.ZkConstant;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;

@@ -1,6 +1,7 @@
 package com.deng.study.service;
 
-import com.deng.study.dao.po.Product;
+
+import com.deng.study.pojo.Product;
 
 /**
  * @Desc:

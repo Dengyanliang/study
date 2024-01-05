@@ -1,7 +1,7 @@
 package com.deng.study.geekbang.week07;
 
 import com.deng.study.MyApplication;
-import com.deng.study.dao.po.MyOrder;
+import com.deng.study.pojo.MyOrder;
 import com.deng.study.service.MyOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

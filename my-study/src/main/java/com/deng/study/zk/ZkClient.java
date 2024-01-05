@@ -1,6 +1,6 @@
 package com.deng.study.zk;
 
-import com.deng.study.common.constant.ZkConstant;
+import com.deng.common.constant.ZkConstant;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;

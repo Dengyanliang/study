@@ -24,17 +24,6 @@ spring:
       url: ${jdbc.url.slave3}
       username: ${jdbc.username.slave3}
       password: ${jdbc.password.slave3}
-  redis:
-    port: 6379
-    host: 127.0.0.1
-    password: 123456
-    jedis:
-      pool:
-        max-active: 8
-        max-idle: 8
-        max-wait: -1
-        min-idle: 0
-    timeout: 0
 ##### activemq 配置 BEGIN
 #  activemq: # 为了测试kafka，暂时注释掉
 #    broker-url: tcp://localhost:61616
@@ -62,12 +51,6 @@ spring:
 #      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 mybatis:
-  mapper-locations: classpath:base/mapper/*Mapper.xml
+  mapper-locations: classpath:/mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
-
-
-
-elasticsearch:
-  host: 127.0.0.1
-  port: 9200

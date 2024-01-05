@@ -1,7 +1,6 @@
 package com.deng.study.rpc.client;
 
 
-import com.deng.study.common.constant.ZkConstant;
 import com.deng.study.rpc.service.HelloService;
 import com.deng.study.rpc.service.client.DiscoveryService;
 import com.deng.study.rpc.service.client.DiscoveryServiceImpl;
