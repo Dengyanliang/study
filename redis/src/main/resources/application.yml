@@ -1,5 +1,7 @@
+
+
 server:
-  port: 8091
+  port: 8092
 
 spring:
   datasource:
@@ -20,9 +22,15 @@ spring:
         max-wait: -1
         min-idle: 0
     timeout: 0
+  application:
+    name: redis-study
 
 mybatis:
   ## 扫描当前包以及依赖包路径下的mapper.xml文件
   mapper-locations: classpath:/mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
+logging:
+  file:
+    ## 输出到和当前项目同级的logs目录下，并生成.log文件
+    path: logs/${spring.application.name}.log

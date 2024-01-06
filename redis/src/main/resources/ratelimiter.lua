@@ -12,7 +12,7 @@ redis.log(redis.LOG_DEBUG,'key is',methodKey)
 local limit = tonumber(ARGV[1])
 
 -- 获取当前的流量大小，如果没有则返回默认值0
-local count = tonumber(redis.call('get',methodKey) or "0")
+local count = tonumber(redis.call("get",methodKey) or "0")
 
 -- 是否超过限流阈值
 if count + 1 > limit then
@@ -22,7 +22,7 @@ else
     -- 没有超过限流阈值
     -- 设置当前访问的数量+1
     redis.call("INCRBY",methodKey,1)
-    -- 设置过期时间，这里为1秒
-    redis.call("EXPIRE",methodKey,1)
+    -- 设置过期时间，这里为100秒
+    redis.call("EXPIRE",methodKey,100)
     return true
 end

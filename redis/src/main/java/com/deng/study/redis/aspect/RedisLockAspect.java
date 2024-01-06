@@ -1,7 +1,7 @@
 package com.deng.study.redis.aspect;
 
 import com.deng.study.redis.lock.RedisDistributedLock;
-import com.deng.study.redis.lock.RedisLock;
+import com.deng.study.redis.annotation.RedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,12 +16,12 @@ import java.util.UUID;
 @Slf4j
 @Aspect
 @Component
-public class LockMethodAspect {
+public class RedisLockAspect {
 
     @Autowired
     private RedisDistributedLock redisDistributedLock;
 
-    @Around("@annotation(com.deng.study.redis.lock.RedisLock)")
+    @Around("@annotation(com.deng.study.redis.annotation.RedisLock)")
     public Object around(ProceedingJoinPoint joinPoint){
         MethodSignature signature = (MethodSignature)joinPoint.getSignature();
         Method method = signature.getMethod();
@@ -32,7 +32,7 @@ public class LockMethodAspect {
 
         try {
             boolean isLock = redisDistributedLock.tryLock(key, value, redisLock.waitTime(),redisLock.expire(),redisLock.timeUnit());
-            log.info("key:{},value:{},isLock:{}",key,value,isLock);
+            log.info("key:{},value:{},isLock:{}", key, value, isLock);
             if (!isLock) {
                 log.error("获取锁失败");
                 throw new RuntimeException("获取锁失败");

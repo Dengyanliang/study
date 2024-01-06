@@ -1,7 +1,7 @@
 package com.deng.study.redis.service;
 
 import com.deng.common.util.MyThreadUtil;
-import com.deng.study.redis.common.JedisUtil;
+import com.deng.study.redis.common.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
@@ -31,7 +31,7 @@ public class RedisLockService {
     private StringRedisTemplate redisTemplate;
 
     @Autowired
-    private JedisUtil jedisUtil;
+    private RedisUtil redisUtil;
 
     @Value("${server.port}")
     private String port;
@@ -118,7 +118,7 @@ public class RedisLockService {
                 retMessage = "商品卖完了";
             }
         } finally {
-            jedisUtil.releaseLockWithLua(redisLockKey,redisLockValue);
+            redisUtil.releaseLockWithLua(redisLockKey,redisLockValue);
         }
         return retMessage + "，服务端口号" + port;
     }
@@ -146,7 +146,7 @@ public class RedisLockService {
                 retMessage = "商品卖完了";
             }
         } finally {
-            jedisUtil.releaseLockWithLua(redisLockKey,redisLockValue);
+            redisUtil.releaseLockWithLua(redisLockKey,redisLockValue);
         }
         return retMessage + "，服务端口号" + port;
     }
@@ -176,7 +176,7 @@ public class RedisLockService {
                 retMessage = "商品卖完了";
             }
         } finally {
-            jedisUtil.releaseLockWithLua(redisLockKey,redisLockValue);
+            redisUtil.releaseLockWithLua(redisLockKey,redisLockValue);
         }
         return retMessage + "，服务端口号" + port;
     }
@@ -205,7 +205,7 @@ public class RedisLockService {
                 retMessage = "商品卖完了";
             }
         } finally {
-            jedisUtil.releaseLockWithLua(redisLockKey,redisLockValue);
+            redisUtil.releaseLockWithLua(redisLockKey,redisLockValue);
         }
         return retMessage + "，服务端口号" + port;
     }

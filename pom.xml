@@ -7,6 +7,11 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.2.RELEASE</version>
+    <!-- 1、不加<relativePath>，默认是<relativePath>../pom.xml</relativePath>，也就是直接查询父项目的pom文件
+         2、<relativePath>也可以在此指定</relativePath>，
+            指定后将在文件系统中从指定位置查找，然后是本地仓库，然后是远程仓库（优先级：指定位置-本地-远程）
+         3、加上<relativePath/>，表示将关闭这个特性，将永远从远程仓库解析读取父pom
+    -->
         <relativePath/>
     </parent>
 
@@ -61,6 +66,13 @@
     </dependencies>
 
     <!-- 父项目中统一管理的依赖：依赖容器，在子项目中使用的时候需要手动引入，但不需要用引入版本号 -->
+    <!--
+      1、如果继承了spring-boot-starter-parent，在该parent中已经定义的依赖，如果子模块想使用不同的版本，可以在该dependencyManagement重新定义，
+        否则子模块可以直接使用，不需要在该dependencyManagement重复定义
+      2、spring-boot-starter-parent没有的依赖，如果定义在dependencyManagement，需要写明version，否则子模块继承使用的时候不指定version会报错
+      3、在父pom的dependencyManagement中定义的依赖，如果子模块定义了相同的且追加了version的依赖，子模块会覆盖父模块的
+      所以后面想在dependencyManagement定义依赖时，首先要检查下spring-boot-starter-parent中是否定义了
+    -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -74,7 +86,6 @@
                 <version>2.6.1</version>
             </dependency>
 
-
             <!--mybatis begin -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
@@ -82,47 +93,42 @@
                 <version>2.2.2</version>
             </dependency>
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.5.1</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatis-plus-extension</artifactId>-->
+<!--                <version>3.5.1</version>-->
+<!--            </dependency>-->
+
+            <dependency>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-core</artifactId>
                 <scope>compile</scope>
                 <version>1.3.5</version>
             </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.5.1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-extension</artifactId>
-                <version>3.5.1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.5.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>tk.mybatis</groupId>
-                <artifactId>mapper-spring-boot-starter</artifactId>
-                <version>2.1.5</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatis-plus-generator</artifactId>-->
+<!--                <version>3.5.1</version>-->
+<!--            </dependency>-->
 
             <!--mybatis end -->
 
-            <dependency>
-                <groupId>org.hibernate.validator</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>6.1.5.Final</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.hibernate.validator</groupId>-->
+<!--                <artifactId>hibernate-validator</artifactId>-->
+<!--                <version>6.1.5.Final</version>-->
+<!--            </dependency>-->
 
 
-            <dependency>
-                <groupId>redis.clients</groupId>
-                <artifactId>jedis</artifactId>
-                <version>3.3.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>redis.clients</groupId>-->
+<!--                <artifactId>jedis</artifactId>-->
+<!--                <version>3.3.0</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>org.redisson</groupId>
@@ -143,41 +149,42 @@
                 <version>31.1-jre</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.25</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.slf4j</groupId>-->
+<!--                <artifactId>slf4j-api</artifactId>-->
+<!--                <version>1.7.25</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.slf4j</groupId>-->
+<!--                <artifactId>slf4j-log4j12</artifactId>-->
+<!--                <version>1.7.25</version>-->
+<!--            </dependency>-->
 
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5.12</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.httpcomponents</groupId>-->
+<!--                <artifactId>httpclient</artifactId>-->
+<!--                <version>4.5.12</version>-->
+<!--            </dependency>-->
 
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>1.11</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>commons-codec</groupId>-->
+<!--                <artifactId>commons-codec</artifactId>-->
+<!--                <version>1.11</version>-->
+<!--            </dependency>-->
 
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.10</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.commons</groupId>-->
+<!--                <artifactId>commons-lang3</artifactId>-->
+<!--                <version>3.10</version>-->
+<!--            </dependency>-->
 
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>2.8.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.commons</groupId>-->
+<!--                <artifactId>commons-pool2</artifactId>-->
+<!--                <version>2.8.0</version>-->
+<!--            </dependency>-->
 
+            <!--            TODO -->
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
@@ -190,19 +197,17 @@
                 <version>4.1</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-dbcp2</artifactId>
-                <version>2.6.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.commons</groupId>-->
+<!--                <artifactId>commons-dbcp2</artifactId>-->
+<!--                <version>2.6.0</version>-->
+<!--            </dependency>-->
 
-
-
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>${gson.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.google.code.gson</groupId>-->
+<!--                <artifactId>gson</artifactId>-->
+<!--                <version>${gson.version}</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>com.googlecode.aviator</groupId>
@@ -252,6 +257,7 @@
                 <version>2.4</version>
             </dependency>
 
+            <!--            TODO -->
             <dependency>
                 <groupId>com.microsoft.sqlserver</groupId>
                 <artifactId>sqljdbc4</artifactId>
@@ -420,19 +426,21 @@
 <!--                <version></version>-->
 <!--            </dependency>-->
             <!--消息队列连接池-->
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-pool</artifactId>
-                <version>5.15.15</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.activemq</groupId>-->
+<!--                <artifactId>activemq-pool</artifactId>-->
+<!--                <version>5.15.15</version>-->
+<!--            </dependency>-->
             <!--activemq starter END -->
 
             <!--kafka 所需要引入的包 BEGIN -->
-            <dependency>
-                <groupId>org.springframework.kafka</groupId>
-                <artifactId>spring-kafka</artifactId>
-                <version>2.6.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.kafka</groupId>-->
+<!--                <artifactId>spring-kafka</artifactId>-->
+<!--                <version>2.6.0</version>-->
+<!--            </dependency>-->
+
+
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
@@ -516,11 +524,11 @@
                 <version>1.4.2</version>
             </dependency>
 
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>2.0.1.Final</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>javax.validation</groupId>-->
+<!--                <artifactId>validation-api</artifactId>-->
+<!--                <version>2.0.1.Final</version>-->
+<!--            </dependency>-->
 
         </dependencies>
     </dependencyManagement>

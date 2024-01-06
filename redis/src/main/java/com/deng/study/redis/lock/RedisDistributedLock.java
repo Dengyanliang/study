@@ -1,7 +1,7 @@
 package com.deng.study.redis.lock;
 
 import com.deng.common.util.MyThreadUtil;
-import com.deng.study.redis.common.JedisUtil;
+import com.deng.study.redis.common.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisDistributedLock implements MyLock {
 
     @Autowired
-    private JedisUtil jedisUtil;
+    private RedisUtil redisUtil;
 
     private String key;
     private String value;
@@ -65,15 +65,15 @@ public class RedisDistributedLock implements MyLock {
 
     @Override
     public boolean tryLock(String key, String value, long time, long expireTime, TimeUnit unit) {
-        boolean flag = jedisUtil.tryLockWithLua(key, value, time, unit);
+        boolean flag = redisUtil.tryLockWithLua(key, value, time, unit);
         if (time == -1L) {
             // 自旋锁，这里是简化版的，一直自旋
             while (!flag) {
                 MyThreadUtil.sleep(1000 * 10); // keypoint 一定要暂停一段时间再去自旋
-                flag = jedisUtil.tryLockWithLua(key, value, time, unit);
+                flag = redisUtil.tryLockWithLua(key, value, time, unit);
             }
             // 自动续期
-            jedisUtil.renewExpire(key, value, expireTime, unit);
+            redisUtil.renewExpire(key, value, expireTime, unit);
             return true;
         }
         return flag;
@@ -81,6 +81,6 @@ public class RedisDistributedLock implements MyLock {
 
     @Override
     public void unlock() {
-        jedisUtil.releaseLockWithLua(key, value);
+        redisUtil.releaseLockWithLua(key, value);
     }
 }

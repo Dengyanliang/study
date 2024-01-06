@@ -12,6 +12,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 import java.net.UnknownHostException;
 
@@ -101,5 +103,18 @@ public class RedisConfig {
                 .setPassword(password); // 密码
 
         return (Redisson)Redisson.create(config);
+    }
+
+    @Bean
+    public JedisPool jedisPool(){
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxIdle(maxIdle);
+        config.setMaxWaitMillis(maxWait);
+        config.setMaxTotal(maxActive);
+        config.setMinIdle(minIdle);
+
+        JedisPool jedisPool = new JedisPool(config,host,port,timeout,null);
+        log.info("jedisPool创建成功，地址：{}，端口：{}",host,port);
+        return jedisPool;
     }
 }

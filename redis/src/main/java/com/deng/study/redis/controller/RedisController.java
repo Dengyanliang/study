@@ -1,7 +1,7 @@
 package com.deng.study.redis.controller;
 
 import com.deng.study.redis.service.RedisLockService;
-import com.deng.study.redis.lock.RedisLock;
+import com.deng.study.redis.annotation.RedisLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

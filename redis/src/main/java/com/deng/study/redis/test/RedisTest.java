@@ -1,7 +1,7 @@
 package com.deng.study.redis.test;
 
 import com.alibaba.fastjson.JSONObject;
-import com.deng.study.redis.common.JedisUtil;
+import com.deng.study.redis.common.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class RedisTest {
     private RedisTemplate redisTemplate;
 
     @Autowired
-    private JedisUtil jedisUtil;
+    private RedisUtil redisUtil;
 
     @Test
     public void testBasicByJedis() {
@@ -130,10 +130,10 @@ public class RedisTest {
         String value = UUID.randomUUID().toString();
         int seconds = 5;
 
-        jedisUtil.tryLockWithLua(key, value, seconds, TimeUnit.SECONDS);
+        redisUtil.tryLockWithLua(key, value, seconds, TimeUnit.SECONDS);
 
         secskill();
-        jedisUtil.releaseLockWithLua(key,value);
+        redisUtil.releaseLockWithLua(key,value);
 
 //        Runnable runnable = () -> {
 //            String key = "key";

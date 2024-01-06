@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Component
-public class JedisUtil {
+public class RedisUtil {
 
     @Autowired
     private JedisPool jedisPool;

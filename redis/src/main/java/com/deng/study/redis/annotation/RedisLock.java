@@ -1,4 +1,4 @@
-package com.deng.study.redis.lock;
+package com.deng.study.redis.annotation;
 
 
 import java.lang.annotation.*;
