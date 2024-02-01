@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableDiscoveryClient
 @EnableJpaAuditing
 @SpringBootApplication(scanBasePackages = {"com.deng.employee"})
+// 扫描feign定义的包路径
 @EnableFeignClients(basePackages = {"com.deng.employee"})
 public class EmployeeApplication {
 

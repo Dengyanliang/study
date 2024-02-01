@@ -1,6 +1,6 @@
 package com.deng.study.datastru_algorithm.tree;
 
-import com.deng.study.enums.ThreadClassEnum;
+import com.deng.common.enums.ThreadClassEnum;
 import org.junit.Test;
 
 import java.util.ArrayDeque;

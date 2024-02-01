@@ -58,3 +58,18 @@ seata:
       group: SEATA_GROUP
       namespace:
 
+# 指定服务的负载均衡策略
+#restroom-service:
+#  ribbon
+
+# 全局负载均衡策略
+ribbon:
+  eager-load:
+    enabled: true
+    clients: restroom-service
+  connectTimeout: 1000 # 服务请求连接超时时间
+  readTimeout: 2000    # 服务请求处理超时时间
+  # 确保幂等性
+  okToRetryOnAllOperation: true # 是否对所有机器启动重试机制
+  maxAutoRetries: 2 # 每个实例重试次数（当前机器2+1）
+  maxAutoRetriesNextServer: 2 # 切换几个实例进行测试

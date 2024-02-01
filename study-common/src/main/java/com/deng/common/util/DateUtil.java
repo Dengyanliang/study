@@ -35,9 +35,6 @@ public class DateUtil {
     public static final String YYYY_MM_DD2 = "yyyy.MM.dd";
 
 
-    public static void main(String[] args) {
-
-    }
 
     /**
      * 该方法是通用方法，支持上面定义的所有格式
@@ -168,6 +165,26 @@ public class DateUtil {
         //为sql.Date对象赋值
         java.sql.Date date = new java.sql.Date(now.getTime());
         return date;
+    }
+
+    public static void main(String[] args) {
+        // 创建两个Calendar对象
+//        Calendar calendar1 = Calendar.getInstance();
+//        Calendar calendar2 = Calendar.getInstance();
+//
+//        // 设置日期
+//        calendar1.set(2014, Calendar, 24); // 2021年12月31日
+//        calendar2.set(2013, Calendar.MINUTE, 3); // 2022年1月1日
+//
+//        // 将Calendar对象转换为Date对象
+//        Date date1 = calendar1.getTime();
+//        Date date2 = calendar2.getTime();
+//
+//        // 计算日期差值（以天为单位）
+//        long difference = (date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24);
+//
+//        // 输出结果
+//        System.out.println("两个日期的差值为：" + difference + "天");
     }
 
 

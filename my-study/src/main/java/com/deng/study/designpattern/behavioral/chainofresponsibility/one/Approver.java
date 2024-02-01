@@ -1,4 +1,4 @@
-package com.deng.study.designpattern.behavioral.chainofresponsibility;
+package com.deng.study.designpattern.behavioral.chainofresponsibility.one;
 
 /**
  * @Desc: 批准者

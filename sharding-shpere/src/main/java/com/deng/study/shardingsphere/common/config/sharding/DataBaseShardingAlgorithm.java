@@ -6,15 +6,15 @@ import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
 import java.util.Collection;
 
 /**
- * @author silei
+ *
  */
 public class DataBaseShardingAlgorithm implements PreciseShardingAlgorithm<String> {
 
     @Override
     public String doSharding(final Collection<String> availableTargetNames, final PreciseShardingValue<String> shardingValue) {
-        for (String each : availableTargetNames) {
-            if (each.endsWith("_" + Math.abs(shardingValue.getValue().hashCode()) % 8)) {
-                return each;
+        for (String dbName : availableTargetNames) {
+            if (dbName.endsWith("_" + Math.abs(shardingValue.getValue().hashCode()) % 2)) {
+                return dbName;
             }
         }
         throw new UnsupportedOperationException();

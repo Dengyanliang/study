@@ -24,6 +24,7 @@ public class LRUCache {
     }
 
     private HashMap<Integer,DLinkedNode> cache = new HashMap<>();
+//    private HashMap<Integer,DLinkedNode> qu
     private int size;
     private int capacity;
     private DLinkedNode head,tail;
@@ -70,6 +71,7 @@ public class LRUCache {
     }
 
     public void put(int key, int value) {
+        // 先通过哈希表定位
         DLinkedNode node = cache.get(key);
         // 如果节点不存在，则构建节点，并添加到链表头部
         if(node == null){
@@ -77,15 +79,16 @@ public class LRUCache {
             cache.put(key,newNode);
             addToHead(newNode);
             size++;
-            // 如果超出容量，删除双向链表的尾部节点
+            // 如果超出容量
             if(size > capacity){
+                // 删除双向链表的尾部节点
                 DLinkedNode tail = removeTail();
-                // 删除哈希表中尾部节点
+                // 删除哈希表的尾部节点
                 cache.remove(tail.key);
                 size--;
             }
 
-        }else{ // 如果节点存在，则先通过哈希表定位，再修改value，并移动到头部
+        }else{ // 如果节点存在，修改value，并移动到头部
             node.value = value;
             moveToHead(node);
         }

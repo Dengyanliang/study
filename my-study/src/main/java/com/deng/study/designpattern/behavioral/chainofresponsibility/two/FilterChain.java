@@ -1,4 +1,4 @@
-package com.deng.study.java.design.filter;
+package com.deng.study.designpattern.behavioral.chainofresponsibility.two;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -46,13 +46,11 @@ public class FilterChain implements ApplicationContextAware {
     }
 
     public FilterResponse filter(FilterRequest filterRequest) throws Exception {
-        if(match(filterRequest)){
-            if(MapUtils.isNotEmpty(beanMap)){
-                List<FilterInterface<FilterRequest, FilterResponse>> filterList = beanMap.values().stream().sorted(Comparator.comparing(FilterInterface::order)).collect(Collectors.toList());
-                log.info("当前满足条件的过滤器:{}",JSON.toJSONString(filterList));
-                for (FilterInterface<FilterRequest, FilterResponse> filter : filterList) {
-                    filter.doFilter(filterRequest);
-                }
+        if(match(filterRequest) && (MapUtils.isNotEmpty(beanMap))){
+            List<FilterInterface<FilterRequest, FilterResponse>> filterList = beanMap.values().stream().sorted(Comparator.comparing(FilterInterface::order)).collect(Collectors.toList());
+            log.info("当前满足条件的过滤器:{}",JSON.toJSONString(filterList));
+            for (FilterInterface<FilterRequest, FilterResponse> filter : filterList) {
+                filter.doFilter(filterRequest);
             }
         }
         return null;

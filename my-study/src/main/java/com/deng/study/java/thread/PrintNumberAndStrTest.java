@@ -7,16 +7,18 @@ import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * @Desc: 打印数字
- *  1）三个线程，从1-20交替打印
- *  2）三个线程交替，循环打印ABC 5次
+ * @Desc: 打印
+ *  1）三个线程，从1-10交替打印
+ *  2）三个线程，循环交替打印ABC 5次
  * @Auther: dengyanliang
  * @Date: 2023/9/21 20:14
  */
-public class PrintNumberTest {
+public class PrintNumberAndStrTest {
 
+    /********* 使用 wait、notify 交替打印 BEIN  ********/
     @Test
     public void printNumberByWaitNotify(){
+        // 三个线程，从1-10交替打印
         PrintByWaitNotify printByWaitNotify = new PrintByWaitNotify(1);
         new Thread(() -> {
             printByWaitNotify.printNumber(1,2);
@@ -29,6 +31,23 @@ public class PrintNumberTest {
         }, "t3").start();
     }
 
+    @Test
+    public void printStrByWaitNotify(){
+        PrintByWaitNotify printByWaitNotify = new PrintByWaitNotify(1,3);
+        new Thread(() -> {
+            printByWaitNotify.printStr("a",1,2);
+        }, "t1").start();
+        new Thread(() -> {
+            printByWaitNotify.printStr("b",2,3);
+        }, "t2").start();
+        new Thread(() -> {
+            printByWaitNotify.printStr("c",3,1);
+        }, "t3").start();
+    }
+    /********* 使用 wait、notifyAll 交替打印 END  ********/
+
+
+    /********* 使用 await、signalAll 交替打印 BEIN  ********/
     @Test
     public void printNumberByAWaitSignal(){
         PrintByAwaitSignal printByAwaitSignal = new PrintByAwaitSignal();
@@ -51,10 +70,32 @@ public class PrintNumberTest {
         printByAwaitSignal.unlock(); // 主线程解锁
     }
 
-    /**
-     * 需要声明三个静态Thread变量，不太好
-     */
-    static Thread t1, t2, t3;
+    @Test
+    public void printStrByAWaitSignal(){
+        PrintByAwaitSignal printByAwaitSignal = new PrintByAwaitSignal(3);
+        Condition condition1 = printByAwaitSignal.newCondition();
+        Condition condition2 = printByAwaitSignal.newCondition();
+        Condition condition3 = printByAwaitSignal.newCondition();
+
+        new Thread(() -> {
+            printByAwaitSignal.printStr("a",condition1,condition2);
+        }, "t1").start();
+        new Thread(() -> {
+            printByAwaitSignal.printStr("b",condition2,condition3);
+        }, "t2").start();
+        new Thread(() -> {
+            printByAwaitSignal.printStr("c",condition3,condition1);
+        }, "t3").start();
+
+        printByAwaitSignal.lock(); // 主线程加锁
+        condition1.signal(); // 唤醒t1线程 keypoint 必须有在monitor块中，不然会报错java.lang.IllegalMonitorStateException。所以主线程加锁解锁必须存在
+        printByAwaitSignal.unlock(); // 主线程解锁
+    }
+    /********* 使用 await、signalAll 交替打印 BEIN  ********/
+
+
+    /********* 使用 park、unPark 交替打印 BEIN  ********/
+    static Thread t1, t2, t3; // 需要声明三个静态Thread变量，不太好
     @Test
     public void printNumberByParkUnPark(){
 
@@ -80,42 +121,6 @@ public class PrintNumberTest {
     }
 
     @Test
-    public void printStrByWaitNotify(){
-        PrintByWaitNotify printByWaitNotify = new PrintByWaitNotify(1,3);
-        new Thread(() -> {
-            printByWaitNotify.printStr("a",1,2);
-        }, "t1").start();
-        new Thread(() -> {
-            printByWaitNotify.printStr("b",2,3);
-        }, "t2").start();
-        new Thread(() -> {
-            printByWaitNotify.printStr("c",3,1);
-        }, "t3").start();
-    }
-
-    @Test
-    public void printStrByAWaitSignal(){
-        PrintByAwaitSignal printByAwaitSignal = new PrintByAwaitSignal(3);
-        Condition condition1 = printByAwaitSignal.newCondition();
-        Condition condition2 = printByAwaitSignal.newCondition();
-        Condition condition3 = printByAwaitSignal.newCondition();
-
-        new Thread(() -> {
-            printByAwaitSignal.printStr("a",condition1,condition2);
-        }, "t1").start();
-        new Thread(() -> {
-            printByAwaitSignal.printStr("b",condition2,condition3);
-        }, "t2").start();
-        new Thread(() -> {
-            printByAwaitSignal.printStr("c",condition3,condition1);
-        }, "t3").start();
-
-        printByAwaitSignal.lock(); // 主线程加锁
-        condition1.signal(); // 唤醒t1线程 keypoint 必须有在monitor块中，不然会报错java.lang.IllegalMonitorStateException。所以主线程加锁解锁必须存在
-        printByAwaitSignal.unlock(); // 主线程解锁
-    }
-
-    @Test
     public void printStrByParkUnPark() {
         PrintByParkUnPark printByParkUnPark = new PrintByParkUnPark(3);
 
@@ -137,6 +142,7 @@ public class PrintNumberTest {
 
         LockSupport.unpark(t1);
     }
+    /******* 使用 park、unPark 交替打印 END  ********/
 }
 
 
@@ -153,23 +159,6 @@ class PrintByWaitNotify {
     public PrintByWaitNotify(int initialFlag, int loopNumber) {
         this.initialFlag = initialFlag;
         this.loopNumber = loopNumber;
-    }
-
-    public void printStr(String str, int currentFlag,int nextFlag){
-        for (int i = 0; i < loopNumber; i++) {
-            synchronized (this){
-                while (currentFlag != initialFlag){
-                    try {
-                        this.wait();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println(Thread.currentThread().getName()+":"+str);
-                initialFlag = nextFlag;
-                this.notifyAll();
-            }
-        }
     }
 
     public void printNumber(int currentFlag,int nextFlag){
@@ -192,6 +181,24 @@ class PrintByWaitNotify {
             }
         }
     }
+
+    public void printStr(String str, int currentFlag,int nextFlag){
+        for (int i = 0; i < loopNumber; i++) {
+            synchronized (this){
+                while (currentFlag != initialFlag){
+                    try {
+                        this.wait();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println(Thread.currentThread().getName()+":"+str);
+                initialFlag = nextFlag;
+                this.notifyAll();
+            }
+        }
+    }
+
 }
 
 class PrintByAwaitSignal extends ReentrantLock{

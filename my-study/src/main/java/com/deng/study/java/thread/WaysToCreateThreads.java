@@ -1,6 +1,6 @@
 package com.deng.study.java.thread;
 
-import jodd.util.ThreadUtil;
+import com.deng.common.util.MyThreadUtil;
 
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Condition;
@@ -74,7 +74,7 @@ public class WaysToCreateThreads {
     private static void method5() throws Exception {
         new Thread(() -> {
             // sleep一下，确保main线程先拿到锁后阻塞，如果Thread线程先拿到锁后存在main线程无法被唤醒而永久阻塞的可能性
-            ThreadUtil.sleep(20);
+            MyThreadUtil.sleep(20);
             synchronized (lockObj){
                 System.out.println("开始 计算sum 了");
                 res5 = sum();
@@ -98,7 +98,7 @@ public class WaysToCreateThreads {
         final Condition condition = lock.newCondition();
         new Thread(() -> {
             try {
-                ThreadUtil.sleep(20);
+                MyThreadUtil.sleep(20);
                 lock.lock();
                 res6 = sum();
                 condition.signalAll();
@@ -134,7 +134,7 @@ public class WaysToCreateThreads {
     private static volatile Integer res9;
     private static void method9() throws InterruptedException {
         threadPoolExecutor.execute(()->{
-            ThreadUtil.sleep(20);
+            MyThreadUtil.sleep(20);
             synchronized (lockObj){
                 res9 = sum();
                 lockObj.notifyAll();
@@ -152,7 +152,7 @@ public class WaysToCreateThreads {
         final Condition condition = lock.newCondition();
         threadPoolExecutor.execute(()->{
             try {
-                ThreadUtil.sleep(20);
+                MyThreadUtil.sleep(20);
                 lock.lock();
                 res10 = sum();
                 condition.signalAll();
@@ -291,7 +291,7 @@ public class WaysToCreateThreads {
         new Thread(() -> {
             res18 = sum();
         }, "t1").start();
-        ThreadUtil.sleep(200);
+        MyThreadUtil.sleep(200);
         System.out.println("res18 = " + res18);
     }
 

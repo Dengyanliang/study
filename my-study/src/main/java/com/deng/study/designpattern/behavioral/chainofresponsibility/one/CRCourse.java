@@ -1,4 +1,4 @@
-package com.deng.study.designpattern.behavioral.chainofresponsibility;
+package com.deng.study.designpattern.behavioral.chainofresponsibility.one;
 
 import lombok.Data;
 

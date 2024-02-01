@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigUtils;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.support.GenericApplicationContext;
 
 import javax.annotation.PostConstruct;

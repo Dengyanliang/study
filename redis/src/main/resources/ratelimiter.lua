@@ -8,7 +8,7 @@
 local methodKey = KEYS[1]
 redis.log(redis.LOG_DEBUG,'key is',methodKey)
 
--- 调用脚本传入的限流大小，即限流的最大阈值
+-- 调用脚本传入的限流大小，即限流的最大阈值，也可以是秒杀的最大值
 local limit = tonumber(ARGV[1])
 
 -- 获取当前的流量大小，如果没有则返回默认值0

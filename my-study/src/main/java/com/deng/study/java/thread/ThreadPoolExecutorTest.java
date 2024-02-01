@@ -2,6 +2,7 @@ package com.deng.study.java.thread;
 
 import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Date: 2023/2/16 18:46
  */
 @Slf4j
-public class ThreadPoolExecutorsTest {
+public class ThreadPoolExecutorTest {
     public static void main(String[] args) throws InterruptedException {
         Executors.newCachedThreadPool();                            // keypoint 最大线程数是Integer.MaxValue
         Executors.newSingleThreadExecutor();                        // keypoint 阻塞队列的大小是无界的--Integer.MaxValue
@@ -44,6 +45,22 @@ public class ThreadPoolExecutorsTest {
 //        invokeAll(pool);
 //        invokeAny(pool);
         shutdown(pool);
+    }
+
+    @Test
+    public void testThreadPoolExecutor(){
+
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(2,5,
+                1000L,TimeUnit.SECONDS,new ArrayBlockingQueue<>(3));
+        for (int i = 0; i < 11; i++) {
+            executor.execute(()->doSomeThing());
+        }
+        executor.shutdown();
+    }
+
+    private static void doSomeThing(){
+        System.out.println(Thread.currentThread().getName()+"执行了");
+        MyThreadUtil.sleep(100);
     }
 
     private static void invokeAll(ExecutorService pool) throws InterruptedException {

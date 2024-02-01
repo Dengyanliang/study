@@ -1,7 +1,7 @@
-package com.deng.study.designpattern.behavioral.chainofresponsibility;
+package com.deng.study.designpattern.behavioral.chainofresponsibility.one;
 
 /**
- * @Desc:
+ * @Desc: 责任链模式
  * @Date: 2023/12/30 11:31
  * @Auther: dengyanliang
  */

@@ -26,6 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * @Desc:
@@ -94,6 +95,7 @@ public class ShardingJdbcTest {
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Order order = new Order();
+            order.setOrderNo("Order_No_"+ UUID.randomUUID().toString());
             order.setName("测试事务------"+i);
             order.setUserId((long) random.nextInt(100));
             order.setStatus("normal");

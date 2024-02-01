@@ -15,7 +15,6 @@ public final class TableRangeShardingAlgorithm implements RangeShardingAlgorithm
 
     @Override
     public Collection<String> doSharding(Collection<String> collection, RangeShardingValue<String> rangeShardingValue) {
-        int size = collection.size();
         Collection<String> collect = new ArrayList<>();
         Range<String> valueRange = rangeShardingValue.getValueRange();
         /*for (Long i = valueRange.lowerEndpoint(); i <= valueRange.upperEndpoint(); i++) {
