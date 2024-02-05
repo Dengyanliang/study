@@ -21,7 +21,7 @@ public class CreateTable {
                     targetTable = sourceTable + "_" + no.toString();
                 }
                 String targetStr = "CREATE TABLE " + targetDatabase + "." + targetTable
-                        + " LIKE " + sourceDatabase + "." + sourceTable
+//                        + " LIKE " + sourceDatabase + "." + sourceTable
                 +"("
                         +  "id bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键，订单id',"
                         +  "order_no varchar(64) DEFAULT NULL COMMENT '订单号',"

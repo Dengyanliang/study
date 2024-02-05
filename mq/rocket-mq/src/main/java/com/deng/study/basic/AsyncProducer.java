@@ -1,5 +1,6 @@
 package com.deng.study.basic;
 
+import com.alibaba.fastjson.JSON;
 import com.deng.study.enums.DelayTimeLevelEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -7,6 +8,7 @@ import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,11 +30,12 @@ public class AsyncProducer {
             producer.start();
 
             for (int i = 0; i < 1; i++) {
-                int level = DelayTimeLevelEnum.LEVEL_0s.getCode();
-                byte[] body = ("Hi,async_" + i + "_" + level).getBytes();
-                Message message = new Message("topic_test_ack","asycSend",body);
-                // messageDelayLevel=1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h
-                // 延迟等级为4级，即30s
+                int level = DelayTimeLevelEnum.DELAY_0s.getCode();
+//                byte[] body = ("pay_order_" + i + "_" + level).getBytes();
+
+                SendMsgDTO sendMsgDTO = new SendMsgDTO("pay_order_" + i, 0);
+
+                Message message = new Message("topic_test_ack","asycSend", JSON.toJSONString(sendMsgDTO).getBytes(StandardCharsets.UTF_8));
                 message.setDelayTimeLevel(level);
 
                 // 异步发送，指定回调

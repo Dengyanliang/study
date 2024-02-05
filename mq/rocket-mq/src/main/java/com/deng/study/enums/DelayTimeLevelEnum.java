@@ -8,24 +8,24 @@ package com.deng.study.enums;
 public enum DelayTimeLevelEnum implements MyEnum{
 
     // 1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h
-    LEVEL_0s(0,"0s"),
-    LEVEL_1s(1,"1s"),
-    LEVEL_5s(2,"5s"),
-    LEVEL_10s(3,"10s"),
-    LEVEL_30s(4,"30s"),
-    LEVEL_1m(5,"1m"),
-    LEVEL_2m(6,"2m"),
-    LEVEL_3m(7,"3m"),
+    DELAY_0s(0,"0s"),
+    DELAY_1s(1,"1s"),
+    DELAY_5s(2,"5s"),
+    DELAY_10s(3,"10s"),
+    DELAY_30s(4,"30s"),
+    DELAY_1m(5,"1m"),
+    DELAY_2m(6,"2m"),
+    DELAY_3m(7,"3m"),
 
     ;
 
-    DelayTimeLevelEnum(int code, String desc) {
-        this.code = code;
-        this.desc = desc;
-    }
+    private int level; // 延迟级别
+    private String levelDesc; // 延时的时间
 
-    private int code;
-    private String desc;
+    DelayTimeLevelEnum(int level, String levelDesc) {
+        this.level = level;
+        this.levelDesc = levelDesc;
+    }
 
     public static DelayTimeLevelEnum getDelayTimeLevel(int level){
         for (DelayTimeLevelEnum delayTimeLevelEnum : DelayTimeLevelEnum.values()) {
@@ -34,16 +34,16 @@ public enum DelayTimeLevelEnum implements MyEnum{
             }
         }
         // 如果找不到，则立即发送
-        return DelayTimeLevelEnum.LEVEL_0s;
+        return DelayTimeLevelEnum.DELAY_0s;
     }
 
     @Override
     public int getCode() {
-        return code;
+        return level;
     }
 
     @Override
     public String getDesc() {
-        return desc;
+        return levelDesc;
     }
 }
