@@ -1,6 +1,7 @@
 package com.deng.study.basic;
 
 import com.alibaba.fastjson.JSON;
+import com.deng.study.dto.SendMsgDTO;
 import com.deng.study.enums.DelayTimeLevelEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -30,7 +31,7 @@ public class AsyncProducer {
             producer.start();
 
             for (int i = 0; i < 1; i++) {
-                int level = DelayTimeLevelEnum.DELAY_0s.getCode();
+                int level = DelayTimeLevelEnum.DELAY_0s.getLevel();
 //                byte[] body = ("pay_order_" + i + "_" + level).getBytes();
 
                 SendMsgDTO sendMsgDTO = new SendMsgDTO("pay_order_" + i, 0);

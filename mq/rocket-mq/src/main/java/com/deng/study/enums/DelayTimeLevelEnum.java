@@ -1,11 +1,14 @@
 package com.deng.study.enums;
 
+import lombok.Getter;
+
 /**
  * @Desc:
  * @Date: 2024/2/2 15:30
  * @Auther: dengyanliang
  */
-public enum DelayTimeLevelEnum implements MyEnum{
+@Getter
+public enum DelayTimeLevelEnum{
 
     // 1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h
     DELAY_0s(0,"0s"),
@@ -29,7 +32,7 @@ public enum DelayTimeLevelEnum implements MyEnum{
 
     public static DelayTimeLevelEnum getDelayTimeLevel(int level){
         for (DelayTimeLevelEnum delayTimeLevelEnum : DelayTimeLevelEnum.values()) {
-            if(delayTimeLevelEnum.getCode() == level){
+            if(delayTimeLevelEnum.getLevel() == level){
                 return delayTimeLevelEnum;
             }
         }
@@ -37,13 +40,4 @@ public enum DelayTimeLevelEnum implements MyEnum{
         return DelayTimeLevelEnum.DELAY_0s;
     }
 
-    @Override
-    public int getCode() {
-        return level;
-    }
-
-    @Override
-    public String getDesc() {
-        return levelDesc;
-    }
 }

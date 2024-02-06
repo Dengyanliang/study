@@ -1,7 +1,7 @@
 package com.deng.study.spring;
 
 import com.alibaba.fastjson.JSON;
-import com.chagee.payment.common.enums.DelayTimeLevelEnum;
+import com.deng.study.enums.DelayTimeLevelEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -56,7 +56,7 @@ public class RocketMqProducer {
     }
 
     public void sendAysnc(String topic, String tag, Object obj) {
-        sendAysnc(topic,tag,obj,DelayTimeLevelEnum.DELAY_0s);
+        sendAysnc(topic,tag,obj, DelayTimeLevelEnum.DELAY_0s);
     }
 
     public void sendAysnc(String topic, String tag, Object obj, DelayTimeLevelEnum delayTimeLevel) {

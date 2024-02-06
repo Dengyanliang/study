@@ -1,13 +1,15 @@
-package com.deng.study.basic;
+package com.deng.study.dto;
 
 import com.deng.study.enums.DelayTimeLevelEnum;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @Desc:
  * @Date: 2024/2/4 17:09
  * @Auther: dengyanliang
  */
+@ToString
 @Data
 public class SendMsgDTO {
     private String payNo;
