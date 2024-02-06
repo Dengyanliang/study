@@ -37,10 +37,10 @@ public class ConsumerTest {
             // 定义push消费者，必须指定消费者组，否则会报错，因为生产者也是往cg组中发送消息的
             DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("cg");
             consumer.setNamesrvAddr("localhost:9876");
-            // 定义从哪里开始消费，这里指定从第一条消息开始消费
-            consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+            // 定义从哪里开始消费，这里指定从第一条消息开始消费，默认为CONSUME_FROM_LAST_OFFSET
+//            consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
             // 指定消费的topic和tag
-            consumer.subscribe("topic_test_ack","*");
+            consumer.subscribe("topic_test_ack","asycSend");
             // 采用"广播模式"进行消费，默认为"集群模式"
             consumer.setMessageModel(MessageModel.BROADCASTING);
 
@@ -61,7 +61,7 @@ public class ConsumerTest {
 //                            System.out.println("原始字符串："+body + "，截取后：" + payNo + "，次数：" + count + "，延时等级：" + delayTimeLevel);
 //                        log.info("原始字符串：{},截取后：{}，次数：{}，延时等级：{}", body, substring, count, delayTimeLevel);
 
-                            SendMsgDTO sendMsgDTO = JSONObject.parseObject(body).toJavaObject(SendMsgDTO.class);
+                            SendMsgDTO sendMsgDTO = JSON.parseObject(body,SendMsgDTO.class);
                             String payNo = sendMsgDTO.getPayNo();
                             int retryTime = sendMsgDTO.getRetryTime();
                             System.out.println("payNo：" + payNo + "，次数：" + retryTime + "，延时等级：" + delayTimeLevel);
@@ -108,14 +108,14 @@ public class ConsumerTest {
     /**
      * 发送到一定次数，进行持久化
      */
-    private static void save(String substring,int retryTime,int delayTimeLevel){
-        System.out.println("进行持久化，substring：" + substring + "，重试次数：" + retryTime + "，延时等级：" + delayTimeLevel);
+    private static void save(String payNo,int retryTime,int delayTimeLevel){
+        System.out.println("进行持久化，payNo：" + payNo + "，重试次数：" + retryTime + "，延时等级：" + delayTimeLevel);
     }
 
     /**
      * 重新发送
      */
-    private static void retrySend(String subStr,int count,int delayTimeLevel){
+    private static void retrySend(String payNo,int count,int delayTimeLevel){
         try {
             DefaultMQProducer producer = new DefaultMQProducer("pg");
             producer.setNamesrvAddr("localhost:9876");
@@ -131,7 +131,7 @@ public class ConsumerTest {
 //
 //            byte[] body = str.getBytes();
 
-            SendMsgDTO sendMsgDTO = new SendMsgDTO(subStr, count + 1);
+            SendMsgDTO sendMsgDTO = new SendMsgDTO(payNo, count + 1);
 
             Message message = new Message("topic_test_ack","asycSend", JSON.toJSONString(sendMsgDTO).getBytes(StandardCharsets.UTF_8));
             message.setDelayTimeLevel(DelayTimeLevelEnum.getDelayTimeLevel(delayTimeLevel + 1).getCode());
