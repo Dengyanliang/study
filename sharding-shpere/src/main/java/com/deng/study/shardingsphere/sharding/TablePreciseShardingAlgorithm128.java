@@ -1,4 +1,4 @@
-package com.deng.study.shardingsphere.common.config.sharding;
+package com.deng.study.shardingsphere.sharding;
 
 
 import com.deng.common.util.StringCommonUtils;

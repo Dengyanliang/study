@@ -1,4 +1,4 @@
-package com.deng.study.shardingsphere.common.config.sharding;
+package com.deng.study.shardingsphere.sharding;
 
 import com.google.common.collect.Range;
 import org.apache.shardingsphere.api.sharding.standard.RangeShardingAlgorithm;

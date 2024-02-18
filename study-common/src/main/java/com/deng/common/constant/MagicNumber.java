@@ -3,7 +3,7 @@ package com.deng.common.constant;
 
 
 /**
- * @author silei
+ * @author dengyanliang
  */
 public class MagicNumber {
     public static final int int_0 = 0;

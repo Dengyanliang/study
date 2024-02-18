@@ -36,9 +36,9 @@ public class OrderServiceImpl implements OrderService {
     public void addOrder(Order order) {
         i++;
         orderMapper.insert(order);
-        if(i == 5){
-            throw new RuntimeException("测试报错");
-        }
+//        if(i == 5){
+//            throw new RuntimeException("测试报错");
+//        }
     }
 
     @Override

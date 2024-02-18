@@ -93,7 +93,7 @@ public class ShardingJdbcTest {
     @Test
     public void addOrder(){
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             Order order = new Order();
             order.setOrderNo("Order_No_"+ UUID.randomUUID().toString());
             order.setName("测试事务------"+i);
