@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD) // 方法增强
 @Retention(RetentionPolicy.RUNTIME) // 运行周期，这里设置的运行级别
 @Documented
-@Inherited
+@Inherited // 允许子类继承父类注释
 public @interface AccessLimiter {
     /**
      * 允许通过的最大流量

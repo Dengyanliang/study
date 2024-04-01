@@ -34,6 +34,11 @@ public class AccessLimiterAspect {
     @Autowired
     private RedisScript<Boolean> rateLimitLua;
 
+    /**
+     * @annotation 用于方法上
+     * @with 用于类和子类上
+     * @Target 用于当前类上，不会用于子类上
+     */
     @Around("@annotation(com.deng.study.redis.annotation.AccessLimiter)")
     public Object around(ProceedingJoinPoint joinPoint){
         MethodSignature signature = (MethodSignature)joinPoint.getSignature();
@@ -57,11 +62,14 @@ public class AccessLimiterAspect {
 
         try {
             // 执行lua脚本
-            boolean acquired = stringRedisTemplate.execute(
+            // Lua script的真身
+            // Lua脚本中的Key列表
+            // Lua脚本Value列表
+            boolean acquired = Boolean.TRUE.equals(stringRedisTemplate.execute(
                     rateLimitLua, // Lua script的真身
                     Lists.newArrayList(methodKey), // Lua脚本中的Key列表
                     Integer.toString(limit)  // Lua脚本Value列表
-            );
+            ));
 
             if(!acquired){
                 log.error("Your access is blocked, threadName={}",Thread.currentThread().getName());
@@ -70,7 +78,7 @@ public class AccessLimiterAspect {
 
             return joinPoint.proceed();
         } catch (Throwable e) {
-            log.error("执行限流时发生了异常，e:{}",e);
+            log.error("执行限流时发生了异常",e);
             throw new RuntimeException(e);
         }
     }
