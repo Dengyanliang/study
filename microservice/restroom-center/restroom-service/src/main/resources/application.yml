@@ -88,3 +88,12 @@ seata:
       cluster: default
       group: SEATA_GROUP
       namespace:
+
+restroom-sign:
+  signMap:
+    10000:
+      signKey: abc
+      signHeaderName: sign
+      signEffectiveTime: 600000
+      signTimeHeaderName: timestamp
+      systemTimeOffset: 3000

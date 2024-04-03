@@ -1,6 +1,7 @@
 package com.deng.restroom.service;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.deng.restroom.annotation.SignVerify;
 import com.deng.restroom.convert.ToiletConverter;
 import com.deng.restroom.dao.ToiletDao;
 import com.deng.restroom.entity.ToiletEntity;
@@ -26,9 +27,7 @@ import java.util.Optional;
 @RequestMapping("toilet-service")
 public class RestroomService implements IRestroomTccService{
 
-    @Resource
-    private ToiletDao toiletDao;
-
+    @SignVerify
     @GetMapping("/get")
     public Toilet getToilet(Long id){
         ToiletEntity toiletEntity = toiletDao.findById(id).
@@ -36,6 +35,9 @@ public class RestroomService implements IRestroomTccService{
 
         return ToiletConverter.convert(toiletEntity);
     }
+
+    @Resource
+    private ToiletDao toiletDao;
 
 
     @Override

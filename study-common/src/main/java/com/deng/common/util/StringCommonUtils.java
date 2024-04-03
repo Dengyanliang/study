@@ -1,5 +1,6 @@
 package com.deng.common.util;
 
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,5 +100,33 @@ public class StringCommonUtils {
         Matcher matcher = pattern.matcher(amount);
         return matcher.matches();
     }
+
+    /**
+     * 根据编码类型获得签名内容byte[]
+     */
+    public static byte[] getContentBytesByUTF8(String content) {
+        return content.getBytes(StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 取模后的绝对值
+     *
+     * @param value      传入的值
+     * @param modCount   取模的数量
+     */
+    public static String getAbsModuloValue(int value, int modCount) {
+        return String.valueOf(Math.abs(value % modCount));
+    }
+
+    /**
+     * 取模后的值
+     *
+     * @param value      传入的值
+     * @param modCount   取模的数量
+     */
+    public static String getModuloValue(long value, int modCount) {
+        return String.valueOf(value % modCount);
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package com.deng.restroom;
+package com.deng.restroom.config;
 
 import com.alibaba.cloud.nacos.registry.NacosAutoServiceRegistration;
 import com.alibaba.nacos.common.utils.ThreadUtils;

@@ -1,4 +1,4 @@
-package com.deng.restroom;
+package com.deng.restroom.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import io.seata.rm.datasource.DataSourceProxy;
