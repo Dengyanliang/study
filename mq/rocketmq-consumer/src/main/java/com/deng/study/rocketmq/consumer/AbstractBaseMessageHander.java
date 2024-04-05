@@ -26,12 +26,10 @@ public abstract class AbstractBaseMessageHander <T>{
     }
 
     /**
-     * 处理业务消息，这里一个钩子方法
+     * 处理业务消息
      * @param t
      */
-    protected void handleMessage(T t){
-
-    }
+    protected abstract void handleMessage(T t);
 
     /**
      * 消息类型，这里用了TypeReference，因为消息有可能是泛型包装的
