@@ -40,10 +40,11 @@ public class VerifySignRequestDataAdapter extends RequestBodyAdviceAdapter {
     private static final Pattern TIMESTAMP_PATTERN = Pattern.compile("^\\d{13}$");
 
     /**
-     * 对 存在SignVerify 注解的方法进行签名验证
-     * @param methodParameter 方法参数
-     * @param targetType 目标类
-     * @param converterType 转换器
+     * 对 存在SignVerify 注解的方法进行签名验证，此方法用于判断当前请求，是否要执行afterBodyRead方法
+     *
+     * @param methodParameter 方法的参数对象
+     * @param targetType      方法的参数类型
+     * @param converterType   将会使用到的Http消息转换器类类型
      * @return
      */
     @Override
@@ -51,6 +52,16 @@ public class VerifySignRequestDataAdapter extends RequestBodyAdviceAdapter {
         return methodParameter.hasMethodAnnotation(SignVerify.class);
     }
 
+    /**
+     * 在Http消息转换器执转换，之前执行
+     *
+     * @param body          转换后的对象
+     * @param inputMessage  客户端的请求数据
+     * @param parameter     方法的参数对象
+     * @param targetType    方法的参数类型
+     * @param converterType 将会使用到的Http消息转换器类类型
+     * @return 返回一个自定义的HttpInputMessage
+     */
     @Override
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         try {

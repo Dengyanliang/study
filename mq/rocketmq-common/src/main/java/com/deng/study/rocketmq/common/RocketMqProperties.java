@@ -23,7 +23,7 @@ public class RocketMqProperties {
     // secretKey
     private String secretKey;
     // 分组配置
-    private List<RocketMqGroupParam> groupList;
+    private List<RocketMqGroupParam> groupParamList;
 
     public boolean checkConfig(){
         if(StringUtils.isAnyBlank(nameServer,accessKey,secretKey)){
@@ -37,10 +37,10 @@ public class RocketMqProperties {
         // 组名
         private String groupName;
         // 消费者的配置
-        private List<RocketMqConsumerParam> consumerList;
+        private List<RocketMqConsumerParam> consumerParamList;
 
         public boolean checkConfig(){
-            if(StringUtils.isBlank(groupName) || CollectionUtils.isEmpty(consumerList)){
+            if(StringUtils.isBlank(groupName) || CollectionUtils.isEmpty(consumerParamList)){
                 return false;
             }
             return true;

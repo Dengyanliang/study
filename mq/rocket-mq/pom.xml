@@ -29,12 +29,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
-        <!-- 实现对 RocketMQ 的自动化配置 -->
-        <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-spring-boot-starter</artifactId>
-            <version>2.2.1</version>
-        </dependency>
 
 <!--        <dependency>-->
 <!--            <groupId>org.apache.rocketmq</groupId>-->
@@ -42,14 +36,6 @@
 <!--            <version>5.0.0</version>-->
 <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-api</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-log4j12</artifactId>-->
-<!--        </dependency>-->
     </dependencies>
 
 </project>
