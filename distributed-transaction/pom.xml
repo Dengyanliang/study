@@ -26,47 +26,16 @@
 
 
     <properties>
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
-        <alibaba-cloud.version>2.2.6.RELEASE</alibaba-cloud.version>
-
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${alibaba-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.deng.study</groupId>
-                <artifactId>study-common</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.deng.study</groupId>
+            <artifactId>study-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

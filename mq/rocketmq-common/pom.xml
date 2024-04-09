@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>rocketmq-common</artifactId>
-    <packaging>jar</packaging>
+<!--    <packaging>jar</packaging>-->
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -22,11 +22,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

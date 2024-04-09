@@ -1,5 +1,3 @@
-package com.deng.study.es.test;
-
 import com.alibaba.fastjson.JSON;
 import com.deng.study.domain.User;
 import lombok.extern.slf4j.Slf4j;
@@ -67,9 +65,8 @@ public class EsTest {
     private RestHighLevelClient createRestHighLevelClient(){
         HttpHost httpHost = new HttpHost("localhost",9200,"http");// 不传http，默认也是
         RestClientBuilder clientBuilder = RestClient.builder(httpHost);
-        RestHighLevelClient client = new RestHighLevelClient(clientBuilder);
 
-        return client;
+        return new RestHighLevelClient(clientBuilder);
     }
 
     @Test

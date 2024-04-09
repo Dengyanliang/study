@@ -59,25 +59,6 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.deng.study</groupId>
-            <artifactId>study-common</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>perfmark-api</artifactId>
-                    <groupId>io.perfmark</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>animal-sniffer-annotations</artifactId>
-                    <groupId>org.codehaus.mojo</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>asm</artifactId>
-                    <groupId>org.ow2.asm</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
     </dependencies>
 
 </project>

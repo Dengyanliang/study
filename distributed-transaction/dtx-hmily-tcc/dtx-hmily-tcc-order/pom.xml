@@ -94,11 +94,6 @@
             <artifactId>hmily-spring-boot-starter-springcloud</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.deng.study</groupId>
-            <artifactId>study-common</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

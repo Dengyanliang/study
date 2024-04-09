@@ -75,6 +75,10 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <exclusions>
                 <exclusion>
+                    <artifactId>antlr-runtime</artifactId>
+                    <groupId>org.antlr</groupId>
+                </exclusion>
+                <exclusion>
                     <artifactId>commons-configuration</artifactId>
                     <groupId>commons-configuration</groupId>
                 </exclusion>
@@ -99,22 +103,6 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.deng.study</groupId>
-            <artifactId>study-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>perfmark-api</artifactId>
-                    <groupId>io.perfmark</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>animal-sniffer-annotations</artifactId>
-                    <groupId>org.codehaus.mojo</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
     </dependencies>

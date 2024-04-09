@@ -1,5 +1,3 @@
-package com.deng.study.es.test;
-
 import com.deng.study.es.dao.ProductDao;
 import com.deng.study.es.domain.ProductDomain;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +7,6 @@ import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.index.query.TermsQueryBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +28,10 @@ import java.util.List;
 @SpringBootTest
 public class SpringDataEsTest {
 
-    @Autowired
+    @Resource
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
-    @Autowired
+    @Resource
     private ProductDao productDao;
 
     @Test

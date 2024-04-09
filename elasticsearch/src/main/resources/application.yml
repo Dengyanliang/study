@@ -9,11 +9,6 @@ spring:
     username: root
     password: root123456
 
-elasticsearch:
-  host: 127.0.0.1
-  port: 9200
-
-
 mybatis:
   ## 扫描当前包以及依赖包路径下的mapper.xml文件
   mapper-locations: classpath:/mapper/*Mapper.xml
