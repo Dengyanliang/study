@@ -2,6 +2,7 @@ package com.deng.common.util;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -27,10 +28,15 @@ public class DateUtil {
     public static final String YMDHMS = "yyyy-MM-dd HH:mm:ss";
     public static final String YMD_MAX = "yyyy-MM-dd 23:59:59";
     public static final String YMD_MIN = "yyyy-MM-dd 00:00:00";
-    public static final String YMD = "yyyy-MM-dd";
+
+    public static final String YMD_MAX_2 = "yyyyMMdd235959";
+    public static final String YMD_MIN_2 = "yyyyMMdd000000";
+
+    public static final String Y_M = "yyyy-MM";
+    public static final String Y_M_D = "yyyy-MM-dd";
     public static final String MAX_DATE = "2099-12-31 23:59:59";
     public static final String YM = "yyyyMM";
-    public static final String Y_M = "yyyy-MM";
+    public static final String YMD = "yyyyMMdd";
     public static final String YYYY_MM_DD_HH_mm_ss2 = "yyyy/MM/dd HH:mm:ss";
     public static final String YYYY_MM_DD2 = "yyyy.MM.dd";
 
@@ -53,7 +59,6 @@ public class DateUtil {
 
         return retVal;
     }
-
 
 
     public static Date toDateMax(Date date) {
@@ -167,7 +172,51 @@ public class DateUtil {
         return date;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
+
+//        SimpleDateFormat format = new SimpleDateFormat(YMD_MAX);
+//        String result = format.parse(new Date());
+//        System.out.println(result);
+
+
+        Date dateMax = toDateMax(new Date());
+//        System.out.println(dateMax);
+
+        /* ************** 将字符串转化为日期 begin *******************/
+        // 把字符串转化为日期的时候，只能转化为同格式的
+        String dateParam = "20230403";
+        SimpleDateFormat FORMAT_YMD = new SimpleDateFormat(YMD);
+        Date date = FORMAT_YMD.parse(dateParam);
+        System.out.println(date);
+
+        SimpleDateFormat FORMAT_YMD_MIN = new SimpleDateFormat(YMD_MIN);
+        String beginTime = FORMAT_YMD_MIN.format(date);
+        System.out.println(beginTime);
+//        System.out.println(FORMAT_YMD_MIN.parse(beginTime).getTime());
+
+
+        SimpleDateFormat FORMAT_YMD_MAX = new SimpleDateFormat(YMD_MAX);
+        String endTime = FORMAT_YMD_MAX.format(date);
+        System.out.println(endTime);
+        String t1 = "2023-04-03 10:59:59";
+
+        System.out.println(StringUtils.compare(beginTime, t1));
+        System.out.println(StringUtils.compare(endTime, t1));
+
+//        System.out.println(FORMAT_YMD_MAX.parse(endTime));
+//        System.out.println(FORMAT_YMD_MAX.parse(endTime).getTime());
+
+
+
+        /* ************** 将字符串转化为日期 end *******************/
+
+//        Date result3 = format2.parse(result2);
+//        System.out.println(result3);
+
+//
+//        Date parse = dateFormat.parse(time);
+//        System.out.println("parse = " + parse);
+
         // 创建两个Calendar对象
 //        Calendar calendar1 = Calendar.getInstance();
 //        Calendar calendar2 = Calendar.getInstance();

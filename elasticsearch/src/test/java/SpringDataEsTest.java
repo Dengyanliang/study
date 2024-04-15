@@ -1,10 +1,9 @@
 import com.deng.study.es.dao.ProductDao;
 import com.deng.study.es.domain.ProductDomain;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.index.query.FuzzyQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.TermQueryBuilder;
-import org.elasticsearch.index.query.TermsQueryBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.elasticsearch.index.query.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,10 +11,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,9 +31,11 @@ import java.util.List;
 @SpringBootTest
 public class SpringDataEsTest {
 
+    // 主要是为了查询
     @Resource
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
+    // 主要为了简单的CRUD
     @Resource
     private ProductDao productDao;
 
@@ -116,6 +121,23 @@ public class SpringDataEsTest {
 
     @Test
     public void termQuery(){
+        // keypoint 使用BoolQueryBuilder这种方式，多条件查询，es用的7.x
+//        Date beginDate = DateUtil.parseDate(queryDate);
+//        Date endDate = DateUtils.addDays(beginDate, 1);
+//        // 范围查询
+//        RangeQueryBuilder timeRangeQueryBuilder = QueryBuilders.rangeQuery("sendTime").gte(beginDate.getTime()).lt(endDate.getTime());
+//
+//        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+//        // 如果传了手机号，则把该手机号带入查询条件；如果没有传手机号，则查询所有
+//        if(StringUtils.isNotBlank(phoneNumber)){
+//            queryBuilder.must(QueryBuilders.matchQuery("mobile", phoneNumber));
+//        }
+//        queryBuilder.must(QueryBuilders.matchQuery("sendStatus", SendStatusEnum.SENDING.getValue()));
+//        queryBuilder.must(timeRangeQueryBuilder);
+//
+//        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
+//        SearchHits<SmsSendRecord> searchHits = elasticsearchRestTemplate.search(searchQuery, SmsSendRecord.class);
+
         TermQueryBuilder queryBuilder = QueryBuilders.termQuery("category","小米");
         Iterable<ProductDomain> products = productDao.search(queryBuilder);
         for (ProductDomain productDomain : products) {
