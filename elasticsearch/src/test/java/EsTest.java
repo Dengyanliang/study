@@ -1,5 +1,6 @@
 import com.alibaba.fastjson.JSON;
 import com.deng.study.domain.User;
+import com.deng.study.es.EsApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.apache.lucene.search.TotalHits;
@@ -41,6 +42,7 @@ import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilde
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 import java.util.List;
@@ -52,9 +54,11 @@ import java.util.Map;
  * @Date: 2021/8/7 16:11
  */
 @Slf4j
+@SpringBootTest(classes = EsApplication.class)
 public class EsTest {
 
-    private final static String INDEX = "es_test";
+//    private final static String INDEX = "es_test";
+    private final static String INDEX = "product";
 
     @Test
     public void test() throws Exception{

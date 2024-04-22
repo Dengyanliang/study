@@ -16,7 +16,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "product", shards = 3, replicas = 1)
+@Document(indexName = "product", shards = 1, replicas = 1)
 public class ProductDomain {
 
     @Id
@@ -31,6 +31,17 @@ public class ProductDomain {
     @Field(type = FieldType.Double)
     private Double price;
 
-    @Field(type = FieldType.Keyword,index = false)
+    @Field(type = FieldType.Text,index = false)
     private String images;
+
+    /**
+     * 发送时间
+     */
+    private long createTime;
+
+    /**
+     * 手机号
+     */
+    private String mobile;
 }
+

@@ -1,10 +1,11 @@
+import com.deng.study.es.EsApplication;
 import com.deng.study.es.dao.ProductDao;
 import com.deng.study.es.domain.ProductDomain;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.elasticsearch.index.query.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -27,8 +28,8 @@ import java.util.List;
  * @Date: 2021/8/9 23:14
  */
 @Slf4j
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+@SpringBootTest(classes = EsApplication.class)
 public class SpringDataEsTest {
 
     // 主要是为了查询
@@ -54,10 +55,27 @@ public class SpringDataEsTest {
     @Test
     public void save(){
         ProductDomain productDomain = new ProductDomain();
-        productDomain.setId(2L);
-        productDomain.setTitle("华为手机");
+        productDomain.setId(1L);
+        productDomain.setTitle("苹果手机");
         productDomain.setCategory("手机");
-        productDomain.setPrice(2999.00);
+        productDomain.setPrice(3999.00);
+        productDomain.setImages("http://localhost:8081/image.jpg");
+        productDao.save(productDomain);
+
+        productDomain = new ProductDomain();
+        productDomain.setId(3L);
+        productDomain.setTitle("操作系统");
+        productDomain.setCategory("书");
+        productDomain.setPrice(99.00);
+        productDomain.setImages("http://localhost:8081/image.jpg");
+        productDao.save(productDomain);
+
+
+        productDomain = new ProductDomain();
+        productDomain.setId(4L);
+        productDomain.setTitle("计算机网络");
+        productDomain.setCategory("书");
+        productDomain.setPrice(88.00);
         productDomain.setImages("http://localhost:8081/image.jpg");
         productDao.save(productDomain);
     }
@@ -91,10 +109,10 @@ public class SpringDataEsTest {
 
     @Test
     public void saveAll(){
-        List<ProductDomain> productDomains = new ArrayList();
+        List<ProductDomain> productDomains = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             ProductDomain productDomain = new ProductDomain();
-            productDomain.setId(Long.valueOf(i));
+            productDomain.setId((long) i);
             productDomain.setTitle("小米手机-"+ (i+1));
             productDomain.setCategory("小米");
             productDomain.setPrice(1999.00 + i);

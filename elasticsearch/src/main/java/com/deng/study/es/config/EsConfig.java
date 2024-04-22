@@ -14,9 +14,9 @@ import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfig
  * @Auther: dengyanliang
  * @Date: 2021/8/9 22:24
  */
-@ConfigurationProperties(prefix = "elasticsearch")
-@Configuration
 @Data
+@Configuration
+@ConfigurationProperties(prefix = "elasticsearch")
 public class EsConfig extends AbstractElasticsearchConfiguration {
 
     private String host;

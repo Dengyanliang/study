@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date: 2024/1/5 14:15
  * @Auther: dengyanliang
  */
-@MapperScan("com.deng.study.mapper")
+@MapperScan("com.deng.study.es.dao")
 @SpringBootApplication
 public class EsApplication {
     public static void main(String[] args) {
