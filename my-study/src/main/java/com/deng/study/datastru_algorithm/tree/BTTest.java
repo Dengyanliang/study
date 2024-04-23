@@ -1,7 +1,7 @@
 package com.deng.study.datastru_algorithm.tree;
 
 import com.deng.common.enums.ThreadClassEnum;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

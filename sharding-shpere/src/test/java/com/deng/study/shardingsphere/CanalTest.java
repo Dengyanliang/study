@@ -9,8 +9,8 @@ import com.deng.common.util.RedisUtil;
 import com.deng.study.shardingsphere.dao.mapper.CanalMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
@@ -26,7 +26,7 @@ import java.util.Objects;
  * @Date: 2023/2/27 19:55
  */
 @Slf4j
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = ShardingShpereApplication.class)
 public class CanalTest {
 

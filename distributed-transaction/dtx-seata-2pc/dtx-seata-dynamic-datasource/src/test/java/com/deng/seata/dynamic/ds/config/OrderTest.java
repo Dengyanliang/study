@@ -4,8 +4,8 @@ import com.deng.seata.dynamic.ds.DynamicDsServer;
 import com.deng.seata.dynamic.ds.facade.request.OrderRequest;
 import com.deng.seata.dynamic.ds.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @Date: 2023/9/16 00:36
  */
 @Slf4j
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes= DynamicDsServer.class)
 public class OrderTest {
 

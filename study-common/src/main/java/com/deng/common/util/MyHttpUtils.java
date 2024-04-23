@@ -89,7 +89,7 @@ public class MyHttpUtils {
                     String extName = url.substring(url.lastIndexOf("."));
 
                     // 获取图片的路径，重命名图片
-                    String picName = DateUtil.parseDateFormat(new Date(),DateUtil.YMD_HMS)+extName;
+                    String picName = DateUtil.format(new Date(),DateUtil.YMD_HMS)+extName;
 
                     // 下载图片
                     OutputStream os = new FileOutputStream(new File("D:\\mine\\image\\"+picName));

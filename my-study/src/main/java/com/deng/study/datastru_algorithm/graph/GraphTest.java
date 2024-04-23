@@ -1,6 +1,6 @@
 package com.deng.study.datastru_algorithm.graph;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @Desc: 图数据结构测试

@@ -16,8 +16,8 @@ import com.deng.study.shardingsphere.service.PayOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.assertj.core.util.DateUtil;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,7 +34,7 @@ import java.util.UUID;
  * @Date: 2021/8/14 20:34
  */
 @Slf4j
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = ShardingShpereApplication.class)
 public class ShardingJdbcTest {
 

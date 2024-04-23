@@ -2,7 +2,7 @@ package com.deng.study.redis.test;
 
 import com.deng.common.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

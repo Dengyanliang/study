@@ -1,6 +1,6 @@
 package com.deng.study.java.thread;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.LockSupport;

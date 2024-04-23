@@ -135,6 +135,14 @@ public class DateUtil {
         return sdf.format(now);
     }
 
+    public static String getDate() {
+        Date now = new Date();
+        //创建格式化对象
+        SimpleDateFormat sdf = new SimpleDateFormat(Y_M_D);
+        //格式化对象 d
+        return sdf.format(now);
+    }
+
     public static Timestamp getSqlDate2()  {
         try {
             Date now = new Date();

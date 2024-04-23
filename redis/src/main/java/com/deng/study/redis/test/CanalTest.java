@@ -8,8 +8,8 @@ import com.alibaba.otter.canal.protocol.Message;
 import com.deng.common.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
@@ -23,7 +23,7 @@ import java.util.List;
  * @Date: 2023/2/27 19:55
  */
 @Slf4j
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 public class CanalTest {
 

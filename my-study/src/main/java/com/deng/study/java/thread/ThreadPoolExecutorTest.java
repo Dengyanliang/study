@@ -2,7 +2,7 @@ package com.deng.study.java.thread;
 
 import com.deng.common.util.MyThreadUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;

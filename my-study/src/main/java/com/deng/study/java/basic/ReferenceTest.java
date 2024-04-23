@@ -1,7 +1,7 @@
 package com.deng.study.java.basic;
 
 import com.deng.common.util.MyThreadUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.ref.*;
 import java.util.ArrayList;

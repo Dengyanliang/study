@@ -2,7 +2,7 @@ package com.deng.study.redis.test;
 
 import com.deng.common.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.ScanParams;

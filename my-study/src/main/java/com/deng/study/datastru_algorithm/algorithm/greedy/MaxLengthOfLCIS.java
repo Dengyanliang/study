@@ -1,6 +1,6 @@
 package com.deng.study.datastru_algorithm.algorithm.greedy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @Desc:

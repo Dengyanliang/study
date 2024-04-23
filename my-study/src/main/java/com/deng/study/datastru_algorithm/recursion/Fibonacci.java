@@ -3,7 +3,7 @@ package com.deng.study.datastru_algorithm.recursion;
 
 import com.alibaba.fastjson.JSON;
 import com.deng.common.source.StdOut;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**

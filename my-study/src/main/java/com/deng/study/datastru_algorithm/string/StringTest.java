@@ -2,7 +2,7 @@ package com.deng.study.datastru_algorithm.string;
 
 import com.deng.study.domain.UnionFindSet;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.regex.Matcher;

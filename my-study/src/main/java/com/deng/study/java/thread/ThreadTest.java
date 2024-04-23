@@ -3,8 +3,8 @@ package com.deng.study.java.thread;
 
 import com.deng.study.MyApplication;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.concurrent.*;
 
 @Slf4j
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes= MyApplication.class)
 public class ThreadTest {
 
@@ -22,7 +22,7 @@ public class ThreadTest {
 
     /**
      * org.junit.jupiter.api.Test可以加载spring容器中的配置、bean之类的信息
-     * org.junit.Test 不可以加载，只是简单的测试
+     * org.junit.jupiter.api.Test 不可以加载，只是简单的测试
      */
     @Test
     public void test(){

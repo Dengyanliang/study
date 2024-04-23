@@ -8,6 +8,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.Date;
+
 /**
  * @Desc:
  * @Auther: dengyanliang
@@ -39,9 +41,5 @@ public class ProductDomain {
      */
     private long createTime;
 
-    /**
-     * 手机号
-     */
-    private String mobile;
 }
 

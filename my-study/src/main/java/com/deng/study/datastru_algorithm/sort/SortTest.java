@@ -2,7 +2,7 @@ package com.deng.study.datastru_algorithm.sort;
 
 import com.deng.common.util.MyArrayUtil;
 import com.deng.study.domain.Country;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.regex.Matcher;

@@ -1,7 +1,7 @@
 package com.deng.study.datastru_algorithm.recursion;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @Desc:递归

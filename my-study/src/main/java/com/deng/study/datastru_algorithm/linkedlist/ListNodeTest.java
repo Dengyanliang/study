@@ -1,6 +1,6 @@
 package com.deng.study.datastru_algorithm.linkedlist;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 

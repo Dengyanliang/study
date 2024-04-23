@@ -4,11 +4,9 @@ import com.deng.study.MyApplication;
 import com.deng.study.pojo.MyOrder;
 import com.deng.study.service.MyOrderService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +19,15 @@ import java.util.Random;
  */
 
 @Slf4j
-// @RunWith(SpringRunner.class)注解的意义在于Test测试类要使用注入的类，比如@Autowired注入的类,)这些类才能实例化到spring容器中，
-// 自动注入才能生效，然直接一个NullPointerExecption
-// 一定要使用org.junit.Test，不然会报错
-@RunWith(SpringRunner.class)
+
+/**
+ * 1、@RunWith(SpringRunner.class)
+ *      1.1 注解的意义在于Test测试类要使用spring容器中的类，比如@Autowired修饰的，如果不用该注解，在使用类时会抛出NullPointerExecption
+ *      1.2 配置的@Test 一定要使用org.junit.Test，不然会报错
+ * 2、如果不用@RunWith(SpringRunner.class)，那么使用@Test，必须是org.junit.jupiter.api.Test
+ *
+ */
+//@RunWith(SpringRunner.class)
 @SpringBootTest(classes= MyApplication.class)
 public class MyOrderTest {
 

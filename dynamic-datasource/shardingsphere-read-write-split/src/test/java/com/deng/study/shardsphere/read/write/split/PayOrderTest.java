@@ -4,11 +4,9 @@ import com.deng.study.shardsphere.read.write.split.entity.PayOrder;
 import com.deng.study.shardsphere.read.write.split.service.PayOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.DateUtil;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @Desc:
@@ -16,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @Date: 2023/10/18 20:10
  */
 @Slf4j
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes= MyApplication.class)
 public class PayOrderTest {
 
