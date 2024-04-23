@@ -63,32 +63,33 @@ public class SpringDataEsTest {
     @Test
     public void save(){
         ProductDomain productDomain = new ProductDomain();
-        productDomain.setId(1L);
-        productDomain.setTitle("苹果手机");
-        productDomain.setCategory("手机");
+        productDomain.setId(11L);
+        productDomain.setTitle("联想电脑");
+        productDomain.setCategory("电脑");
         productDomain.setPrice(3999.00);
         productDomain.setImages("http://localhost:8081/image.jpg");
         productDomain.setCreateTime(new Date().getTime());
+        productDomain.setUpdateTime(new Date());
         productDao.save(productDomain);
 
-        productDomain = new ProductDomain();
-        productDomain.setId(2L);
-        productDomain.setTitle("操作系统");
-        productDomain.setCategory("书");
-        productDomain.setPrice(99.00);
-        productDomain.setImages("http://localhost:8081/image.jpg");
-        productDomain.setCreateTime(new Date().getTime());
-        productDao.save(productDomain);
-
-
-        productDomain = new ProductDomain();
-        productDomain.setId(3L);
-        productDomain.setTitle("计算机网络");
-        productDomain.setCategory("书");
-        productDomain.setPrice(88.00);
-        productDomain.setImages("http://localhost:8081/image.jpg");
-        productDomain.setCreateTime(new Date().getTime());
-        productDao.save(productDomain);
+//        productDomain = new ProductDomain();
+//        productDomain.setId(2L);
+//        productDomain.setTitle("操作系统");
+//        productDomain.setCategory("书");
+//        productDomain.setPrice(99.00);
+//        productDomain.setImages("http://localhost:8081/image.jpg");
+//        productDomain.setCreateTime(new Date().getTime());
+//        productDao.save(productDomain);
+//
+//
+//        productDomain = new ProductDomain();
+//        productDomain.setId(3L);
+//        productDomain.setTitle("计算机网络");
+//        productDomain.setCategory("书");
+//        productDomain.setPrice(88.00);
+//        productDomain.setImages("http://localhost:8081/image.jpg");
+//        productDomain.setCreateTime(new Date().getTime());
+//        productDao.save(productDomain);
     }
 
     @Test
