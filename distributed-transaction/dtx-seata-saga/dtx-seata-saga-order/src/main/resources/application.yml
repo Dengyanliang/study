@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: dtx-seata-saga-order
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root123456
+
+server:
+  port: 56081
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:56080/eureka/
+
+#seata:
+#  enabled: true
+#  application-id: ${spring.application.name}
+#  #客户端和服务端在同一个事务组
+#  tx-service-group: my_test_tx_group
+#  data-source-proxy-mode: XA
+#  config:
+#    type: file
+#  registry:
+#    type: file
+

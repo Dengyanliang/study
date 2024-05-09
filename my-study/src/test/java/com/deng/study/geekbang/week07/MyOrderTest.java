@@ -14,20 +14,16 @@ import java.util.Random;
 
 /**
  * @Desc:
+ * 1、@RunWith(SpringRunner.class)
+ *   1.1 注解的意义在于Test测试类要使用spring容器中的类，比如@Autowired修饰的，如果不用该注解，在使用类时会抛出NullPointerExecption
+ *   1.2 配置的@Test 一定要使用org.junit.Test，不然会报错
+ * 2、如果不用@RunWith(SpringRunner.class)，那么使用@Test，必须是org.junit.jupiter.api.Test
+ *
  * @Auther: dengyanliang
  * @Date: 2021/3/19 00:10
  */
-
-@Slf4j
-
-/**
- * 1、@RunWith(SpringRunner.class)
- *      1.1 注解的意义在于Test测试类要使用spring容器中的类，比如@Autowired修饰的，如果不用该注解，在使用类时会抛出NullPointerExecption
- *      1.2 配置的@Test 一定要使用org.junit.Test，不然会报错
- * 2、如果不用@RunWith(SpringRunner.class)，那么使用@Test，必须是org.junit.jupiter.api.Test
- *
- */
 //@RunWith(SpringRunner.class)
+@Slf4j
 @SpringBootTest(classes= MyApplication.class)
 public class MyOrderTest {
 

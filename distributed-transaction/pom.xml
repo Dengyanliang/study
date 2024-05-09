@@ -22,6 +22,7 @@
         <module>dtx-jta-atomikos-xa</module>
         <module>dtx-jta-bitronix-xa</module>
         <module>dtx-hmily-bank-tcc</module>
+        <module>dtx-seata-saga</module>
     </modules>
 
 

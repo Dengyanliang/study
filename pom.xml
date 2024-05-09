@@ -10,7 +10,7 @@
     <!-- 1、不加<relativePath>，默认是<relativePath>../pom.xml</relativePath>，也就是直接查询父项目的pom文件
          2、<relativePath>也可以在此指定</relativePath>，
             指定后将在文件系统中从指定位置查找，然后是本地仓库，然后是远程仓库（优先级：指定位置-本地-远程）
-         3、加上<relativePath/>，表示将关闭这个特性，将永远从远程仓库解析读取父pom
+         3、加上<relativePath/>，表示将永远从远程仓库解析读取父pom
     -->
         <relativePath/>
     </parent>
@@ -33,6 +33,7 @@
         <module>study-dao</module>
         <module>elasticsearch</module>
         <module>mq</module>
+        <module>distributed-transaction/dtx-seata-tcc</module>
     </modules>
 
     <properties>
@@ -80,7 +81,6 @@
     -->
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -303,7 +303,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.47</version>
+                <version>5.1.49</version>
             </dependency>
 
 
