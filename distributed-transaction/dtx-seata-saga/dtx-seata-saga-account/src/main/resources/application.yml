@@ -12,16 +12,30 @@ spring:
 
 server:
   port: 56082
-  servlet:
-    context-path: /
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:56080/eureka/
+dubbo:
+  registry:
+    address: nacos://127.0.0.1:8848
+    protocol: nacos
+    check: false
+  protocol:
+    name: dubbo
+    port: 30880
+  provider:
+    timeout: 6000
 
-#seata:
-#  enabled: true
-#  application-id: ${spring.application.name}
-#  #客户端和服务端在同一个事务组
-#  tx-service-group: my_test_tx_group
+
+seata:
+  application-id: ${spring.application.name}
+  tx-service-group: SEATA_GROUP
+  service:
+    vgroup-mapping:
+      SEATA_GROUP: default
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      application: seata-server
+      namespace: public
+      cluster: default
+      group: SEATA_GROUP

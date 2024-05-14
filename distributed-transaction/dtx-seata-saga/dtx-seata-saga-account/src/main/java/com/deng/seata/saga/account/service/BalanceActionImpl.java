@@ -13,20 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.deng.seata.saga.account.service.impl;
+package com.deng.seata.saga.account.service;
 
-import com.deng.seata.saga.account.service.BalanceAction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.deng.seata.saga.account.facade.BalanceAction;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Map;
 
-@Service
+@Slf4j
+@Service("balanceAction")
 public class BalanceActionImpl implements BalanceAction {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(BalanceActionImpl.class);
 
     @Override
     public boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params) {
@@ -36,7 +34,10 @@ public class BalanceActionImpl implements BalanceAction {
                 throw new RuntimeException("reduce balance failed");
             }
         }
-        LOGGER.info("reduce balance succeed, amount: " + amount + ", businessKey:" + businessKey);
+        log.info(">>>reduce balance succeed, amount: {}, businessKey:{}", amount, businessKey);
+
+        int i = 10/0;
+
         return true;
     }
 
@@ -48,7 +49,7 @@ public class BalanceActionImpl implements BalanceAction {
                 throw new RuntimeException("compensate reduce balance failed");
             }
         }
-        LOGGER.info("compensate reduce balance succeed, businessKey:" + businessKey);
+        log.info(">>>compensate reduce balance succeed, businessKey:{}", businessKey);
         return true;
     }
 }

@@ -15,12 +15,14 @@
  */
 package com.deng.seata.saga.order.service;
 
-import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 
 /**
  * Inventory Actions
  */
 public interface InventoryAction {
+
+
+    boolean execute(String businessKey, int count);
 
     /**
      * reduce
@@ -28,7 +30,6 @@ public interface InventoryAction {
      * @param count
      * @return
      */
-    @TwoPhaseBusinessAction(name = "")
     boolean reduce(String businessKey, int count);
 
     /**

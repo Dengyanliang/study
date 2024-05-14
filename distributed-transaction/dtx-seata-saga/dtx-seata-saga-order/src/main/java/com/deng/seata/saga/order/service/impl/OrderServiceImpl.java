@@ -1,6 +1,7 @@
 package com.deng.seata.saga.order.service.impl;
 
 import com.deng.common.enums.PayStatusEnum;
+import com.deng.seata.saga.account.facade.BalanceAction;
 import com.deng.seata.saga.order.dao.mapper.OrdersMapper;
 import com.deng.seata.saga.order.dao.po.Orders;
 import com.deng.seata.saga.order.facade.request.OrderRequest;
@@ -12,15 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 
-// https://www.iocoder.cn/Spring-Cloud-Alibaba/Seata/
 @Slf4j
 @Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-//    private AccountClient accountClient;
+    private BalanceAction balanceAction;
 
     @Resource
     private OrdersMapper ordersMapper;
@@ -46,6 +47,10 @@ public class OrderServiceImpl implements OrderService {
         if(addCount <= 0){
             throw new RuntimeException("添加订单失败");
         }
+
+        log.info(">>> begin dubbo invoke");
+        boolean reduce = balanceAction.reduce("123", new BigDecimal(10), null);
+        log.info(">>> end dubbo invoke");
 
 //        AccountRequest request = new AccountRequest();
 //        request.setUserId(orderRequest.getUserId());
