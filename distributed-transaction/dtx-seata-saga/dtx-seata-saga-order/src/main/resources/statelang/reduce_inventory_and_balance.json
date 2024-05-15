@@ -35,7 +35,7 @@
     },
     "ReduceBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceAction",
+      "ServiceName": "balanceService",
       "ServiceMethod": "reduce",
       "CompensateState": "CompensateReduceBalance",
       "Input": [
@@ -46,7 +46,7 @@
         }
       ],
       "Output": {
-        "compensateReduceBalanceResult": "$.#root"
+        "reduceBalanceResult": "$.#root"
       },
       "Status": {
         "#root == true": "SU",
@@ -73,7 +73,7 @@
     },
     "CompensateReduceBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceAction",
+      "ServiceName": "balanceService",
       "ServiceMethod": "compensateReduce",
       "Input": [
         "$.[businessKey]"

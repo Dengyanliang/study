@@ -23,7 +23,5 @@ public class InventoryTest {
     public void test() throws InterruptedException {
 
         inventoryAction.execute("12323",20);
-
-        Thread.sleep(100000);
     }
 }

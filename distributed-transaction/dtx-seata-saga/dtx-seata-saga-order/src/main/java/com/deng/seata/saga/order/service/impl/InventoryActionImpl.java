@@ -41,7 +41,6 @@ public class InventoryActionImpl implements InventoryAction {
     @Autowired
     private ProcessCtrlStateMachineEngine stateMachineEngine;
 
-
     public boolean execute(String businessKey, int count){
         log.info("******** InventoryAction execute, count: {}, businessKey: {}", count, businessKey);
         Map<String, Object> startParams = new HashMap<>(3);
@@ -69,9 +68,6 @@ public class InventoryActionImpl implements InventoryAction {
     public boolean reduce(String businessKey, int count) {
         log.info("******** reduce inventory succeed, count: {}, businessKey: {}", count, businessKey);
 
-        log.info(">>> begin dubbo invoke");
-        balanceAction.reduce("123",new BigDecimal(count),null);
-        log.info(">>> end dubbo invoke");
 //        try{
 //            int i =  10 / 0;
 //        }catch(Exception e){
