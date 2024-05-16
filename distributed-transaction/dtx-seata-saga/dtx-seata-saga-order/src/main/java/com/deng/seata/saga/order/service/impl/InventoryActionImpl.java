@@ -15,17 +15,23 @@
  */
 package com.deng.seata.saga.order.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.deng.seata.saga.account.facade.BalanceAction;
+import com.deng.seata.saga.account.facade.request.BalanceInfo;
+import com.deng.seata.saga.account.facade.request.BalanceRequest;
 import com.deng.seata.saga.order.service.InventoryAction;
+import com.google.common.collect.Maps;
 import io.seata.saga.engine.impl.ProcessCtrlStateMachineEngine;
 import io.seata.saga.statelang.domain.ExecutionStatus;
 import io.seata.saga.statelang.domain.StateMachineInstance;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,22 +50,55 @@ public class InventoryActionImpl implements InventoryAction {
     public boolean execute(String businessKey, int count){
         log.info("******** InventoryAction execute, count: {}, businessKey: {}", count, businessKey);
         Map<String, Object> startParams = new HashMap<>(3);
-//        startParams.put("businessKey", "1234");
+        startParams.put("businessKey", businessKey);
         startParams.put("count", count);
-//        startParams.put("amount", new BigDecimal(count));
+        startParams.put("amount", new BigDecimal(count));
+
+        BalanceInfo balanceInfo1 = new BalanceInfo();
+        balanceInfo1.setName("zhangsan");
+        balanceInfo1.setAmount(count * 10);
+
+        BalanceInfo balanceInfo2 = new BalanceInfo();
+        balanceInfo2.setName("lisi");
+        balanceInfo2.setAmount(count * 20);
+
+        BalanceInfo[] balanceInfoArray = new BalanceInfo[]{balanceInfo1,balanceInfo2};
+        List<BalanceInfo> balanceInfoList = Lists.newArrayList(balanceInfo1,balanceInfo2);
+        Map<String,BalanceInfo> balanceInfoMap = Maps.newHashMap();
+        balanceInfoMap.put("balanceKey1",balanceInfo1);
+        balanceInfoMap.put("balanceKey2",balanceInfo2);
+
+        BalanceRequest balanceRequest = new BalanceRequest();
+        balanceRequest.setOrderNo("orderNo-123");
+        balanceRequest.setUserId(123);
+//        balanceRequest.setBalanceInfoArray(balanceInfoArray);
+//        balanceRequest.setBalanceInfoList(balanceInfoList);
+//        balanceRequest.setBalanceInfoMap(balanceInfoMap);
+
+        startParams.put("balanceRequest",balanceRequest);
+        startParams.put("balanceInfo1",balanceInfo1);
+        startParams.put("balanceInfo2",balanceInfo2);
+
 
         StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null, businessKey, startParams);
-        System.out.println("........" + inst.getStatus());
+        System.out.println("........" + JSON.toJSONString(inst));
         if (ExecutionStatus.SU.equals(inst.getStatus())) {
             log.info("saga transaction commit succeed. XID: {}", inst.getId());
             inst = stateMachineEngine.getStateMachineConfig().getStateLogStore().getStateMachineInstanceByBusinessKey(businessKey, null);
-            if (ExecutionStatus.SU.equals(inst.getStatus())) {
+            log.info("》》》》saga transaction execute over. XID: {}, status: {}, compensationStatus: {}", inst.getId(), inst.getStatus(), inst.getCompensationStatus());
+            // 防止空悬挂和空回滚
+            if (ExecutionStatus.SU.equals(inst.getStatus()) || ExecutionStatus.SU.equals(inst.getCompensationStatus())) {
                 return true;
             }
-            log.info("saga transaction execute failed. XID:{},status:{}", inst.getId(), inst.getStatus());
+
             return false;
         }else{
-            log.info("===================================");
+            inst = stateMachineEngine.getStateMachineConfig().getStateLogStore().getStateMachineInstanceByBusinessKey(businessKey, null);
+            log.info(">>>> saga transaction execute over. XID: {}, status: {}, compensationStatus: {}", inst.getId(), inst.getStatus(), inst.getCompensationStatus());
+            // 防止空悬挂和空回滚
+            if (ExecutionStatus.SU.equals(inst.getStatus()) || ExecutionStatus.SU.equals(inst.getCompensationStatus())) {
+                return true;
+            }
             return false;
         }
     }
@@ -67,13 +106,6 @@ public class InventoryActionImpl implements InventoryAction {
     @Override
     public boolean reduce(String businessKey, int count) {
         log.info("******** reduce inventory succeed, count: {}, businessKey: {}", count, businessKey);
-
-//        try{
-//            int i =  10 / 0;
-//        }catch(Exception e){
-//            return false;
-//        }
-
         return true;
     }
 

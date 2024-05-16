@@ -43,7 +43,7 @@
     },
     "ReduceBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceAction",
+      "ServiceName": "balanceService",
       "ServiceMethod": "reduce",
       "CompensateState": "CompensateReduceBalance",
       "Input": [
@@ -84,76 +84,15 @@
     },
     "ReduceComplexBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceAction",
-      "ServiceMethod": "reduceComplex2",
+      "ServiceName": "balanceService",
+      "ServiceMethod": "reduceComplex1",
       "CompensateState": "CompensateReduceComplexBalance",
-      "ParameterTypes": ["java.lang.String","com.deng.seata.saga.account.facade.request.BalanceRequest","[Lcom.deng.seata.saga.account.facade.request.BalanceInfo;", "java.util.List", "java.util.Map"],
+      "ParameterTypes": ["java.lang.String","com.deng.seata.saga.account.facade.request.BalanceRequest"],
       "Input": [
         "$.[businessKey]",
         {
           "orderNo": "$.[balanceRequest].orderNo",
-          "userId": "$.[balanceRequest].userId",
-          "balanceInfoArray": [
-            {
-              "name": "$.[balanceInfo1].name",
-              "amount": "$.[balanceInfo1].amount"
-            }, {
-              "name": "$.[balanceInfo2].name",
-              "amount": "$.[balanceInfo2].amount"
-            }
-          ],
-          "balanceInfoList": [
-            {
-              "name": "$.[balanceInfo1].name",
-              "amount": "$.[balanceInfo1].amount"
-            }, {
-              "name": "$.[balanceInfo2].name",
-              "amount": "$.[balanceInfo2].amount"
-            }
-          ],
-          "balanceInfoMap": {
-            "balanceKey1": {
-              "name": "$.[balanceInfo1].name",
-              "amount": "$.[balanceInfo1].amount"
-            },
-            "balanceKey2": {
-              "name": "$.[balanceInfo2].name",
-              "amount": "$.[balanceInfo2].amount"
-            }
-          }
-        },
-        [
-          {
-            "name": "$.[balanceInfo1].name",
-            "amount": "$.[balanceInfo1].amount"
-          }, {
-            "name": "$.[balanceInfo2].name",
-            "amount": "$.[balanceInfo2].amount"
-          }
-        ],
-        [
-          {
-            "@type": "com.deng.seata.saga.account.facade.request.BalanceInfo",
-            "name": "$.[balanceInfo1].name",
-            "amount": "$.[balanceInfo1].amount"
-          },
-          {
-            "@type": "com.deng.seata.saga.account.facade.request.BalanceInfo",
-            "name": "$.[balanceInfo2].name",
-            "amount": "$.[balanceInfo2].amount"
-          }
-        ],
-        {
-          "balanceKey1": {
-            "@type": "com.deng.seata.saga.account.facade.request.BalanceInfo",
-            "name": "$.[balanceInfo1].name",
-            "amount": "$.[balanceInfo1].amount"
-          },
-          "balanceKey2": {
-            "@type": "com.deng.seata.saga.account.facade.request.BalanceInfo",
-            "name": "$.[balanceInfo2].name",
-            "amount": "$.[balanceInfo2].amount"
-          }
+          "userId": "$.[balanceRequest].userId"
         }
       ],
       "Output": {
@@ -198,7 +137,7 @@
     },
     "CompensateReduceBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceAction",
+      "ServiceName": "balanceService",
       "ServiceMethod": "compensateReduce",
       "Input": [
         "$.[businessKey]"
@@ -206,10 +145,15 @@
     },
     "CompensateReduceComplexBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceAction",
+      "ServiceName": "balanceService",
       "ServiceMethod": "compensateReduceComplex",
+      "ParameterTypes": ["java.lang.String","com.deng.seata.saga.account.facade.request.BalanceRequest"],
       "Input": [
-        "$.[businessKey]"
+        "$.[businessKey]",
+        {
+          "orderNo": "$.[balanceRequest].orderNo",
+          "userId": "$.[balanceRequest].userId"
+        }
       ]
     },
     "CompensationTrigger": {

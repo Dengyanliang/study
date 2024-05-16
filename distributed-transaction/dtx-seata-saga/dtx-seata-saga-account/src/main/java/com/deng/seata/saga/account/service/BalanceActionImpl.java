@@ -15,11 +15,16 @@
  */
 package com.deng.seata.saga.account.service;
 
+import com.alibaba.fastjson.JSON;
 import com.deng.seata.saga.account.facade.BalanceAction;
+import com.deng.seata.saga.account.facade.request.BalanceInfo;
+import com.deng.seata.saga.account.facade.request.BalanceRequest;
+import com.deng.seata.saga.account.facade.response.BalanceResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -28,28 +33,48 @@ public class BalanceActionImpl implements BalanceAction {
 
     @Override
     public boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params) {
-        if(params != null) {
-            Object throwException = params.get("throwException");
-            if (throwException != null && "true".equals(throwException.toString())) {
-                throw new RuntimeException("reduce balance failed");
-            }
-        }
-        log.info(">>>reduce balance succeed, amount: {}, businessKey:{}", amount, businessKey);
-
-        int i = 10/0;
-
+        log.info(">>>执行 balanceAction reduce succeed, businessKey:{}, amount: {}, params: {}", businessKey, amount, params);
         return true;
     }
 
     @Override
     public boolean compensateReduce(String businessKey, Map<String, Object> params) {
-        if(params != null) {
-            Object throwException = params.get("throwException");
-            if (throwException != null && "true".equals(throwException.toString())) {
-                throw new RuntimeException("compensate reduce balance failed");
-            }
-        }
-        log.info(">>>compensate reduce balance succeed, businessKey:{}", businessKey);
+        log.info(">>>执行 balanceAction compensateReduce succeed, businessKey:{}, params: {}", businessKey, params);
         return true;
+    }
+
+
+
+    @Override
+    public BalanceResponse reduceComplex1(String businessKey, BalanceRequest balanceRequest) {
+        log.info(">>> 执行 balanceAction reduceComplex1 succeed, businessKey: {},balanceRequest: {}",
+                businessKey, JSON.toJSONString(balanceRequest));
+        BalanceResponse response = new BalanceResponse();
+        response.setCode("2000");
+        response.setMsg("成功");
+        return response;
+    }
+
+    @Override
+    public BalanceResponse reduceComplex2(String businessKey, BalanceRequest balanceRequest,
+                                         BalanceInfo[] balanceInfoArray,
+                                         List<BalanceInfo> balanceInfoList,
+                                         Map<String,BalanceInfo> balanceInfoMap) {
+        log.info(">>> 执行 balanceAction reduceComplex2 succeed, businessKey: {},balanceRequest: {},balanceInfoArray: {},balanceInfoList: {},balanceInfoMap: {}",
+                            businessKey, JSON.toJSONString(balanceRequest), balanceInfoArray, balanceInfoList, balanceInfoMap);
+        BalanceResponse response = new BalanceResponse();
+        response.setCode("1000");
+        response.setMsg("成功");
+        return response;
+    }
+
+    @Override
+    public BalanceResponse compensateReduceComplex(String businessKey, BalanceRequest balanceRequest) {
+        log.info(">>> 执行 balanceAction compensateReduceComplex succeed, businessKey: {},balanceRequest: {}", businessKey, JSON.toJSONString(balanceRequest));
+
+        BalanceResponse response = new BalanceResponse();
+        response.setCode("1000");
+        response.setMsg("成功");
+        return response;
     }
 }

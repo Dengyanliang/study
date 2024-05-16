@@ -15,7 +15,12 @@
  */
 package com.deng.seata.saga.account.facade;
 
+import com.deng.seata.saga.account.facade.request.BalanceInfo;
+import com.deng.seata.saga.account.facade.request.BalanceRequest;
+import com.deng.seata.saga.account.facade.response.BalanceResponse;
+
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,22 +29,29 @@ import java.util.Map;
 public interface BalanceAction {
 
     /**
-     * reduce
-     *
-     * @param businessKey
-     * @param amount
-     * @param params
-     * @return
+     * 简单参数正向方法
      */
     boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params);
 
     /**
-     * compensateReduce
-     *
-     * @param businessKey
-     * @param params
-     * @return
+     * 简单参数逆向方法
      */
     boolean compensateReduce(String businessKey, Map<String, Object> params);
+
+    /**
+     * 复杂参数正向方法
+     */
+    BalanceResponse reduceComplex1(String businessKey, BalanceRequest balanceRequest);
+
+
+    /**
+     * 复杂参数正向方法
+     */
+    BalanceResponse reduceComplex2(String businessKey, BalanceRequest balanceRequest, BalanceInfo[] balanceInfoArray, List<BalanceInfo> balanceInfoList, Map<String,BalanceInfo> balanceInfoMap);
+
+    /**
+     * 复杂参数逆向方法
+     */
+    BalanceResponse compensateReduceComplex(String businessKey, BalanceRequest balanceRequest);
 
 }

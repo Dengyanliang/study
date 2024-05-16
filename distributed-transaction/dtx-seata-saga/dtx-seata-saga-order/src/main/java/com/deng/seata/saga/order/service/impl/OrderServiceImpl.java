@@ -7,32 +7,22 @@ import com.deng.seata.saga.order.dao.po.Orders;
 import com.deng.seata.saga.order.facade.request.OrderRequest;
 import com.deng.seata.saga.order.service.OrderService;
 import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Slf4j
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    private BalanceAction balanceAction;
-
     @Resource
     private OrdersMapper ordersMapper;
 
-
-    @GlobalTransactional
     @Override
     public void addOrder(OrderRequest orderRequest) {
-
-
-        log.info("事务ID------>{}", RootContext.getXID());
+        log.info("addOrder 开始。。。。。。");
 
         // 新增订单
         Orders orders = new Orders();
@@ -47,17 +37,5 @@ public class OrderServiceImpl implements OrderService {
         if(addCount <= 0){
             throw new RuntimeException("添加订单失败");
         }
-
-        log.info(">>> begin dubbo invoke");
-        boolean reduce = balanceAction.reduce("123", new BigDecimal(10), null);
-        log.info(">>> end dubbo invoke");
-
-//        AccountRequest request = new AccountRequest();
-//        request.setUserId(orderRequest.getUserId());
-//        request.setAmount(orderRequest.getAmount());
-//        AccountResponse response = accountClient.transfer(request);
-//        log.info("response:{}", JSON.toJSONString(response));
-
-        int i =  10 / 0;
     }
 }
