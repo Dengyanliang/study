@@ -8,8 +8,4 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AccountMapper extends BaseMapper<Account> {
 
-//    Account selectByPrimaryKey(Integer id);
-//
-//    int updateByPrimaryKeySelective(Account record);
-
 }

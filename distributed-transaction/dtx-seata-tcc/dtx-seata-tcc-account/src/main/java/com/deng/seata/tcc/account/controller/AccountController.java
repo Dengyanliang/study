@@ -14,11 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @Desc:
- * @Auther: dengyanliang
- * @Date: 2021/9/26 07:59
- */
+
 @Slf4j
 @RestController
 @RequestMapping("/account")

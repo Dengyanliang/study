@@ -12,5 +12,5 @@ import java.io.Serializable;
 @Data
 public class BalanceInfo implements Serializable {
     private String name;
-    private int amount;
+    private Long amount;
 }

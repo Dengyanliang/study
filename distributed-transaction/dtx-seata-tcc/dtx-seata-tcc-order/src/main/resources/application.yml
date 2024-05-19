@@ -3,16 +3,29 @@ spring:
     name: dtx-seata-tcc-order
   main:
     allow-bean-definition-overriding: true
-  datasource:
+  datasource1:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/dtx_order?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: root123456
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
+  datasource2:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root123456
+
+dubbo:
+  registry:
+    address: nacos://127.0.0.1:8848
+    protocol: nacos
+    check: false
+  protocol:
+    name: dubbo
+    port: 30880
+  provider:
+    timeout: 6000
 
 server:
   port: 56081
@@ -20,16 +33,16 @@ server:
 
 seata:
   application-id: ${spring.application.name}
-  tx-service-group: SEATA_GROUP
+  tx-service-group: default_tx_group
   service:
     vgroup-mapping:
-      SEATA_GROUP: default
+      default_tx_group: default-tx
   registry:
     type: nacos
     nacos:
-      server-addr: 127.0.0.1:8848
       application: seata-server
+      server-addr: 127.0.0.1:8848
       namespace: public
-      cluster: default
       group: SEATA_GROUP
-
+      cluster: default-tx
+  enable-auto-data-source-proxy: false

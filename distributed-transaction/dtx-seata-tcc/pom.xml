@@ -14,6 +14,8 @@
     <modules>
         <module>dtx-seata-tcc-account</module>
         <module>dtx-seata-tcc-order</module>
+        <module>dtx-seata-tcc-storage</module>
+        <module>dtx-seata-tcc-dubbo-order</module>
     </modules>
 
     <properties>

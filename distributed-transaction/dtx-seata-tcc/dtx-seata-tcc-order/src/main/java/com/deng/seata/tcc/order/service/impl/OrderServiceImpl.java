@@ -5,32 +5,31 @@ import com.deng.common.enums.PayStatusEnum;
 import com.deng.seata.tcc.order.dao.mapper.OrdersMapper;
 import com.deng.seata.tcc.order.dao.po.Orders;
 import com.deng.seata.tcc.order.facade.request.OrderRequest;
-import com.deng.seata.tcc.order.remote.client.AccountClient;
-import com.deng.seata.tcc.order.remote.request.AccountRequest;
-import com.deng.seata.tcc.order.remote.response.AccountResponse;
 import com.deng.seata.tcc.order.service.OrderService;
+import com.deng.seata.tcc.storage.facade.StockFacade;
+import com.deng.seata.tcc.storage.facade.request.StockRequest;
+import com.deng.seata.tcc.storage.facade.response.StockResponse;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
 
-// https://www.iocoder.cn/Spring-Cloud-Alibaba/Seata/
 @Slf4j
 @Service
 public class OrderServiceImpl implements OrderService {
 
+//    @Autowired
+//    private AccountClient accountClient;
+
     @Autowired
-    private AccountClient accountClient;
+    private StockFacade stockFacade;
 
     @Resource
     private OrdersMapper ordersMapper;
-
-
 
     @Override
     @GlobalTransactional // 开启全局事务
@@ -49,12 +48,22 @@ public class OrderServiceImpl implements OrderService {
         orders.setLastUpdateTime(new Date());
         ordersMapper.insert(orders);
 
-        AccountRequest request = new AccountRequest();
-        request.setUserId(orderRequest.getUserId());
-        request.setAmount(orderRequest.getAmount());
-        AccountResponse response = accountClient.transfer(request);
-        log.info("response:{}", JSON.toJSONString(response));
+//        // 余额操作
+//        AccountRequest accountRequest = new AccountRequest();
+//        accountRequest.setUserId(orderRequest.getUserId());
+//        accountRequest.setAmount(orderRequest.getAmount());
+//        log.info("accountRequest:{}", JSON.toJSONString(accountRequest));
+//        AccountResponse accountResponse = accountClient.transfer(accountRequest);
+//        log.info("accountResponse:{}", JSON.toJSONString(accountResponse));
 
-        int i =  10 / 0;
+        // 库存操作
+        StockRequest stockRequest = new StockRequest();
+        stockRequest.setProductId(orderRequest.getProductId());
+        stockRequest.setCount(orderRequest.getCount());
+        log.info("stockRequest:{}", JSON.toJSONString(stockRequest));
+        StockResponse stockResponse = stockFacade.tryFreezeStock(stockRequest);
+        log.info("stockResponse:{}", JSON.toJSONString(stockResponse));
+
+//        int i =  10 / 0;
     }
 }

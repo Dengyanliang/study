@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
 
         Account account = new Account();
         account.setId(request.getUserId());
-        account.setFreezeAmount(request.getAmount()); // 增加冻结金额
+        account.setFreezeAmount(account.getFreezeAmount() + request.getAmount()); // 增加冻结金额
 
         int count = accountMapper.updateById(account);
         if(count <= 0){

@@ -16,13 +16,14 @@
     <modules>
         <module>discover-server</module>
         <module>dtx-atomikos-xa</module>
-        <module>dtx-seata-2pc</module>
+        <module>dtx-hmily-bank-tcc</module>
         <module>dtx-hmily-tcc</module>
-        <module>dtx-narayana-xa</module>
         <module>dtx-jta-atomikos-xa</module>
         <module>dtx-jta-bitronix-xa</module>
-        <module>dtx-hmily-bank-tcc</module>
+        <module>dtx-narayana-xa</module>
+        <module>dtx-seata-2pc</module>
         <module>dtx-seata-saga</module>
+        <module>dtx-seata-tcc</module>
     </modules>
 
 

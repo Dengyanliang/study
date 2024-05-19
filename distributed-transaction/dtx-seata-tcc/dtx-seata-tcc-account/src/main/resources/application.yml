@@ -20,11 +20,6 @@ server:
   servlet:
     context-path: /
 
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:56080/eureka/
-
 seata:
   application-id: ${spring.application.name}
   registry:

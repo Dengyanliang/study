@@ -40,10 +40,11 @@ public class StateMachineConfiguration {
     public DbStateMachineConfig dbStateMachineConfig(@Qualifier("druidDataSource2") DataSource druidDataSource2) {
         DbStateMachineConfig dbStateMachineConfig = new DbStateMachineConfig();
         dbStateMachineConfig.setDataSource(druidDataSource2);
-        dbStateMachineConfig.setResources(ResourceUtil.getResources("classpath*:statelang/*.json"));
+//        dbStateMachineConfig.setResources(ResourceUtil.getResources("classpath*:statelang/*.json"));
+        dbStateMachineConfig.setResources(new String[]{"classpath*:statelang/*.json"});
         dbStateMachineConfig.setEnableAsync(true);
         dbStateMachineConfig.setApplicationId("dtx-seata-saga-order");
-        dbStateMachineConfig.setTxServiceGroup("SEATA_GROUP");
+        dbStateMachineConfig.setTxServiceGroup("default_tx_group");
 //        dbStateMachineConfig.setThreadPoolExecutor();
 
         return dbStateMachineConfig;

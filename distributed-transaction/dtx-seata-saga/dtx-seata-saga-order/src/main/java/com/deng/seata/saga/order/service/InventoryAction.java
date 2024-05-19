@@ -21,16 +21,13 @@ package com.deng.seata.saga.order.service;
  */
 public interface InventoryAction {
 
-
-    boolean execute(String businessKey, int count);
-
     /**
      * reduce
      *
      * @param count
      * @return
      */
-    boolean reduce(String businessKey, int count);
+    boolean reduce(String businessKey, Long count);
 
     /**
      * increase

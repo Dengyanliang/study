@@ -43,7 +43,7 @@
     },
     "ReduceBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceService",
+      "ServiceName": "balanceFacade",
       "ServiceMethod": "reduce",
       "CompensateState": "CompensateReduceBalance",
       "Input": [
@@ -84,7 +84,7 @@
     },
     "ReduceComplexBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceService",
+      "ServiceName": "balanceFacade",
       "ServiceMethod": "reduceComplex1",
       "CompensateState": "CompensateReduceComplexBalance",
       "ParameterTypes": ["java.lang.String","com.deng.seata.saga.account.facade.request.BalanceRequest"],
@@ -117,11 +117,11 @@
       "Type": "Choice",
       "Choices": [
         {
-          "Expression": "[reduceComplexBalanceResult] == '1000'",
+          "Expression": "[reduceComplexBalanceResult].code == '1000'",
           "Next": "Succeed"
         },
         {
-          "Expression": "[reduceComplexBalanceResult] != '1000'",
+          "Expression": "[reduceComplexBalanceResult].code != '1000'",
           "Next": "CompensationTrigger"
         }
       ],
@@ -137,7 +137,7 @@
     },
     "CompensateReduceBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceService",
+      "ServiceName": "balanceFacade",
       "ServiceMethod": "compensateReduce",
       "Input": [
         "$.[businessKey]"
@@ -145,7 +145,7 @@
     },
     "CompensateReduceComplexBalance": {
       "Type": "ServiceTask",
-      "ServiceName": "balanceService",
+      "ServiceName": "balanceFacade",
       "ServiceMethod": "compensateReduceComplex",
       "ParameterTypes": ["java.lang.String","com.deng.seata.saga.account.facade.request.BalanceRequest"],
       "Input": [

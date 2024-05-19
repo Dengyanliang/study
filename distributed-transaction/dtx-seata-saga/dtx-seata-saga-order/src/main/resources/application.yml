@@ -33,16 +33,16 @@ dubbo:
 
 seata:
   application-id: ${spring.application.name}
-  tx-service-group: SEATA_GROUP
+  tx-service-group: default_tx_group
   service:
     vgroup-mapping:
-      SEATA_GROUP: default
+      default_tx_group: default-tx
   registry:
     type: nacos
     nacos:
       server-addr: 127.0.0.1:8848
       application: seata-server
-      namespace: public
-      cluster: default
+      cluster: default-tx
       group: SEATA_GROUP
+      namespace: public
   enable-auto-data-source-proxy: false

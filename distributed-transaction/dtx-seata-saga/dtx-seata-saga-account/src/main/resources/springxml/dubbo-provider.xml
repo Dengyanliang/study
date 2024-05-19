@@ -6,6 +6,6 @@
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <dubbo:service ref="balanceAction" interface="com.deng.seata.saga.account.facade.BalanceAction"/>
+    <dubbo:service ref="balanceFacade" interface="com.deng.seata.saga.account.facade.BalanceFacade"/>
 
 </beans>

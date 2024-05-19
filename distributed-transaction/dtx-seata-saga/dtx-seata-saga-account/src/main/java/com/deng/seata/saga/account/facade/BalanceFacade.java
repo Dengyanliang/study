@@ -26,17 +26,17 @@ import java.util.Map;
 /**
  * Balance Actions
  */
-public interface BalanceAction {
+public interface BalanceFacade {
 
     /**
      * 简单参数正向方法
      */
-    boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params);
+    boolean reduce(String businessKey, Long amount, Map<String, Object> params);
 
     /**
      * 简单参数逆向方法
      */
-    boolean compensateReduce(String businessKey, Map<String, Object> params);
+    boolean compensateReduce(String businessKey, Long amount, Map<String, Object> params);
 
     /**
      * 复杂参数正向方法
