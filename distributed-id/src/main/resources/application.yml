@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: dtx-leaf-id
+  main:
+    allow-bean-definition-overriding: true
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/leaf?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: root123456
+
+server:
+  port: 56081
+
+

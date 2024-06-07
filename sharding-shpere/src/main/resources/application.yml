@@ -81,81 +81,81 @@
 #    props:
 #      sql:
 #        show: true
-
-
-sharding:
-  datasource:
-    url: jdbc:mysql://localhost:3306/deng?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: root123456
-
-    url0: jdbc:mysql://localhost:3306/order_new_db_00?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username0: root
-    password0: root123456
-
-    url1: jdbc:mysql://localhost:3306/order_new_db_01?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username1: root
-    password1: root123456
-
-    url2: jdbc:mysql://localhost:3306/order_new_db_02?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username2: root
-    password2: root123456
-
-    url3: jdbc:mysql://localhost:3306/order_new_db_03?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username3: root
-    password3: root123456
-
-    url4: jdbc:mysql://localhost:3306/order_new_db_04?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username4: root
-    password4: root123456
-
-    url5: jdbc:mysql://localhost:3306/order_new_db_05?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username5: root
-    password5: root123456
-
-    url6: jdbc:mysql://localhost:3306/order_new_db_06?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username6: root
-    password6: root123456
-
-    url7: jdbc:mysql://localhost:3306/order_new_db_07?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username7: root
-    password7: root123456
-
-    url8: jdbc:mysql://localhost:3306/order_new_db_08?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username8: root
-    password8: root123456
-
-    url9: jdbc:mysql://localhost:3306/order_new_db_09?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username9: root
-    password9: root123456
-
-    url10: jdbc:mysql://localhost:3306/order_new_db_10?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username10: root
-    password10: root123456
-
-    url11: jdbc:mysql://localhost:3306/order_new_db_11?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username11: root
-    password11: root123456
-
-    url12: jdbc:mysql://localhost:3306/order_new_db_12?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username12: root
-    password12: root123456
-
-    url13: jdbc:mysql://localhost:3306/order_new_db_13?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username13: root
-    password13: root123456
-
-    url14: jdbc:mysql://localhost:3306/order_new_db_14?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username14: root
-    password14: root123456
-
-    url15: jdbc:mysql://localhost:3306/order_new_db_15?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
-    username15: root
-    password15: root123456
-
-
-mybatis-plus:
-  type-aliases-package: com.deng.study.shardingsphere.dao.po
-  configuration:
-    # 设置驼峰命名规则
-    map-underscore-to-camel-case: true
+#
+#
+#sharding:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/deng?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: root123456
+#
+#    url0: jdbc:mysql://localhost:3306/order_new_db_00?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username0: root
+#    password0: root123456
+#
+#    url1: jdbc:mysql://localhost:3306/order_new_db_01?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username1: root
+#    password1: root123456
+#
+#    url2: jdbc:mysql://localhost:3306/order_new_db_02?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username2: root
+#    password2: root123456
+#
+#    url3: jdbc:mysql://localhost:3306/order_new_db_03?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username3: root
+#    password3: root123456
+#
+#    url4: jdbc:mysql://localhost:3306/order_new_db_04?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username4: root
+#    password4: root123456
+#
+#    url5: jdbc:mysql://localhost:3306/order_new_db_05?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username5: root
+#    password5: root123456
+#
+#    url6: jdbc:mysql://localhost:3306/order_new_db_06?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username6: root
+#    password6: root123456
+#
+#    url7: jdbc:mysql://localhost:3306/order_new_db_07?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username7: root
+#    password7: root123456
+#
+#    url8: jdbc:mysql://localhost:3306/order_new_db_08?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username8: root
+#    password8: root123456
+#
+#    url9: jdbc:mysql://localhost:3306/order_new_db_09?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username9: root
+#    password9: root123456
+#
+#    url10: jdbc:mysql://localhost:3306/order_new_db_10?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username10: root
+#    password10: root123456
+#
+#    url11: jdbc:mysql://localhost:3306/order_new_db_11?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username11: root
+#    password11: root123456
+#
+#    url12: jdbc:mysql://localhost:3306/order_new_db_12?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username12: root
+#    password12: root123456
+#
+#    url13: jdbc:mysql://localhost:3306/order_new_db_13?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username13: root
+#    password13: root123456
+#
+#    url14: jdbc:mysql://localhost:3306/order_new_db_14?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username14: root
+#    password14: root123456
+#
+#    url15: jdbc:mysql://localhost:3306/order_new_db_15?rewriteBatchedStatements=true&useUnicode=true&&useSSL=false&serverTimezone=Asia/Shanghai
+#    username15: root
+#    password15: root123456
+#
+#
+#mybatis-plus:
+#  type-aliases-package: com.deng.study.shardingsphere.dao.po
+#  configuration:
+#    # 设置驼峰命名规则
+#    map-underscore-to-camel-case: true

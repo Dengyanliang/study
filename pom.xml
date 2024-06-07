@@ -34,6 +34,7 @@
         <module>elasticsearch</module>
         <module>mq</module>
         <module>distributed-transaction</module>
+        <module>distributed-id</module>
     </modules>
 
     <properties>
@@ -579,7 +580,6 @@
                 <artifactId>dubbo-registry-nacos</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

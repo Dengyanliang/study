@@ -15,13 +15,16 @@ mysql:
 mybatis-plus:
   type-aliases-package: com.deng.jta.atomikos.xa.entity
   configuration:
-    # 设置驼峰命名规则
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true # 设置驼峰命名规则
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql打印
+
+# 这是控制到包的打印日志方式
 logging:
   level:
     com:
       deng:
         jta:
-          atomikos:
-            xa: DEBUG
+          bitronix:
+            xa:
+              mapper:
+                debug
