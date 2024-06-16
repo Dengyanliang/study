@@ -54,7 +54,7 @@ public class StorageServiceImpl implements StorageService {
             log.info("freezeStock try悬挂处理，confirm或者cancel有一个已经执行了，try不能再执行，txNo:{}",txNo);
             return;
         }
-
+        // 测试
         Product dbProduct = getProduct(request,txNo);
 
         // try 冻结库存=冻结库存+count
@@ -68,7 +68,6 @@ public class StorageServiceImpl implements StorageService {
         tryLog.setTxNo(txNo);
         tryLog.setCreateTime(new Date());
         tccLocalTryLogMapper.insert(tryLog);
-
         log.info("freezeStock try 执行结束，txNo:{}",txNo);
     }
 

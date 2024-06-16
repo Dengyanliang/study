@@ -21,7 +21,7 @@ import java.lang.annotation.Target;
 public @interface EnumCheck {
 
     /**
-     * 用于指定当校验失败时，返回的错误信息
+     * 用于指定当校验失败时，返回的错误信息，便于提示
      */
     String message() default "";
 
